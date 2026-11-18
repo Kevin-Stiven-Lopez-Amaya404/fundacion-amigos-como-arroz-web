@@ -715,17 +715,22 @@ function initChatbot() {
       .replace(/[\u0300-\u036f]/g, "")
       .trim();
 
+  // Cada respuesta es una lista de partes: texto o enlace { text, href }. Nunca HTML.
+  const whatsapp = (href = WHATSAPP_URL) => ({ text: CONTACT.whatsappLabel, href });
   const answers = {
-    phone:
-      `Puedes comunicarte con la fundación al WhatsApp <a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer">${CONTACT.whatsappLabel}</a>.`,
-    location:
-      "Estamos ubicados en la Carrera 7A No. 16-25, barrio Quirinal, Neiva, Huila.",
-    programs:
-      "Nuestros programas principales son Semilla, Siembra, Cosecha y Acompañamiento Psicosocial.",
-    support:
-      `Puedes apoyar como voluntario, aliado o donante. Escríbenos por WhatsApp al <a href="${WHATSAPP_URL}?text=Hola%2C%20quiero%20apoyar%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz." target="_blank" rel="noopener noreferrer">${CONTACT.whatsappLabel}</a>.`,
-    default:
-      `Puedo ayudarte con teléfono, WhatsApp, ubicación, programas o formas de apoyo. Si necesitas atención directa, escríbenos al <a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer">${CONTACT.whatsappLabel}</a>.`
+    phone: ["Puedes comunicarte con la fundación al WhatsApp ", whatsapp(), "."],
+    location: ["Estamos ubicados en la Carrera 7A No. 16-25, barrio Quirinal, Neiva, Huila."],
+    programs: ["Nuestros programas principales son Semilla, Siembra, Cosecha y Acompañamiento Psicosocial."],
+    support: [
+      "Puedes apoyar como voluntario, aliado o donante. Escríbenos por WhatsApp al ",
+      whatsapp(`${WHATSAPP_URL}?text=Hola%2C%20quiero%20apoyar%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz.`),
+      "."
+    ],
+    default: [
+      "Puedo ayudarte con teléfono, WhatsApp, ubicación, programas o formas de apoyo. Si necesitas atención directa, escríbenos al ",
+      whatsapp(),
+      "."
+    ]
   };
 
   const getAnswer = (question) => {
@@ -750,16 +755,23 @@ function initChatbot() {
     return answers.default;
   };
 
-  // Las respuestas del bot son HTML fijo de este archivo. Si algún día salen de datos editables,
-  // construirlas con nodos DOM: innerHTML con texto externo permitiría inyectar código.
+  // Se arma con nodos DOM y textContent (sin innerHTML): así es seguro aunque las respuestas
+  // pasen a un archivo de datos editable o el texto venga del usuario.
   const appendMessage = (content, type) => {
     const message = document.createElement("div");
     message.className = `chatbot-message chatbot-message--${type}`;
 
-    if (type === "bot") {
-      message.innerHTML = content;
-    } else {
-      message.textContent = content;
+    for (const part of [].concat(content)) {
+      if (typeof part === "string") {
+        message.append(part);
+        continue;
+      }
+      const link = document.createElement("a");
+      link.href = part.href;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = part.text;
+      message.append(link);
     }
 
     messages.appendChild(message);
