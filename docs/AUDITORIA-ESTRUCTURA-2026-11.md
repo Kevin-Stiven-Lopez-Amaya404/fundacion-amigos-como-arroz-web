@@ -257,6 +257,8 @@ fundacion/
 
 ### 6.2 Sistema de diseño (tokens)
 
+> **Implementado en `assets/css/tokens.css` (v50, HU5)** con los valores que hoy se aplican, que son los de los 6 `:root` antiguos fusionados (el último gana). Difiere de esta propuesta en `--color-accent-700` (`#bb5369`), en los radios (`--radius-sm` 8, `--radius-md` 12, `--radius-lg` 32 + `--radius-pill`) y en que mantiene alias para los nombres antiguos (`--orange`, `--pink`…).
+
 Un único `:root`, en una capa de cascada, con solo lo necesario:
 
 ```css
@@ -324,7 +326,8 @@ Las respuestas del chatbot y el teléfono se leen de un `<script type="applicati
 
 | # | Riesgo | Cómo evitarlo |
 |---|--------|---------------|
-| R1 | **Las capas `@layer` pierden contra el CSS sin capa.** Durante la migración, el `styles.css` antiguo seguirá sin capa y ganará siempre a todo lo nuevo. Además, dentro de las capas los `!important` invierten la prioridad. | Envolver primero el CSS antiguo en `@layer legacy` y declararla la primera: `@layer legacy, tokens, base, layout, components, sections, utilities, seasonal;`. Ir sacando bloques de `legacy` a su capa. |
+| R1 | **Las capas `@layer` pierden contra el CSS sin capa.** Durante la migración, el `styles.css` antiguo seguirá sin capa y ganará siempre a todo lo nuevo. Además, dentro de las capas los `!important` invierten la prioridad. | Envolver el CSS antiguo en `@layer legacy` con este orden: `@layer tokens, legacy, base, layout, components, sections, utilities;`. **`tokens` va antes de `legacy`**: si fuera después, sus variables anularían las que redefine la temporada navideña (`--pink`, `--yellow`). `navidad.css` va en la misma capa `legacy` hasta retirar sus `!important`. Ir sacando bloques de `legacy` a su capa. ✅ Hecho en v50. |
+| R4 | **Navegadores sin `@layer`** (Chrome < 99, Safari < 15.4, de 2022) ignoran todo lo que está dentro de una capa: verían el sitio sin estilos. | Riesgo aceptado: son menos del 1 % del tráfico web. Si la analítica muestra lo contrario, quitar la envoltura `@layer legacy` (no cambia nada visible). |
 | R2 | **Los módulos ES no funcionan abriendo el archivo con doble clic.** `<script type="module">` no carga en `file://`, y Eleventy añade un paso de compilación. | Indicar en el README que hace falta un servidor local (`npx serve`) y publicar con un GitHub Action que compile. |
 | R3 | **`innerHTML` con datos editables.** Las respuestas del bot se pintan con `innerHTML`, que hoy es seguro porque son texto fijo. Si pasan a un JSON que edita otra persona, se podría inyectar código. | Construir los enlaces del bot con nodos DOM (`createElement` + `textContent`) antes de mover las respuestas a datos. |
 
@@ -405,6 +408,8 @@ Aplicado el 18-11-2026 sobre esta copia. Respaldo previo en `_respaldo-2026-11-1
 | H2/J2 | 🟡 | En `main.js` el número está en una sola constante `CONTACT`. En el HTML sigue repetido hasta tener plantillas (3.5). |
 | 2.2 | ✅ (v49, HU4) | Desde 1080 px el menú queda visible con 6 entradas (Fundación, Sede Espinal, Programas, Impacto, Contacto, Informes) y botón "Donar" a WhatsApp; el logo pasa a la izquierda. Por debajo sigue la hamburguesa con los 13 apartados y "Donar" al final. |
 | 2.4 | ✅ (v49, HU4) | En móvil, un solo botón de contacto despliega WhatsApp, Instagram, Facebook y el asistente; se cierra con Escape o al tocar fuera. El dock oculto junto a Contacto ya no recibe foco (`visibility: hidden`). |
-| 2.5, 2.6, 3.x | ⏳ | Pendientes. 2.5 (unir secciones) es una decisión de contenido de la fundación. |
+| 3.1 | 🟡 (v50, HU5) | `tokens.css` con un único `:root`: los 6 bloques `:root` de `styles.css` se unificaron con sus valores finales; los nombres antiguos quedan como alias. 84 `border-radius: 999px` pasan a `var(--radius-pill)`. Falta reemplazar los 127 colores y las sombras sueltas. |
+| 3.2 | 🟡 (v50, HU5) | Primer paso hecho: `styles.css` y `navidad.css` dentro de `@layer legacy` (R1). Verificado: el estilo calculado de cada elemento y pseudo-elemento de las 7 páginas (390/1440 px, con y sin Navidad) es idéntico al de antes. Falta mover bloques a sus capas y borrar duplicados. |
+| 2.5, 2.6, 3.3–3.5 | ⏳ | Pendientes. 2.5 (unir secciones) es una decisión de contenido de la fundación. |
 
 **Verificación:** las 7 páginas en Chromium a 320, 390 y 1440 px, con y sin temporada: sin errores de JavaScript, sin imágenes rotas y sin contenido fuera de pantalla. Libro, chatbot y CTA probados. **axe no se volvió a ejecutar en v48.**
