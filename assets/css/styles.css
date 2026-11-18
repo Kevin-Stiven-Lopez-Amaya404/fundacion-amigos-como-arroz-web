@@ -484,7 +484,7 @@ p {
   text-align: center;
   background:
     linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.28)),
-    url("../img/hero/hero-principal.jpg");
+    url("../img/opt/img-hero-hero-principal-1200.webp");
   background-size: 108%;
   background-position: var(--hero-x) var(--hero-y);
   transition: background-position 180ms ease-out;
@@ -1975,7 +1975,7 @@ h3 {
   padding-top: clamp(150px, 15vw, 220px);
   background:
     linear-gradient(rgba(38, 29, 23, 0.22), rgba(38, 29, 23, 0.36)),
-    url("../img/hero/hero-principal.jpg");
+    url("../img/opt/img-hero-hero-principal-1200.webp");
   background-size: 108%;
   background-position: var(--hero-x) var(--hero-y);
 }
@@ -6157,7 +6157,7 @@ main > section:not(.hero) {
   padding: clamp(70px, 10vw, 118px) 0 clamp(46px, 7vw, 74px);
   background:
     linear-gradient(90deg, rgba(255, 249, 242, .96), rgba(255, 249, 242, .82)),
-    url("../img/content/presentacion-cultural.jpg") center / cover;
+    url("../img/opt/img-content-presentacion-cultural-1200.webp") center / cover;
 }
 
 .program-detail-hero .container {
@@ -7679,7 +7679,7 @@ p,
 
 /* Imagen panorámica más viva: sin opacidad pesada encima. */
 .hero {
-  background-image: url("../img/hero/hero-principal.jpg") !important;
+  background-image: url("../img/opt/img-hero-hero-principal-1200.webp") !important;
   filter: saturate(1.08) contrast(1.04) brightness(1.03);
 }
 
@@ -10308,7 +10308,7 @@ p,
   isolation: isolate;
   background:
     linear-gradient(135deg, rgba(31, 23, 18, .62), rgba(31, 23, 18, .28)),
-    url("../img/content/logro-cierre.jpg") center 58% / cover;
+    url("../img/opt/img-content-logro-cierre-720.webp") center 58% / cover;
 }
 
 .timeline-media--portrait::before {
@@ -10316,7 +10316,7 @@ p,
   position: absolute;
   inset: -18px;
   z-index: -1;
-  background: url("../img/content/logro-cierre.jpg") center 58% / cover;
+  background: url("../img/opt/img-content-logro-cierre-720.webp") center 58% / cover;
   filter: blur(14px) saturate(1.08) brightness(.92);
   transform: scale(1.08);
 }
@@ -10349,7 +10349,7 @@ p,
   position: absolute;
   inset: -18px;
   z-index: 0;
-  background: url("../img/content/presentacion-cultural.jpg") center / cover;
+  background: url("../img/opt/img-content-presentacion-cultural-1200.webp") center / cover;
   filter: blur(14px) saturate(1.08) brightness(.96);
   opacity: .42;
   transform: scale(1.08);
@@ -11431,7 +11431,7 @@ p,
   z-index: 0;
   background:
     linear-gradient(180deg, rgba(17, 13, 9, .10), rgba(17, 13, 9, .16)),
-    url("../img/hero/duenos-hero-clean.jpg") center / cover no-repeat;
+    url("../img/opt/img-hero-duenos-hero-clean-480.webp") center / cover no-repeat;
   filter: blur(18px) saturate(1.08) brightness(.92);
   transform: scale(1.04);
 }
@@ -11750,4 +11750,72 @@ main > .section,
 :focus-visible {
   outline: 3px solid #7d1427;
   outline-offset: 3px;
+}
+
+/* =========================================================
+   CAPA DE CORRECCIONES · noviembre 2026 (v48)
+   ---------------------------------------------------------
+   Aplica la Fase 1 y parte de la Fase 2 de
+   docs/AUDITORIA-ESTRUCTURA-2026-11.md. Mismo criterio que v47.
+   ========================================================= */
+
+/* D1 · Escritorio: título y botones visibles en el primer pantallazo.
+   La foto (868 px de ancho) se mostraba ampliada a pantalla completa. */
+@media (min-width: 1024px) {
+  .hero,
+  .hero:has(.hero-slide img[src*="duenos-hero-clean"]) {
+    height: clamp(340px, 42svh, 500px);
+  }
+
+  .hero-gallery::after {
+    height: clamp(56px, 7vw, 96px);
+  }
+
+  .hero-intro {
+    padding-top: clamp(8px, 1.5vw, 24px) !important;
+  }
+
+  .hero-intro .hero-content {
+    padding-top: 28px;
+  }
+}
+
+/* J5 · Puntos del carrusel del equipo: área táctil de 24 × 24 px (WCAG 2.5.8)
+   sin cambiar su tamaño visual. */
+.team-dot {
+  position: relative;
+}
+
+.team-dot::before {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: max(100%, 24px);
+  height: 24px;
+  transform: translate(-50%, -50%);
+}
+
+/* D6/D7 · Pie de las páginas internas: contraste AA (antes 2,82:1). */
+.program-footer .footer-copy {
+  color: rgba(255, 255, 255, .82);
+}
+
+.program-footer .footer-links a {
+  color: #fff;
+}
+
+/* D8 · 320 px: con aspect-ratio 4/3 y alto mínimo, el ancho superaba la pantalla
+   y el contenido quedaba recortado. */
+@media (max-width: 560px) {
+  .sede-espinal-visual,
+  .timeline-media--portrait {
+    aspect-ratio: auto;
+    max-width: 100%;
+  }
+
+  .sede-info-grid > *,
+  .sede-detail-hero-grid > *,
+  .program-detail-grid > * {
+    min-width: 0;
+  }
 }

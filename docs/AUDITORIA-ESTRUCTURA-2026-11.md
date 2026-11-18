@@ -4,7 +4,9 @@
 **Alcance:** `index.html`, `programas/*.html`, `sede-espinal/index.html`, `assets/` (CSS, JS, imágenes y videos), `docs/` e `informes/`.
 **Método:** medición automática del código (selectores, duplicados, tokens, recursos), Chromium sin interfaz en 320, 390, 768, 1024 y 1440 px, axe-core (WCAG 2.1 A/AA) en todas las páginas, y revisión manual.
 
-> Complementa a [AUDITORIA-2026-11.md](AUDITORIA-2026-11.md), que documenta las correcciones ya aplicadas y la temporada navideña. Las cifras de este informe se tomaron **después** de esas correcciones.
+> Complementa a [AUDITORIA-2026-11.md](AUDITORIA-2026-11.md), que documenta las correcciones ya aplicadas y la temporada navideña. Las cifras de este informe se tomaron **después** de esas correcciones (v47).
+>
+> **Revisión del 18-11-2026:** se verificaron las cifras contra el código y en el navegador. Se corrigieron E4, H2, D8, J1 y la lista de reglas sin uso, y se añadieron 3 riesgos (sección 6.4). Lo aplicado en la versión v48 está en la sección 8.
 
 ---
 
@@ -51,7 +53,7 @@ landign-/
 | E1 | **Dos criterios para organizar imágenes** | `assets/img/<tipo>/` convive con `assets/<programa>/` | No hay una regla clara de dónde va una foto nueva, y se duplican |
 | E2 | **8 archivos duplicados** | Mismo hash MD5: `cosecha/*` = `siembra/becados/*`; `img/content/logro-cierre.jpg` = 2 copias; `duenos-hero-clean.jpg` ×2; `psicologia/1.jpg` = `img/psicologia/WhatsApp…` | Peso de despliegue y riesgo de actualizar una copia y no la otra |
 | E3 | **5 archivos sin uso (0,9 MB)** | `img/pantalla inicio/dueños.jpg` (382 KB), `duenos-foto.jpg`, `duenos-hero-full.jpg` y las 2 fotos de `img/psicologia/` | Ninguna página, CSS ni JS las referencia |
-| E4 | **22 archivos con espacios y nombres de WhatsApp** | `WhatsApp Image 2026-06-14 at 10.42.04 AM.jpeg`, carpeta `pantalla inicio`, `dueños.jpg`, `drirectora.jpg` | Las URL quedan con `%20`; las tildes y eñes fallan en algunos servidores; no se sabe qué muestra cada foto |
+| E4 | **26 archivos con espacios o tildes (22 `.jpeg` y 4 `.jpg`)** | `WhatsApp Image 2026-06-14 at 10.42.04 AM.jpeg`, carpeta `pantalla inicio`, `dueños.jpg`, `drirectora.jpg` | Las URL quedan con `%20`; las tildes y eñes fallan en algunos servidores; no se sabe qué muestra cada foto |
 | E5 | **Esta copia no tiene historial de Git** | `.git/` está vacía (la carpeta está en `Descargas/Comprimidos`: parece un ZIP del repositorio) | Sin historial no hay vuelta atrás. Aplica los cambios en el clon real del repositorio, no en esta copia |
 | E6 | **La documentación está desactualizada** | El árbol de `README.md` y `docs/CODIGO.md` no incluye `sede-espinal/`, `informes/`, `assets/semilla/`, `videos/` ni el chatbot | Quien llegue nuevo trabajará sobre un mapa equivocado |
 
@@ -69,7 +71,7 @@ landign-/
 - Cambiar el menú, el teléfono o el pie implica editar hasta 7 archivos a mano.
 - Las páginas internas son **callejones sin salida**: sin pie, sin redes y sin WhatsApp. Sus botones ("Quiero participar") llevan de vuelta a `index.html#contacto` en lugar de dejar actuar desde ahí.
 - `programas/index.html` no carga Google Fonts, así que sus títulos se ven con otra tipografía.
-- En `sede-espinal/` el enlace superior dice "Volver a Sede Espinal" estando ya en la sede.
+- En `sede-espinal/` el enlace superior dice "Volver a Sede Espinal": lleva a la sección de la sede en la portada, pero el texto hace pensar que se queda en la misma página.
 
 ---
 
@@ -87,7 +89,7 @@ landign-/
 | # | Hallazgo | Detalle |
 |---|----------|---------|
 | H1 | Contenido de datos escrito dentro del maquetado | Equipo (4 tarjetas), informes (3 filas), línea de tiempo (4 hitos) y métricas: para añadir un informe hay que copiar unas 25 líneas de HTML y editar 6 sitios. Son datos, no diseño. |
-| H2 | Número de WhatsApp repetido | 9 veces en `index.html`, 3 en `main.js` y 1 en `sede-espinal/`. |
+| H2 | Número de WhatsApp repetido | 9 veces en `index.html`, 4 en `main.js` y 1 en `sede-espinal/` (14 en total). |
 | H3 | Iconos SVG repetidos | Los SVG de WhatsApp, Instagram y Facebook están copiados en el pie y en los botones flotantes (unos 4 KB duplicados). |
 | H4 | Iconos de programas con emoji | 🌱📚🏆🧠: cambian de aspecto según el sistema operativo y no siguen la marca. |
 
@@ -103,12 +105,12 @@ Medido sobre `assets/css/styles.css`:
 | **Bloques que redefinen un selector ya existente** | **877 (50 %)** | Cerca de 0 |
 | Selectores más redefinidos | `.nav-list` ×30, `.logo-mark` ×27, `.nav-shell` ×25, `.hero` ×25, `.contact-card` ×24, `.menu-toggle` ×18 | 1–3 (base y variantes responsive) |
 | `!important` | 545 | Menos de 10 (utilidades) |
-| Reglas que no aplican a ningún elemento de ninguna página | 225 (14 %, unos 28 KB): `.quick-contact*`, `.hero-slide`, `.hero-gallery-dots`, `.report-card*`, `.team-grid`, `.trust-strip-card`… | 0 |
+| Reglas que no aplican a ningún elemento de ninguna página | 225 (14 %, unos 28 KB): `.hero-gallery-dots`, los selectores `img[src*="pantalla inicio"]`, `.report-card*`, `.team-grid`, `.trust-strip-card`… | 0 |
 | Bloques `:root` | 5 (más la capa v47) | 1 |
 | Variables definidas / usos de `var()` | 42 / 489 | — |
 | Colores hex distintos | **127** | 15–25 en un sistema |
-| `rgba()` distintos | **376** | — |
-| `box-shadow` distintos | **160** | 3–5 niveles |
+| `rgba()` distintos | **unos 360** (356–376 según cómo se normalicen los espacios) | — |
+| `box-shadow` distintos | **unas 130–160** (las sombras de varias líneas se cuentan distinto) | 3–5 niveles |
 | `border-radius` distintos | **45** | 3–4 |
 | `font-size` distintos | **128** | Escala de 8–10 pasos |
 | Puntos de corte (`@media`) | 105 consultas con **19 anchos distintos** (420, 480, 520, 560, 620, 640, 680, 700, 720, 760, 768, 820, 840, 860, 900, 960, 980, 1080, 1120) | 3–4 |
@@ -134,7 +136,7 @@ Medido sobre `assets/css/styles.css`:
 
 | # | Hallazgo | Detalle |
 |---|----------|---------|
-| J1 | Código muerto | `initHeroGallery()` (el hero ya tiene 1 sola foto), `SELECTORS.heroGalleryDots` y `SELECTORS.lazyVideo` (`.video-lazy` no existe), y la rama de `iframe` en `initLazyVideos()`. |
+| J1 | Código muerto | `initHeroGallery()` (se ejecuta, pero no hace nada porque el hero tiene 1 sola foto; `.hero-slide` sí se usa), `SELECTORS.heroGalleryDots` y `SELECTORS.lazyVideo` (`.video-lazy` no existe), y la rama de `iframe` en `initLazyVideos()`. |
 | J2 | Datos dentro de la lógica | Las respuestas del chatbot (teléfono, dirección, programas) están escritas en `main.js`: si cambia el número, hay que editarlo en JS y en HTML. |
 | J3 | Un solo archivo para todo | Las 887 líneas de `main.js` cargan solo en la portada. Las páginas internas no cargan nada, así que si algún día necesitan el menú o el chatbot habrá que duplicar código. |
 | J4 | Accesibilidad del libro de historia | `renderBook()` reemplaza todo el contenido dentro de un `aria-live="polite"`, así que el lector de pantalla vuelve a leer páginas enteras en cada clic. Además, las caras traseras ocultas siguen en el árbol de accesibilidad. |
@@ -158,11 +160,11 @@ Medido sobre `assets/css/styles.css`:
 | D1 | Jerarquía | En escritorio el primer pantallazo es **solo la foto**: nombre, propuesta de valor y botones quedan debajo del pliegue. | Foto a unos 60 % de la altura con el título superpuesto sobre un degradado, o una cuadrícula foto/texto 50/50. |
 | D2 | Navegación | En 1440 px el menú sigue escondido tras la hamburguesa, y tiene 13 enlaces. | En escritorio, menú visible con 5–6 entradas (Fundación, Programas, Impacto, Transparencia, Contacto) y botón "Donar". Hamburguesa solo por debajo de unos 1024 px. |
 | D3 | Longitud | 14 secciones: unos 15.900 px en escritorio y unos 19.500 px en móvil. "Testimonios" y "Videos" son ambas de video; "Actividades" y "Momentos" son ambas galerías. | Unir Testimonios con Videos ("Historias") y Actividades con Momentos, o mover una a una página interna. |
-| D4 | Sistema visual | Ver la tabla 2.2: 127 colores, 160 sombras, 45 radios, 128 tamaños de letra. A simple vista se nota en radios de 4, 8, 12, 18, 20, 22, 24, 32 y 34 px entre tarjetas similares. | Definir tokens (sección 6.2) y usar solo esos. |
+| D4 | Sistema visual | Ver la tabla 2.2: 127 colores, 130–160 sombras, 45 radios, 128 tamaños de letra. A simple vista se nota en radios de 4, 8, 12, 18, 20, 22, 24, 32 y 34 px entre tarjetas similares. | Definir tokens (sección 6.2) y usar solo esos. |
 | D5 | Elementos flotantes | En móvil hay 4 botones fijos a la vez (chatbot, WhatsApp, Instagram y Facebook), más la flecha de volver arriba, que tapan contenido y botones. | Un solo botón "Contacto" que despliegue WhatsApp, redes y chat. |
 | D6 | Páginas internas | Sin pie ni redes, y su CTA lleva a otra página. | Plantilla común con pie y un CTA directo a WhatsApp con mensaje según el programa. |
 | D7 | Contraste en `sede-espinal/` | El texto del pie (`.footer-copy`) tiene 2,83:1 (mínimo 4,5:1). | Usar el mismo pie que la portada. |
-| D8 | 320 px | La portada se desborda 2 px (`.sede-espinal-visual`) y la sede 7 px (`.program-detail-card`, `.sede-focus-list`). | `min-width: 0` en los hijos de la cuadrícula y quitar los márgenes negativos. |
+| D8 | 320 px | No aparece scroll horizontal porque `.program-page` y el `body` tienen `overflow: hidden`, pero **el contenido se recorta sin aviso**: `.sede-espinal-visual` (4/3 con alto mínimo de 240 px, o sea 320 px de ancho) y `.timeline-media--portrait` en la portada; `.sede-info-grid` (+41 px) y `.program-detail-card` (+63 px) en la sede. | Quitar `aspect-ratio` cuando hay alto mínimo y poner `min-width: 0` en los hijos de la cuadrícula. |
 | D9 | Iconografía | Emojis en programas y contacto. | Un set SVG propio de trazo uniforme. |
 
 ---
@@ -243,7 +245,7 @@ fundacion/
 
 | Tarea | Hoy | Con la estructura objetivo |
 |-------|-----|----------------------------|
-| Cambiar el número de WhatsApp | 13 ediciones en 3 archivos | 1 línea en `site.json` |
+| Cambiar el número de WhatsApp | 14 ediciones en 3 archivos | 1 línea en `site.json` |
 | Añadir un informe | Copiar unas 25 líneas de HTML | 4 líneas en `informes.json` |
 | Cambiar el menú o el pie | Hasta 7 archivos | 1 parcial |
 | Añadir un programa | Copiar una página y adaptar las rutas `../` | 1 entrada de datos más la plantilla `programa.njk` |
@@ -297,7 +299,7 @@ Un único `:root`, en una capa de cascada, con solo lo necesario:
    sm 560px · md 840px · lg 1080px */
 ```
 
-Los 19 puntos de corte pasan a 3; los 26 niveles de `z-index`, a 6 con nombre; las 160 sombras, a 3; los 45 radios, a 4.
+Los 19 puntos de corte pasan a 3; los 26 niveles de `z-index`, a 6 con nombre; las 130–160 sombras, a 3; los 45 radios, a 4.
 
 ### 6.3 JavaScript en módulos
 
@@ -317,6 +319,14 @@ Object.entries(modules).forEach(([selector, init]) => document.querySelector(sel
 ```
 
 Las respuestas del chatbot y el teléfono se leen de un `<script type="application/json" id="site-data">` generado desde `site.json`.
+
+### 6.4 Riesgos de la migración
+
+| # | Riesgo | Cómo evitarlo |
+|---|--------|---------------|
+| R1 | **Las capas `@layer` pierden contra el CSS sin capa.** Durante la migración, el `styles.css` antiguo seguirá sin capa y ganará siempre a todo lo nuevo. Además, dentro de las capas los `!important` invierten la prioridad. | Envolver primero el CSS antiguo en `@layer legacy` y declararla la primera: `@layer legacy, tokens, base, layout, components, sections, utilities, seasonal;`. Ir sacando bloques de `legacy` a su capa. |
+| R2 | **Los módulos ES no funcionan abriendo el archivo con doble clic.** `<script type="module">` no carga en `file://`, y Eleventy añade un paso de compilación. | Indicar en el README que hace falta un servidor local (`npx serve`) y publicar con un GitHub Action que compile. |
+| R3 | **`innerHTML` con datos editables.** Las respuestas del bot se pintan con `innerHTML`, que hoy es seguro porque son texto fijo. Si pasan a un JSON que edita otra persona, se podría inyectar código. | Construir los enlaces del bot con nodos DOM (`createElement` + `textContent`) antes de mover las respuestas a datos. |
 
 ---
 
@@ -339,7 +349,8 @@ Impacto: **A**lto, **M**edio, **B**ajo. Esfuerzo: **S** (horas), **M** (1–2 d�
 | 1.2 | Renombrar recursos sin espacios ni tildes, borrar los 8 duplicados y los 5 sin uso (unos 1,5 MB) | M | S |
 | 1.3 | Comprimir el PDF de 2025 (19,5 MB) y los videos | M | S |
 | 1.4 | Cargar Google Fonts en `programas/index.html` y reducir a 4 pesos | M | S |
-| 1.5 | Corregir el contraste del pie de la sede, el desborde en 320 px y los puntos del carrusel de 24 px | M | S |
+| 1.5 | Corregir el contraste del pie de la sede, el contenido recortado en 320 px y los puntos del carrusel de 24 px | M | S |
+| 1.8 | Accesibilidad del libro de historia (J4, antes 3.6): anunciar solo "Página X de Y" y ocultar con `inert` las caras no visibles | M | S |
 | 1.6 | Borrar el JS muerto (J1) y las 225 reglas CSS sin uso | B | S |
 | 1.7 | Actualizar `README.md` y `docs/CODIGO.md` con la estructura real | M | S |
 
@@ -359,11 +370,10 @@ Impacto: **A**lto, **M**edio, **B**ajo. Esfuerzo: **S** (horas), **M** (1–2 d�
 | # | Acción | Impacto | Esfuerzo |
 |---|--------|---------|----------|
 | 3.1 | Crear `tokens.css` con el sistema 6.2 y reemplazar colores, sombras y radios sueltos | A | M |
-| 3.2 | Dividir `styles.css` por componente/sección con `@layer`. Por cada selector repetido, conservar solo el valor que hoy se ve y borrar el resto, sección por sección, comparando con las capturas de 0.2 | A | L |
+| 3.2 | Dividir `styles.css` por componente/sección con `@layer`, empezando por `@layer legacy` (ver R1). Por cada selector repetido, conservar solo el valor que hoy se ve y borrar el resto, sección por sección, comparando con las capturas de 0.2 | A | L |
 | 3.3 | Eliminar los `!important` a medida que cada bloque queda consolidado (objetivo: menos de 10) | A | (incluido en 3.2) |
 | 3.4 | Separar `main.js` en módulos ES (6.3) y sacar los datos de contacto a configuración | M | M |
 | 3.5 | Migrar a Eleventy: `base.njk`, parciales y `_data/*.json` (6.1) | A | L |
-| 3.6 | Accesibilidad del libro de historia (J4): anunciar solo "Página X de Y" y ocultar con `inert` las caras no visibles | M | S |
 
 **Orden sugerido:** 0 → 1 → 2.1–2.3 → 3.1 → 3.2 (por secciones, empezando por header/menú, que es lo más fragmentado) → 3.4 → 3.5 → resto.
 
@@ -373,3 +383,26 @@ Impacto: **A**lto, **M**edio, **B**ajo. Esfuerzo: **S** (horas), **M** (1–2 d�
 - WhatsApp, teléfono, correo y dirección definidos en un único archivo.
 - Capturas antes y después sin diferencias visuales no buscadas.
 - axe sin errores en las 7 páginas.
+
+---
+
+## 8. Estado de aplicación (v48)
+
+Aplicado el 18-11-2026 sobre esta copia. Respaldo previo en `_respaldo-2026-11-18-v47/` (HTML, CSS, JS y docs) y archivos retirados en `_respaldo-2026-11-18-v47/assets-retirados/`.
+
+| # | Estado | Qué se hizo |
+|---|--------|-------------|
+| 1.1 | ✅ | 53 imágenes únicas convertidas a WebP (480, 960 y 1600 px como máximo) en `assets/img/opt/`, con `srcset` y `sizes` medidos en 72 etiquetas `<img>` y en los fondos del CSS. Carga inicial de la portada: **2,2 MB → unos 800 KB** en escritorio y **unos 600 KB** en móvil, fuentes incluidas. Los originales se conservan como fuente; `og:image` y el favicon siguen en JPEG. |
+| 1.2 | 🟡 | Retirados los 5 archivos sin uso y la copia de `pantalla inicio/` (0,9 MB). Las páginas ya usan nombres limpios de `assets/img/opt/`; los originales con espacios quedan solo como fuente. `cosecha/` y `siembra/becados/` comparten ahora un único WebP. |
+| 1.3 | ❌ | Sin hacer: no hay herramientas de compresión de PDF ni de video en este equipo (Ghostscript, ffmpeg). |
+| 1.4 | 🟡 | Google Fonts añadido a `programas/index.html`. **No** se redujeron los pesos: el CSS usa 500 y 800 y quitarlos cambiaría el aspecto; hacerlo junto con 3.1. |
+| 1.5 | ✅ | Pie de las páginas internas con contraste 11,7:1; recortes de 320 px corregidos; área táctil de 24 × 24 px en los puntos del carrusel. |
+| 1.6 | 🟡 | JS muerto borrado (`initHeroGallery`, `heroGalleryDots`, `lazyVideo` y la rama de `iframe`). Las 225 reglas CSS sin uso quedan para 3.2. |
+| 1.7 | ✅ | `README.md` actualizado. |
+| 1.8 | ✅ | Libro de historia: "Página X de Y" es el único anuncio (`role="status"`) y solo las 2 caras visibles son accesibles (`inert` en el resto). |
+| 2.1 | ✅ | Desde 1024 px el hero mide `clamp(340px, 42svh, 500px)`: en 1440 × 900 el título y los botones entran en el primer pantallazo, y la foto ya no se amplía por encima de su tamaño real. |
+| 2.3 | ✅ | Las 5 páginas de programas y la sede tienen pie común (Fundación, Programas, Transparencia, Contacto y WhatsApp). Sus CTA abren WhatsApp con un mensaje según el programa y registran un evento de analítica. "Volver a Sede Espinal" pasa a "Volver a la portada". |
+| H2/J2 | 🟡 | En `main.js` el número está en una sola constante `CONTACT`. En el HTML sigue repetido hasta tener plantillas (3.5). |
+| 2.2, 2.4–2.6, 3.x | ⏳ | Pendientes. 2.2 (menú de escritorio) conviene hacerlo con 3.2, porque `.nav-list` tiene 32 bloques que se pisan entre sí. |
+
+**Verificación:** las 7 páginas en Chromium a 320, 390 y 1440 px, con y sin temporada: sin errores de JavaScript, sin imágenes rotas y sin contenido fuera de pantalla. Libro, chatbot y CTA probados. **axe no se volvió a ejecutar en v48.**
