@@ -41,6 +41,17 @@
     /* Color · estados */
     --color-whatsapp: #15803d;
 
+    /* Color · secundarios (valores que ya usaba el sitio; HU10) */
+    --color-green-900: #173b22;
+    --color-green-950: #143119;
+    --color-brown-800: #4b2a16;
+    --color-media-bg: #111111;
+    --color-media-dark: #17110d;
+    --color-surface-paper: #fff7e8;
+    --color-slate-700: #4f5458;
+    --color-slate-600: #5f6468;
+    --color-accent-800: #b84a62;
+
     /* Tipografía */
     --font-title: "Cormorant Garamond", "Playfair Display", Georgia, serif;
     --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
