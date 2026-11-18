@@ -70,7 +70,8 @@
     /* Forma */
     --radius-sm: 8px;
     --radius-md: 12px;
-    --radius-lg: 32px;
+    --radius-lg: 22px;    /* tarjetas y paneles */
+    --radius-xl: 32px;    /* bloques grandes (antes --radius-lg) */
     --radius-pill: 999px;
 
     /* Profundidad */
