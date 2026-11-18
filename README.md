@@ -12,27 +12,29 @@ Si prefieres levantarlo con servidor local, puedes usar cualquier servidor está
 
 ```text
 fundacion/
-  index.html                    Página principal
-  assets/
-    css/styles.css              Estilos, responsive y animaciones
-    js/main.js                  Interacciones del sitio
-    img/
-      brand/                    Logo e identidad visual
-      hero/                     Imagen principal
-      content/                  Imágenes de secciones y momentos
-      team/                     Fotos del equipo
+  index.html                    Página principal (14 secciones)
   programas/
-    index.html                  Vista general de todos los programas
-    semilla.html                Detalle individual de Semilla
-    siembra.html                Detalle individual de Siembra
-    cosecha.html                Detalle individual de Cosecha
-    psicosocial.html            Detalle individual de Acompañamiento Psicosocial
-  docs/
-    DOCUMENTACION.md            Guía completa del proyecto
-    PROGRAMAS.md                Explicación del index de Programas
-    CODIGO.md                   Documentación técnica del código
-  README.md                     Resumen rápido
+    index.html                  Vista general de los 4 programas
+    semilla.html · siembra.html · cosecha.html · psicosocial.html
+  sede-espinal/index.html       Página de la sede Espinal
+  assets/
+    css/tokens.css              Tokens de diseño (colores, tipografía, radios, sombras) y orden de capas
+    css/styles.css              Estilos históricos en @layer legacy (capas v47-v49 al final)
+    css/seasonal/navidad.css    Estilos de temporada (solo con <html data-season="navidad">)
+    js/main.js                  Interacciones de la portada (CONTACT = número de WhatsApp)
+    js/seasonal.js              Enciende/apaga la Navidad (SEASON_CONFIG.mode)
+    js/analytics.js             Google Analytics 4 opcional
+    img/opt/                    Imágenes WebP optimizadas (480/960/1600 px) que usan las páginas
+    img/{brand,hero,content,team}/   Originales
+    semilla/ siembra/ cosecha/ psicologia/   Fotos originales por programa
+    videos/                     Videos y pósteres (se cargan al pulsar)
+  informes/                     Informes de gestión en PDF
+  docs/                         Documentación y auditorías (ver docs/README.md)
+  sitemap.xml · robots.txt · site.webmanifest
 ```
+
+**Fotos nuevas:** guarda el original en su carpeta y crea sus versiones WebP en `assets/img/opt/`
+(480, 960 y 1600 px de ancho como máximo, calidad 80 %). En el HTML usa `src` con la de 960 px y `srcset` con las tres.
 
 ## Qué incluye
 
@@ -95,13 +97,17 @@ Ahí encontrarás:
 - Revisión del código con puntos fuertes y riesgos.
 - Checklist antes de publicar.
 
+## Temporadas (Navidad)
+
+La decoración navideña se enciende y apaga sola (15 nov – 6 ene). Para forzarla o apagarla, cambia `mode` en `assets/js/seasonal.js` (`"auto"`, `"on"` u `"off"`). Vista previa: `index.html?temporada=navidad` o `?temporada=off`. Detalles en [docs/AUDITORIA-2026-11.md](docs/AUDITORIA-2026-11.md).
+
 ## Mantenimiento rápido
 
 - Cambios de contenido: edita `index.html`.
 - Cambios visuales: edita `assets/css/styles.css`.
 - Cambios de interacción: edita `assets/js/main.js`.
 - Cambios de programas: edita los archivos dentro de `programas/`.
-- Cambios de WhatsApp: busca el número en `index.html` y `assets/js/main.js`.
+- Cambios de WhatsApp: en `assets/js/main.js` cambia `CONTACT.whatsapp`; en el HTML busca `573187073308` (portada, programas y sede).
 
 ## Recomendación
 

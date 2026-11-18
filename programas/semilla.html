@@ -13,16 +13,27 @@
   <link rel="icon" href="../assets/img/brand/logo-fundacion.jpg" type="image/jpeg" />
   <link rel="manifest" href="../site.webmanifest" />
   <title>Programa Semilla | Fundación Amigos Como Arroz</title>
-  <link href="../assets/css/styles.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link href="../assets/css/tokens.css?v=2" rel="stylesheet" />
+  <link href="../assets/css/styles.css?v=52" rel="stylesheet" />
+  <link href="../assets/css/seasonal/navidad.css?v=2" rel="stylesheet" />
+  <script src="../assets/js/seasonal.js?v=1"></script>
   <script src="../assets/js/analytics.js?v=1" defer></script>
 </head>
-<body class="program-page">
+<body class="program-page programs-detail-page">
   <header class="program-detail-header">
     <div class="container program-detail-nav">
       <a class="brand" href="../index.html#inicio" aria-label="Volver al inicio">
         <img
           class="logo-mark"
-          src="../assets/img/brand/logo-fundacion.jpg"
+          src="../assets/img/opt/img-brand-logo-fundacion-160.webp"
+            srcset="../assets/img/opt/img-brand-logo-fundacion-160.webp 160w"
+            sizes="(max-width: 760px) 14vw, 62px"
           width="160"
           height="160"
           alt="Logo Fundación Amigos Como Arroz"
@@ -55,52 +66,191 @@
             </li>
             <li>
               <strong>Oportunidades productivas</strong>
-              <span>Inspira aprendizajes manuales y emprendimientos familiares.</span>
+              <span>Inspira aprendizajes manuales, tecnológicos y creativos.</span>
             </li>
           </ul>
-          <a class="btn btn-orange" href="../index.html#contacto">Quiero participar</a>
+          <a class="btn btn-whatsapp" href="https://wa.me/573187073308?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20programa%20Semilla%20de%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz." target="_blank" rel="noopener noreferrer" data-analytics-event="clic_whatsapp" data-analytics-category="programas" data-analytics-label="Semilla - Quiero participar">Quiero participar</a>
         </article>
 
-        <ol class="program-timeline" aria-label="Línea de tiempo del programa Semilla">
-          <li>
-            <span>1</span>
-            <div>
-              <h3>Deporte y disciplina</h3>
-              <p>Espacios de entrenamiento que fortalecen constancia, respeto, trabajo en equipo y confianza personal.</p>
-              <ul class="program-mini-list program-mini-list--sports">
-                <li>Fútbol formativo</li>
-                <li>Taekwondo</li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <span>2</span>
-            <div>
-              <h3>Culturales</h3>
-              <p>Danzas, música e inglés para fortalecer expresión, creatividad y aprendizaje.</p>
-              <ul class="program-mini-list program-mini-list--balanced">
-                <li>Folclor, guitarra, tiple y bandola</li>
-                <li>Batería, bajo eléctrico y técnica vocal</li>
-                <li>Violín y piano</li>
-                <li>Inglés y danzas</li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <span>3</span>
-            <div>
-              <h3>Productivos</h3>
-              <p>Técnicas manuales que abren caminos para el emprendimiento y la autonomía.</p>
-              <ul class="program-mini-list program-mini-list--balanced program-mini-list--three">
-                <li>Bisutería</li>
-                <li>Manualidades y macramé</li>
-                <li>Fomento del emprendimiento</li>
-              </ul>
-            </div>
-          </li>
-        </ol>
+        <div class="program-journey">
+          <ol class="program-timeline" aria-label="Línea de tiempo del programa Semilla">
+            <li>
+              <span>1</span>
+              <div>
+                <h3>Deporte y disciplina</h3>
+                <p>Actividades que fortalecen constancia, respeto, trabajo en equipo y confianza personal.</p>
+
+                <div class="activity-gallery-list">
+                  <details class="activity-gallery-card">
+                    <summary>Fútbol formativo</summary>
+                    <p>Entrenamientos para crecer en disciplina, compañerismo y uso sano del tiempo libre.</p>
+                    <div class="activity-collage activity-collage--full">
+                      <img src="../assets/img/opt/semilla-futbol-kep4521-960.webp"
+            srcset="../assets/img/opt/semilla-futbol-kep4521-480.webp 480w, ../assets/img/opt/semilla-futbol-kep4521-960.webp 960w, ../assets/img/opt/semilla-futbol-kep4521-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="Niños y jóvenes en fútbol formativo" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-futbol-kep4522-960.webp"
+            srcset="../assets/img/opt/semilla-futbol-kep4522-480.webp 480w, ../assets/img/opt/semilla-futbol-kep4522-960.webp 960w, ../assets/img/opt/semilla-futbol-kep4522-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-futbol-kep4527-960.webp"
+            srcset="../assets/img/opt/semilla-futbol-kep4527-480.webp 480w, ../assets/img/opt/semilla-futbol-kep4527-960.webp 960w, ../assets/img/opt/semilla-futbol-kep4527-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-futbol-kep4530-960.webp"
+            srcset="../assets/img/opt/semilla-futbol-kep4530-480.webp 480w, ../assets/img/opt/semilla-futbol-kep4530-960.webp 960w, ../assets/img/opt/semilla-futbol-kep4530-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                    </div>
+                  </details>
+
+                  <details class="activity-gallery-card">
+                    <summary>Taekwondo</summary>
+                    <p>Práctica corporal para cultivar autocontrol, perseverancia, respeto y cuidado del cuerpo.</p>
+                    <div class="activity-collage activity-collage--full activity-collage--three">
+                      <img class="is-portrait" src="../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-960.webp"
+            srcset="../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-480.webp 480w, ../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-960.webp 960w"
+            sizes="(max-width: 760px) 63vw, 147px" alt="Participantes en práctica de taekwondo" loading="lazy" decoding="async" width="900" height="1200" />
+                      <img src="../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-1-960.webp"
+            srcset="../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-1-480.webp 480w, ../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-1-960.webp 960w, ../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-1-1280.webp 1280w"
+            sizes="(max-width: 760px) 63vw, 147px" alt="" loading="lazy" decoding="async" width="1280" height="720" />
+                      <img src="../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-2-960.webp"
+            srcset="../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-2-480.webp 480w, ../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-2-960.webp 960w, ../assets/img/opt/semilla-taekwondo-whatsapp-image-2026-06-14-at-10-59-19-am-2-1280.webp 1280w"
+            sizes="(max-width: 760px) 63vw, 147px" alt="" loading="lazy" decoding="async" width="1280" height="720" />
+                    </div>
+                  </details>
+
+                  <details class="activity-gallery-card">
+                    <summary>Patinaje</summary>
+                    <p>Movimiento, coordinación y confianza para avanzar con disciplina y alegría.</p>
+                    <div class="activity-collage activity-collage--full">
+                      <img src="../assets/img/opt/semilla-patinaje-kep4542-960.webp"
+            srcset="../assets/img/opt/semilla-patinaje-kep4542-480.webp 480w, ../assets/img/opt/semilla-patinaje-kep4542-960.webp 960w, ../assets/img/opt/semilla-patinaje-kep4542-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="Participantes en actividad de patinaje" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-patinaje-kep4555-960.webp"
+            srcset="../assets/img/opt/semilla-patinaje-kep4555-480.webp 480w, ../assets/img/opt/semilla-patinaje-kep4555-960.webp 960w, ../assets/img/opt/semilla-patinaje-kep4555-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-patinaje-kep4559-960.webp"
+            srcset="../assets/img/opt/semilla-patinaje-kep4559-480.webp 480w, ../assets/img/opt/semilla-patinaje-kep4559-960.webp 960w, ../assets/img/opt/semilla-patinaje-kep4559-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-patinaje-kep4571-960.webp"
+            srcset="../assets/img/opt/semilla-patinaje-kep4571-480.webp 480w, ../assets/img/opt/semilla-patinaje-kep4571-960.webp 960w, ../assets/img/opt/semilla-patinaje-kep4571-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-patinaje-kep4578-960.webp"
+            srcset="../assets/img/opt/semilla-patinaje-kep4578-480.webp 480w, ../assets/img/opt/semilla-patinaje-kep4578-960.webp 960w, ../assets/img/opt/semilla-patinaje-kep4578-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 229px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-patinaje-kep4588-960.webp"
+            srcset="../assets/img/opt/semilla-patinaje-kep4588-480.webp 480w, ../assets/img/opt/semilla-patinaje-kep4588-960.webp 960w, ../assets/img/opt/semilla-patinaje-kep4588-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 229px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                    </div>
+                  </details>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <span>2</span>
+              <div>
+                <h3>Cultura y aprendizaje</h3>
+                <p>Danzas e inglés para fortalecer expresión, comunicación, creatividad y participación.</p>
+
+                <div class="activity-gallery-list">
+                  <details class="activity-gallery-card">
+                    <summary>Danza</summary>
+                    <p>Expresión corporal, identidad cultural y trabajo colectivo a través del movimiento.</p>
+                    <div class="activity-collage activity-collage--full">
+                      <img src="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-54-am-960.webp"
+            srcset="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-54-am-480.webp 480w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-54-am-960.webp 960w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-54-am-1280.webp 1280w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="Participantes en actividad de danza" loading="lazy" decoding="async" width="1200" height="900" />
+                      <img src="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-55-am-960.webp"
+            srcset="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-55-am-480.webp 480w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-55-am-960.webp 960w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-55-am-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="900" />
+                      <img src="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-59-am-960.webp"
+            srcset="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-59-am-480.webp 480w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-59-am-960.webp 960w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-41-59-am-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="900" />
+                      <img src="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-01-am-960.webp"
+            srcset="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-01-am-480.webp 480w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-01-am-960.webp 960w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-01-am-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="" loading="lazy" decoding="async" width="1200" height="900" />
+                      <img src="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp"
+            srcset="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-480.webp 480w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp 960w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 229px" alt="" loading="lazy" decoding="async" width="1200" height="900" />
+                      <img src="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-57-46-am-960.webp"
+            srcset="../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-57-46-am-480.webp 480w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-57-46-am-960.webp 960w, ../assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-57-46-am-1280.webp 1280w"
+            sizes="(max-width: 760px) 63vw, 229px" alt="" loading="lazy" decoding="async" width="1200" height="900" />
+                    </div>
+                  </details>
+
+                  <details class="activity-gallery-card">
+                    <summary>Inglés</summary>
+                    <p>Habilidades comunicativas para ampliar oportunidades, confianza y aprendizaje.</p>
+                    <div class="activity-collage activity-collage--full">
+                      <img class="is-portrait" src="../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-54-am-719.webp"
+            srcset="../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-54-am-480.webp 480w, ../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-54-am-719.webp 719w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="Participantes en clase de inglés" loading="lazy" decoding="async" width="719" height="1280" />
+                      <img src="../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-960.webp"
+            srcset="../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-480.webp 480w, ../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-960.webp 960w, ../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-1280.webp 1280w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="900" />
+                      <img src="../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-1-960.webp"
+            srcset="../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-1-480.webp 480w, ../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-1-960.webp 960w, ../assets/img/opt/semilla-ingles-whatsapp-image-2026-06-14-at-11-29-55-am-1-1280.webp 1280w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="900" />
+                      <img src="../assets/img/opt/semilla-ingles-kep4501-960.webp"
+            srcset="../assets/img/opt/semilla-ingles-kep4501-480.webp 480w, ../assets/img/opt/semilla-ingles-kep4501-960.webp 960w, ../assets/img/opt/semilla-ingles-kep4501-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-ingles-kep4502-960.webp"
+            srcset="../assets/img/opt/semilla-ingles-kep4502-480.webp 480w, ../assets/img/opt/semilla-ingles-kep4502-960.webp 960w, ../assets/img/opt/semilla-ingles-kep4502-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 229px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-ingles-kep4504-960.webp"
+            srcset="../assets/img/opt/semilla-ingles-kep4504-480.webp 480w, ../assets/img/opt/semilla-ingles-kep4504-960.webp 960w, ../assets/img/opt/semilla-ingles-kep4504-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 229px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-ingles-kep4518-960.webp"
+            srcset="../assets/img/opt/semilla-ingles-kep4518-480.webp 480w, ../assets/img/opt/semilla-ingles-kep4518-960.webp 960w, ../assets/img/opt/semilla-ingles-kep4518-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 229px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                    </div>
+                  </details>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <span>3</span>
+              <div>
+                <h3>Tecnología y creatividad</h3>
+                <p>Espacios para explorar habilidades nuevas, resolver problemas y crear con propósito.</p>
+
+                <div class="activity-gallery-list">
+                  <details class="activity-gallery-card">
+                    <summary>Robótica</summary>
+                    <p>Aprendizaje tecnológico para despertar curiosidad, pensamiento lógico y trabajo colaborativo.</p>
+                    <div class="activity-collage activity-collage--full">
+                      <img src="../assets/img/opt/semilla-robotica-kep4428-960.webp"
+            srcset="../assets/img/opt/semilla-robotica-kep4428-480.webp 480w, ../assets/img/opt/semilla-robotica-kep4428-960.webp 960w, ../assets/img/opt/semilla-robotica-kep4428-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="Participantes en actividad de robótica" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-robotica-kep4433-960.webp"
+            srcset="../assets/img/opt/semilla-robotica-kep4433-480.webp 480w, ../assets/img/opt/semilla-robotica-kep4433-960.webp 960w, ../assets/img/opt/semilla-robotica-kep4433-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-robotica-kep4436-960.webp"
+            srcset="../assets/img/opt/semilla-robotica-kep4436-480.webp 480w, ../assets/img/opt/semilla-robotica-kep4436-960.webp 960w, ../assets/img/opt/semilla-robotica-kep4436-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 188px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                      <img src="../assets/img/opt/semilla-robotica-kep4489-960.webp"
+            srcset="../assets/img/opt/semilla-robotica-kep4489-480.webp 480w, ../assets/img/opt/semilla-robotica-kep4489-960.webp 960w, ../assets/img/opt/semilla-robotica-kep4489-1600.webp 1600w"
+            sizes="(max-width: 760px) 63vw, 270px" alt="" loading="lazy" decoding="async" width="1200" height="800" />
+                    </div>
+                  </details>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
   </main>
+<footer class="site-footer program-footer">
+    <div class="footer-inner container">
+      <p class="footer-copy">© Fundación Amigos Como Arroz.<br>Transformando vidas en Neiva, Huila.</p>
+      <nav class="footer-links" aria-label="Enlaces del pie de página">
+        <a href="../index.html#fundacion">Fundación</a>
+        <a href="../programas/index.html">Programas</a>
+        <a href="../index.html#informes">Transparencia</a>
+        <a href="../index.html#contacto">Contacto</a>
+        <a href="https://wa.me/573187073308?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz." target="_blank" rel="noopener noreferrer" data-analytics-event="clic_whatsapp" data-analytics-category="contacto" data-analytics-label="Pie - WhatsApp">WhatsApp</a>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>
