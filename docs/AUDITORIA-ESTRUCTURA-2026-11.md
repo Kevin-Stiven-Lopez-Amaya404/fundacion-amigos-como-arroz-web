@@ -403,6 +403,8 @@ Aplicado el 18-11-2026 sobre esta copia. Respaldo previo en `_respaldo-2026-11-1
 | 2.1 | ✅ | Desde 1024 px el hero mide `clamp(340px, 42svh, 500px)`: en 1440 × 900 el título y los botones entran en el primer pantallazo, y la foto ya no se amplía por encima de su tamaño real. |
 | 2.3 | ✅ | Las 5 páginas de programas y la sede tienen pie común (Fundación, Programas, Transparencia, Contacto y WhatsApp). Sus CTA abren WhatsApp con un mensaje según el programa y registran un evento de analítica. "Volver a Sede Espinal" pasa a "Volver a la portada". |
 | H2/J2 | 🟡 | En `main.js` el número está en una sola constante `CONTACT`. En el HTML sigue repetido hasta tener plantillas (3.5). |
-| 2.2, 2.4–2.6, 3.x | ⏳ | Pendientes. 2.2 (menú de escritorio) conviene hacerlo con 3.2, porque `.nav-list` tiene 32 bloques que se pisan entre sí. |
+| 2.2 | ✅ (v49, HU4) | Desde 1080 px el menú queda visible con 6 entradas (Fundación, Sede Espinal, Programas, Impacto, Contacto, Informes) y botón "Donar" a WhatsApp; el logo pasa a la izquierda. Por debajo sigue la hamburguesa con los 13 apartados y "Donar" al final. |
+| 2.4 | ✅ (v49, HU4) | En móvil, un solo botón de contacto despliega WhatsApp, Instagram, Facebook y el asistente; se cierra con Escape o al tocar fuera. El dock oculto junto a Contacto ya no recibe foco (`visibility: hidden`). |
+| 2.5, 2.6, 3.x | ⏳ | Pendientes. 2.5 (unir secciones) es una decisión de contenido de la fundación. |
 
 **Verificación:** las 7 páginas en Chromium a 320, 390 y 1440 px, con y sin temporada: sin errores de JavaScript, sin imágenes rotas y sin contenido fuera de pantalla. Libro, chatbot y CTA probados. **axe no se volvió a ejecutar en v48.**
