@@ -18,7 +18,8 @@ fundacion/
     semilla.html · siembra.html · cosecha.html · psicosocial.html
   sede-espinal/index.html       Página de la sede Espinal
   assets/
-    css/styles.css              Estilos (capas de corrección v47 y v48 al final)
+    css/tokens.css              Tokens de diseño (colores, tipografía, radios, sombras) y orden de capas
+    css/styles.css              Estilos históricos en @layer legacy (capas v47-v49 al final)
     css/seasonal/navidad.css    Estilos de temporada (solo con <html data-season="navidad">)
     js/main.js                  Interacciones de la portada (CONTACT = número de WhatsApp)
     js/seasonal.js              Enciende/apaga la Navidad (SEASON_CONFIG.mode)
