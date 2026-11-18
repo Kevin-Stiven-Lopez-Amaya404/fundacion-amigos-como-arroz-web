@@ -24,4 +24,8 @@
     <loc>https://fundacionamigoscomoarroz.com/programas/psicosocial.html</loc>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://fundacionamigoscomoarroz.com/sede-espinal/</loc>
+    <priority>0.6</priority>
+  </url>
 </urlset>
