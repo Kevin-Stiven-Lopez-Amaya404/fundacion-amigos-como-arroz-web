@@ -50,7 +50,7 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
-  <link href="assets/css/styles.css?v=48" rel="stylesheet" />
+  <link href="assets/css/styles.css?v=49" rel="stylesheet" />
   <!-- Temporada (Navidad). Se enciende/apaga en assets/js/seasonal.js -->
   <link href="assets/css/seasonal/navidad.css?v=1" rel="stylesheet" />
   <script src="assets/js/seasonal.js?v=1"></script>
@@ -112,19 +112,30 @@
       </a>
 
       <ul class="nav-list" id="nav-list">
-        <li><a class="nav-link active" href="#inicio">Inicio</a></li>
-        <li><a class="nav-link" href="#actividades">Actividades</a></li>
+        <li class="nav-item--extra"><a class="nav-link active" href="#inicio">Inicio</a></li>
+        <li class="nav-item--extra"><a class="nav-link" href="#actividades">Actividades</a></li>
         <li><a class="nav-link" href="#fundacion">Fundación</a></li>
-        <li><a class="nav-link" href="#historia">Historia</a></li>
+        <li class="nav-item--extra"><a class="nav-link" href="#historia">Historia</a></li>
         <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
         <li><a class="nav-link" href="#programas">Programas</a></li>
         <li><a class="nav-link" href="#impacto">Impacto</a></li>
-        <li><a class="nav-link" href="#testimonios">Testimonios</a></li>
-        <li><a class="nav-link" href="#momentos">Momentos</a></li>
-        <li><a class="nav-link" href="#equipo">Equipo</a></li>
-        <li><a class="nav-link" href="#videos">Videos</a></li>
+        <li class="nav-item--extra"><a class="nav-link" href="#testimonios">Testimonios</a></li>
+        <li class="nav-item--extra"><a class="nav-link" href="#momentos">Momentos</a></li>
+        <li class="nav-item--extra"><a class="nav-link" href="#equipo">Equipo</a></li>
+        <li class="nav-item--extra"><a class="nav-link" href="#videos">Videos</a></li>
         <li><a class="nav-link" href="#contacto">Contacto</a></li>
         <li><a class="nav-link" href="#informes">Informes</a></li>
+        <li class="nav-item--cta">
+          <a
+            class="nav-donate"
+            href="https://wa.me/573187073308?text=Hola%2C%20quiero%20hacer%20una%20donaci%C3%B3n%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="clic_donar"
+            data-analytics-category="contacto"
+            data-analytics-label="Menú - donar"
+          >Donar</a>
+        </li>
       </ul>
 
 
@@ -1496,7 +1507,18 @@
   </footer>
 
   <!-- Botones flotantes de redes sociales -->
-  <div class="social-dock" id="quick-contact" aria-label="Redes sociales">
+  <div class="social-dock" id="quick-contact" aria-label="Contacto y redes sociales">
+    <button
+      class="social-dock-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="quick-contact"
+      aria-label="Abrir opciones de contacto"
+    >
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 20l1.1-4.6A8.4 8.4 0 1 1 21 11.5z"/>
+      </svg>
+    </button>
 
     <!-- WhatsApp -->
     <a
@@ -1543,6 +1565,14 @@
       </svg>
       <span class="social-dock-label">Facebook</span>
     </a>
+
+    <!-- Chat (solo móvil: en escritorio el asistente tiene su propio botón) -->
+    <button class="social-dock-btn social-dock-btn--chat" type="button" data-open-chat aria-label="Abrir asistente de ayuda">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 12h.01M15 12h.01"/>
+      </svg>
+      <span class="social-dock-label">Asistente</span>
+    </button>
 
   </div>
 
@@ -1604,7 +1634,7 @@
   </button>
 
 <script src="assets/js/analytics.js?v=1" defer></script>
-<script src="assets/js/main.js?v=6" defer></script>
+<script src="assets/js/main.js?v=7" defer></script>
 
 </body>
 </html>
