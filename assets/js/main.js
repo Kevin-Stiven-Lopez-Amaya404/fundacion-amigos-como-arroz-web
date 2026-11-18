@@ -6,6 +6,13 @@
   - Cada init* configura una sola funcionalidad.
   - Al final se inicializan los modulos en un orden claro.
 */
+// Datos de contacto: cambiar aquí el número actualiza el formulario y el chatbot.
+const CONTACT = {
+  whatsapp: "573187073308",
+  whatsappLabel: "318 707 3308"
+};
+const WHATSAPP_URL = `https://wa.me/${CONTACT.whatsapp}`;
+
 const SELECTORS = {
   siteHeader: "#site-header",
   menuToggle: ".menu-toggle",
@@ -15,8 +22,6 @@ const SELECTORS = {
   sections: "main section[id]",
   progressBar: "#reading-progress-bar",
   hero: ".hero",
-  heroSlides: ".hero-slide",
-  heroGalleryDots: ".hero-gallery-dots span",
   heroContent: "#hero-content",
   currentYear: "#current-year",
   reveal: ".reveal",
@@ -29,7 +34,6 @@ const SELECTORS = {
   teamNext: "#teamNext",
   teamDots: "#teamDots",
   scrollTopButton: "#scrollTopBtn",
-  lazyVideo: ".video-lazy",
   localVideoLoader: ".local-video-loader",
   storyBook: "[data-story-book]",
   storyPage: "[data-story-page]",
@@ -74,54 +78,6 @@ function initHero() {
   hero.addEventListener("mouseleave", () => {
     hero.style.setProperty("--hero-x", "50%");
     hero.style.setProperty("--hero-y", "50%");
-  });
-}
-
-// Cambia automaticamente las fotos de la panoramica principal.
-function initHeroGallery() {
-  const slides = Array.from(document.querySelectorAll(SELECTORS.heroSlides));
-  const dots = Array.from(document.querySelectorAll(SELECTORS.heroGalleryDots));
-
-  if (slides.length < 2) return;
-
-  let currentIndex = Math.max(slides.findIndex((slide) => slide.classList.contains("is-active")), 0);
-  let timer = null;
-
-  const showSlide = (nextIndex) => {
-    currentIndex = (nextIndex + slides.length) % slides.length;
-
-    slides.forEach((slide, index) => {
-      slide.classList.toggle("is-active", index === currentIndex);
-    });
-
-    dots.forEach((dot, index) => {
-      dot.classList.toggle("is-active", index === currentIndex);
-    });
-  };
-
-  const start = () => {
-    if (timer) return;
-    timer = window.setInterval(() => {
-      showSlide(currentIndex + 1);
-    }, 3800);
-  };
-
-  const stop = () => {
-    if (!timer) return;
-    window.clearInterval(timer);
-    timer = null;
-  };
-
-  showSlide(currentIndex);
-  start();
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      stop();
-      return;
-    }
-
-    start();
   });
 }
 
@@ -473,7 +429,7 @@ function initContactForm() {
       `Mensaje: ${values.message}`
     ].join("\n");
 
-    const whatsappUrl = `https://wa.me/573187073308?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `${WHATSAPP_URL}?text=${encodeURIComponent(whatsappMessage)}`;
 
     setStatus("Validación correcta. Te redirigiremos a WhatsApp para completar el envío.", "#5f8f73");
     if (typeof window.gtag === "function") {
@@ -629,23 +585,6 @@ function initTeamSlider() {
 
 // Carga videos solo cuando el usuario hace clic para evitar peso inicial innecesario.
 function initLazyVideos() {
-  document.querySelectorAll(SELECTORS.lazyVideo).forEach((button) => {
-    button.addEventListener("click", () => {
-      const videoId = button.dataset.videoId;
-      if (!videoId) return;
-
-      const iframe = document.createElement("iframe");
-      iframe.title = button.dataset.title || "Video";
-      iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1`;
-      iframe.loading = "lazy";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      iframe.referrerPolicy = "strict-origin-when-cross-origin";
-
-      button.replaceWith(iframe);
-    });
-  });
-
   document.querySelectorAll(SELECTORS.localVideoLoader).forEach((button) => {
     button.addEventListener("click", () => {
       const videoSrc = button.dataset.videoSrc;
@@ -726,8 +665,12 @@ function initStoryBook() {
           paper.classList.add("is-flipped");
         }
 
-        paper.appendChild(createFace("front", pages[index]));
-        paper.appendChild(createFace("back", pages[index + 1]));
+        const front = createFace("front", pages[index]);
+        const back = createFace("back", pages[index + 1]);
+        // Visibles: el reverso de la hoja anterior (izquierda) y el frente de la actual (derecha).
+        front.inert = paperIndex !== currentLocation;
+        back.inert = paperIndex !== currentLocation - 1;
+        paper.append(front, back);
         pagesHost.appendChild(paper);
       }
 
@@ -772,15 +715,15 @@ function initChatbot() {
 
   const answers = {
     phone:
-      'Puedes comunicarte con la fundación al WhatsApp <a href="https://wa.me/573187073308" target="_blank" rel="noopener noreferrer">318 707 3308</a>.',
+      `Puedes comunicarte con la fundación al WhatsApp <a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer">${CONTACT.whatsappLabel}</a>.`,
     location:
       "Estamos ubicados en la Carrera 7A No. 16-25, barrio Quirinal, Neiva, Huila.",
     programs:
       "Nuestros programas principales son Semilla, Siembra, Cosecha y Acompañamiento Psicosocial.",
     support:
-      'Puedes apoyar como voluntario, aliado o donante. Escríbenos por WhatsApp al <a href="https://wa.me/573187073308?text=Hola%2C%20quiero%20apoyar%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz." target="_blank" rel="noopener noreferrer">318 707 3308</a>.',
+      `Puedes apoyar como voluntario, aliado o donante. Escríbenos por WhatsApp al <a href="${WHATSAPP_URL}?text=Hola%2C%20quiero%20apoyar%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz." target="_blank" rel="noopener noreferrer">${CONTACT.whatsappLabel}</a>.`,
     default:
-      'Puedo ayudarte con teléfono, WhatsApp, ubicación, programas o formas de apoyo. Si necesitas atención directa, escríbenos al <a href="https://wa.me/573187073308" target="_blank" rel="noopener noreferrer">318 707 3308</a>.'
+      `Puedo ayudarte con teléfono, WhatsApp, ubicación, programas o formas de apoyo. Si necesitas atención directa, escríbenos al <a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer">${CONTACT.whatsappLabel}</a>.`
   };
 
   const getAnswer = (question) => {
@@ -805,6 +748,8 @@ function initChatbot() {
     return answers.default;
   };
 
+  // Las respuestas del bot son HTML fijo de este archivo. Si algún día salen de datos editables,
+  // construirlas con nodos DOM: innerHTML con texto externo permitiría inyectar código.
   const appendMessage = (content, type) => {
     const message = document.createElement("div");
     message.className = `chatbot-message chatbot-message--${type}`;
@@ -876,7 +821,6 @@ function initMeta() {
 const menuApi = initMenu();
 initMeta();
 initHero();
-initHeroGallery();
 initActiveSection();
 initReveal();
 initScrollState(menuApi);
