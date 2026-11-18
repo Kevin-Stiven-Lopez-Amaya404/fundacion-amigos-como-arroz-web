@@ -50,7 +50,10 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
-  <link href="assets/css/styles.css?v=46" rel="stylesheet" />
+  <link href="assets/css/styles.css?v=47" rel="stylesheet" />
+  <!-- Temporada (Navidad). Se enciende/apaga en assets/js/seasonal.js -->
+  <link href="assets/css/seasonal/navidad.css?v=1" rel="stylesheet" />
+  <script src="assets/js/seasonal.js?v=1"></script>
   <link
     rel="preload"
     as="image"
@@ -108,18 +111,18 @@
 
       <ul class="nav-list" id="nav-list">
         <li><a class="nav-link active" href="#inicio">Inicio</a></li>
+        <li><a class="nav-link" href="#actividades">Actividades</a></li>
         <li><a class="nav-link" href="#fundacion">Fundación</a></li>
         <li><a class="nav-link" href="#historia">Historia</a></li>
         <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
         <li><a class="nav-link" href="#programas">Programas</a></li>
-        <li><a class="nav-link" href="#actividades">Actividades</a></li>
         <li><a class="nav-link" href="#impacto">Impacto</a></li>
         <li><a class="nav-link" href="#testimonios">Testimonios</a></li>
         <li><a class="nav-link" href="#momentos">Momentos</a></li>
         <li><a class="nav-link" href="#equipo">Equipo</a></li>
         <li><a class="nav-link" href="#videos">Videos</a></li>
-        <li><a class="nav-link" href="#informes">Informes</a></li>
         <li><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li><a class="nav-link" href="#informes">Informes</a></li>
       </ul>
 
 
@@ -173,6 +176,12 @@
           <span class="hero-badge-dot" aria-hidden="true"></span>
           Neiva, Huila · educación · comunidad
         </span>
+        <a class="xmas-hero-pill" href="#navidad" data-season-only="navidad" hidden>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M12 2l2.6 6.4L21 9.2l-5 4.4 1.5 6.6L12 16.8 6.5 20.2 8 13.6 3 9.2l6.4-.8z"/>
+          </svg>
+          Campaña de Navidad: regala oportunidades
+        </a>
         <p class="hero-kicker">Acompañamos procesos educativos y sociales</p>
         <h1 class="hero-title" id="hero-title">Amigos Como Arroz</h1>
         <p class="hero-description">
@@ -198,9 +207,86 @@
           <a class="btn btn-secondary" href="#programas">Conocer programas</a>
         </div>
         <div class="hero-trust" aria-label="Resumen de impacto de la fundación">
-          <span><strong>12+ años</strong> acompañando procesos</span>
+          <span><strong>19 años</strong> acompañando procesos</span>
           <span><strong>4.200+</strong> participantes beneficiados</span>
           <span><strong>65+</strong> aliados e instituciones</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Campaña de temporada (Navidad)
+         Solo se muestra cuando la temporada está activa
+         (ver assets/js/seasonal.js). Puedes editar el texto libremente.
+         ========================================================= -->
+    <section class="section xmas-campaign" id="navidad" aria-labelledby="xmas-title" data-season-only="navidad" hidden>
+      <div class="container">
+        <div class="xmas-campaign-card reveal">
+          <div class="xmas-campaign-copy">
+            <span class="xmas-eyebrow">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                <path d="M12 2l2.6 6.4L21 9.2l-5 4.4 1.5 6.6L12 16.8 6.5 20.2 8 13.6 3 9.2l6.4-.8z"/>
+              </svg>
+              Temporada navideña
+            </span>
+            <h2 id="xmas-title">Esta Navidad, <em>regala oportunidades.</em></h2>
+            <p class="lead">
+              Tu aporte se convierte en formación, becas y acompañamiento para niños, jóvenes
+              y familias de Neiva y Espinal. Sembremos juntos un nuevo año lleno de esperanza.
+            </p>
+            <p class="xmas-countdown" data-xmas-countdown aria-live="off"></p>
+            <div class="xmas-actions">
+              <a
+                class="btn xmas-btn-primary"
+                href="https://wa.me/573187073308?text=Hola%2C%20quiero%20hacer%20una%20donaci%C3%B3n%20de%20Navidad%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_donar"
+                data-analytics-category="navidad"
+                data-analytics-label="Campaña Navidad - donar"
+              >
+                Donar esta Navidad
+              </a>
+              <a
+                class="btn xmas-btn-ghost"
+                href="https://wa.me/573187073308?text=Hola%2C%20quiero%20ser%20voluntario%20en%20las%20actividades%20de%20Navidad%20de%20la%20fundaci%C3%B3n."
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_voluntario"
+                data-analytics-category="navidad"
+                data-analytics-label="Campaña Navidad - voluntariado"
+              >
+                Ser voluntario en Navidad
+              </a>
+            </div>
+          </div>
+
+          <div class="xmas-campaign-visual" aria-hidden="true">
+            <svg viewBox="0 0 240 230">
+              <path d="M10 14 C70 40 170 40 230 14" fill="none" stroke="#d4a64a" stroke-width="2" opacity=".7"/>
+              <g class="xmas-ornament">
+                <line x1="60" y1="24" x2="60" y2="96" stroke="#f3e2b8" stroke-width="1.5"/>
+                <rect x="52" y="92" width="16" height="10" rx="2" fill="#d4a64a"/>
+                <circle cx="60" cy="132" r="32" fill="#9e1b32"/>
+                <path d="M32 126 Q60 140 88 126" fill="none" stroke="#f3e2b8" stroke-width="2.5" opacity=".75"/>
+                <circle cx="49" cy="118" r="7" fill="#fff" opacity=".25"/>
+              </g>
+              <g class="xmas-ornament">
+                <line x1="120" y1="33" x2="120" y2="140" stroke="#f3e2b8" stroke-width="1.5"/>
+                <rect x="111" y="136" width="18" height="11" rx="2" fill="#d4a64a"/>
+                <circle cx="120" cy="182" r="38" fill="#d4a64a"/>
+                <path d="M120 160 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z" fill="#9e1b32"/>
+                <circle cx="106" cy="168" r="8" fill="#fff" opacity=".3"/>
+              </g>
+              <g class="xmas-ornament">
+                <line x1="182" y1="24" x2="182" y2="80" stroke="#f3e2b8" stroke-width="1.5"/>
+                <rect x="175" y="76" width="14" height="9" rx="2" fill="#d4a64a"/>
+                <circle cx="182" cy="110" r="26" fill="#2f7a52"/>
+                <circle cx="182" cy="110" r="26" fill="none" stroke="#f3e2b8" stroke-width="2" stroke-dasharray="3 6" opacity=".8"/>
+                <circle cx="173" cy="100" r="6" fill="#fff" opacity=".25"/>
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     </section>
@@ -867,7 +953,7 @@
             <div class="team-photo-modern">
               <img
                 src="assets/img/team/drirectora.jpg"
-                alt="Imagen institucional de la Fundación Amigos Como Arroz"
+                alt="Moira Quintero, directora de la Fundación Amigos Como Arroz"
                 loading="lazy"
                 decoding="async"
                 width="720"
@@ -889,7 +975,7 @@
             <div class="team-photo-modern">
               <img
                 src="assets/img/team/laura.jpg"
-                alt="Logo de la Fundación Amigos Como Arroz"
+                alt="Integrante del equipo de coordinación de programas"
                 loading="lazy"
                 decoding="async"
                 width="720"
@@ -933,7 +1019,7 @@
             <div class="team-photo-modern">
               <img
                 src="assets/img/team/karen.jpg"
-                alt="Karen, integrante del equipo de voluntariado"
+                alt="Caren González, integrante del equipo de voluntariado"
                 loading="lazy"
                 decoding="async"
                 width="720"
@@ -942,7 +1028,7 @@
               <span class="team-chip">Voluntariado</span>
             </div>
             <div class="team-info-modern">
-              <h3>Caren González </h3>
+              <h3>Caren González</h3>
               <p>Comprometida con una gestión sostenible que transforme recursos en impacto social.</p>
               <div class="team-meta">
                 <span>Redes</span>
@@ -1312,6 +1398,7 @@
     <div class="footer-inner container">
       <div class="footer-brand">
         <p class="footer-copy">© <span id="current-year"></span> Fundación Amigos Como Arroz.<br>Transformando vidas en Neiva, Huila.</p>
+        <p class="xmas-footer-note" data-season-only="navidad" hidden>Felices fiestas y un próspero año nuevo para todas las familias.</p>
       </div>
 
       <nav class="footer-links" aria-label="Enlaces del pie de página">
@@ -1466,14 +1553,14 @@
   </div>
 
   <!-- Botón flotante para volver al inicio -->
-  <button class="scroll-to-top" id="scrollTopBtn" aria-label="Volver al inicio">
+  <button class="scroll-to-top" id="scrollTopBtn" type="button" aria-label="Volver al inicio">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M12 19V5M5 12l7-7 7 7"/>
     </svg>
   </button>
 
 <script src="assets/js/analytics.js?v=1" defer></script>
-<script src="assets/js/main.js?v=4" defer></script>
+<script src="assets/js/main.js?v=5" defer></script>
 
 </body>
 </html>

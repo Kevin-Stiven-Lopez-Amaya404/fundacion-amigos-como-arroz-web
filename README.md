@@ -95,6 +95,10 @@ Ahí encontrarás:
 - Revisión del código con puntos fuertes y riesgos.
 - Checklist antes de publicar.
 
+## Temporadas (Navidad)
+
+La decoración navideña se enciende y apaga sola (15 nov – 6 ene). Para forzarla o apagarla, cambia `mode` en `assets/js/seasonal.js` (`"auto"`, `"on"` u `"off"`). Vista previa: `index.html?temporada=navidad` o `?temporada=off`. Detalles en [docs/AUDITORIA-2026-11.md](docs/AUDITORIA-2026-11.md).
+
 ## Mantenimiento rápido
 
 - Cambios de contenido: edita `index.html`.

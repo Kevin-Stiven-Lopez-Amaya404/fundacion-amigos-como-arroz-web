@@ -11616,3 +11616,138 @@ p,
     justify-content: center;
   }
 }
+
+/* =========================================================
+   CAPA DE CORRECCIONES · noviembre 2026 (v47)
+   ---------------------------------------------------------
+   Este bloque corrige errores detectados en la auditoría.
+   Va al final a propósito para ganar la cascada SIN añadir
+   más !important de los imprescindibles. Ver docs/AUDITORIA-2026-11.md.
+   ========================================================= */
+
+/* 1. Tipografía: Inter ya se descarga de Google Fonts; se usa primero
+      para que el sitio se vea igual en Windows, Mac y Android. */
+:root {
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* 2. Bloques de temporada: [hidden] siempre gana aunque la clase defina display. */
+[data-season-only][hidden] {
+  display: none !important;
+}
+
+/* 3. Menú cerrado: los enlaces invisibles salían en el orden del tabulador.
+      visibility:hidden los saca del foco y del lector de pantalla. */
+.nav-list:not(.open) {
+  visibility: hidden !important;
+  transition: opacity 220ms ease, transform 220ms ease, visibility 0s linear 220ms !important;
+}
+
+.nav-list.open {
+  transition: opacity 220ms ease, transform 220ms ease, visibility 0s !important;
+}
+
+/* 4. Contraste AA (4.5:1) en botones con texto blanco. */
+.btn-orange {
+  background: #a75435 !important;
+  border-color: #a75435 !important;
+}
+
+.btn-orange:hover {
+  background: #8f452a !important;
+}
+
+.btn-pink {
+  background: #b84a62 !important;
+  border-color: #b84a62 !important;
+}
+
+.btn-pink:hover {
+  background: #9e3d53 !important;
+}
+
+.btn-whatsapp {
+  background: #15803d !important;
+  border-color: #15803d !important;
+}
+
+.btn-whatsapp:hover {
+  background: #116b33 !important;
+}
+
+.social-dock-btn--wa {
+  background: #0f7a3f !important;
+}
+
+.social-dock-btn--fb {
+  background: #1565d8 !important;
+}
+
+/* 5. Contacto: el bloque con título, botones de donar/voluntariado, dirección,
+      teléfono y correo estaba oculto (display:none) aunque existe en el HTML. */
+.contact-card {
+  max-width: 1120px !important;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) !important;
+  gap: clamp(28px, 4vw, 52px) !important;
+  align-items: start;
+}
+
+.contact-info {
+  display: grid !important;
+  gap: 18px;
+  align-content: start;
+}
+
+.contact-info .contact-quick-actions {
+  margin: 4px 0 8px;
+}
+
+.contact-info .contact-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-info .contact-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, .8);
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 12px;
+}
+
+.contact-info .contact-item strong {
+  display: block;
+  color: var(--dark);
+}
+
+.contact-info .contact-item a {
+  color: #a75435;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .contact-card {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 6. Rendimiento: "auto" recuerda el alto real de cada sección ya pintada
+      y evita saltos de la barra de desplazamiento. */
+main > .section,
+.program-detail-section,
+.site-footer {
+  contain-intrinsic-size: auto 900px;
+}
+
+/* 7. Foco visible con contraste suficiente sobre fondos claros y oscuros. */
+:focus-visible {
+  outline: 3px solid #7d1427;
+  outline-offset: 3px;
+}
