@@ -10,17 +10,16 @@ Paginas relacionadas con las rutas de acompanamiento de la Fundacion.
 - `cosecha.html`: Programa Cosecha.
 - `psicosocial.html`: Acompanamiento Psicosocial.
 
-## Rutas
+## Como se arman
 
-Estas paginas estan un nivel por debajo de la raiz, por eso usan:
+Cada archivo guarda solo su `<main>` y un encabezado `---` con `layout: layouts/interna.njk`, titulo, descripcion, `canonical` y el enlace `back`. La plantilla `src/_includes/layouts/interna.njk` pone el `<head>`, la cabecera y el pie. Eleventy las publica en `/programas/`, un nivel por debajo de la raiz, por eso sus rutas usan:
 
 ```html
-../assets/css/styles.css
 ../assets/img/brand/logo-fundacion.jpg
 ../index.html#programas
 ```
 
 ## Regla
 
-Si agregas un nuevo programa, crea aqui su pagina individual y actualiza la tarjeta correspondiente en `../index.html`.
+Si agregas un nuevo programa, copia aqui una pagina existente, cambia su encabezado y agrega la tarjeta en `../index.html` (seccion `#programas`) y la URL en `sitemap.xml`.
 
