@@ -41,6 +41,17 @@
     /* Color · estados */
     --color-whatsapp: #15803d;
 
+    /* Color · secundarios (valores que ya usaba el sitio; HU10) */
+    --color-green-900: #173b22;
+    --color-green-950: #143119;
+    --color-brown-800: #4b2a16;
+    --color-media-bg: #111111;
+    --color-media-dark: #17110d;
+    --color-surface-paper: #fff7e8;
+    --color-slate-700: #4f5458;
+    --color-slate-600: #5f6468;
+    --color-accent-800: #b84a62;
+
     /* Tipografía */
     --font-title: "Cormorant Garamond", "Playfair Display", Georgia, serif;
     --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -59,10 +70,16 @@
     /* Forma */
     --radius-sm: 8px;
     --radius-md: 12px;
-    --radius-lg: 32px;
+    --radius-lg: 22px;    /* tarjetas y paneles */
+    --radius-xl: 32px;    /* bloques grandes (antes --radius-lg) */
     --radius-pill: 999px;
 
     /* Profundidad */
+    /* Escala de profundidad: usar estas en código nuevo (1 sutil · 2 tarjetas · 3 paneles flotantes) */
+    --shadow-1: 0 4px 14px rgba(56, 37, 24, .07);
+    --shadow-2: 0 14px 34px rgba(56, 37, 24, .10);
+    --shadow-3: 0 28px 64px rgba(56, 37, 24, .16);
+    /* Sombras con nombre anteriores: siguen en uso; migrarlas a la escala en 3.2 */
     --shadow-sm: 0 12px 34px rgba(68, 46, 34, 0.08);
     --shadow-md: 0 22px 58px rgba(68, 46, 34, 0.13);
     --shadow-lg: 0 32px 92px rgba(68, 46, 34, 0.18);
