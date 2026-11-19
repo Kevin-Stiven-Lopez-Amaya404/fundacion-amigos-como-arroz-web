@@ -1,0 +1,63 @@
+{#- Plantilla de las páginas internas (programas y sede).
+    Front matter: title, description, canonical (ruta), bodyClass (opcional), back.href y back.text. -#}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="{{ description }}"
+  />
+  <meta name="theme-color" content="#f37021" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="{{ site.url }}{{ canonical }}" />
+  <link rel="icon" href="../assets/img/brand/logo-fundacion.jpg" type="image/jpeg" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <title>{{ title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link href="../assets/css/tokens.css?v={{ site.cache.tokens }}" rel="stylesheet" />
+  <link href="../assets/css/styles.css?v={{ site.cache.styles }}" rel="stylesheet" />
+  <link href="../assets/css/seasonal/navidad.css?v={{ site.cache.navidad }}" rel="stylesheet" />
+  <script src="../assets/js/seasonal.js?v={{ site.cache.seasonal }}"></script>
+  <script src="../assets/js/analytics.js?v={{ site.cache.analytics }}" defer></script>
+</head>
+<body class="program-page{% if bodyClass %} {{ bodyClass }}{% endif %}">
+  <header class="program-detail-header">
+    <div class="container program-detail-nav">
+      <a class="brand" href="../index.html#inicio" aria-label="Volver al inicio">
+        <img
+          class="logo-mark"
+          src="../assets/img/opt/img-brand-logo-fundacion-160.webp"
+            srcset="../assets/img/opt/img-brand-logo-fundacion-160.webp 160w"
+            sizes="(max-width: 760px) 14vw, 62px"
+          width="160"
+          height="160"
+          alt="Logo Fundación Amigos Como Arroz"
+          decoding="async"
+        />
+      </a>
+      <a class="program-back-link" href="{{ back.href }}">{{ back.text }}</a>
+    </div>
+  </header>
+
+{{ content | safe }}
+<footer class="site-footer program-footer">
+    <div class="footer-inner container">
+      <p class="footer-copy">© Fundación Amigos Como Arroz.<br>Transformando vidas en Neiva, Huila.</p>
+      <nav class="footer-links" aria-label="Enlaces del pie de página">
+        <a href="../index.html#fundacion">Fundación</a>
+        <a href="../programas/index.html">Programas</a>
+        <a href="../index.html#informes">Transparencia</a>
+        <a href="../index.html#contacto">Contacto</a>
+        <a href="{{ 'Hola, quiero más información sobre la Fundación Amigos Como Arroz.' | whatsapp }}" target="_blank" rel="noopener noreferrer" data-analytics-event="clic_whatsapp" data-analytics-category="contacto" data-analytics-label="Pie - WhatsApp">WhatsApp</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
