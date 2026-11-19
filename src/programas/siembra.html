@@ -1,49 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Conoce el programa Siembra de la Fundación Amigos Como Arroz."
-  />
-  <meta name="theme-color" content="#f37021" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://fundacionamigoscomoarroz.com/programas/siembra.html" />
-  <link rel="icon" href="../assets/img/brand/logo-fundacion.jpg" type="image/jpeg" />
-  <link rel="manifest" href="../site.webmanifest" />
-  <title>Programa Siembra | Fundación Amigos Como Arroz</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-  <link href="../assets/css/tokens.css?v=3" rel="stylesheet" />
-  <link href="../assets/css/styles.css?v=53" rel="stylesheet" />
-  <link href="../assets/css/seasonal/navidad.css?v=2" rel="stylesheet" />
-  <script src="../assets/js/seasonal.js?v=1"></script>
-  <script src="../assets/js/analytics.js?v=1" defer></script>
-</head>
-<body class="program-page">
-  <header class="program-detail-header">
-    <div class="container program-detail-nav">
-      <a class="brand" href="../index.html#inicio" aria-label="Volver al inicio">
-        <img
-          class="logo-mark"
-          src="../assets/img/opt/img-brand-logo-fundacion-160.webp"
-            srcset="../assets/img/opt/img-brand-logo-fundacion-160.webp 160w"
-            sizes="(max-width: 760px) 14vw, 62px"
-          width="160"
-          height="160"
-          alt="Logo Fundación Amigos Como Arroz"
-          decoding="async"
-        />
-      </a>
-      <a class="program-back-link" href="../index.html#programas">Volver a programas</a>
-    </div>
-  </header>
-
+---
+layout: layouts/interna.njk
+title: "Programa Siembra | Fundación Amigos Como Arroz"
+description: "Conoce el programa Siembra de la Fundación Amigos Como Arroz."
+canonical: /programas/siembra.html
+back:
+  href: "../index.html#programas"
+  text: "Volver a programas"
+---
   <main>
     <section class="program-detail-section program-detail-section--soft" id="siembra" aria-labelledby="siembra-title">
       <div class="container program-detail-grid">
@@ -72,7 +35,7 @@
             También puede beneficiar a estudiantes de educación media en instituciones aliadas
             ubicadas en zonas de influencia de ORF - Organización Roa-Florhuila S.A.
           </p>
-          <a class="btn btn-whatsapp" href="https://wa.me/573187073308?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20programa%20Siembra%20de%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz." target="_blank" rel="noopener noreferrer" data-analytics-event="clic_whatsapp" data-analytics-category="programas" data-analytics-label="Siembra - Recibir orientación">Recibir orientación</a>
+          <a class="btn btn-whatsapp" href="{{ 'Hola, quiero información sobre el programa Siembra de la Fundación Amigos Como Arroz.' | whatsapp }}" target="_blank" rel="noopener noreferrer" data-analytics-event="clic_whatsapp" data-analytics-category="programas" data-analytics-label="Siembra - Recibir orientación">Recibir orientación</a>
         </article>
 
         <div class="program-journey">
@@ -122,17 +85,3 @@
       </div>
     </section>
   </main>
-<footer class="site-footer program-footer">
-    <div class="footer-inner container">
-      <p class="footer-copy">© Fundación Amigos Como Arroz.<br>Transformando vidas en Neiva, Huila.</p>
-      <nav class="footer-links" aria-label="Enlaces del pie de página">
-        <a href="../index.html#fundacion">Fundación</a>
-        <a href="../programas/index.html">Programas</a>
-        <a href="../index.html#informes">Transparencia</a>
-        <a href="../index.html#contacto">Contacto</a>
-        <a href="https://wa.me/573187073308?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz." target="_blank" rel="noopener noreferrer" data-analytics-event="clic_whatsapp" data-analytics-category="contacto" data-analytics-label="Pie - WhatsApp">WhatsApp</a>
-      </nav>
-    </div>
-  </footer>
-</body>
-</html>

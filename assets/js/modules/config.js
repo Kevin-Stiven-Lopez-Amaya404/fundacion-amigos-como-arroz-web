@@ -1,0 +1,54 @@
+// Datos y ajustes compartidos por los módulos.
+
+// Datos de contacto: vienen de src/_data/site.json (Eleventy los escribe en <script id="site-data">).
+const siteData = JSON.parse(document.getElementById("site-data").textContent);
+export const CONTACT = {
+  whatsapp: siteData.whatsapp,
+  whatsappLabel: siteData.whatsappLabel
+};
+export const WHATSAPP_URL = `https://wa.me/${CONTACT.whatsapp}`;
+
+// Clases e ids que usa el JavaScript.
+export const SELECTORS = {
+  siteHeader: "#site-header",
+  menuToggle: ".menu-toggle",
+  navList: "#nav-list",
+  menuBackdrop: "#menu-backdrop",
+  navLinks: ".nav-link",
+  sections: "main section[id]",
+  progressBar: "#reading-progress-bar",
+  hero: ".hero",
+  heroContent: "#hero-content",
+  currentYear: "#current-year",
+  reveal: ".reveal",
+  quickContact: "#quick-contact",
+  dockToggle: ".social-dock-toggle",
+  openChat: "[data-open-chat]",
+  contactSection: "#contacto",
+  form: "#contact-form",
+  formStatus: "#form-status",
+  teamSlider: "#teamSlider",
+  teamPrev: "#teamPrev",
+  teamNext: "#teamNext",
+  teamDots: "#teamDots",
+  scrollTopButton: "#scrollTopBtn",
+  localVideoLoader: ".local-video-loader",
+  storyBook: "[data-story-book]",
+  storyPage: "[data-story-page]",
+  storyPrev: "[data-story-prev]",
+  storyNext: "[data-story-next]",
+  storyStatus: "[data-story-status]",
+  chatbotToggle: "#chatbotToggle",
+  chatbotPanel: "#chatbotPanel",
+  chatbotClose: "#chatbotClose",
+  chatbotMessages: "#chatbotMessages",
+  chatbotForm: "#chatbotForm",
+  chatbotInput: "#chatbotInput",
+  chatbotQuick: "[data-chat-question]"
+};
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const prefersReducedData = window.matchMedia("(prefers-reduced-data: reduce)").matches;
+const isSmallViewport = window.matchMedia("(max-width: 760px)").matches;
+const isLikelyLowMemory = "deviceMemory" in navigator && navigator.deviceMemory <= 4;
+export const shouldLimitMotion = prefersReducedMotion || prefersReducedData || isSmallViewport || isLikelyLowMemory;
