@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <!--
@@ -50,11 +50,11 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
-  <link href="assets/css/tokens.css?v=3" rel="stylesheet" />
-  <link href="assets/css/styles.css?v=53" rel="stylesheet" />
+  <link href="assets/css/tokens.css?v={{ site.cache.tokens }}" rel="stylesheet" />
+  <link href="assets/css/styles.css?v={{ site.cache.styles }}" rel="stylesheet" />
   <!-- Temporada (Navidad). Se enciende/apaga en assets/js/seasonal.js -->
-  <link href="assets/css/seasonal/navidad.css?v=2" rel="stylesheet" />
-  <script src="assets/js/seasonal.js?v=1"></script>
+  <link href="assets/css/seasonal/navidad.css?v={{ site.cache.navidad }}" rel="stylesheet" />
+  <script src="assets/js/seasonal.js?v={{ site.cache.seasonal }}"></script>
   <link
     rel="preload"
     as="image"
@@ -68,8 +68,8 @@
       "name": "Fundación Amigos Como Arroz",
       "url": "https://fundacionamigoscomoarroz.com/",
       "logo": "https://fundacionamigoscomoarroz.com/assets/img/brand/logo-fundacion.jpg",
-      "email": "amigoscomoarroz@gmail.com",
-      "telephone": "+57 318 707 3308",
+      "email": "{{ site.email }}",
+      "telephone": "+57 {{ site.whatsappLabel }}",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Carrera 7A No. 16-25, barrio Quirinal",
@@ -78,8 +78,8 @@
         "addressCountry": "CO"
       },
       "sameAs": [
-        "https://www.instagram.com/amigoscomoarroz",
-        "https://www.facebook.com/amigoscomoarroz"
+        "{{ site.instagram }}",
+        "{{ site.facebook }}"
       ]
     }
   </script>
@@ -129,7 +129,7 @@
         <li class="nav-item--cta">
           <a
             class="nav-donate"
-            href="https://wa.me/573187073308?text=Hola%2C%20quiero%20hacer%20una%20donaci%C3%B3n%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+            href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
             target="_blank"
             rel="noopener noreferrer"
             data-analytics-event="clic_donar"
@@ -211,7 +211,7 @@
           </a>
           <a
             class="btn btn-whatsapp"
-            href="https://wa.me/573187073308?text=Hola%2C%20quiero%20apoyar%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+            href="{{ 'Hola, quiero apoyar a la Fundación Amigos Como Arroz.' | whatsapp }}"
             target="_blank"
             rel="noopener noreferrer"
             data-analytics-event="clic_whatsapp"
@@ -254,7 +254,7 @@
             <div class="xmas-actions">
               <a
                 class="btn xmas-btn-primary"
-                href="https://wa.me/573187073308?text=Hola%2C%20quiero%20hacer%20una%20donaci%C3%B3n%20de%20Navidad%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+                href="{{ 'Hola, quiero hacer una donación de Navidad a la Fundación Amigos Como Arroz.' | whatsapp }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-analytics-event="clic_donar"
@@ -265,7 +265,7 @@
               </a>
               <a
                 class="btn xmas-btn-ghost"
-                href="https://wa.me/573187073308?text=Hola%2C%20quiero%20ser%20voluntario%20en%20las%20actividades%20de%20Navidad%20de%20la%20fundaci%C3%B3n."
+                href="{{ 'Hola, quiero ser voluntario en las actividades de Navidad de la fundación.' | whatsapp }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-analytics-event="clic_voluntario"
@@ -716,7 +716,7 @@
             <a class="btn btn-outline" href="#contacto">Quiero apoyar</a>
             <a
               class="btn btn-whatsapp"
-              href="https://wa.me/573187073308?text=Hola%2C%20quiero%20saber%20c%C3%B3mo%20puedo%20apoyar%20a%20la%20fundaci%C3%B3n."
+              href="{{ 'Hola, quiero saber cómo puedo apoyar a la fundación.' | whatsapp }}"
               target="_blank"
               rel="noopener noreferrer"
               data-analytics-event="clic_whatsapp"
@@ -1193,7 +1193,7 @@
           <div class="contact-quick-actions" aria-label="Acciones rápidas de contacto">
             <a
               class="btn btn-pink"
-              href="https://wa.me/573187073308?text=Hola%2C%20quiero%20hacer%20una%20donaci%C3%B3n%20a%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+              href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
               target="_blank"
               rel="noopener noreferrer"
               data-analytics-event="clic_donar"
@@ -1204,7 +1204,7 @@
             </a>
             <a
               class="btn btn-secondary"
-              href="https://wa.me/573187073308?text=Hola%2C%20quiero%20ser%20voluntario%20en%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+              href="{{ 'Hola, quiero ser voluntario en la Fundación Amigos Como Arroz.' | whatsapp }}"
               target="_blank"
               rel="noopener noreferrer"
               data-analytics-event="clic_voluntario"
@@ -1227,14 +1227,14 @@
               <span aria-hidden="true">&#128241;</span>
               <div>
                 <strong>WhatsApp</strong>
-                <a href="https://wa.me/573187073308">+57 318 707 3308</a>
+                <a href="https://wa.me/{{ site.whatsapp }}">+57 {{ site.whatsappLabel }}</a>
               </div>
             </li>
             <li class="contact-item">
               <span aria-hidden="true">&#9993;</span>
               <div>
                 <strong>Correo</strong>
-                <a href="mailto:amigoscomoarroz@gmail.com">amigoscomoarroz@gmail.com</a>
+                <a href="mailto:{{ site.email }}">{{ site.email }}</a>
               </div>
             </li>
           </ul>
@@ -1470,7 +1470,7 @@
 
       <div class="footer-social" aria-label="Redes sociales">
         <a
-          href="https://wa.me/573187073308"
+          href="https://wa.me/{{ site.whatsapp }}"
           target="_blank"
           rel="noopener noreferrer"
           class="footer-social-link"
@@ -1482,7 +1482,7 @@
           </svg>
         </a>
         <a
-          href="https://www.instagram.com/amigoscomoarroz"
+          href="{{ site.instagram }}"
           target="_blank"
           rel="noopener noreferrer"
           class="footer-social-link"
@@ -1493,7 +1493,7 @@
           </svg>
         </a>
         <a
-          href="https://www.facebook.com/amigoscomoarroz"
+          href="{{ site.facebook }}"
           target="_blank"
           rel="noopener noreferrer"
           class="footer-social-link"
@@ -1524,7 +1524,7 @@
     <!-- WhatsApp -->
     <a
       class="social-dock-btn social-dock-btn--wa"
-      href="https://wa.me/573187073308?text=Hola%2C%20quiero%20recibir%20informaci%C3%B3n%20sobre%20la%20Fundaci%C3%B3n%20Amigos%20Como%20Arroz."
+      href="{{ 'Hola, quiero recibir información sobre la Fundación Amigos Como Arroz.' | whatsapp }}"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"
@@ -1542,7 +1542,7 @@
     <!-- Instagram -->
     <a
       class="social-dock-btn social-dock-btn--ig"
-      href="https://www.instagram.com/amigoscomoarroz"
+      href="{{ site.instagram }}"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Síguenos en Instagram"
@@ -1556,7 +1556,7 @@
     <!-- Facebook -->
     <a
       class="social-dock-btn social-dock-btn--fb"
-      href="https://www.facebook.com/amigoscomoarroz"
+      href="{{ site.facebook }}"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Síguenos en Facebook"
@@ -1634,8 +1634,8 @@
     </svg>
   </button>
 
-<script src="assets/js/analytics.js?v=1" defer></script>
-<script src="assets/js/main.js?v=8" defer></script>
+<script src="assets/js/analytics.js?v={{ site.cache.analytics }}" defer></script>
+<script src="assets/js/main.js?v={{ site.cache.main }}" defer></script>
 
 </body>
 </html>

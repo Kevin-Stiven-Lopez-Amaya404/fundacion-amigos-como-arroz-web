@@ -19,6 +19,8 @@ Edita siempre los archivos de `src/` y `assets/`. `_site/` se genera y no se sub
 ```text
 fundacion/
   src/                          Páginas (Eleventy las copia a _site/ con la misma ruta)
+    _data/site.json             WhatsApp, correo, redes y versiones de caché (una sola vez)
+    _includes/layouts/interna.njk   Cabecera, <head> y pie de las 6 páginas internas
     index.html                  Página principal (14 secciones)
     programas/
       index.html                Vista general de los 4 programas
@@ -116,7 +118,10 @@ La decoración navideña se enciende y apaga sola (15 nov – 6 ene). Para forza
 - Cambios visuales: edita `assets/css/styles.css`.
 - Cambios de interacción: edita `assets/js/main.js`.
 - Cambios de programas: edita los archivos dentro de `src/programas/`.
-- Cambios de WhatsApp: en `assets/js/main.js` cambia `CONTACT.whatsapp`; en el HTML busca `573187073308` (portada, programas y sede).
+- Cambios de WhatsApp, correo o redes: edita `src/_data/site.json` (en `assets/js/main.js` cambia también `CONTACT`).
+- Enlace de WhatsApp con mensaje: `{{ 'Hola, quiero…' | whatsapp }}` (el filtro codifica el texto).
+- Después de cambiar un CSS o JS, sube su número en `cache` de `src/_data/site.json`.
+- Página interna nueva: copia una de `src/programas/` y cambia su encabezado `---` (título, descripción, ruta canónica y enlace de volver).
 
 ## Recomendación
 
