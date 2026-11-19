@@ -1,0 +1,12 @@
+{
+  "name": "fundacion-amigos-como-arroz",
+  "private": true,
+  "description": "Sitio de la Fundación Amigos Como Arroz (Eleventy)",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.8"
+  }
+}

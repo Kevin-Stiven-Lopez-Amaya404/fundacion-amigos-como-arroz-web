@@ -13,8 +13,9 @@ Usa esta lista antes de publicar la pagina.
 
 ## Archivos importantes
 
-- `index.html`: pagina principal.
-- `programas/`: paginas internas de programas.
+- `src/index.html`: pagina principal.
+- `src/programas/` y `src/sede-espinal/`: paginas internas.
+- `eleventy.config.mjs` y `vercel.json`: compilacion y publicacion.
 - `assets/css/styles.css`: estilos.
 - `assets/js/main.js`: interacciones.
 - `assets/js/analytics.js`: conteo de visitas y eventos.
@@ -24,13 +25,9 @@ Usa esta lista antes de publicar la pagina.
 
 ## Publicacion
 
-Como es un sitio estatico, no necesita servidor propio ni base de datos.
+El sitio se compila con Eleventy (`npm run build`) y el resultado queda en `_site/`.
 
-Puedes subirlo a:
+- **Vercel (actual):** lee `vercel.json`, ejecuta `npm run build` y publica `_site/`. Cada PR tiene vista previa; fusionar en `main` publica producción.
+- **Otro hosting (GitHub Pages, Netlify, `public_html`):** ejecutar `npm run build` y subir el contenido de `_site/`.
 
-- GitHub Pages.
-- Netlify.
-- Vercel.
-- Hosting tradicional con carpeta `public_html`.
-
-La raiz publicada debe contener `index.html`, `assets/`, `programas/`, `robots.txt`, `sitemap.xml` y `site.webmanifest`.
+`_site/` debe contener `index.html`, `assets/`, `programas/`, `sede-espinal/`, `informes/`, `robots.txt`, `sitemap.xml` y `site.webmanifest`.

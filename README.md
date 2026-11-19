@@ -1,22 +1,31 @@
 # Fundación Amigos Como Arroz
 
-Página web institucional para la Fundación Amigos Como Arroz. Es un sitio estático hecho con HTML, CSS y JavaScript puro.
+Página web institucional para la Fundación Amigos Como Arroz. Es un sitio estático hecho con HTML, CSS y JavaScript puro, que [Eleventy](https://www.11ty.dev/) arma a partir de las páginas de `src/`.
 
 ## Cómo abrirlo
 
-Abre `index.html` directamente en el navegador.
+Necesitas Node.js 18 o superior.
 
-Si prefieres levantarlo con servidor local, puedes usar cualquier servidor estático sencillo desde esta carpeta.
+```bash
+npm install      # solo la primera vez
+npm start        # compila y abre un servidor en http://localhost:8080 que se recarga al guardar
+npm run build    # solo compila: el sitio listo para publicar queda en _site/
+```
+
+Edita siempre los archivos de `src/` y `assets/`. `_site/` se genera y no se sube a Git.
 
 ## Estructura
 
 ```text
 fundacion/
-  index.html                    Página principal (14 secciones)
-  programas/
-    index.html                  Vista general de los 4 programas
-    semilla.html · siembra.html · cosecha.html · psicosocial.html
-  sede-espinal/index.html       Página de la sede Espinal
+  src/                          Páginas (Eleventy las copia a _site/ con la misma ruta)
+    index.html                  Página principal (14 secciones)
+    programas/
+      index.html                Vista general de los 4 programas
+      semilla.html · siembra.html · cosecha.html · psicosocial.html
+    sede-espinal/index.html     Página de la sede Espinal
+  eleventy.config.mjs           Configuración de Eleventy (qué se copia tal cual)
+  vercel.json                   Vercel ejecuta npm run build y publica _site/
   assets/
     css/tokens.css              Tokens de diseño (colores, tipografía, radios, sombras) y orden de capas
     css/styles.css              Estilos históricos en @layer legacy (capas v47-v49 al final)
@@ -70,7 +79,7 @@ Cuando publiques la página, Google Analytics empezará a mostrar usuarios, visi
 
 ## Despliegue
 
-El sitio es estatico. Para publicarlo, sube la carpeta completa a tu hosting o conecta este repositorio a GitHub Pages, Netlify, Vercel u otro servicio de sitios estaticos.
+Vercel compila y publica el sitio solo: cada PR genera una vista previa y cada fusión en `main` publica producción. Para otro hosting, ejecuta `npm run build` y sube el contenido de `_site/`.
 
 Antes de publicar, revisa [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md).
 
@@ -103,10 +112,10 @@ La decoración navideña se enciende y apaga sola (15 nov – 6 ene). Para forza
 
 ## Mantenimiento rápido
 
-- Cambios de contenido: edita `index.html`.
+- Cambios de contenido: edita `src/index.html`.
 - Cambios visuales: edita `assets/css/styles.css`.
 - Cambios de interacción: edita `assets/js/main.js`.
-- Cambios de programas: edita los archivos dentro de `programas/`.
+- Cambios de programas: edita los archivos dentro de `src/programas/`.
 - Cambios de WhatsApp: en `assets/js/main.js` cambia `CONTACT.whatsapp`; en el HTML busca `573187073308` (portada, programas y sede).
 
 ## Recomendación

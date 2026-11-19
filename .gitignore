@@ -1,3 +1,7 @@
 # Copias de seguridad locales y archivos comprimidos
 _respaldo-*/
 *.zip
+
+# Eleventy
+node_modules/
+_site/
