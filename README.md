@@ -32,7 +32,9 @@ fundacion/
     css/tokens.css              Tokens de diseño (colores, tipografía, radios, sombras) y orden de capas
     css/styles.css              Estilos históricos en @layer legacy (capas v47-v49 al final)
     css/seasonal/navidad.css    Estilos de temporada (solo con <html data-season="navidad">)
-    js/main.js                  Interacciones de la portada (CONTACT = número de WhatsApp)
+    js/main.js                  Arranca las interacciones de la portada (<script type="module">)
+    js/modules/                 Un archivo por funcionalidad (menu, chatbot, contact-form…);
+                                config.js = selectores y contacto (leído de site.json)
     js/seasonal.js              Enciende/apaga la Navidad (SEASON_CONFIG.mode)
     js/analytics.js             Google Analytics 4 opcional
     img/opt/                    Imágenes WebP optimizadas (480/960/1600 px) que usan las páginas
@@ -116,9 +118,9 @@ La decoración navideña se enciende y apaga sola (15 nov – 6 ene). Para forza
 
 - Cambios de contenido: edita `src/index.html`.
 - Cambios visuales: edita `assets/css/styles.css`.
-- Cambios de interacción: edita `assets/js/main.js`.
+- Cambios de interacción: edita el módulo de `assets/js/modules/` (y regístralo en `assets/js/main.js` si es nuevo). Los módulos no cargan abriendo el HTML con doble clic: usa `npm start`.
 - Cambios de programas: edita los archivos dentro de `src/programas/`.
-- Cambios de WhatsApp, correo o redes: edita `src/_data/site.json` (en `assets/js/main.js` cambia también `CONTACT`).
+- Cambios de WhatsApp, correo o redes: edita solo `src/_data/site.json` (el HTML y el JavaScript lo leen de ahí).
 - Enlace de WhatsApp con mensaje: `{{ 'Hola, quiero…' | whatsapp }}` (el filtro codifica el texto).
 - Después de cambiar un CSS o JS, sube su número en `cache` de `src/_data/site.json`.
 - Página interna nueva: copia una de `src/programas/` y cambia su encabezado `---` (título, descripción, ruta canónica y enlace de volver).

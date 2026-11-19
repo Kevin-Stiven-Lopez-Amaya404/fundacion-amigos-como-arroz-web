@@ -1635,7 +1635,8 @@
   </button>
 
 <script src="assets/js/analytics.js?v={{ site.cache.analytics }}" defer></script>
-<script src="assets/js/main.js?v={{ site.cache.main }}" defer></script>
+<script type="application/json" id="site-data">{{ { whatsapp: site.whatsapp, whatsappLabel: site.whatsappLabel } | dump | safe }}</script>
+<script type="module" src="assets/js/main.js?v={{ site.cache.main }}"></script>
 
 </body>
 </html>
