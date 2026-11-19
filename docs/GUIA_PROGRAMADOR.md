@@ -1,283 +1,168 @@
-# Guia para programadores
+# Guía para programadores
 
-Esta guia explica la organizacion actual del proyecto para que cualquier desarrollador pueda entrar, ubicar archivos, hacer cambios y evitar romper rutas.
+Entrada principal para entender cómo está hecho el sitio, dónde vive cada cosa y cómo cambiarla sin romper nada.
 
 ## 1. Tipo de proyecto
 
-El sitio es una landing institucional estatica. No usa framework, build system, base de datos ni backend.
+Sitio institucional estático: HTML, CSS y JavaScript puro, sin framework, base de datos ni backend.
+[Eleventy](https://www.11ty.dev/) 3 lo compila: toma las páginas de `src/`, les aplica la plantilla común y los datos de `src/_data/site.json`, y deja el sitio listo en `_site/`.
 
-El navegador carga directamente:
+```bash
+npm install      # solo la primera vez (Node.js 18 o superior)
+npm start        # servidor local en http://localhost:8080 que se recarga al guardar
+npm run build    # compila en _site/ (lo mismo que hace Vercel)
+```
 
-- HTML desde `index.html` y `programas/*.html`.
-- CSS desde `assets/css/styles.css`.
-- JavaScript desde `assets/js/main.js`.
-- Imagenes desde `assets/img/`.
+Abrir el HTML con doble clic **no sirve**: las páginas de `src/` llevan etiquetas de plantilla (`{{ site.whatsapp }}`) y el JavaScript usa módulos ES, que el navegador no carga desde `file://`. Usa siempre `npm start`.
 
 ## 2. Estructura de carpetas
 
 ```text
 landign-/
-  index.html
-  assets/
-    README.md
-    css/
-      styles.css
-    js/
-      main.js
-    img/
-      README.md
-      brand/
-        logo-fundacion.jpg
-      hero/
-        hero-principal.jpg
-      content/
-        programa-semilla-deporte.jpg
-        taller-educativo.jpg
-        presentacion-cultural.jpg
-      team/
-        directora.jpg
-        andres.jpg
-        karen.jpg
-  programas/
-    README.md
-    index.html
-    semilla.html
-    siembra.html
-    cosecha.html
-    psicosocial.html
-  docs/
-    README.md
-    GUIA_PROGRAMADOR.md
-    DOCUMENTACION.md
-    PROGRAMAS.md
-    CODIGO.md
-  README.md
+  src/                              Lo que se edita: páginas (misma ruta que en la web)
+    _data/site.json                 WhatsApp, correo, redes y versiones de caché
+    _includes/layouts/interna.njk   <head>, cabecera y pie de las 6 páginas internas
+    index.html                      Portada (página completa, no usa la plantilla)
+    programas/
+      index.html                    Vista general de los 4 programas
+      semilla.html · siembra.html · cosecha.html · psicosocial.html
+    sede-espinal/index.html         Sede Espinal
+  assets/                           Se copia tal cual a _site/assets/
+    css/tokens.css                  Variables de diseño y orden de capas (@layer)
+    css/styles.css                  Estilos del sitio, dentro de @layer legacy
+    css/seasonal/navidad.css        Temporada navideña
+    js/main.js                      Arranca los módulos de la portada
+    js/modules/                     Un archivo por funcionalidad
+    js/seasonal.js · js/analytics.js
+    img/opt/                        Imágenes WebP que usan las páginas
+    img/{brand,hero,content,team}/  Originales
+    videos/
+  informes/                         PDF de informes de gestión
+  eleventy.config.mjs               Qué se copia, el filtro whatsapp y las URL .html
+  vercel.json                       Vercel ejecuta npm run build y publica _site/
+  docs/                             Esta documentación y las auditorías
+  _site/                            Sitio compilado (se genera; no está en Git)
 ```
 
-## 3. Responsabilidad de cada carpeta
+## 3. Cómo se arma cada página
 
-| Ruta | Responsabilidad |
+**Portada (`src/index.html`)**: es un HTML completo. Eleventy solo reemplaza las expresiones `{{ … }}` (datos de `site.json`) y la copia a `_site/index.html`.
+
+**Páginas internas** (las 5 de `programas/` y `sede-espinal/`): solo guardan su `<main>` y un encabezado con sus datos:
+
+```yaml
+---
+layout: layouts/interna.njk
+title: "Programa Semilla | Fundación Amigos Como Arroz"
+description: "Conoce el programa Semilla de la Fundación Amigos Como Arroz."
+canonical: /programas/semilla.html
+bodyClass: programs-detail-page        # opcional: clase extra del <body>
+back:
+  href: "../index.html#programas"      # enlace "volver" de la cabecera
+  text: "Volver a programas"
+---
+```
+
+La plantilla `interna.njk` pone alrededor el `<head>` (título, descripción, URL canónica, CSS y JS), la cabecera con el logo y el enlace de volver, y el pie con WhatsApp, correo y redes.
+
+Las URL publicadas no cambian: `src/programas/semilla.html` se publica como `/programas/semilla.html`.
+
+## 4. Datos compartidos: `src/_data/site.json`
+
+| Campo | Uso |
 |---|---|
-| `index.html` | Pagina principal, navegacion, hero, secciones institucionales, tarjetas de programas, equipo, videos y contacto. |
-| `assets/css/styles.css` | Toda la apariencia visual, responsive, animaciones, header, programas, formularios y carrusel. |
-| `assets/js/main.js` | Menu hamburguesa, scroll, animaciones, formulario, carrusel, videos lazy y datos dinamicos. |
-| `assets/img/brand/` | Logo e identidad visual. |
-| `assets/img/hero/` | Imagen principal de la pagina. |
-| `assets/img/content/` | Imagenes de secciones, programas y momentos. |
-| `assets/img/team/` | Fotos de integrantes del equipo. |
-| `programas/index.html` | Vista general historica de los programas en una sola pagina. |
-| `programas/semilla.html` | Pagina individual del programa Semilla. |
-| `programas/siembra.html` | Pagina individual del programa Siembra. |
-| `programas/cosecha.html` | Pagina individual del programa Cosecha. |
-| `programas/psicosocial.html` | Pagina individual de Acompanamiento Psicosocial. |
-| `docs/` | Documentacion tecnica y funcional del proyecto. |
+| `whatsapp`, `whatsappLabel` | Número para `wa.me` y cómo se muestra. También lo lee el JavaScript. |
+| `email`, `instagram`, `facebook` | Pie de página y enlaces de contacto. |
+| `cache` | Número de versión de cada CSS/JS (`styles.css?v=55`). |
 
-## 4. Flujo de navegacion
+En las páginas se usan así:
 
-La pagina principal muestra cuatro tarjetas en `#programas`:
-
-```text
-Semilla                  -> programas/semilla.html
-Siembra                  -> programas/siembra.html
-Cosecha                  -> programas/cosecha.html
-Acompanamiento Psicosocial -> programas/psicosocial.html
+```njk
+{{ site.email }}
+{{ 'Hola, quiero más información.' | whatsapp }}   → https://wa.me/57…?text=Hola%2C%20quiero…
+https://wa.me/{{ site.whatsapp }}                  → enlace sin mensaje
 ```
 
-Cada pagina individual vuelve al inicio con:
+La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/json" id="site-data">`, y `assets/js/modules/config.js` los lee de ahí. Así el número está en un solo lugar.
 
-```html
-../index.html#programas
-```
+## 5. Cambios comunes
 
-Como los archivos dentro de `programas/` estan un nivel por debajo, sus recursos usan `../assets/...`.
+| Quiero cambiar… | Edito |
+|---|---|
+| Texto, fotos o secciones de la portada | `src/index.html` |
+| Contenido de un programa | `src/programas/<programa>.html` (y su tarjeta en `src/index.html`, sección `#programas`) |
+| `<head>`, cabecera o pie de las páginas internas | `src/_includes/layouts/interna.njk` |
+| WhatsApp, correo o redes | `src/_data/site.json` |
+| Colores, tipografía, radios o sombras | `assets/css/tokens.css` |
+| Aspecto de un componente | `assets/css/styles.css` |
+| Una interacción | su módulo en `assets/js/modules/` |
+| Activar o apagar la Navidad | `SEASON_CONFIG.mode` en `assets/js/seasonal.js` |
 
-Ejemplo:
+**Después de cambiar un CSS o JS**, sube su número en `cache` de `site.json`; si no, los visitantes pueden seguir viendo la versión vieja guardada en su navegador.
 
-```html
-<link href="../assets/css/styles.css" rel="stylesheet" />
-<img src="../assets/img/brand/logo-fundacion.jpg" alt="Logo Fundación Amigos Como Arroz" />
-```
+## 6. Agregar un programa nuevo
 
-## 5. Rutas importantes
+1. Copia `src/programas/semilla.html` como `src/programas/nuevo.html`.
+2. Cambia su encabezado `---` (título, descripción, `canonical: /programas/nuevo.html`) y su `<main>`.
+3. En `src/index.html`, sección `#programas`, agrega una tarjeta `.program-card` con `href="programas/nuevo.html"`.
+4. Agrega la URL a `sitemap.xml`.
+5. Reutiliza `.program-detail-card` y `.program-timeline`; solo agrega CSS si el diseño es distinto.
+6. Actualiza [`PROGRAMAS.md`](PROGRAMAS.md).
 
-Desde `index.html`:
+## 7. Interacciones (JavaScript)
 
-```html
-assets/css/styles.css
-assets/js/main.js
-assets/img/brand/logo-fundacion.jpg
-programas/semilla.html
-```
+`assets/js/main.js` importa los módulos y los arranca en este orden (el menú va primero porque el scroll necesita saber si está abierto):
 
-Desde cualquier archivo dentro de `programas/`:
+| Módulo | Qué hace |
+|---|---|
+| `config.js` | Selectores, preferencias de movimiento (`shouldLimitMotion`) y contacto. |
+| `menu.js` | Menú hamburguesa: abrir/cerrar, Escape, `aria-expanded`. |
+| `meta.js` | Año actual del pie. |
+| `hero.js` | Entrada y movimiento suave de la portada. |
+| `active-section.js` | Marca en el menú la sección visible. |
+| `reveal.js` | Aparición de `.reveal` y contadores `data-counter`. |
+| `scroll-state.js` | Barra de progreso, header que se oculta y botón de subir. |
+| `contact-form.js` | Valida el formulario y abre WhatsApp con el mensaje. |
+| `team-slider.js` | Carrusel del equipo. |
+| `lazy-videos.js` | Carga los videos al pulsar. |
+| `story-book.js` | Libro de historias. |
+| `chatbot.js` | Asistente con preguntas frecuentes. |
+| `floating-contact.js` | Botón flotante de contacto rápido. |
 
-```html
-../assets/css/styles.css
-../assets/img/brand/logo-fundacion.jpg
-../index.html#programas
-```
+Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 
-## 6. Como hacer cambios comunes
+## 8. Estilos (CSS)
 
-### Cambiar contenido de la pagina principal
-
-Edita `index.html`.
-
-Ejemplos:
-
-- Texto del hero.
-- Tarjetas de programas.
-- Metricas de impacto.
-- Testimonios.
-- Equipo.
-- Videos.
-- Formulario.
-
-### Cambiar un programa
-
-Edita el archivo correspondiente dentro de `programas/`:
-
-- Semilla: `programas/semilla.html`
-- Siembra: `programas/siembra.html`
-- Cosecha: `programas/cosecha.html`
-- Psicosocial: `programas/psicosocial.html`
-
-Si tambien quieres cambiar la tarjeta que aparece en el inicio, edita `index.html` en la seccion `#programas`.
-
-### Cambiar estilos
-
-Edita `assets/css/styles.css`.
-
-Clases frecuentes:
-
-- `.site-header`: barra de navegacion.
-- `.nav-list`: menu hamburguesa.
-- `.hero`: imagen principal.
-- `.hero-intro`: bloque de bienvenida bajo la imagen.
-- `.program-grid`: tarjetas de programas en el inicio.
-- `.program-card`: tarjeta individual de programa.
-- `.program-detail-card`: tarjeta de informacion dentro de paginas de programa.
-- `.program-timeline`: linea de tiempo de programas.
-- `.contact-form`: formulario.
-- `.team-slider`: carrusel del equipo.
-
-### Cambiar comportamiento
-
-Edita `assets/js/main.js`.
-
-Funciones principales:
-
-- `initMenu()`: menu hamburguesa.
-- `initActiveSection()`: enlace activo de navegacion.
-- `initHero()`: movimiento suave del hero.
-- `initReveal()`: aparicion de elementos y contadores.
-- `initScrollState()`: barra de progreso, header y boton subir.
-- `initContactForm()`: validacion y envio a WhatsApp.
-- `initTeamSlider()`: carrusel del equipo.
-- `initLazyVideos()`: carga de videos al hacer clic.
-
-## 7. Como agregar un nuevo programa
-
-1. Crea un archivo nuevo dentro de `programas/`, por ejemplo:
-
-```text
-programas/nuevo.html
-```
-
-2. Usa como base una pagina existente, por ejemplo `programas/semilla.html`.
-
-3. En `index.html`, agrega una tarjeta dentro de:
-
-```html
-<div class="program-grid">
-```
-
-4. El enlace de la tarjeta debe apuntar al nuevo archivo:
-
-```html
-<a href="programas/nuevo.html">Más información &rarr;</a>
-```
-
-5. Si necesita estilos nuevos, agregalos al final de `assets/css/styles.css` o reutiliza clases existentes.
-
-6. Actualiza `docs/PROGRAMAS.md`.
-
-## 8. Imagenes y rendimiento
-
-Las imagenes deben vivir dentro de la subcarpeta correcta:
-
-- `assets/img/brand/`: logo e identidad.
-- `assets/img/hero/`: imagen principal.
-- `assets/img/content/`: imagenes de secciones o momentos.
-- `assets/img/team/`: fotos de integrantes.
-
-Buenas practicas:
-
-- Usar imagenes optimizadas.
-- Usar `loading="lazy"` en imagenes que no aparecen al inicio.
-- Usar `decoding="async"` cuando aplique.
-- Mantener `alt` descriptivo.
-- No volver a incrustar imagenes en base64 dentro del HTML.
-
-La imagen principal del hero se precarga desde `index.html`:
-
-```html
-<link rel="preload" as="image" href="assets/img/hero/hero-principal.jpg" fetchpriority="high" />
-```
+- `tokens.css` declara el orden de capas `tokens, legacy, base, layout, components, sections, utilities` y las variables (`--color-*`, `--radius-*`, `--shadow-1/2/3`…). Usa los nombres `--color-*` en código nuevo.
+- `styles.css` está entero dentro de `@layer legacy`. Es el CSS histórico, ya consolidado en parte (ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)).
+- Código nuevo: ponlo en una capa posterior (`components`, `sections`…). Le gana a `legacy` sin subir la especificidad ni usar `!important`.
+- Puntos de corte para código nuevo: 560, 840 y 1080 px. El CSS histórico todavía usa otros.
 
 ## 9. Formulario
 
-El formulario esta en `index.html`:
-
-```html
-<form class="contact-form" id="contact-form" novalidate>
-```
-
-La validacion esta en `assets/js/main.js`, dentro de `initContactForm()`.
-
-Actualmente el formulario:
-
-- Valida nombre completo.
-- Valida telefono.
-- Valida correo.
-- Valida interes.
-- Valida mensaje.
-- Abre WhatsApp con el mensaje armado.
-
-No envia correo real ni guarda datos en base de datos. Para eso se necesita backend o servicio externo.
+`#contact-form` (en `src/index.html`) lleva `novalidate` porque `contact-form.js` valida nombre, teléfono, correo, interés y mensaje, marca los errores con `aria-invalid` y abre WhatsApp con el mensaje armado. No guarda datos ni envía correos: para eso haría falta un backend o un servicio externo.
 
 ## 10. Reglas de mantenimiento
 
-- No mezclar JavaScript dentro del HTML.
-- No duplicar estilos si existe una clase reutilizable.
-- Mantener las rutas relativas segun la ubicacion del archivo.
-- Al mover archivos, revisar `href`, `src` y rutas `url(...)` del CSS.
-- Mantener `docs/` actualizado cuando cambie la arquitectura.
-- Probar en escritorio y movil despues de tocar header, hero, programas, contacto o carrusel.
+- Edita `src/` y `assets/`, nunca `_site/`.
+- No pongas JavaScript dentro del HTML: crea o amplía un módulo.
+- No escribas el número, el correo ni las redes a mano: usa `site.json`.
+- Reutiliza clases existentes antes de crear CSS nuevo.
+- Mantén `alt` en las imágenes y prueba en celular cuando toques header, hero, programas, contacto o carrusel.
+- Trabajo en Git: una rama por bloque → PR a `dev` → release de `dev` a `main` (publica en Vercel). Ver [`DESPLIEGUE.md`](DESPLIEGUE.md).
 
-## 11. Verificaciones recomendadas
+## 11. Verificaciones rápidas
 
-Sintaxis de JavaScript:
-
-```powershell
-node --check assets\js\main.js
+```bash
+npm run build                                   # debe terminar sin errores
+grep -rn "573187073308" src assets/js           # solo debe aparecer en src/_data/site.json
+node --check assets/js/main.js
 ```
 
-Buscar rutas antiguas despues de mover archivos:
-
-```powershell
-Select-String -Path index.html,programas\*.html,docs\*.md,README.md -Pattern "css/styles|js/main|img/|programa-"
-```
-
-Buscar numero de WhatsApp:
-
-```powershell
-Select-String -Path index.html,assets\js\main.js -Pattern "573187073308"
-```
+Después abre `npm start` y revisa la portada y una página interna a 390 px y en escritorio.
 
 ## 12. Riesgos conocidos
 
-- `assets/css/styles.css` tiene muchos ajustes acumulados; funciona, pero conviene compactarlo en el futuro.
-- El formulario depende de WhatsApp, no de un backend.
-- Algunos videos dependen de YouTube.
-- Antes de publicar, revisar datos reales: telefono, correo, redes, nombres, fotos y permisos de imagenes.
+- `styles.css` aún tiene 188 `!important` y varios puntos de corte antiguos; se van a limpiar sección por sección.
+- El formulario depende de WhatsApp.
+- Antes de publicar, revisar datos reales: teléfono, correo, redes, nombres, fotos y permisos de imágenes.

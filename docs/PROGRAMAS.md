@@ -1,8 +1,8 @@
 # Documentacion del index de Programas
 
-Esta documentacion explica como esta organizado el apartado de Programas en la pagina principal y como se conecta con las paginas detalle dentro de `programas/`.
+Esta documentacion explica como esta organizado el apartado de Programas en la pagina principal y como se conecta con las paginas detalle (archivos en `src/programas/`, publicados en `/programas/`).
 
-## 1. Punto de entrada en `index.html`
+## 1. Punto de entrada en `src/index.html`
 
 El bloque principal se encuentra en la seccion:
 
@@ -98,14 +98,14 @@ La misma logica se usa con:
 - `programas/cosecha.html`
 - `programas/psicosocial.html`
 
-## 5. Organizacion de `programas/`
+## 5. Organizacion de `src/programas/`
 
-La carpeta `programas/` esta construida para ampliar la informacion de cada ruta.
+La carpeta `src/programas/` esta construida para ampliar la informacion de cada ruta. Cada archivo guarda solo su `<main>` y un encabezado `---` (titulo, descripcion, ruta canonica, enlace de volver); la cabecera, el `<head>` y el pie los pone `src/_includes/layouts/interna.njk`.
 
 Su estructura principal es:
 
 ```text
-programas/
+src/programas/
   index.html
   semilla.html
   siembra.html
@@ -115,7 +115,7 @@ programas/
 
 ## 6. Encabezado de las paginas de programas
 
-La parte superior de la pagina detalle usa:
+La parte superior de la pagina detalle la genera la plantilla `interna.njk` y usa:
 
 ```html
 <header class="program-detail-header">
@@ -124,7 +124,7 @@ La parte superior de la pagina detalle usa:
 Incluye:
 
 - El logo de la fundacion.
-- Un enlace para volver al bloque de Programas en la pagina principal:
+- Un enlace para volver al bloque de Programas en la pagina principal (se define en `back` del encabezado de cada pagina):
 
 ```html
 <a href="../index.html#programas">Volver a programas</a>
@@ -234,7 +234,7 @@ Etapas:
 
 Los estilos visuales principales estan definidos con estas clases:
 
-- `.section-programs`: controla el bloque de Programas en `index.html`.
+- `.section-programs`: controla el bloque de Programas en `src/index.html`.
 - `.program-grid`: organiza las tarjetas de programas.
 - `.program-card`: define la apariencia de cada tarjeta.
 - `.program-link`: define el boton "Mas informacion".
@@ -263,8 +263,8 @@ El recorrido queda asi:
 
 Cuando se agregue un nuevo programa, se deben actualizar tres partes:
 
-1. Agregar una nueva tarjeta en `index.html`.
-2. Agregar una nueva pagina dentro de `programas/`.
+1. Agregar una nueva tarjeta en `src/index.html`.
+2. Agregar una nueva pagina dentro de `src/programas/` (copiando una existente y cambiando su encabezado `---`) y su URL en `sitemap.xml`.
 3. Agregar o reutilizar estilos en `assets/css/styles.css`.
 
 Para mantener el codigo ordenado, el `href` de la tarjeta debe coincidir siempre con el `id` de la seccion detalle.
@@ -277,6 +277,6 @@ Ejemplo:
 
 Debe existir tambien:
 
-```html
-programas/nuevo.html
+```text
+src/programas/nuevo.html
 ```
