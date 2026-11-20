@@ -32,14 +32,18 @@ export function initMenu() {
   };
 
   menuToggle.addEventListener("click", () => {
-    setMenuState(!navList.classList.contains("open"));
+    const isOpen = !navList.classList.contains("open");
+    setMenuState(isOpen);
+    // El botón va después de la lista en el HTML: sin esto, Tab saltaría el menú abierto.
+    if (isOpen) navList.querySelector("a")?.focus();
   });
 
   menuBackdrop?.addEventListener("click", closeMenu);
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
+    if (event.key === "Escape" && navList.classList.contains("open")) {
       closeMenu();
+      menuToggle.focus();
     }
   });
 
