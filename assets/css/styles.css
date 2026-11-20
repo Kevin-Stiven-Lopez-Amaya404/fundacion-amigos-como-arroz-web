@@ -3434,6 +3434,11 @@ main > section:not(.hero) {
   margin-top: 14px;
 }
 
+/* HU14 · Los videos institucionales viven ahora dentro de Testimonios. */
+.testimonials-more-videos {
+  margin-top: clamp(40px, 6vw, 72px);
+}
+
 /* HU13 · Tercera acción del hero como enlace: dos botones, no tres del mismo peso. */
 .hero-intro .hero-link {
   justify-self: center;
@@ -4648,33 +4653,6 @@ p,
   background: var(--soft-orange);
 }
 
-.hero-trust {
-  width: min(100%, 780px);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.hero-trust span {
-  display: grid;
-  gap: 3px;
-  min-height: 82px;
-  padding: 14px 12px;
-  color: #5f6266;
-  background: var(--color-surface-cream);
-  border: 1px solid rgba(243, 112, 33, .16);
-  border-radius: var(--radius-sm);
-  font-size: .9rem;
-  line-height: 1.35;
-}
-
-.hero-trust strong {
-  color: var(--dark);
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
 .impact-actions,
 .contact-quick-actions {
   display: flex;
@@ -4719,13 +4697,8 @@ p,
 }
 
 @media (max-width: 900px) {
-  .hero-trust,
   .impact-proof {
     grid-template-columns: 1fr;
-  }
-
-  .hero-trust span {
-    min-height: auto;
   }
 }
 
@@ -5076,7 +5049,6 @@ p,
 .program-target,
 .hero-badge,
 .hero-kicker,
-.hero-trust,
 .contact-form label,
 .chatbot-message {
   font-family: var(--font-body) !important;
@@ -5123,7 +5095,6 @@ p,
     inset 0 1px 0 rgba(255, 255, 255, .56);
 }
 
-.hero-trust span,
 .impact-proof article,
 .metric-card,
 .contact-form-shell,
@@ -5132,7 +5103,6 @@ p,
   box-shadow: var(--shadow-3d) !important;
 }
 
-.hero-trust span:hover,
 .impact-proof article:hover,
 .metric-card:hover,
 .team-card-modern:hover {
@@ -5219,7 +5189,6 @@ p,
 
 @media (max-width: 900px) {
   .program-card:hover,
-  .hero-trust span:hover,
   .impact-proof article:hover,
   .metric-card:hover,
   .team-card-modern:hover {

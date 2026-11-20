@@ -39,14 +39,14 @@ Todas las secciones principales estan dentro de `<main id="main">`.
 
 | Seccion | ID | Para que sirve |
 |---|---|---|
-| Hero / Inicio | `inicio` | Primera pantalla con nombre de la fundacion y botones principales. |
+| Hero / Inicio | `inicio` | Primera pantalla con nombre de la fundacion y botones principales. Las cifras viven solo en Impacto. |
 | Fundacion | `fundacion` | Presenta la mision general y una imagen de apoyo. |
 | Programas | `programas` | Muestra Semilla, Siembra, Cosecha y Acompanamiento Psicosocial. |
 | Impacto | `impacto` | Muestra metricas con contadores animados. |
-| Testimonios | `testimonios` | Incluye opiniones o historias de beneficiarios y comunidad. |
+| Testimonios | `testimonios` | Videos de testimonios y, debajo, los videos institucionales ("Conoce nuestra mision" y "Momentos de impacto"). |
 | Momentos | `momentos` | Linea de tiempo con hitos del ano. |
 | Equipo | `equipo` | Carrusel horizontal de integrantes. |
-| Videos | `videos` | Enlaces visuales a redes oficiales de la fundacion. |
+| Informes | `informes` | Informes de gestion y documento legal. Va antes de Contacto: primero la prueba, luego la peticion. |
 | Contacto | `contacto` | Datos de contacto y formulario que abre WhatsApp. |
 | Footer | sin ID principal | Enlaces finales y redes sociales. |
 
@@ -122,17 +122,11 @@ Cada integrante esta dentro de:
 
 Edita la imagen, el nombre, el rol y los datos de `team-meta`. El carrusel se ajusta automaticamente porque `assets/js/modules/team-slider.js` detecta todas las tarjetas con la clase `.team-card-modern`.
 
-### Cambiar redes visuales
+### Cambiar videos
 
-Archivo: `src/index.html`
+Archivo: `src/index.html`, seccion `#testimonios`
 
-La seccion actual muestra tarjetas visuales que enlazan a los canales oficiales. Cada tarjeta usa una imagen local y un enlace externo:
-
-```html
-<a class="video-link-card" href="https://www.instagram.com/amigoscomoarroz">
-```
-
-Si mas adelante tienes videos oficiales, puedes reemplazar estos enlaces por botones `.video-lazy` con el ID real del video.
+Cada video es un `<button class="local-video-loader" data-video-src="assets/videos/…mp4" data-poster="…webp">` con su poster dentro. `lazy-videos.js` solo descarga el MP4 al pulsarlo. Para cambiar un video, reemplaza el archivo en `assets/videos/` y su poster en `assets/img/opt/`.
 
 ### Cambiar WhatsApp
 
