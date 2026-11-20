@@ -16,7 +16,7 @@ Abrir el HTML con doble clic ya no sirve: las paginas usan datos de plantilla y 
 - `src/index.html`: contenido de la pagina principal.
 - `src/programas/` y `src/sede-espinal/`: paginas internas (solo su contenido; cabecera y pie salen de `src/_includes/layouts/interna.njk`).
 - `src/_data/site.json`: WhatsApp, correo, redes y versiones de cache, escritos una sola vez.
-- `assets/css/tokens.css` y `assets/css/styles.css`: colores, tamanos, animaciones y version movil.
+- `assets/css/sitio.css`: colores, tipografia, pantallas, barra flotante y version movil (todo el estilo).
 - `assets/js/modules/`: interacciones, un archivo por funcionalidad (`main.js` los arranca).
 
 La estructura completa de carpetas esta en [`GUIA_PROGRAMADOR.md`](GUIA_PROGRAMADOR.md).
@@ -29,7 +29,7 @@ Piensa en la pagina como tres capas:
 2. `assets/css/` es la presentacion: colores, distribucion, sombras, tamanos, movimiento y version movil.
 3. `assets/js/modules/` es el comportamiento: acciones que pasan despues de hacer clic, scrollear, cargar la pagina o enviar el formulario.
 
-Cuando quieras cambiar algo visual, ubica el elemento en `src/index.html` y luego busca su clase en `assets/css/styles.css`.
+Cuando quieras cambiar algo visual, ubica el elemento en `src/index.html` y luego busca su clase en `assets/css/sitio.css`.
 
 Cuando quieras cambiar una interaccion, busca el `id` o la clase en `assets/js/modules/config.js` (`SELECTORS`) y abre el modulo que la usa.
 
@@ -145,38 +145,33 @@ Con cambiarlo ahi se actualizan todos los enlaces de las paginas, el pie, el cha
 
 ## Guia del CSS
 
-Archivos: `assets/css/tokens.css` (variables y orden de capas) y `assets/css/styles.css` (estilos, dentro de `@layer legacy`).
+Archivo: `assets/css/sitio.css` (todo el estilo, en capas). La direccion visual esta en [`../DESIGN.md`](../DESIGN.md): estilo de presentacion de marca: pantalla de entrada, foto enmarcada en el inicio, capitulos numerados, titulos anchos en mayuscula y una barra flotante abajo con todas las acciones.
 
 ### Variables globales
 
-Los colores, tipografia, radios y sombras estan en `tokens.css`:
+Al inicio de `sitio.css` (capa `tokens`):
 
 ```css
---color-brand-500: #c96f4a;
---color-accent-500: #d96f84;
---shadow-1 / --shadow-2 / --shadow-3
+--vacio: #0b0b0f;      /* fondo */
+--rosa: #e0245e;       /* unico color de estado */
+--sol: #f6c21c;        /* solo cifras */
+--f-display / --f-texto
 ```
-
-Si quieres cambiar la identidad visual completa, empieza por esas variables. Los nombres antiguos (`--orange`, `--pink`…) son alias de los nuevos.
 
 ### Clases base importantes
 
 | Clase | Uso |
 |---|---|
-| `.container` | Limita el ancho del contenido y lo centra. |
-| `.section` | Da espacio vertical entre secciones. |
-| `.section-header` | Agrupa titulo, etiqueta y descripcion de una seccion. |
+| `.pantalla` | Seccion de al menos la altura de la ventana, con la leyenda abajo. |
+| `.pantalla-fondo` | Foto a sangre detras de la leyenda, con velo para leer. |
+| `.pantalla-cuerpo` | La leyenda: titulo, texto, botones y linea de autor. |
+| `.carrusel` / `.historia` | Fila deslizable de tarjetas verticales (actividades, videos, momentos, equipo). |
 | `.btn` | Estilo base de botones. |
-| `.reveal` | Elementos que aparecen con animacion al hacer scroll. |
-| `.visible` | Clase que JavaScript agrega cuando un elemento ya debe mostrarse. |
+| `.reveal` | Leyendas que entran una vez al llegar a su pantalla. |
 
 ### Responsive
 
-Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS historico todavia tiene otros (`max-width: 640px`, `980px`…; 13 en total); si algo se ve mal en celular, busca la clase y revisa sus `@media`.
-
-### Importante sobre el CSS actual
-
-`styles.css` ya se limpio en parte (declaraciones muertas, reglas repetidas fusionadas y `!important` sobrantes; ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)). Para codigo nuevo usa una capa posterior (`@layer components { … }`): le gana a `legacy` sin `!important`.
+Puntos de corte: 480, 560, 640, 760, 900 y 1080 px. Hasta 1079 px los enlaces de la barra flotante se abren en un panel encima de ella; Donar, WhatsApp y el asistente siguen siempre a la vista.
 
 ## Guia del JavaScript
 
@@ -196,7 +191,7 @@ Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS hist
 ### Riesgos o puntos a mejorar
 
 1. CSS historico todavia grande.
-   Ya se fusionaron las reglas repetidas, pero quedan 186 `!important` y 13 puntos de corte. Un cambio visual en `styles.css` puede chocar con otra regla; el codigo nuevo debe ir en una capa posterior.
+   Resuelto en el rediseño: `sitio.css` reemplazo al CSS historico (unas 7.900 lineas con 186 `!important`) por unas 850 lineas en capas, sin `!important` salvo `[hidden]` y movimiento reducido.
 
 2. Abrir el HTML con doble clic no funciona.
    Hay que usar `npm start` (Eleventy y modulos de JavaScript).
@@ -211,7 +206,7 @@ Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS hist
    El contacto abre WhatsApp, pero no guarda mensajes en una base de datos ni envia correo. Si se necesita historial, hay que conectar un backend, Formspree, Netlify Forms o servicio similar.
 
 6. JavaScript asume que algunos elementos existen.
-   Como la pagina actual si los tiene, funciona. Pero si en el futuro se elimina `#hero-content`, `#contact-form`, `#reading-progress-bar` o `.menu-toggle`, el script puede fallar. Para hacerlo mas robusto, se pueden agregar validaciones antes de usar esos elementos.
+   Como la pagina actual si los tiene, funciona. Pero si en el futuro se elimina `#contact-form`, `#historias` o `.menu-toggle`, el script puede fallar. Para hacerlo mas robusto, se pueden agregar validaciones antes de usar esos elementos.
 
 7. Formulario sin envio por correo real.
    Actualmente el formulario abre WhatsApp. Si se necesita envio automatico a correo, hay que conectar un servicio externo o backend.
@@ -220,7 +215,7 @@ Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS hist
 
 ### Cambiar colores principales
 
-Edita las variables `--color-*` en `assets/css/tokens.css` y sube `cache.tokens` en `src/_data/site.json`.
+Edita los tokens al inicio de `assets/css/sitio.css` (`--rosa`, `--sol`, `--vacio`…) y sube `cache.sitio` en `src/_data/site.json`.
 
 ### Cambiar el telefono de contacto
 
@@ -232,9 +227,9 @@ grep -rn "573187073308" src assets/js
 
 ### Agregar una seccion nueva
 
-1. Crea un bloque `<section class="section" id="nuevo-id">` en `src/index.html`.
+1. Crea un bloque `<section class="pantalla" id="nuevo-id" aria-labelledby="…">` en `src/index.html` (con `.pantalla-fondo` si lleva foto y la leyenda en `.pantalla-cuerpo`). El indicador de arriba suma su segmento solo.
 2. Agrega un enlace en el menu: `<a class="nav-link" href="#nuevo-id">Nombre</a>`.
-3. Agrega estilos en `assets/css/styles.css` si necesita diseno especial.
+3. Agrega estilos en `assets/css/sitio.css` (capa `sections`) si necesita diseno especial.
 4. Si quieres animacion, agrega la clase `reveal` a los elementos internos.
 
 ### Agregar una tarjeta con animacion
@@ -260,7 +255,6 @@ Mantener `alt` es importante para accesibilidad.
 ## Recomendaciones de mantenimiento
 
 - Mantener `assets/` para logo, imagenes propias y recursos locales.
-- Seguir limpiando `assets/css/styles.css` seccion por seccion y moverlo a las capas `components`/`sections`.
 - Despues de tocar un CSS o JS, subir su version en `cache` de `src/_data/site.json`.
 - Reemplazar nombres e imagenes genericas del equipo por informacion real.
 - Probar siempre en computador y celular despues de tocar header, hero, contacto o responsive.

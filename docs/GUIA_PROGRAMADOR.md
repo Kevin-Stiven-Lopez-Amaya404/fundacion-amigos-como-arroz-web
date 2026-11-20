@@ -11,6 +11,7 @@ Sitio institucional estático: HTML, CSS y JavaScript puro, sin framework, base 
 npm install      # solo la primera vez (Node.js 18 o superior)
 npm start        # servidor local en http://localhost:8080 que se recarga al guardar
 npm run build    # compila en _site/ (lo mismo que hace Vercel)
+npm run vendor:motion   # solo si cambias la versión de motion o lo que se importa de él
 ```
 
 Abrir el HTML con doble clic **no sirve**: las páginas de `src/` llevan etiquetas de plantilla (`{{ site.whatsapp }}`) y el JavaScript usa módulos ES, que el navegador no carga desde `file://`. Usa siempre `npm start`.
@@ -28,16 +29,19 @@ landign-/
       semilla.html · siembra.html · cosecha.html · psicosocial.html
     sede-espinal/index.html         Sede Espinal
   assets/                           Se copia tal cual a _site/assets/
-    css/tokens.css                  Variables de diseño y orden de capas (@layer)
-    css/styles.css                  Estilos del sitio, dentro de @layer legacy
+    css/sitio.css                   Todo el estilo del sitio, en capas (@layer)
+    fonts/                          Unbounded, Schibsted Grotesk y Space Mono
     css/seasonal/navidad.css        Temporada navideña
     js/main.js                      Arranca los módulos de la portada
     js/modules/                     Un archivo por funcionalidad
     js/seasonal.js · js/analytics.js
+    js/vendor/motion.js             motion empaquetado (generado; no se edita a mano)
     img/opt/                        Imágenes WebP que usan las páginas
     img/{brand,hero,content,team}/  Originales
     videos/
   informes/                         PDF de informes de gestión
+  api/chat.mjs                      Función de Vercel: el chat responde con Claude (POST /api/chat)
+  api/_contexto.mjs                 Instrucciones y datos de la fundación que recibe el asistente
   eleventy.config.mjs               Qué se copia, el filtro whatsapp y las URL .html
   vercel.json                       Vercel ejecuta npm run build y publica _site/
   docs/                             Esta documentación y las auditorías
@@ -73,7 +77,7 @@ Las URL publicadas no cambian: `src/programas/semilla.html` se publica como `/pr
 |---|---|
 | `whatsapp`, `whatsappLabel` | Número para `wa.me` y cómo se muestra. También lo lee el JavaScript. |
 | `email`, `instagram`, `facebook` | Pie de página y enlaces de contacto. |
-| `cache` | Número de versión de cada CSS/JS (`styles.css?v=58`). |
+| `cache` | Número de versión de cada CSS/JS (`sitio.css?v=1`). |
 
 En las páginas se usan así:
 
@@ -93,8 +97,9 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | Contenido de un programa | `src/programas/<programa>.html` (y su tarjeta en `src/index.html`, sección `#programas`) |
 | `<head>`, cabecera o pie de las páginas internas | `src/_includes/layouts/interna.njk` |
 | WhatsApp, correo o redes | `src/_data/site.json` |
-| Colores, tipografía, radios o sombras | `assets/css/tokens.css` |
-| Aspecto de un componente | `assets/css/styles.css` |
+| Lo que sabe el asistente del chat | `api/_contexto.mjs` |
+| Colores, tipografía, radios o sombras | tokens al inicio de `assets/css/sitio.css` |
+| Aspecto de un componente | su bloque en `assets/css/sitio.css` |
 | Una interacción | su módulo en `assets/js/modules/` |
 | Activar o apagar la Navidad | `SEASON_CONFIG.mode` en `assets/js/seasonal.js` |
 
@@ -118,24 +123,28 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `config.js` | Selectores, preferencias de movimiento (`shouldLimitMotion`) y contacto. |
 | `menu.js` | Menú hamburguesa: abrir/cerrar, foco en la primera entrada, Escape, `aria-expanded`. |
 | `meta.js` | Año actual del pie. |
-| `hero.js` | Entrada y movimiento suave de la portada. |
 | `active-section.js` | Marca en el menú la sección visible. |
-| `reveal.js` | Aparición de `.reveal` y contadores `data-counter`. |
-| `scroll-state.js` | Barra de progreso, header que se oculta y botón de subir. |
+| `reveal.js` | Aparición de `.reveal` (escalonada entre los que entran juntos) y contadores `data-counter`. |
+| `portada.js` | Pantalla de entrada, secuencia de palabras con el scroll y punto rosa del cursor. |
 | `contact-form.js` | Valida el formulario y abre WhatsApp con el mensaje. |
 | `team-slider.js` | Carrusel del equipo. |
 | `lazy-videos.js` | Carga los videos al pulsar. |
-| `story-book.js` | Libro de historias. |
-| `chatbot.js` | Asistente con preguntas frecuentes. |
+| `story-book.js` | Visor de la historia institucional: una página a la vez, con indicador segmentado. |
+| `chatbot.js` | Asistente: las preguntas rápidas responden al instante; lo que se escribe lo responde Claude por `/api/chat` y, si falla, una respuesta fija. |
+| `historias.js` | Indicador segmentado de arriba (un segmento por pantalla, se llena con `scroll()` de `motion`) y botón Compartir de la barra. |
 
 Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 
 ## 8. Estilos (CSS)
 
-- `tokens.css` declara el orden de capas `tokens, legacy, base, layout, components, sections, utilities` y las variables (`--color-*`, `--radius-*`, `--shadow-1/2/3`…). Usa los nombres `--color-*` en código nuevo.
-- `styles.css` está entero dentro de `@layer legacy`. Es el CSS histórico, ya consolidado en parte (ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)).
-- Código nuevo: ponlo en una capa posterior (`components`, `sections`…). Le gana a `legacy` sin subir la especificidad ni usar `!important`.
-- Puntos de corte para código nuevo: 560, 840 y 1080 px. El CSS histórico usa 13 valores de `max-width` (420, 560, 640, 720, 760, 768, 820, 840, 860, 900, 980, 1023 y 1079); no agregues otros.
+El sitio tiene una sola hoja, `assets/css/sitio.css`, más `seasonal/navidad.css`. La dirección visual (presentación de marca) está descrita en [`../DESIGN.md`](../DESIGN.md).
+
+- **Capas:** `@layer reset, tokens, base, layout, components, sections, utilities`. Una regla de una capa posterior gana sin subir la especificidad. No hay `!important` salvo `[hidden]` y el modo de movimiento reducido.
+- **Tokens** (en la capa `tokens`): fondo `--vacio` y grafitos (`--tinta`, `--grafito`), texto `--texto`/`--texto-2`/`--texto-3`, `--rosa` (acción) y `--rosa-boton`, `--sol` (cifras y brillos), `--crema` para la sección clara de Momentos, `--brillo` y `--velo` sobre fotos, tipos `--f-display` (Unbounded), `--f-texto` (Schibsted Grotesk) y `--f-mono` (Space Mono), servidos desde `assets/fonts/`.
+- **Pantalla** (`.pantalla`): cada sección ocupa al menos la altura de la ventana. El inicio enmarca la foto (`--marco`); Fundación y los programas ponen la foto enmarcada al lado del texto; Sede Espinal va a sangre con la palabra gigante. `.pantalla--larga` es para secciones de lectura.
+- **Barra flotante** (`.site-header` en la portada, `.program-detail-header` en las internas): píldora fija abajo al centro con todas las acciones; el pie deja libre su alto con `--pie-libre`.
+- **Capítulo** (`.eyebrow`): «■ 01 Fundación» en monoespaciada encima del título; el número sale de un contador CSS por sección visible.
+- **Puntos de corte:** 480, 560, 640, 759/760, 899/900 y 1079/1080 px.
 
 ## 9. Formulario
 
@@ -162,6 +171,5 @@ Después abre `npm start` y revisa la portada y una página interna a 390 px y e
 
 ## 12. Riesgos conocidos
 
-- `styles.css` aún tiene 186 `!important` y 13 puntos de corte; se van a limpiar sección por sección.
 - El formulario depende de WhatsApp.
 - Antes de publicar, revisar datos reales: teléfono, correo, redes, nombres, fotos y permisos de imágenes.

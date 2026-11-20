@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!--
-    Landing page animada para Fundación Amigos Como Arroz
-    Versión con:
-    - Header superior blanco
-    - Menú naranja
-    - Hero visual con animaciones
-    - Tipografía cálida y amigable
-    - Scroll reveal, parallax suave, contador y barra de progreso
-    - Responsive + accesibilidad
-  -->
+  <!-- Portada de la Fundación Amigos Como Arroz: una historia por pantalla (ver docs/GUIA_PROGRAMADOR.md). -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -19,7 +10,7 @@
     content="Fundación Amigos Como Arroz en Neiva, Huila: educación, acompañamiento social, liderazgo y oportunidades para niños, jóvenes y familias."
   />
 
-  <meta name="theme-color" content="#f37021" />
+  <meta name="theme-color" content="#060608" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fundacionamigoscomoarroz.com/" />
   <title>Fundación Amigos Como Arroz | Educación y oportunidades</title>
@@ -43,22 +34,20 @@
   <link rel="apple-touch-icon" href="assets/img/brand/logo-fundacion.jpg" />
   <link rel="manifest" href="site.webmanifest" />
 
-  <!-- Optimizaciones de rendimiento -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700;800&display=swap"
-    rel="stylesheet"
-  />
-  <link href="assets/css/tokens.css?v={{ site.cache.tokens }}" rel="stylesheet" />
-  <link href="assets/css/styles.css?v={{ site.cache.styles }}" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link href="assets/css/sitio.css?v={{ site.cache.sitio }}" rel="stylesheet" />
   <!-- Temporada (Navidad). Se enciende/apaga en assets/js/seasonal.js -->
   <link href="assets/css/seasonal/navidad.css?v={{ site.cache.navidad }}" rel="stylesheet" />
   <script src="assets/js/seasonal.js?v={{ site.cache.seasonal }}"></script>
+  <!-- Pantalla de entrada: solo en la primera visita de la sesión y nunca si se llega con un enlace a una sección -->
+  <script>try{if(!location.hash&&sessionStorage.getItem("entrada")!=="1")document.documentElement.classList.add("con-entrada")}catch(e){}</script>
   <link
     rel="preload"
     as="image"
-    href="assets/img/hero/duenos-hero-clean.jpg"
+    href="assets/img/opt/img-hero-duenos-hero-clean-868.webp"
+    imagesrcset="assets/img/opt/img-hero-duenos-hero-clean-480.webp 480w, assets/img/opt/img-hero-duenos-hero-clean-868.webp 868w"
+    imagesizes="(max-width: 899px) 100vw, 58vw"
     fetchpriority="high"
   />
   <script type="application/ld+json">
@@ -83,28 +72,32 @@
       ]
     }
   </script>
-
 </head>
 
 <body>
   <a class="skip-link" href="#main">Saltar al contenido principal</a>
 
-  <!-- Barra de progreso de lectura -->
-  <div class="reading-progress" aria-hidden="true">
-    <span id="reading-progress-bar"></span>
+  <!-- Entrada: pantalla de bienvenida con un botón central. Solo con JS, una vez por sesión y nunca si se llega con un enlace a una sección (assets/js/modules/portada.js) -->
+  <div class="entrada" id="entrada">
+    <div class="entrada-fondo" aria-hidden="true"></div>
+    <img class="entrada-logo" src="assets/img/opt/img-brand-logo-fundacion-160.webp" width="160" height="160" alt="" decoding="async" />
+    <p class="entrada-titulo" aria-hidden="true"><span>Amigos</span><span>Como Arroz</span></p>
+    <button class="entrada-boton" type="button" aria-label="Entrar al sitio de la Fundación Amigos Como Arroz">
+      <span>Entrar</span>
+    </button>
+    <p class="entrada-lema">[ Sembrando esperanza, cosechando futuro ]</p>
   </div>
 
-  <!-- =========================================================
-       Header delicado / navegación institucional
-       ========================================================= -->
+  <!-- Indicador segmentado: un segmento por pantalla (lo arma assets/js/modules/historias.js) -->
+  <nav class="historias" id="historias" aria-label="Historias de la página"></nav>
+
+  <!-- Barra de navegación flotante (abajo, en forma de píldora) -->
   <header class="site-header" id="site-header">
-    <nav class="nav-shell container" aria-label="Navegación principal">
+    <nav class="nav-shell" aria-label="Navegación principal">
       <a class="brand" href="#inicio" aria-label="Fundación Amigos Como Arroz, inicio">
         <img
           class="logo-mark"
           src="assets/img/opt/img-brand-logo-fundacion-160.webp"
-            srcset="assets/img/opt/img-brand-logo-fundacion-160.webp 160w"
-            sizes="(max-width: 760px) 22vw, 124px"
           width="160"
           height="160"
           alt="Logo Fundación Amigos Como Arroz"
@@ -113,25 +106,19 @@
       </a>
 
       <ul class="nav-list" id="nav-list">
-        <li class="nav-item--cta">
-          <a
-            class="nav-donate"
-            href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics-event="clic_donar"
-            data-analytics-category="contacto"
-            data-analytics-label="Menú - donar"
-          >Donar</a>
-        </li>
         <li><a class="nav-link" href="#fundacion">Fundación</a></li>
         <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
         <li><a class="nav-link" href="#programas">Programas</a></li>
         <li><a class="nav-link" href="#impacto">Impacto</a></li>
         <li><a class="nav-link" href="#contacto">Contacto</a></li>
         <li><a class="nav-link" href="#informes">Informes</a></li>
+        <li class="nav-item--compartir">
+          <button class="nav-compartir" type="button" data-compartir>
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4z"/></svg>
+            <span>Compartir</span>
+          </button>
+        </li>
       </ul>
-
 
       <button
         class="menu-toggle"
@@ -144,64 +131,79 @@
         <span></span>
         <span></span>
       </button>
+
+      <a
+        class="nav-donate"
+        href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-analytics-event="clic_donar"
+        data-analytics-category="contacto"
+        data-analytics-label="Menú - donar"
+      >Donar</a>
+      <a
+        class="pill-icono"
+        href="{{ 'Hola, quiero recibir información sobre la Fundación Amigos Como Arroz.' | whatsapp }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Escribir por WhatsApp"
+        data-analytics-event="clic_whatsapp_flotante"
+        data-analytics-category="contacto"
+        data-analytics-label="Barra - WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5zm4.4 12.5c-.18.5-1.06.97-1.47 1.03-.38.05-.85.08-1.37-.09-.32-.1-.72-.24-1.24-.46-2.18-.96-3.6-3.18-3.71-3.33-.11-.15-.89-1.2-.89-2.28 0-1.09.57-1.62.77-1.84.2-.22.44-.28.59-.28h.42c.14 0 .32-.05.5.38.18.43.62 1.49.67 1.6.06.11.09.24.02.38-.07.15-.11.24-.22.37-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.25 1.56.86.77 1.59 1.01 1.81 1.12.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.29-.18.5-.11.2.07 1.27.6 1.49.71.22.11.37.16.42.25.05.09.05.53-.13 1.03z"/></svg>
+      </a>
+      <button
+        class="pill-icono"
+        type="button"
+        id="chatbotToggle"
+        aria-controls="chatbotPanel"
+        aria-expanded="false"
+        aria-label="Abrir asistente de ayuda"
+      >
+        <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg>
+      </button>
     </nav>
   </header>
 
   <div class="menu-backdrop" id="menu-backdrop" hidden></div>
 
   <main id="main">
-    <!-- =========================================================
-         Inicio / Hero
-         ========================================================= -->
-    <section class="hero" id="inicio" aria-label="Galería principal de la fundación">
-      <div class="hero-gallery" aria-hidden="true">
-        <figure class="hero-slide hero-slide--single-photo is-active">
-          <img
-            src="assets/img/opt/img-hero-duenos-hero-clean-868.webp"
-            srcset="assets/img/opt/img-hero-duenos-hero-clean-480.webp 480w, assets/img/opt/img-hero-duenos-hero-clean-868.webp 868w"
-            sizes="(max-width: 760px) 100vw, 1440px"
-            alt=""
-            width="868"
-            height="606"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </figure>
+    <!-- Inicio -->
+    <section class="pantalla hero" id="inicio" aria-labelledby="hero-title">
+      <div class="pantalla-fondo pantalla-fondo--encaje" aria-hidden="true">
+        <img
+          class="relleno"
+          src="assets/img/opt/img-hero-duenos-hero-clean-480.webp"
+          alt=""
+          width="480"
+          height="335"
+          decoding="async"
+        />
+        <img
+          class="nitida"
+          src="assets/img/opt/img-hero-duenos-hero-clean-868.webp"
+          srcset="assets/img/opt/img-hero-duenos-hero-clean-480.webp 480w, assets/img/opt/img-hero-duenos-hero-clean-868.webp 868w"
+          sizes="(max-width: 899px) 100vw, 58vw"
+          alt=""
+          width="868"
+          height="606"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
       </div>
 
-      <!-- Curva blanca inferior -->
-      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-        <path
-          fill="currentColor"
-          d="M0,40 C180,110 320,120 520,92 C740,62 910,18 1110,34 C1260,46 1360,86 1440,104 L1440,120 L0,120 Z"
-        />
-      </svg>
-    </section>
-
-    <section class="hero-intro" aria-labelledby="hero-title">
-      <div class="hero-content container" id="hero-content">
-        <span class="hero-badge">
-          <span class="hero-badge-dot" aria-hidden="true"></span>
-          Neiva, Huila · educación · comunidad
-        </span>
-        <a class="xmas-hero-pill" href="#navidad" data-season-only="navidad" hidden>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-            <path d="M12 2l2.6 6.4L21 9.2l-5 4.4 1.5 6.6L12 16.8 6.5 20.2 8 13.6 3 9.2l6.4-.8z"/>
-          </svg>
-          Campaña de Navidad: regala oportunidades
-        </a>
+      <div class="pantalla-cuerpo hero-content" id="hero-content">
+        <h1 class="hero-title" id="hero-title"><span>Amigos</span> <span>Como Arroz</span></h1>
         <p class="hero-kicker">Acompañamos procesos educativos y sociales</p>
-        <h1 class="hero-title" id="hero-title">Amigos Como Arroz</h1>
         <p class="hero-description">
           Impulsamos a <span class="highlight-text">niños, jóvenes y familias</span>
           con programas de educación, liderazgo, bienestar psicosocial y comunidad
           para construir proyectos de vida con esperanza.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-pink" href="#contacto">
-            <span>Quiero apoyar la misión</span>
-          </a>
+          <a class="btn btn-pink" href="#contacto">Quiero apoyar la misión</a>
           <a
             class="btn btn-whatsapp"
             href="{{ 'Hola, quiero apoyar a la Fundación Amigos Como Arroz.' | whatsapp }}"
@@ -215,493 +217,527 @@
           </a>
           <a class="hero-link" href="#programas">Conocer programas <span aria-hidden="true">&rarr;</span></a>
         </div>
+        <a class="xmas-hero-pill" href="#navidad" data-season-only="navidad" hidden>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M12 2l2.6 6.4L21 9.2l-5 4.4 1.5 6.6L12 16.8 6.5 20.2 8 13.6 3 9.2l6.4-.8z"/>
+          </svg>
+          Campaña de Navidad: regala oportunidades
+        </a>
+        <p class="eyebrow hero-badge">Neiva, Huila · educación · comunidad</p>
+      </div>
+
+      <p class="hero-sello" aria-hidden="true">Amigos Como Arroz<small>Fundación · Neiva y Espinal</small></p>
+
+      <a class="siguiente" href="#actividades">
+        <span>Sigue</span>
+        <strong>Talentos que crecen fuera del aula</strong>
+        <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </section>
+
+    <!-- Secuencia de palabras: repite, palabra por palabra con el scroll, lo que dice el inicio (decorativa: aria-hidden) -->
+    <div class="ciclo" aria-hidden="true">
+      <div class="ciclo-fijo">
+        <p class="ciclo-frase">Impulsamos a niños, jóvenes y familias con…</p>
+        <ul class="ciclo-palabras">
+          <li>Educación</li>
+          <li>Liderazgo</li>
+          <li>Bienestar</li>
+          <li>Comunidad</li>
+        </ul>
+        <div class="ciclo-puntos"><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- Campaña de temporada (Navidad): solo se muestra con la temporada activa (assets/js/seasonal.js) -->
+    <section class="pantalla xmas-campaign" id="navidad" aria-labelledby="xmas-title" data-season-only="navidad" hidden>
+      <div class="xmas-campaign-visual" aria-hidden="true">
+        <svg viewBox="0 0 240 230">
+          <path d="M10 14 C70 40 170 40 230 14" fill="none" stroke="#d4a64a" stroke-width="2" opacity=".7"/>
+          <g class="xmas-ornament">
+            <line x1="60" y1="24" x2="60" y2="96" stroke="#f3e2b8" stroke-width="1.5"/>
+            <rect x="52" y="92" width="16" height="10" rx="2" fill="#d4a64a"/>
+            <circle cx="60" cy="132" r="32" fill="#9e1b32"/>
+            <path d="M32 126 Q60 140 88 126" fill="none" stroke="#f3e2b8" stroke-width="2.5" opacity=".75"/>
+            <circle cx="49" cy="118" r="7" fill="#fff" opacity=".25"/>
+          </g>
+          <g class="xmas-ornament">
+            <line x1="120" y1="33" x2="120" y2="140" stroke="#f3e2b8" stroke-width="1.5"/>
+            <rect x="111" y="136" width="18" height="11" rx="2" fill="#d4a64a"/>
+            <circle cx="120" cy="182" r="38" fill="#d4a64a"/>
+            <path d="M120 160 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z" fill="#9e1b32"/>
+            <circle cx="106" cy="168" r="8" fill="#fff" opacity=".3"/>
+          </g>
+          <g class="xmas-ornament">
+            <line x1="182" y1="24" x2="182" y2="80" stroke="#f3e2b8" stroke-width="1.5"/>
+            <rect x="175" y="76" width="14" height="9" rx="2" fill="#d4a64a"/>
+            <circle cx="182" cy="110" r="26" fill="#2f7a52"/>
+            <circle cx="182" cy="110" r="26" fill="none" stroke="#f3e2b8" stroke-width="2" stroke-dasharray="3 6" opacity=".8"/>
+            <circle cx="173" cy="100" r="6" fill="#fff" opacity=".25"/>
+          </g>
+        </svg>
+      </div>
+      <div class="pantalla-cuerpo xmas-campaign-copy reveal">
+        <h2 id="xmas-title">Esta Navidad, <em>regala oportunidades.</em></h2>
+        <p class="lead">
+          Tu aporte se convierte en formación, becas y acompañamiento para niños, jóvenes
+          y familias de Neiva y Espinal. Sembremos juntos un nuevo año lleno de esperanza.
+        </p>
+        <p class="xmas-countdown" data-xmas-countdown aria-live="off"></p>
+        <div class="xmas-actions">
+          <a
+            class="btn btn-pink xmas-btn-primary"
+            href="{{ 'Hola, quiero hacer una donación de Navidad a la Fundación Amigos Como Arroz.' | whatsapp }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="clic_donar"
+            data-analytics-category="navidad"
+            data-analytics-label="Campaña Navidad - donar"
+          >
+            Donar esta Navidad
+          </a>
+          <a
+            class="btn btn-secondary xmas-btn-ghost"
+            href="{{ 'Hola, quiero ser voluntario en las actividades de Navidad de la fundación.' | whatsapp }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="clic_voluntario"
+            data-analytics-category="navidad"
+            data-analytics-label="Campaña Navidad - voluntariado"
+          >
+            Ser voluntario en Navidad
+          </a>
+        </div>
+        <p class="eyebrow xmas-eyebrow">Temporada navideña</p>
       </div>
     </section>
 
-    <!-- =========================================================
-         Campaña de temporada (Navidad)
-         Solo se muestra cuando la temporada está activa
-         (ver assets/js/seasonal.js). Puedes editar el texto libremente.
-         ========================================================= -->
-    <section class="section xmas-campaign" id="navidad" aria-labelledby="xmas-title" data-season-only="navidad" hidden>
-      <div class="container">
-        <div class="xmas-campaign-card reveal">
-          <div class="xmas-campaign-copy">
-            <span class="xmas-eyebrow">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-                <path d="M12 2l2.6 6.4L21 9.2l-5 4.4 1.5 6.6L12 16.8 6.5 20.2 8 13.6 3 9.2l6.4-.8z"/>
-              </svg>
-              Temporada navideña
-            </span>
-            <h2 id="xmas-title">Esta Navidad, <em>regala oportunidades.</em></h2>
-            <p class="lead">
-              Tu aporte se convierte en formación, becas y acompañamiento para niños, jóvenes
-              y familias de Neiva y Espinal. Sembremos juntos un nuevo año lleno de esperanza.
-            </p>
-            <p class="xmas-countdown" data-xmas-countdown aria-live="off"></p>
-            <div class="xmas-actions">
-              <a
-                class="btn xmas-btn-primary"
-                href="{{ 'Hola, quiero hacer una donación de Navidad a la Fundación Amigos Como Arroz.' | whatsapp }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-analytics-event="clic_donar"
-                data-analytics-category="navidad"
-                data-analytics-label="Campaña Navidad - donar"
-              >
-                Donar esta Navidad
-              </a>
-              <a
-                class="btn xmas-btn-ghost"
-                href="{{ 'Hola, quiero ser voluntario en las actividades de Navidad de la fundación.' | whatsapp }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-analytics-event="clic_voluntario"
-                data-analytics-category="navidad"
-                data-analytics-label="Campaña Navidad - voluntariado"
-              >
-                Ser voluntario en Navidad
-              </a>
-            </div>
-          </div>
-
-          <div class="xmas-campaign-visual" aria-hidden="true">
-            <svg viewBox="0 0 240 230">
-              <path d="M10 14 C70 40 170 40 230 14" fill="none" stroke="#d4a64a" stroke-width="2" opacity=".7"/>
-              <g class="xmas-ornament">
-                <line x1="60" y1="24" x2="60" y2="96" stroke="#f3e2b8" stroke-width="1.5"/>
-                <rect x="52" y="92" width="16" height="10" rx="2" fill="#d4a64a"/>
-                <circle cx="60" cy="132" r="32" fill="#9e1b32"/>
-                <path d="M32 126 Q60 140 88 126" fill="none" stroke="#f3e2b8" stroke-width="2.5" opacity=".75"/>
-                <circle cx="49" cy="118" r="7" fill="#fff" opacity=".25"/>
-              </g>
-              <g class="xmas-ornament">
-                <line x1="120" y1="33" x2="120" y2="140" stroke="#f3e2b8" stroke-width="1.5"/>
-                <rect x="111" y="136" width="18" height="11" rx="2" fill="#d4a64a"/>
-                <circle cx="120" cy="182" r="38" fill="#d4a64a"/>
-                <path d="M120 160 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z" fill="#9e1b32"/>
-                <circle cx="106" cy="168" r="8" fill="#fff" opacity=".3"/>
-              </g>
-              <g class="xmas-ornament">
-                <line x1="182" y1="24" x2="182" y2="80" stroke="#f3e2b8" stroke-width="1.5"/>
-                <rect x="175" y="76" width="14" height="9" rx="2" fill="#d4a64a"/>
-                <circle cx="182" cy="110" r="26" fill="#2f7a52"/>
-                <circle cx="182" cy="110" r="26" fill="none" stroke="#f3e2b8" stroke-width="2" stroke-dasharray="3 6" opacity=".8"/>
-                <circle cx="173" cy="100" r="6" fill="#fff" opacity=".25"/>
-              </g>
-            </svg>
-          </div>
-        </div>
+    <!-- Actividades extracurriculares -->
+    <section class="pantalla pantalla--larga" id="actividades" aria-labelledby="activities-title">
+      <div class="encabezado reveal">
+        <h2 id="activities-title">Talentos que crecen fuera del aula.</h2>
+        <p class="lead">
+          Espacios formativos donde el deporte, el arte, la tecnología y los idiomas fortalecen
+          disciplina, confianza y trabajo en equipo.
+        </p>
+        <p class="eyebrow">Actividades extracurriculares</p>
       </div>
-    </section>
 
-    <!-- =========================================================
-         Actividades extracurriculares
-         ========================================================= -->
-    <section class="section extracurricular-section" id="actividades" aria-labelledby="activities-title">
-      <div class="container">
-        <div class="section-header center reveal">
-          <span class="eyebrow">Actividades extracurriculares</span>
-          <h2 id="activities-title">Talentos que crecen fuera del aula.</h2>
-          <p class="lead">
-            Espacios formativos donde el deporte, el arte, la tecnología y los idiomas fortalecen
-            disciplina, confianza y trabajo en equipo.
-          </p>
-        </div>
-
-        <div class="extracurricular-carousel reveal" role="region" tabindex="0" aria-label="Galería de actividades extracurriculares">
-          <article class="activity-slide">
-            <img
-              src="assets/img/opt/semilla-futbol-kep4527-960.webp"
-            srcset="assets/img/opt/semilla-futbol-kep4527-480.webp 480w, assets/img/opt/semilla-futbol-kep4527-960.webp 960w, assets/img/opt/semilla-futbol-kep4527-1600.webp 1600w"
-            sizes="(max-width: 760px) 83vw, 223px"
-              alt="Niños participando en fútbol formativo"
-              width="1800"
-              height="1013"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="activity-slide-content">
-              <span>Deporte</span>
-              <h3>Fútbol formativo</h3>
-              <p>Disciplina, convivencia y liderazgo desde el juego.</p>
-            </div>
-          </article>
-
-          <article class="activity-slide">
-            <img
-              src="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp"
-            srcset="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-480.webp 480w, assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp 960w, assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-1600.webp 1600w"
-            sizes="(max-width: 760px) 83vw, 223px"
-              alt="Participantes en actividad de danza"
-              width="1800"
-              height="1350"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="activity-slide-content">
-              <span>Arte</span>
-              <h3>Danza</h3>
-              <p>Expresión corporal, alegría y seguridad personal.</p>
-            </div>
-          </article>
-
-          <article class="activity-slide">
-            <img
-              src="assets/img/opt/semilla-patinaje-kep4555-960.webp"
-            srcset="assets/img/opt/semilla-patinaje-kep4555-480.webp 480w, assets/img/opt/semilla-patinaje-kep4555-960.webp 960w, assets/img/opt/semilla-patinaje-kep4555-1600.webp 1600w"
-            sizes="(max-width: 760px) 83vw, 223px"
-              alt="Niños en práctica de patinaje"
-              width="1800"
-              height="1013"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="activity-slide-content">
-              <span>Movimiento</span>
-              <h3>Patinaje</h3>
-              <p>Coordinación, constancia y hábitos saludables.</p>
-            </div>
-          </article>
-
-          <article class="activity-slide">
-            <img
-              src="assets/img/opt/semilla-robotica-kep4489-960.webp"
-            srcset="assets/img/opt/semilla-robotica-kep4489-480.webp 480w, assets/img/opt/semilla-robotica-kep4489-960.webp 960w, assets/img/opt/semilla-robotica-kep4489-1600.webp 1600w"
-            sizes="(max-width: 760px) 83vw, 223px"
-              alt="Niños aprendiendo robótica"
-              width="1800"
-              height="1013"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="activity-slide-content">
-              <span>Tecnología</span>
-              <h3>Robótica</h3>
-              <p>Creatividad, pensamiento lógico y solución de problemas.</p>
-            </div>
-          </article>
-
-          <article class="activity-slide">
-            <img
-              src="assets/img/opt/semilla-ingles-kep4501-960.webp"
-            srcset="assets/img/opt/semilla-ingles-kep4501-480.webp 480w, assets/img/opt/semilla-ingles-kep4501-960.webp 960w, assets/img/opt/semilla-ingles-kep4501-1600.webp 1600w"
-            sizes="(max-width: 760px) 83vw, 223px"
-              alt="Niños en actividad de inglés"
-              width="1800"
-              height="1013"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="activity-slide-content">
-              <span>Idiomas</span>
-              <h3>Inglés</h3>
-              <p>Nuevas herramientas para comunicarse y soñar en grande.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         Fundación / About
-         ========================================================= -->
-    <section class="section" id="fundacion" aria-labelledby="about-title">
-      <div class="about-grid container">
-        <div class="about-card reveal">
+      <div class="carrusel extracurricular-carousel" role="region" tabindex="0" aria-label="Galería de actividades extracurriculares">
+        <article class="historia activity-slide">
           <img
-            src="assets/img/opt/img-content-programa-semilla-deporte-833.webp"
-            srcset="assets/img/opt/img-content-programa-semilla-deporte-480.webp 480w, assets/img/opt/img-content-programa-semilla-deporte-833.webp 833w"
-            sizes="(max-width: 760px) 85vw, 459px"
-            alt="Jóvenes y voluntarios trabajando juntos"
+            src="assets/img/opt/semilla-futbol-kep4527-960.webp"
+            srcset="assets/img/opt/semilla-futbol-kep4527-480.webp 480w, assets/img/opt/semilla-futbol-kep4527-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Niños participando en fútbol formativo"
+            width="1800"
+            height="1013"
             loading="lazy"
             decoding="async"
-            width="833"
-            height="1080"
           />
-          <div class="about-badge">
-            <strong>19 años</strong>
-            <span>acompañando procesos educativos y sociales.</span>
-          </div>
-        </div>
+          <span class="etiqueta">Deporte</span>
+          <h3>Fútbol formativo</h3>
+          <p>Disciplina, convivencia y liderazgo desde el juego.</p>
+        </article>
 
-        <div class="about-content reveal">
-          <span class="eyebrow">Fundación</span>
-          <h2 id="about-title">Educación que <span class="highlight-text">transforma vidas</span>.</h2>
-          <p class="lead">
-            Trabajamos con niños, jóvenes y familias mediante programas que fortalecen el aprendizaje,
-            el liderazgo, la permanencia educativa y el bienestar psicosocial.
-          </p>
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp"
+            srcset="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-480.webp 480w, assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Participantes en actividad de danza"
+            width="1800"
+            height="1350"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Arte</span>
+          <h3>Danza</h3>
+          <p>Expresión corporal, alegría y seguridad personal.</p>
+        </article>
 
-          <ul class="check-list">
-            <li>
-              <span class="check-icon" aria-hidden="true">&#10003;</span>
-              <span>Apoyo pedagógico y social para niños, jóvenes y familias.</span>
-            </li>
-            <li>
-              <span class="check-icon" aria-hidden="true">&#10003;</span>
-              <span>Programas culturales, deportivos, productivos y educativos.</span>
-            </li>
-            <li>
-              <span class="check-icon" aria-hidden="true">&#10003;</span>
-              <span>Acompañamiento integral para construir proyectos de vida.</span>
-            </li>
-          </ul>
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-patinaje-kep4555-960.webp"
+            srcset="assets/img/opt/semilla-patinaje-kep4555-480.webp 480w, assets/img/opt/semilla-patinaje-kep4555-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Niños en práctica de patinaje"
+            width="1800"
+            height="1013"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Movimiento</span>
+          <h3>Patinaje</h3>
+          <p>Coordinación, constancia y hábitos saludables.</p>
+        </article>
 
-          <a class="btn btn-secondary" href="#programas">Conocer programas</a>
-        </div>
-      </div>
-    </section>
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-robotica-kep4489-960.webp"
+            srcset="assets/img/opt/semilla-robotica-kep4489-480.webp 480w, assets/img/opt/semilla-robotica-kep4489-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Niños aprendiendo robótica"
+            width="1800"
+            height="1013"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Tecnología</span>
+          <h3>Robótica</h3>
+          <p>Creatividad, pensamiento lógico y solución de problemas.</p>
+        </article>
 
-    <!-- =========================================================
-         Historia institucional
-         ========================================================= -->
-    <section class="section foundation-story-section" id="historia" aria-labelledby="story-title">
-      <div class="container">
-        <article class="foundation-story-card reveal">
-          <header class="foundation-story-header">
-            <span class="eyebrow">Nuestra historia</span>
-            <h2 id="story-title">Sembrando esperanza, cosechando futuro.</h2>
-          </header>
-
-          <div class="story-book" data-story-book>
-            <div class="story-book-shell">
-              <div class="story-book-pages">
-                <article class="story-book-page story-book-page--cover" data-story-page>
-                  <img
-                    class="story-book-logo"
-                    src="assets/img/opt/img-brand-logo-fundacion-160.webp"
-            srcset="assets/img/opt/img-brand-logo-fundacion-160.webp 160w"
-            sizes="(max-width: 760px) 22vw, 124px"
-                    alt="Logo Fundación Amigos Como Arroz"
-                    width="180"
-                    height="180"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <span class="story-page-kicker">Fundación Amigos Como Arroz</span>
-                  <h3>Nuestra historia</h3>
-                  <p>Sembrando esperanza, cosechando futuro.</p>
-                </article>
-
-                <article class="story-book-page" data-story-page>
-                  <span class="story-page-number">01</span>
-                  <h3>Un origen con propósito</h3>
-                  <p>
-                    La Fundación Amigos Como Arroz nació en septiembre de 2007 como una expresión
-                    del compromiso social de la Organización Roa Florhuila con las comunidades de sus
-                    zonas de influencia.
-                  </p>
-                  <p>
-                    Su creación representó la materialización de una visión profundamente humana:
-                    entender que el crecimiento empresarial también debe traducirse en oportunidades,
-                    bienestar y transformación para las personas.
-                  </p>
-                </article>
-
-                <article class="story-book-page" data-story-page>
-                  <span class="story-page-number">02</span>
-                  <h3>El legado que inspira</h3>
-                  <p>
-                    Esta obra social está inspirada en el legado de don Aníbal Roa Villamil (Q.E.P.D.)
-                    y de su esposa, doña Clara Inés Solano de Roa.
-                  </p>
-                  <p>
-                    Desde su liderazgo empresarial promovieron una filosofía basada en el trabajo, la
-                    solidaridad, la responsabilidad social y el servicio a la comunidad.
-                  </p>
-                </article>
-
-                <article class="story-book-page" data-story-page>
-                  <span class="story-page-number">03</span>
-                  <h3>Acompañar para transformar</h3>
-                  <p>
-                    Desde sus inicios, la fundación ha trabajado por el bienestar de niños, niñas,
-                    adolescentes, jóvenes y familias en condición de vulnerabilidad.
-                  </p>
-                  <p>
-                    A través de procesos educativos, formación integral, acompañamiento psicosocial,
-                    fortalecimiento de valores, actividades culturales, deportivas y oportunidades de
-                    acceso a la educación superior, ha contribuido a construir proyectos de vida con
-                    mayor esperanza y dignidad.
-                  </p>
-                </article>
-
-                <article class="story-book-page" data-story-page>
-                  <span class="story-page-number">04</span>
-                  <h3>Semilla, Siembra y Cosecha</h3>
-                  <p>
-                    Sus programas reflejan la esencia de su misión: Semilla promueve el desarrollo
-                    integral y la ocupación productiva del tiempo libre.
-                  </p>
-                  <p>
-                    Siembra abre caminos hacia la educación superior mediante becas y oportunidades
-                    de formación; y Cosecha fortalece el liderazgo social de los jóvenes beneficiarios,
-                    motivándolos a devolver a la comunidad parte de lo aprendido.
-                  </p>
-                </article>
-
-                <article class="story-book-page" data-story-page>
-                  <span class="story-page-number">05</span>
-                  <h3>Una cosecha comunitaria</h3>
-                  <p>
-                    A lo largo de los años, la fundación ha trascendido la asistencia social para
-                    consolidarse como un modelo de transformación comunitaria.
-                  </p>
-                  <p>
-                    Cada beca otorgada, cada proceso formativo, cada familia acompañada y cada historia
-                    de superación representan una cosecha del legado sembrado por sus fundadores.
-                  </p>
-                </article>
-
-                <article class="story-book-page story-book-page--quote" data-story-page>
-                  <span class="story-page-number">06</span>
-                  <h3>La razón de ser</h3>
-                  <blockquote>
-                    Así como una semilla necesita cuidado para convertirse en fruto, cada niño y cada
-                    joven necesitan oportunidades para alcanzar su máximo potencial. Esa ha sido, y
-                    seguirá siendo, la razón de ser de la Fundación Amigos Como Arroz: sembrar esperanza
-                    para cosechar futuro.
-                  </blockquote>
-                </article>
-              </div>
-            </div>
-
-            <div class="story-book-controls" aria-label="Controles del libro de historia">
-              <button class="story-book-btn" type="button" data-story-prev aria-label="Página anterior">
-                Anterior
-              </button>
-              <span class="story-book-status" data-story-status role="status">Página 1 de 7</span>
-              <button class="story-book-btn" type="button" data-story-next aria-label="Página siguiente">
-                Siguiente
-              </button>
-            </div>
-          </div>
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-ingles-kep4501-960.webp"
+            srcset="assets/img/opt/semilla-ingles-kep4501-480.webp 480w, assets/img/opt/semilla-ingles-kep4501-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Niños en actividad de inglés"
+            width="1800"
+            height="1013"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Idiomas</span>
+          <h3>Inglés</h3>
+          <p>Nuevas herramientas para comunicarse y soñar en grande.</p>
         </article>
       </div>
     </section>
 
-    <!-- =========================================================
-         Sede Espinal
-         ========================================================= -->
-    <section class="section sede-espinal-section" id="sede-espinal" aria-labelledby="sede-espinal-title">
-      <div class="container sede-espinal-card reveal">
-        <div class="sede-espinal-copy">
-          <span class="eyebrow">Sede Espinal</span>
-          <h2 id="sede-espinal-title">Un nuevo punto de encuentro para acompañar más vidas.</h2>
-          <p class="lead">
-            La sede Espinal fortalece la presencia de la fundación y acerca nuestros procesos
-            educativos, sociales y comunitarios a más niños, jóvenes y familias.
-          </p>
+    <!-- Fundación -->
+    <section class="pantalla capitulo" id="fundacion" aria-labelledby="about-title">
+      <figure class="marco-foto reveal">
+        <img
+          src="assets/img/opt/img-content-programa-semilla-deporte-833.webp"
+          srcset="assets/img/opt/img-content-programa-semilla-deporte-480.webp 480w, assets/img/opt/img-content-programa-semilla-deporte-833.webp 833w"
+          sizes="(max-width: 899px) 100vw, 40vw"
+          alt="Jóvenes y voluntarios trabajando juntos."
+          width="833"
+          height="1080"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
 
-          <div class="sede-espinal-details" aria-label="Enfoque de la sede Espinal">
-            <article>
-              <span>01</span>
-              <strong>Formación</strong>
-              <p>Espacios para aprendizaje, actividades extracurriculares y desarrollo de talentos.</p>
-            </article>
-            <article>
-              <span>02</span>
-              <strong>Comunidad</strong>
-              <p>Acompañamiento cercano para familias, voluntarios, aliados y beneficiarios.</p>
-            </article>
-          </div>
-          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conoce más de nosotros</a>
-        </div>
+      <div class="pantalla-cuerpo about-content reveal">
+        <p class="cifra-mayor about-badge">
+          <strong>19 años</strong>
+          <span>acompañando procesos educativos y sociales.</span>
+        </p>
+        <h2 id="about-title">Educación que <span class="highlight-text">transforma vidas</span>.</h2>
+        <p class="lead">
+          Trabajamos con niños, jóvenes y familias mediante programas que fortalecen el aprendizaje,
+          el liderazgo, la permanencia educativa y el bienestar psicosocial.
+        </p>
 
-        <div class="sede-espinal-visual" aria-hidden="true">
-          <img
-            src="assets/img/opt/img-content-taller-educativo-960.webp"
-            srcset="assets/img/opt/img-content-taller-educativo-480.webp 480w, assets/img/opt/img-content-taller-educativo-960.webp 960w, assets/img/opt/img-content-taller-educativo-1200.webp 1200w"
-            sizes="(max-width: 760px) 88vw, 526px"
-            alt=""
-            width="1200"
-            height="675"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="sede-espinal-badge">
-            <strong>Espinal</strong>
-            <span>Tolima</span>
-          </div>
+        <ul class="check-list">
+          <li>
+            <span class="check-icon" aria-hidden="true"></span>
+            <span>Apoyo pedagógico y social para niños, jóvenes y familias.</span>
+          </li>
+          <li>
+            <span class="check-icon" aria-hidden="true"></span>
+            <span>Programas culturales, deportivos, productivos y educativos.</span>
+          </li>
+          <li>
+            <span class="check-icon" aria-hidden="true"></span>
+            <span>Acompañamiento integral para construir proyectos de vida.</span>
+          </li>
+        </ul>
+
+        <div class="acciones">
+          <a class="btn btn-secondary" href="#programas">Conocer programas</a>
         </div>
+        <p class="eyebrow">Fundación</p>
       </div>
     </section>
 
-    <!-- =========================================================
-         Programas
-         ========================================================= -->
-    <section class="section" id="programas" aria-labelledby="programs-title">
-      <div class="container">
-        <div class="section-header center reveal">
-          <span class="eyebrow">Programas</span>
+    <!-- Historia institucional: visor de historias, una página a la vez (assets/js/modules/story-book.js) -->
+    <section class="pantalla pantalla--larga foundation-story-section" id="historia" aria-labelledby="story-title">
+      <div class="encabezado encabezado--centro reveal">
+        <h2 id="story-title">Sembrando esperanza, cosechando futuro.</h2>
+        <p class="eyebrow">Nuestra historia</p>
+      </div>
+
+      <div class="historia-tarjeta reveal">
+      <figure class="historia-foto" aria-hidden="true">
+        <img
+          src="assets/img/opt/img-hero-hero-principal-960.webp"
+          srcset="assets/img/opt/img-hero-hero-principal-480.webp 480w, assets/img/opt/img-hero-hero-principal-960.webp 960w, assets/img/opt/img-hero-hero-principal-1200.webp 1200w"
+          sizes="(max-width: 899px) 100vw, 40vw"
+          alt=""
+          width="1200"
+          height="507"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div class="story-book" data-story-book>
+        <div class="story-book-pages">
+          <article class="story-book-page" data-story-page>
+            <h3>Un origen con propósito</h3>
+            <p>
+              La Fundación Amigos Como Arroz nació en septiembre de 2007 como una expresión
+              del compromiso social de la Organización Roa Florhuila con las comunidades de sus
+              zonas de influencia.
+            </p>
+            <p>
+              Su creación representó la materialización de una visión profundamente humana:
+              entender que el crecimiento empresarial también debe traducirse en oportunidades,
+              bienestar y transformación para las personas.
+            </p>
+          </article>
+
+          <article class="story-book-page" data-story-page>
+            <h3>El legado que inspira</h3>
+            <p>
+              Esta obra social está inspirada en el legado de don Aníbal Roa Villamil (Q.E.P.D.)
+              y de su esposa, doña Clara Inés Solano de Roa.
+            </p>
+            <p>
+              Desde su liderazgo empresarial promovieron una filosofía basada en el trabajo, la
+              solidaridad, la responsabilidad social y el servicio a la comunidad.
+            </p>
+          </article>
+
+          <article class="story-book-page" data-story-page>
+            <h3>Acompañar para transformar</h3>
+            <p>
+              Desde sus inicios, la fundación ha trabajado por el bienestar de niños, niñas,
+              adolescentes, jóvenes y familias en condición de vulnerabilidad.
+            </p>
+            <p>
+              A través de procesos educativos, formación integral, acompañamiento psicosocial,
+              fortalecimiento de valores, actividades culturales, deportivas y oportunidades de
+              acceso a la educación superior, ha contribuido a construir proyectos de vida con
+              mayor esperanza y dignidad.
+            </p>
+          </article>
+
+          <article class="story-book-page" data-story-page>
+            <h3>Semilla, Siembra y Cosecha</h3>
+            <p>
+              Sus programas reflejan la esencia de su misión: Semilla promueve el desarrollo
+              integral y la ocupación productiva del tiempo libre.
+            </p>
+            <p>
+              Siembra abre caminos hacia la educación superior mediante becas y oportunidades
+              de formación; y Cosecha fortalece el liderazgo social de los jóvenes beneficiarios,
+              motivándolos a devolver a la comunidad parte de lo aprendido.
+            </p>
+          </article>
+
+          <article class="story-book-page" data-story-page>
+            <h3>Una cosecha comunitaria</h3>
+            <p>
+              A lo largo de los años, la fundación ha trascendido la asistencia social para
+              consolidarse como un modelo de transformación comunitaria.
+            </p>
+            <p>
+              Cada beca otorgada, cada proceso formativo, cada familia acompañada y cada historia
+              de superación representan una cosecha del legado sembrado por sus fundadores.
+            </p>
+          </article>
+
+          <article class="story-book-page story-book-page--quote" data-story-page>
+            <h3>La razón de ser</h3>
+            <blockquote>
+              Así como una semilla necesita cuidado para convertirse en fruto, cada niño y cada
+              joven necesitan oportunidades para alcanzar su máximo potencial. Esa ha sido, y
+              seguirá siendo, la razón de ser de la Fundación Amigos Como Arroz: sembrar esperanza
+              para cosechar futuro.
+            </blockquote>
+          </article>
+        </div>
+
+        <div class="story-book-controls" aria-label="Controles del libro de historia">
+          <button class="story-book-btn" type="button" data-story-prev aria-label="Página anterior">
+            Anterior
+          </button>
+          <span class="story-book-status" data-story-status role="status">Página 1 de 6</span>
+          <button class="story-book-btn" type="button" data-story-next aria-label="Página siguiente">
+            Siguiente
+          </button>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Sede Espinal -->
+    <section class="pantalla sede-espinal-section" id="sede-espinal" aria-labelledby="sede-espinal-title">
+      <div class="pantalla-fondo" aria-hidden="true">
+        <img
+          src="assets/img/opt/img-content-taller-educativo-960.webp"
+          srcset="assets/img/opt/img-content-taller-educativo-480.webp 480w, assets/img/opt/img-content-taller-educativo-960.webp 960w, assets/img/opt/img-content-taller-educativo-1200.webp 1200w"
+          sizes="100vw"
+          alt=""
+          width="1200"
+          height="675"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <p class="palabra-gigante" aria-hidden="true">Espinal</p>
+
+      <div class="pantalla-cuerpo sede-espinal-copy reveal">
+        <h2 id="sede-espinal-title">Un nuevo punto de encuentro para acompañar más vidas.</h2>
+        <p class="lead">
+          La sede Espinal fortalece la presencia de la fundación y acerca nuestros procesos
+          educativos, sociales y comunitarios a más niños, jóvenes y familias.
+        </p>
+
+        <div class="sede-espinal-details" aria-label="Enfoque de la sede Espinal">
+          <article>
+            <span>01</span>
+            <strong>Formación</strong>
+            <p>Espacios para aprendizaje, actividades extracurriculares y desarrollo de talentos.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>Comunidad</strong>
+            <p>Acompañamiento cercano para familias, voluntarios, aliados y beneficiarios.</p>
+          </article>
+        </div>
+        <div class="acciones">
+          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conoce más de nosotros</a>
+        </div>
+        <p class="eyebrow">Sede Espinal</p>
+        <p class="sede-espinal-badge"><strong>Espinal</strong> · Tolima</p>
+      </div>
+    </section>
+
+    <!-- Programas: una pantalla por programa; el acompañamiento psicosocial los cruza a todos -->
+    <section id="programas" aria-labelledby="programs-title">
+      <div class="pantalla programas-intro">
+        <svg class="programas-orbitas" viewBox="0 0 400 300" aria-hidden="true">
+          <ellipse cx="200" cy="150" rx="190" ry="140"/>
+          <ellipse cx="200" cy="150" rx="120" ry="140"/>
+          <ellipse cx="200" cy="150" rx="60" ry="140"/>
+          <line x1="200" y1="0" x2="200" y2="300"/>
+        </svg>
+        <div class="section-header encabezado--centro reveal">
           <h2 id="programs-title">Acompañamiento para cada etapa.</h2>
           <p class="lead">
             Organizamos nuestro trabajo en programas que promueven educación, liderazgo y bienestar.
           </p>
+          <p class="eyebrow">Programas</p>
         </div>
+      </div>
 
-        <div class="program-grid">
-          <article class="program-card reveal">
-            <div class="program-icon" aria-hidden="true">&#127793;</div>
-            <h3>Semilla</h3>
+      <div class="programas-feed">
+        <div class="eje-transversal" aria-hidden="true"><span>Acompañamiento psicosocial · eje transversal</span></div>
+
+        <article class="pantalla program-card" aria-labelledby="programa-semilla">
+          <div class="pantalla-fondo" aria-hidden="true">
+            <img
+              src="assets/img/opt/semilla-futbol-kep4521-960.webp"
+              srcset="assets/img/opt/semilla-futbol-kep4521-480.webp 480w, assets/img/opt/semilla-futbol-kep4521-960.webp 960w, assets/img/opt/semilla-futbol-kep4521-1600.webp 1600w"
+              sizes="100vw"
+              alt=""
+              width="1200"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="pantalla-cuerpo reveal">
+            <h3 id="programa-semilla">Semilla</h3>
             <span class="program-target">Para niños, niñas y familias</span>
             <p>
               Formación deportiva, cultural y productiva para fortalecer talentos,
               valores y uso sano del tiempo libre.
             </p>
-            <a href="programas/semilla.html">Más información &rarr;</a>
-          </article>
+            <a class="btn btn-secondary" href="programas/semilla.html">Más información <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
 
-          <article class="program-card reveal">
-            <div class="program-icon" aria-hidden="true">&#128218;</div>
-            <h3>Siembra</h3>
+        <article class="pantalla program-card" aria-labelledby="programa-siembra">
+          <div class="pantalla-fondo" aria-hidden="true">
+            <img
+              src="assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-03-57-am-960.webp"
+              srcset="assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-03-57-am-480.webp 480w, assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-03-57-am-960.webp 960w, assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-03-57-am-1280.webp 1280w"
+              sizes="100vw"
+              alt=""
+              width="1280"
+              height="960"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="pantalla-cuerpo reveal">
+            <h3 id="programa-siembra">Siembra</h3>
             <p>
               Becas y acompañamiento para acceder a educación superior técnica, tecnológica
               o profesional de excelente calidad.
             </p>
-            <a href="programas/siembra.html">Más información &rarr;</a>
-          </article>
+            <a class="btn btn-secondary" href="programas/siembra.html">Más información <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
 
-          <article class="program-card reveal">
-            <div class="program-icon" aria-hidden="true">&#127942;</div>
-            <h3>Cosecha</h3>
+        <article class="pantalla program-card" aria-labelledby="programa-cosecha">
+          <div class="pantalla-fondo" aria-hidden="true">
+            <img
+              src="assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-00-24-am-960.webp"
+              srcset="assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-00-24-am-480.webp 480w, assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-00-24-am-960.webp 960w, assets/img/opt/siembra-becados-whatsapp-image-2026-06-16-at-7-00-24-am-1280.webp 1280w"
+              sizes="100vw"
+              alt=""
+              width="1280"
+              height="720"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="pantalla-cuerpo reveal">
+            <h3 id="programa-cosecha">Cosecha</h3>
             <span class="program-target">Para líderes comunitarios</span>
             <p>
               Liderazgo juvenil y proyectos sociales para servir, participar y generar
               impacto en la comunidad.
             </p>
-            <a href="programas/cosecha.html">Más información &rarr;</a>
-          </article>
+            <a class="btn btn-secondary" href="programas/cosecha.html">Más información <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
 
-          <article class="program-card reveal">
-            <div class="program-icon" aria-hidden="true">&#129504;</div>
-            <h3>Acompañamiento Psicosocial</h3>
+        <article class="pantalla program-card" aria-labelledby="programa-psicosocial">
+          <div class="pantalla-fondo" aria-hidden="true">
+            <img
+              src="assets/img/opt/psicologia-3-960.webp"
+              srcset="assets/img/opt/psicologia-3-480.webp 480w, assets/img/opt/psicologia-3-960.webp 960w, assets/img/opt/psicologia-3-1600.webp 1600w"
+              sizes="100vw"
+              alt=""
+              width="1600"
+              height="1067"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="pantalla-cuerpo reveal">
+            <h3 id="programa-psicosocial">Acompañamiento Psicosocial</h3>
             <span class="program-target">Para familias y beneficiarios</span>
             <p>
               Eje transversal que apoya el sano desarrollo de beneficiarios
               y familias en su proyecto de vida.
             </p>
-            <a href="programas/psicosocial.html">Más información &rarr;</a>
-          </article>
-        </div>
+            <a class="btn btn-secondary" href="programas/psicosocial.html">Más información <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- =========================================================
-         Impacto
-         ========================================================= -->
-    <section class="section" id="impacto" aria-labelledby="impact-title">
-      <div class="impact-grid container">
+    <!-- Impacto: las cifras como frases -->
+    <section class="pantalla pantalla--larga" id="impacto" aria-labelledby="impact-title">
+      <div class="impact-grid">
         <div class="impact-copy reveal">
-          <span class="eyebrow">Impacto</span>
           <h2 id="impact-title">Resultados que transforman.</h2>
           <p class="lead">
             Cada actividad, beca, taller o encuentro representa una oportunidad para fortalecer
             habilidades, confianza y comunidad.
           </p>
           <div class="impact-actions">
-            <a class="btn btn-secondary" href="#contacto">Quiero apoyar</a>
+            <a class="btn btn-pink" href="#contacto">Quiero apoyar</a>
             <a
               class="btn btn-whatsapp"
               href="{{ 'Hola, quiero saber cómo puedo apoyar a la fundación.' | whatsapp }}"
@@ -714,36 +750,33 @@
               Hablar con la fundación
             </a>
           </div>
+          <p class="eyebrow">Impacto</p>
         </div>
 
-        <div class="metrics">
-          <div class="metric-card featured reveal">
-            <strong data-counter="4200">0</strong>
+        <div class="metrics reveal">
+          <p class="metric-card featured">
+            <strong data-counter="4200">4.200</strong>
             <span>participantes beneficiados por programas educativos y sociales.</span>
-          </div>
-
-          <div class="metric-card reveal">
-            <strong data-counter="180">0</strong>
+          </p>
+          <p class="metric-card">
+            <strong data-counter="180">180</strong>
             <span>voluntarios y mentores activos.</span>
-          </div>
-
-          <div class="metric-card reveal">
-            <strong data-counter="65">0</strong>
+          </p>
+          <p class="metric-card">
+            <strong data-counter="65">65</strong>
             <span>aliados e instituciones.</span>
-          </div>
-
-          <div class="metric-card reveal">
-            <strong data-counter="38">0</strong>
+          </p>
+          <p class="metric-card">
+            <strong data-counter="38">38</strong>
             <span>proyectos comunitarios realizados.</span>
-          </div>
-
-          <div class="metric-card reveal">
-            <strong data-counter="92">0</strong>
+          </p>
+          <p class="metric-card">
+            <strong data-counter="92">92</strong>
             <span>% de permanencia en los procesos.</span>
-          </div>
+          </p>
         </div>
       </div>
-      <div class="impact-proof container reveal" aria-label="Formas de impacto">
+      <div class="impact-proof reveal" aria-label="Formas de impacto">
         <article>
           <strong>Educación continua</strong>
           <span>Becas, refuerzo académico y acompañamiento para permanecer y avanzar.</span>
@@ -759,301 +792,232 @@
       </div>
     </section>
 
+    <!-- Testimonios y videos -->
+    <section class="pantalla pantalla--larga testimonials-section" id="testimonios" aria-labelledby="testimonials-title">
+      <div class="encabezado reveal">
+        <h2 id="testimonials-title">Historias que se quedan.</h2>
+        <p class="lead">
+          A veces el cambio empieza con una clase, una conversación o alguien que decide creer contigo.
+        </p>
+        <p class="eyebrow">Testimonios</p>
+      </div>
 
-    <!-- =========================================================
-         Testimonios / Voces que transforman
-         ========================================================= -->
-    <section class="section testimonials-section" id="testimonios" aria-labelledby="testimonials-title">
-      <div class="container">
-        <div class="section-header center reveal">
-          <span class="eyebrow">Testimonios</span>
-          <h2 id="testimonials-title">Historias que se quedan.</h2>
-          <p class="lead">
-            A veces el cambio empieza con una clase, una conversación o alguien que decide creer contigo.
-          </p>
-        </div>
-
-        <div class="testimonial-video-carousel reveal" aria-label="Carrusel de testimonios en video">
-          <article class="testimonial-video-showcase testimonial-video-showcase--portrait">
-            <div class="testimonial-video-frame">
-              <button
-                class="local-video-loader testimonial-video"
-                type="button"
-                data-video-src="assets/videos/testimoni1.mp4"
-                data-poster="assets/img/opt/videos-testimoni1-poster-480.webp"
-                data-label="Video testimonial 1 de la fundación"
-                aria-label="Video testimonial 1 de la fundación"
-              >
-                <img
-                  src="assets/img/opt/videos-testimoni1-poster-480.webp"
-            srcset="assets/img/opt/videos-testimoni1-poster-480.webp 480w"
-            sizes="(max-width: 760px) 85vw, 290px"
-                  alt=""
-                  width="480"
-                  height="624"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span class="video-play-control" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="testimonial-video-info">
-              <span>Historia 01</span>
-              <strong>Una voz que habla desde la experiencia.</strong>
-              <p>Momentos reales de acompañamiento, confianza y transformación.</p>
-            </div>
-          </article>
-
-          <article class="testimonial-video-showcase testimonial-video-showcase--featured testimonial-video-showcase--wide">
-            <div class="testimonial-video-frame">
-              <button
-                class="local-video-loader testimonial-video"
-                type="button"
-                data-video-src="assets/videos/testimonio2.mp4"
-                data-poster="assets/img/opt/videos-testimonio2-poster-480.webp"
-                data-label="Video testimonial 2 de la fundación"
-                aria-label="Video testimonial 2 de la fundación"
-              >
-                <img
-                  src="assets/img/opt/videos-testimonio2-poster-480.webp"
-            srcset="assets/img/opt/videos-testimonio2-poster-480.webp 480w"
-            sizes="(max-width: 760px) 85vw, 698px"
-                  alt=""
-                  width="848"
-                  height="480"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span class="video-play-control" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="testimonial-video-info">
-              <span>Historia 02</span>
-              <strong>Cuando alguien cree contigo, algo empieza a cambiar.</strong>
-              <p>Testimonios que muestran el valor humano detrás de cada proceso.</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="testimonial-story-strip reveal" aria-label="Valores presentes en los testimonios">
-          <span>Confianza</span>
-          <span>Acompañamiento</span>
-          <span>Esperanza</span>
-        </div>
-      <div class="video-grid-modern testimonials-more-videos">
-        <article class="video-card-modern video-card-modern--impact video-card-modern--mission reveal">
-          <div class="video-frame video-frame--mission">
-            <button
-              class="local-video-loader local-impact-video"
-              type="button"
-              data-video-src="assets/videos/conoce-nuestra-mision.mp4"
-              data-poster="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
-              data-label="Video Conoce nuestra misión"
-              aria-label="Reproducir video Conoce nuestra misión"
-            >
-              <img
-                src="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
-            srcset="assets/img/opt/videos-conoce-nuestra-mision-poster-480.webp 480w, assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp 768w"
-            sizes="(max-width: 760px) 84vw, 640px"
-                alt=""
-                width="768"
-                height="576"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="video-play-control" aria-hidden="true"></span>
-            </button>
+      <div class="carrusel testimonial-video-carousel" role="region" tabindex="0" aria-label="Carrusel de testimonios en video">
+        <article class="historia testimonial-video-showcase">
+          <button
+            class="local-video-loader testimonial-video"
+            type="button"
+            data-video-src="assets/videos/testimoni1.mp4"
+            data-poster="assets/img/opt/videos-testimoni1-poster-480.webp"
+            data-label="Video testimonial 1 de la fundación"
+            aria-label="Video testimonial 1 de la fundación"
+          >
+            <img src="assets/img/opt/videos-testimoni1-poster-480.webp" alt="" width="480" height="624" loading="lazy" decoding="async" />
+            <span class="video-play-control" aria-hidden="true"></span>
+          </button>
+          <div class="testimonial-video-info">
+            <span>Historia 01</span>
+            <strong>Una voz que habla desde la experiencia.</strong>
+            <p>Momentos reales de acompañamiento, confianza y transformación.</p>
           </div>
+        </article>
+
+        <article class="historia testimonial-video-showcase">
+          <button
+            class="local-video-loader testimonial-video"
+            type="button"
+            data-video-src="assets/videos/testimonio2.mp4"
+            data-poster="assets/img/opt/videos-testimonio2-poster-480.webp"
+            data-label="Video testimonial 2 de la fundación"
+            aria-label="Video testimonial 2 de la fundación"
+          >
+            <img src="assets/img/opt/videos-testimonio2-poster-480.webp" alt="" width="848" height="480" loading="lazy" decoding="async" />
+            <span class="video-play-control" aria-hidden="true"></span>
+          </button>
+          <div class="testimonial-video-info">
+            <span>Historia 02</span>
+            <strong>Cuando alguien cree contigo, algo empieza a cambiar.</strong>
+            <p>Testimonios que muestran el valor humano detrás de cada proceso.</p>
+          </div>
+        </article>
+
+        <article class="historia video-card-modern">
+          <button
+            class="local-video-loader local-impact-video"
+            type="button"
+            data-video-src="assets/videos/conoce-nuestra-mision.mp4"
+            data-poster="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
+            data-label="Video Conoce nuestra misión"
+            aria-label="Reproducir video Conoce nuestra misión"
+          >
+            <img
+              src="assets/img/opt/videos-conoce-nuestra-mision-poster-480.webp"
+              srcset="assets/img/opt/videos-conoce-nuestra-mision-poster-480.webp 480w, assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp 768w"
+              sizes="(max-width: 759px) 72vw, 300px"
+              alt=""
+              width="768"
+              height="576"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="video-play-control" aria-hidden="true"></span>
+          </button>
           <div class="video-body">
             <h3>Conoce nuestra misión</h3>
             <p>Una pieza institucional para presentar quiénes somos, qué nos mueve y por qué acompañamos a la comunidad.</p>
           </div>
         </article>
 
-        <article class="video-card-modern video-card-modern--impact reveal">
-          <div class="video-frame video-frame--portrait">
-            <button
-              class="local-video-loader local-impact-video"
-              type="button"
-              data-video-src="assets/videos/momentos-impacto-web.mp4"
-              data-poster="assets/img/opt/videos-momentos-impacto-poster-720.webp"
-              data-label="Video Momentos de impacto"
-              aria-label="Reproducir video Momentos de impacto"
-            >
-              <img
-                src="assets/img/opt/videos-momentos-impacto-poster-720.webp"
-            srcset="assets/img/opt/videos-momentos-impacto-poster-480.webp 480w, assets/img/opt/videos-momentos-impacto-poster-720.webp 720w"
-            sizes="(max-width: 760px) 100vw, 800px"
-                alt=""
-                width="720"
-                height="1280"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="video-play-control" aria-hidden="true"></span>
-            </button>
-          </div>
+        <article class="historia video-card-modern">
+          <button
+            class="local-video-loader local-impact-video"
+            type="button"
+            data-video-src="assets/videos/momentos-impacto-web.mp4"
+            data-poster="assets/img/opt/videos-momentos-impacto-poster-720.webp"
+            data-label="Video Momentos de impacto"
+            aria-label="Reproducir video Momentos de impacto"
+          >
+            <img
+              src="assets/img/opt/videos-momentos-impacto-poster-480.webp"
+              srcset="assets/img/opt/videos-momentos-impacto-poster-480.webp 480w, assets/img/opt/videos-momentos-impacto-poster-720.webp 720w"
+              sizes="(max-width: 759px) 72vw, 300px"
+              alt=""
+              width="720"
+              height="1280"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="video-play-control" aria-hidden="true"></span>
+          </button>
           <div class="video-body">
             <h3>Momentos de impacto</h3>
           </div>
         </article>
       </div>
+
+      <div class="testimonial-story-strip" aria-label="Valores presentes en los testimonios">
+        <span>Confianza</span>
+        <span>Acompañamiento</span>
+        <span>Esperanza</span>
       </div>
     </section>
 
-  <!-- =========================================================
-       Línea de tiempo / Mejores momentos del año
-       ========================================================= -->
-  <section class="section timeline-section" id="momentos" aria-labelledby="timeline-title">
-    <div class="container">
-      <div class="section-header center reveal">
-        <span class="eyebrow">Mejores momentos</span>
+    <!-- Mejores momentos del año -->
+    <section class="pantalla pantalla--larga timeline-section" id="momentos" aria-labelledby="timeline-title">
+      <div class="encabezado reveal">
         <h2 id="timeline-title">Momentos que nos unen.</h2>
         <p class="lead">
           Actividades, celebraciones, talleres, entregas y encuentros con la comunidad
           que marcan nuestro año.
         </p>
+        <p class="eyebrow">Mejores momentos</p>
       </div>
 
-      <div class="timeline" aria-label="Línea de tiempo de mejores momentos del año">
-        <article class="timeline-item reveal">
-          <span class="timeline-dot" aria-hidden="true"></span>
-
-          <div class="timeline-card">
-            <span class="timeline-date">Febrero 2026</span>
-            <h3>Inicio comunitario</h3>
-            <p>
-              Apertura del año con actividades educativas, recreativas y culturales para motivar
-              la participación de niños, jóvenes y familias.
-            </p>
-          </div>
-
-          <div class="timeline-media">
-            <img
-              src="assets/img/opt/img-hero-hero-principal-960.webp"
-            srcset="assets/img/opt/img-hero-hero-principal-480.webp 480w, assets/img/opt/img-hero-hero-principal-960.webp 960w, assets/img/opt/img-hero-hero-principal-1200.webp 1200w"
-            sizes="(max-width: 760px) 85vw, 484px"
-              alt="Grupo de niños y jóvenes compartiendo una actividad comunitaria"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="507"
-            />
-          </div>
+      <div class="carrusel timeline" role="region" tabindex="0" aria-label="Línea de tiempo de mejores momentos del año">
+        <article class="historia timeline-item">
+          <img
+            src="assets/img/opt/img-hero-hero-principal-480.webp"
+            srcset="assets/img/opt/img-hero-hero-principal-480.webp 480w, assets/img/opt/img-hero-hero-principal-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Grupo de niños y jóvenes compartiendo una actividad comunitaria"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="507"
+          />
+          <span class="timeline-date">Febrero 2026</span>
+          <h3>Inicio comunitario</h3>
+          <p>
+            Apertura del año con actividades educativas, recreativas y culturales para motivar
+            la participación de niños, jóvenes y familias.
+          </p>
         </article>
 
-        <article class="timeline-item reveal">
-          <span class="timeline-dot" aria-hidden="true"></span>
-
-          <div class="timeline-card">
-            <span class="timeline-date">Mayo 2026</span>
-            <h3>Formación y liderazgo</h3>
-            <p>
-              Espacios para fortalecer habilidades socioemocionales, trabajo en equipo,
-              comunicación y proyecto de vida.
-            </p>
-          </div>
-
-          <div class="timeline-media">
-            <img
-              src="assets/img/opt/img-content-taller-educativo-960.webp"
-            srcset="assets/img/opt/img-content-taller-educativo-480.webp 480w, assets/img/opt/img-content-taller-educativo-960.webp 960w, assets/img/opt/img-content-taller-educativo-1200.webp 1200w"
-            sizes="(max-width: 760px) 88vw, 526px"
-              alt="Jóvenes participando en un taller educativo"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="675"
-            />
-          </div>
+        <article class="historia timeline-item">
+          <img
+            src="assets/img/opt/img-content-taller-educativo-480.webp"
+            srcset="assets/img/opt/img-content-taller-educativo-480.webp 480w, assets/img/opt/img-content-taller-educativo-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Jóvenes participando en un taller educativo"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="675"
+          />
+          <span class="timeline-date">Mayo 2026</span>
+          <h3>Formación y liderazgo</h3>
+          <p>
+            Espacios para fortalecer habilidades socioemocionales, trabajo en equipo,
+            comunicación y proyecto de vida.
+          </p>
         </article>
 
-        <article class="timeline-item reveal">
-          <span class="timeline-dot" aria-hidden="true"></span>
-
-          <div class="timeline-card">
-            <span class="timeline-date">Junio 2026</span>
-            <h3>Cultura y familia</h3>
-            <p>
-              Un momento para celebrar el talento, la cultura y la unión familiar como parte
-              esencial del acompañamiento social.
-            </p>
-          </div>
-
-          <div class="timeline-media timeline-media--wide">
-            <img
-              src="assets/img/opt/img-content-presentacion-cultural-960.webp"
-            srcset="assets/img/opt/img-content-presentacion-cultural-480.webp 480w, assets/img/opt/img-content-presentacion-cultural-960.webp 960w, assets/img/opt/img-content-presentacion-cultural-1200.webp 1200w"
-            sizes="(max-width: 760px) 80vw, 462px"
-              alt="Presentación cultural con público reunido"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="431"
-            />
-          </div>
+        <article class="historia timeline-item">
+          <img
+            src="assets/img/opt/img-content-presentacion-cultural-480.webp"
+            srcset="assets/img/opt/img-content-presentacion-cultural-480.webp 480w, assets/img/opt/img-content-presentacion-cultural-960.webp 960w"
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Presentación cultural con público reunido"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="431"
+          />
+          <span class="timeline-date">Junio 2026</span>
+          <h3>Cultura y familia</h3>
+          <p>
+            Un momento para celebrar el talento, la cultura y la unión familiar como parte
+            esencial del acompañamiento social.
+          </p>
         </article>
 
-        <article class="timeline-item reveal">
-          <span class="timeline-dot" aria-hidden="true"></span>
-
-          <div class="timeline-card">
-            <span class="timeline-date">Diciembre 2026 · próximamente</span>
-            <h3>Cierre de año</h3>
-            <p>
-              Celebraremos los aprendizajes, la permanencia, el liderazgo y el compromiso de los
-              participantes, voluntarios, familias y aliados.
-            </p>
-          </div>
-
-          <div class="timeline-media timeline-media--portrait">
-            <img
-              src="assets/img/opt/img-content-logro-cierre-720.webp"
+        <article class="historia timeline-item">
+          <img
+            src="assets/img/opt/img-content-logro-cierre-480.webp"
             srcset="assets/img/opt/img-content-logro-cierre-480.webp 480w, assets/img/opt/img-content-logro-cierre-720.webp 720w"
-            sizes="(max-width: 760px) 32vw, 146px"
-              alt="Celebración comunitaria de cierre de año"
-              loading="lazy"
-              decoding="async"
-              width="720"
-              height="1280"
-            />
-          </div>
+            sizes="(max-width: 759px) 72vw, 300px"
+            alt="Celebración comunitaria de cierre de año"
+            loading="lazy"
+            decoding="async"
+            width="720"
+            height="1280"
+          />
+          <span class="timeline-date">Diciembre 2026 · próximamente</span>
+          <h3>Cierre de año</h3>
+          <p>
+            Celebraremos los aprendizajes, la permanencia, el liderazgo y el compromiso de los
+            participantes, voluntarios, familias y aliados.
+          </p>
         </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- =========================================================
-       Equipo / Integrantes principales
-       ========================================================= -->
-  <section class="section team-section" id="equipo" aria-labelledby="team-title">
-    <div class="container">
-      <div class="section-header center reveal">
-        <span class="eyebrow">Nuestro equipo</span>
+    <!-- Equipo -->
+    <section class="pantalla pantalla--larga team-section" id="equipo" aria-labelledby="team-title">
+      <div class="encabezado reveal">
         <h2 id="team-title">El equipo de la misión.</h2>
         <p class="lead">
           Personas que lideran, coordinan y acompañan los procesos educativos,
           sociales y comunitarios de la fundación.
         </p>
+        <p class="eyebrow">Nuestro equipo</p>
       </div>
 
-      <div class="team-slider-shell reveal">
-        <div class="team-slider" id="teamSlider" role="region" tabindex="0" aria-label="Carrusel del equipo">
-          <article class="team-card-modern">
-            <div class="team-photo-modern">
-              <img
-                src="assets/img/opt/img-team-drirectora-919.webp"
-            srcset="assets/img/opt/img-team-drirectora-480.webp 480w, assets/img/opt/img-team-drirectora-919.webp 919w"
-            sizes="(max-width: 760px) 80vw, 274px"
-                alt="Moira Quintero, directora de la Fundación Amigos Como Arroz"
-                loading="lazy"
-                decoding="async"
-                width="720"
-                height="817"
-              />
-              <span class="team-chip">Directora</span>
-            </div>
+      <div class="team-slider-shell">
+        <div class="carrusel team-slider" id="teamSlider" role="region" tabindex="0" aria-label="Carrusel del equipo">
+          <article class="historia team-card-modern">
+            <img
+              src="assets/img/opt/img-team-drirectora-480.webp"
+              srcset="assets/img/opt/img-team-drirectora-480.webp 480w, assets/img/opt/img-team-drirectora-919.webp 919w"
+              sizes="(max-width: 759px) 72vw, 300px"
+              alt="Moira Quintero, directora de la Fundación Amigos Como Arroz"
+              loading="lazy"
+              decoding="async"
+              width="720"
+              height="817"
+            />
             <div class="team-info-modern">
+              <span class="team-chip">Directora</span>
               <h3>Moira Quintero</h3>
               <p>Lidera la visión institucional, el crecimiento de la fundación y el relacionamiento estratégico.</p>
               <div class="team-meta">
@@ -1063,21 +1027,17 @@
             </div>
           </article>
 
-          <article class="team-card-modern">
-            <div class="team-photo-modern">
-              <img
-                src="assets/img/opt/img-team-laura-373.webp"
-            srcset="assets/img/opt/img-team-laura-373.webp 373w"
-            sizes="(max-width: 760px) 80vw, 274px"
-                alt="Integrante del equipo de coordinación de programas"
-                loading="lazy"
-                decoding="async"
-                width="720"
-                height="900"
-              />
-              <span class="team-chip">Coordinación</span>
-            </div>
+          <article class="historia team-card-modern">
+            <img
+              src="assets/img/opt/img-team-laura-373.webp"
+              alt="Integrante del equipo de coordinación de programas"
+              loading="lazy"
+              decoding="async"
+              width="720"
+              height="900"
+            />
             <div class="team-info-modern">
+              <span class="team-chip">Coordinación</span>
               <h3>Coordinación de programas</h3>
               <p>Coordina las actividades educativas, la planeación y el seguimiento de cada programa.</p>
               <div class="team-meta">
@@ -1087,21 +1047,19 @@
             </div>
           </article>
 
-          <article class="team-card-modern">
-            <div class="team-photo-modern">
-              <img
-                src="assets/img/opt/img-team-andres-720.webp"
-            srcset="assets/img/opt/img-team-andres-480.webp 480w, assets/img/opt/img-team-andres-720.webp 720w"
-            sizes="(max-width: 760px) 80vw, 274px"
-                alt="Andrés Cabrera, integrante del equipo de acompañamiento"
-                loading="lazy"
-                decoding="async"
-                width="720"
-                height="960"
-              />
-              <span class="team-chip">Acompañamiento</span>
-            </div>
+          <article class="historia team-card-modern">
+            <img
+              src="assets/img/opt/img-team-andres-480.webp"
+              srcset="assets/img/opt/img-team-andres-480.webp 480w, assets/img/opt/img-team-andres-720.webp 720w"
+              sizes="(max-width: 759px) 72vw, 300px"
+              alt="Andrés Cabrera, integrante del equipo de acompañamiento"
+              loading="lazy"
+              decoding="async"
+              width="720"
+              height="960"
+            />
             <div class="team-info-modern">
+              <span class="team-chip">Acompañamiento</span>
               <h3>Andrés Cabrera</h3>
               <p>Impulsa el bienestar emocional, el acompañamiento familiar y el enfoque psicosocial.</p>
               <div class="team-meta">
@@ -1111,21 +1069,19 @@
             </div>
           </article>
 
-          <article class="team-card-modern">
-            <div class="team-photo-modern">
-              <img
-                src="assets/img/opt/img-team-karen-720.webp"
-            srcset="assets/img/opt/img-team-karen-480.webp 480w, assets/img/opt/img-team-karen-720.webp 720w"
-            sizes="(max-width: 760px) 80vw, 274px"
-                alt="Caren González, integrante del equipo de voluntariado"
-                loading="lazy"
-                decoding="async"
-                width="720"
-                height="900"
-              />
-              <span class="team-chip">Voluntariado</span>
-            </div>
+          <article class="historia team-card-modern">
+            <img
+              src="assets/img/opt/img-team-karen-480.webp"
+              srcset="assets/img/opt/img-team-karen-480.webp 480w, assets/img/opt/img-team-karen-720.webp 720w"
+              sizes="(max-width: 759px) 72vw, 300px"
+              alt="Caren González, integrante del equipo de voluntariado"
+              loading="lazy"
+              decoding="async"
+              width="720"
+              height="900"
+            />
             <div class="team-info-modern">
+              <span class="team-chip">Voluntariado</span>
               <h3>Caren González</h3>
               <p>Comprometida con una gestión sostenible que transforme recursos en impacto social.</p>
               <div class="team-meta">
@@ -1134,135 +1090,85 @@
               </div>
             </div>
           </article>
-
         </div>
 
-        <div class="team-slider-controls" aria-label="Controles del carrusel">
-          <button class="team-slider-btn" type="button" id="teamPrev" aria-label="Ver integrante anterior">&larr;</button>
-          <button class="team-slider-btn" type="button" id="teamNext" aria-label="Ver integrante siguiente">&rarr;</button>
-        </div>
-
-        <div class="team-dots" id="teamDots" aria-label="Indicadores del carrusel"></div>
-      </div>
-    </div>
-  </section>
-
-
-
-
-    <!-- =========================================================
-         Informes de gestión
-         ========================================================= -->
-    <section class="section reports-section" id="informes" aria-labelledby="reports-title">
-      <div class="container">
-        <div class="section-header center reveal">
-          <span class="eyebrow">Transparencia</span>
-          <h2 id="reports-title">Informes y documentos.</h2>
-          <p class="lead">
-            Consulta los avances, resultados, aprendizajes y documentos
-            institucionales de la fundación.
-          </p>
-        </div>
-
-        <div class="reports-hub reveal" aria-label="Listado de informes de gestión">
-          <div class="reports-summary">
-            <span class="reports-summary-label">Archivo institucional</span>
-            <h3>Informes institucionales.</h3>
-            <p>
-             Este espacio reúne gestión, resultados, respaldo legal y transparencia institucional.
-            </p>
+        <div class="team-pie">
+          <div class="team-slider-controls" aria-label="Controles del carrusel">
+            <button class="team-slider-btn" type="button" id="teamPrev" aria-label="Ver integrante anterior">&larr;</button>
+            <button class="team-slider-btn" type="button" id="teamNext" aria-label="Ver integrante siguiente">&rarr;</button>
           </div>
-
-          <div class="reports-list">
-            <article class="report-row report-row--latest">
-              <div class="report-year">2025</div>
-              <div class="report-content">
-                <span class="report-status">Más reciente</span>
-                <h3>Informe de gestión 2025</h3>
-                <p>Resultados, alianzas, programas e impacto social del año en curso.</p>
-              </div>
-              <div class="report-actions">
-                <a
-                  class="report-link"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ver documento
-                </a>
-                <a
-                  class="report-link report-link--secondary"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf"
-                  download
-                >
-                  Descargar PDF
-                </a>
-              </div>
-            </article>
-
-            <article class="report-row">
-              <div class="report-year">2024</div>
-              <div class="report-content">
-                <span class="report-status">Histórico</span>
-                <h3>Informe de gestión 2024</h3>
-                <p>Actividades, beneficiarios, proyectos y gestión institucional del periodo.</p>
-              </div>
-              <div class="report-actions">
-                <a
-                  class="report-link"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ver documento
-                </a>
-                <a
-                  class="report-link report-link--secondary"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
-                  download
-                >
-                  Descargar PDF
-                </a>
-              </div>
-            </article>
-
-            <article class="report-row report-row--legal">
-              <div class="report-year report-year--document">5245</div>
-              <div class="report-content">
-                <span class="report-status">Documento legal</span>
-                <h3>PRESENTACION 5245</h3>
-                <p>Formulario 5245 – Presentación - calificación en el régimen tributario especial año 2025</p>
-              </div>
-              <div class="report-actions">
-                <a
-                  class="report-link"
-                  href="informes/PRESENTACION-5245.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ver documento
-                </a>
-                <a
-                  class="report-link report-link--secondary"
-                  href="informes/PRESENTACION-5245.pdf"
-                  download="PRESENTACION 5245.pdf"
-                >
-                  Descargar PDF
-                </a>
-              </div>
-            </article>
-          </div>
+          <div class="team-dots" id="teamDots" aria-label="Indicadores del carrusel"></div>
         </div>
       </div>
     </section>
 
-    <!-- =========================================================
-         Contacto
-         ========================================================= -->
-    <section class="section contact" id="contacto" aria-labelledby="contact-title">
-      <div class="contact-card container reveal">
+    <!-- Informes de gestión -->
+    <section class="pantalla pantalla--larga reports-section" id="informes" aria-labelledby="reports-title">
+      <div class="encabezado reveal">
+        <h2 id="reports-title">Informes y documentos.</h2>
+        <p class="lead">
+          Consulta los avances, resultados, aprendizajes y documentos
+          institucionales de la fundación.
+        </p>
+        <p class="eyebrow">Transparencia</p>
+      </div>
+
+      <div class="reports-hub reveal" aria-label="Listado de informes de gestión">
+        <div class="reports-summary">
+          <span class="reports-summary-label">Archivo institucional</span>
+          <h3>Informes institucionales.</h3>
+          <p>
+            Este espacio reúne gestión, resultados, respaldo legal y transparencia institucional.
+          </p>
+        </div>
+
+        <div class="reports-list">
+          <article class="report-row report-row--latest">
+            <div class="report-year">2025</div>
+            <div class="report-content">
+              <span class="report-status">Más reciente</span>
+              <h3>Informe de gestión 2025</h3>
+              <p>Resultados, alianzas, programas e impacto social del año en curso.</p>
+            </div>
+            <div class="report-actions">
+              <a class="report-link" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf" target="_blank" rel="noopener noreferrer">Ver documento</a>
+              <a class="report-link report-link--secondary" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf" download>Descargar PDF</a>
+            </div>
+          </article>
+
+          <article class="report-row">
+            <div class="report-year">2024</div>
+            <div class="report-content">
+              <span class="report-status">Histórico</span>
+              <h3>Informe de gestión 2024</h3>
+              <p>Actividades, beneficiarios, proyectos y gestión institucional del periodo.</p>
+            </div>
+            <div class="report-actions">
+              <a class="report-link" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf" target="_blank" rel="noopener noreferrer">Ver documento</a>
+              <a class="report-link report-link--secondary" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf" download>Descargar PDF</a>
+            </div>
+          </article>
+
+          <article class="report-row report-row--legal">
+            <div class="report-year report-year--document">5245</div>
+            <div class="report-content">
+              <span class="report-status">Documento legal</span>
+              <h3>PRESENTACION 5245</h3>
+              <p>Formulario 5245 – Presentación - calificación en el régimen tributario especial año 2025</p>
+            </div>
+            <div class="report-actions">
+              <a class="report-link" href="informes/PRESENTACION-5245.pdf" target="_blank" rel="noopener noreferrer">Ver documento</a>
+              <a class="report-link report-link--secondary" href="informes/PRESENTACION-5245.pdf" download="PRESENTACION 5245.pdf">Descargar PDF</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="pantalla pantalla--larga contact" id="contacto" aria-labelledby="contact-title">
+      <div class="contact-card reveal">
         <div class="contact-info">
-          <span class="eyebrow">Contáctanos</span>
           <h2 id="contact-title">Sé parte de la misión.</h2>
           <p class="lead">
             Escríbenos, haz una donación, únete como voluntario o conviértete en aliado estratégico.
@@ -1295,27 +1201,28 @@
 
           <ul class="contact-list">
             <li class="contact-item">
-              <span aria-hidden="true">&#128205;</span>
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
               <div>
                 <strong>Ubicación</strong>
                 <small>Carrera 7A No. 16-25, barrio Quirinal · Neiva, Huila</small>
               </div>
             </li>
             <li class="contact-item">
-              <span aria-hidden="true">&#128241;</span>
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
               <div>
                 <strong>WhatsApp</strong>
                 <a href="https://wa.me/{{ site.whatsapp }}">+57 {{ site.whatsappLabel }}</a>
               </div>
             </li>
             <li class="contact-item">
-              <span aria-hidden="true">&#9993;</span>
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
               <div>
                 <strong>Correo</strong>
                 <a href="mailto:{{ site.email }}">{{ site.email }}</a>
               </div>
             </li>
           </ul>
+          <p class="eyebrow">Contáctanos</p>
         </div>
 
         <div class="contact-form-shell">
@@ -1329,33 +1236,13 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Nombre completo</label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autocomplete="name"
-                  placeholder="Escribe tu nombre"
-                  minlength="3"
-                  maxlength="80"
-                  aria-describedby="name-error"
-                  required
-                />
+                <input id="name" name="name" type="text" autocomplete="name" placeholder="Escribe tu nombre" minlength="3" maxlength="80" aria-describedby="name-error" required />
                 <small class="field-error" id="name-error" aria-live="polite"></small>
               </div>
 
               <div class="form-group">
                 <label for="phone">Teléfono</label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  autocomplete="tel"
-                  inputmode="tel"
-                  placeholder="+57 300 000 0000"
-                  maxlength="20"
-                  aria-describedby="phone-error"
-                  required
-                />
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+57 300 000 0000" maxlength="20" aria-describedby="phone-error" required />
                 <small class="field-error" id="phone-error" aria-live="polite"></small>
               </div>
             </div>
@@ -1363,16 +1250,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  placeholder="nombre@correo.com"
-                  maxlength="120"
-                  aria-describedby="email-error"
-                  required
-                />
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" maxlength="120" aria-describedby="email-error" required />
                 <small class="field-error" id="email-error" aria-live="polite"></small>
               </div>
 
@@ -1392,15 +1270,7 @@
 
             <div class="form-group">
               <label for="message">Mensaje</label>
-              <textarea
-                id="message"
-                name="message"
-                placeholder="Escribe tu mensaje con los detalles importantes"
-                minlength="20"
-                maxlength="700"
-                aria-describedby="message-error"
-                required
-              ></textarea>
+              <textarea id="message" name="message" placeholder="Escribe tu mensaje con los detalles importantes" minlength="20" maxlength="700" aria-describedby="message-error" required></textarea>
               <small class="field-error" id="message-error" aria-live="polite"></small>
             </div>
 
@@ -1416,13 +1286,8 @@
         </div>
       </div>
     </section>
+  </main>
 
-
-</main>
-
-<!-- =========================================================
-       Footer
-       ========================================================= -->
   <footer class="site-footer">
     <div class="footer-inner container">
       <div class="footer-brand">
@@ -1442,87 +1307,30 @@
       </nav>
 
       <div class="footer-social" aria-label="Redes sociales">
-        <a
-          href="https://wa.me/{{ site.whatsapp }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="footer-social-link"
-          aria-label="WhatsApp"
-        >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-            <path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5z"/>
-            <path fill="white" d="M14.9 13.62c-.16-.08-.93-.46-1.08-.51-.14-.05-.25-.08-.35.08-.1.15-.41.51-.5.62-.09.1-.18.12-.34.04a4.39 4.39 0 0 1-1.3-.8 4.96 4.96 0 0 1-.92-1.15c-.1-.16-.01-.24.07-.32.07-.07.16-.18.24-.27.08-.09.11-.15.16-.25.05-.1.03-.19-.01-.27-.04-.08-.35-.85-.48-1.16-.13-.3-.26-.26-.36-.27h-.31a.6.6 0 0 0-.43.2c-.15.16-.56.55-.56 1.34s.57 1.56.65 1.67c.08.11 1.12 1.72 2.71 2.42.38.16.67.26.9.33.38.12.72.1.99.06.3-.05.93-.38 1.06-.75.13-.38.13-.7.09-.77-.04-.07-.14-.11-.3-.19z"/>
-          </svg>
+        <a href="https://wa.me/{{ site.whatsapp }}" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5zm4.4 12.5c-.18.5-1.06.97-1.47 1.03-.38.05-.85.08-1.37-.09-.32-.1-.72-.24-1.24-.46-2.18-.96-3.6-3.18-3.71-3.33-.11-.15-.89-1.2-.89-2.28 0-1.09.57-1.62.77-1.84.2-.22.44-.28.59-.28h.42c.14 0 .32-.05.5.38.18.43.62 1.49.67 1.6.06.11.09.24.02.38-.07.15-.11.24-.22.37-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.25 1.56.86.77 1.59 1.01 1.81 1.12.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.29-.18.5-.11.2.07 1.27.6 1.49.71.22.11.37.16.42.25.05.09.05.53-.13 1.03z"/></svg>
         </a>
-        <a
-          href="{{ site.instagram }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="footer-social-link"
-          aria-label="Instagram"
-        >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
+        <a href="{{ site.instagram }}" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram">
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor"/></svg>
         </a>
-        <a
-          href="{{ site.facebook }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="footer-social-link"
-          aria-label="Facebook"
-        >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-          </svg>
+        <a href="{{ site.facebook }}" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.87.25-1.46 1.5-1.46h1.6V4.46A21 21 0 0 0 14.27 4.3c-2.3 0-3.87 1.4-3.87 3.98v2.22H7.8v3h2.6V21z"/></svg>
         </a>
       </div>
     </div>
   </footer>
 
-  <!-- Botón flotante de WhatsApp (Instagram y Facebook están en el pie) -->
-  <aside class="social-dock" id="quick-contact" aria-label="Contacto por WhatsApp">
-    <!-- WhatsApp -->
-    <a
-      class="social-dock-btn social-dock-btn--wa"
-      href="{{ 'Hola, quiero recibir información sobre la Fundación Amigos Como Arroz.' | whatsapp }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Escríbenos por WhatsApp"
-      data-analytics-event="clic_whatsapp_flotante"
-      data-analytics-category="contacto"
-      data-analytics-label="Dock flotante - WhatsApp"
-    >
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-        <path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5z" fill="currentColor"/>
-        <path d="M14.9 13.62c-.16-.08-.93-.46-1.08-.51-.14-.05-.25-.08-.35.08-.1.15-.41.51-.5.62-.09.1-.18.12-.34.04a4.39 4.39 0 0 1-1.3-.8 4.96 4.96 0 0 1-.92-1.15c-.1-.16-.01-.24.07-.32.07-.07.16-.18.24-.27.08-.09.11-.15.16-.25.05-.1.03-.19-.01-.27-.04-.08-.35-.85-.48-1.16-.13-.3-.26-.26-.36-.27h-.31a.6.6 0 0 0-.43.2c-.15.16-.56.55-.56 1.34s.57 1.56.65 1.67c.08.11 1.12 1.72 2.71 2.42.38.16.67.26.9.33.38.12.72.1.99.06.3-.05.93-.38 1.06-.75.13-.38.13-.7.09-.77-.04-.07-.14-.11-.3-.19z" fill="white"/>
-      </svg>
-      <span class="social-dock-label">WhatsApp</span>
-    </a>
-  </aside>
-
-  <!-- Asistente flotante -->
+  <!-- Asistente (se abre desde la barra flotante) -->
   <div class="site-chatbot" id="site-chatbot" role="region" aria-label="Chat de ayuda de la fundación">
-    <button
-      class="chatbot-toggle"
-      type="button"
-      id="chatbotToggle"
-      aria-controls="chatbotPanel"
-      aria-expanded="false"
-      aria-label="Abrir asistente de ayuda"
-    >
-      <span class="chatbot-robot-face" aria-hidden="true">
-        <span></span>
-      </span>
-    </button>
-
     <div class="chatbot-panel" id="chatbotPanel" hidden>
       <div class="chatbot-head">
         <div>
           <strong>Asistente Amigos Como Arroz</strong>
           <span>Respuestas rápidas de la fundación</span>
         </div>
-        <button class="chatbot-close" type="button" id="chatbotClose" aria-label="Cerrar chat">&times;</button>
+        <button class="chatbot-close" type="button" id="chatbotClose" aria-label="Cerrar chat">
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
       </div>
 
       <div class="chatbot-messages" id="chatbotMessages" aria-live="polite">
@@ -1540,23 +1348,11 @@
 
       <form class="chatbot-form" id="chatbotForm">
         <label class="sr-only" for="chatbotInput">Escribe tu pregunta</label>
-        <input
-          id="chatbotInput"
-          type="text"
-          autocomplete="off"
-          placeholder="Escribe tu duda"
-        />
+        <input id="chatbotInput" type="text" maxlength="600" autocomplete="off" placeholder="Escribe tu duda" />
         <button type="submit">Enviar</button>
       </form>
     </div>
   </div>
-
-  <!-- Botón flotante para volver al inicio -->
-  <button class="scroll-to-top" id="scrollTopBtn" type="button" aria-label="Volver al inicio">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
 
 <script src="assets/js/analytics.js?v={{ site.cache.analytics }}" defer></script>
 <script type="application/json" id="site-data">{{ { whatsapp: site.whatsapp, whatsappLabel: site.whatsappLabel } | dump | safe }}</script>

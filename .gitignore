@@ -5,3 +5,6 @@ _respaldo-*/
 # Eleventy
 node_modules/
 _site/
+
+# Impeccable: imágenes de referencia del catálogo (no son del sitio)
+.impeccable/reference/

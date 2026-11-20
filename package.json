@@ -4,9 +4,15 @@
   "description": "Sitio de la Fundación Amigos Como Arroz (Eleventy)",
   "scripts": {
     "build": "eleventy",
-    "start": "eleventy --serve"
+    "start": "eleventy --serve",
+    "vendor:motion": "esbuild assets/js/vendor/motion-entry.js --bundle --format=esm --minify --legal-comments=none --outfile=assets/js/vendor/motion.js"
   },
   "devDependencies": {
-    "@11ty/eleventy": "3.1.8"
+    "@11ty/eleventy": "3.1.8",
+    "esbuild": "0.25.10",
+    "motion": "14.14.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.11.0"
   }
 }

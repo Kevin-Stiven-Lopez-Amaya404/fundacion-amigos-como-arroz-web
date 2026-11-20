@@ -230,14 +230,14 @@ Etapas:
 - Orientacion
 - Seguimiento
 
-## 10. Estilos relacionados en `assets/css/styles.css`
+## 10. Estilos relacionados en `assets/css/sitio.css`
 
 Los estilos visuales principales estan definidos con estas clases:
 
-- `.section-programs`: controla el bloque de Programas en `src/index.html`.
-- `.program-grid`: organiza las tarjetas de programas.
-- `.program-card`: define la apariencia de cada tarjeta.
-- `.program-link`: define el boton "Mas informacion".
+- `.programas-feed`: el bloque de Programas de `src/index.html`; cada programa es una pantalla.
+- `.program-card.pantalla`: la pantalla de un programa (foto a sangre, nombre enorme, a quien va dirigido y boton "Mas informacion").
+- `.eje-transversal`: la franja rosa que cruza las cuatro pantallas con "Acompanamiento psicosocial · eje transversal".
+- `.pagina-portada`: primera pantalla de cada pagina de programa, con una foto propia.
 - `.program-page`: identifica que el usuario esta en la pagina de programas.
 - `.program-detail-header`: controla la barra superior de las paginas de programas.
 - `.program-detail-hero`: controla la introduccion visual de la pagina detalle.
@@ -265,7 +265,7 @@ Cuando se agregue un nuevo programa, se deben actualizar tres partes:
 
 1. Agregar una nueva tarjeta en `src/index.html`.
 2. Agregar una nueva pagina dentro de `src/programas/` (copiando una existente y cambiando su encabezado `---`) y su URL en `sitemap.xml`.
-3. Agregar o reutilizar estilos en `assets/css/styles.css`.
+3. Agregar o reutilizar estilos en `assets/css/sitio.css`.
 
 Para mantener el codigo ordenado, el `href` de la tarjeta debe coincidir siempre con el `id` de la seccion detalle.
 

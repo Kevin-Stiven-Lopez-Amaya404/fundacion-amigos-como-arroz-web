@@ -1,447 +1,137 @@
-@layer legacy {
-
 /*
-  =========================================================
   Temporada: Navidad
-  =========================================================
-  Todo lo de este archivo depende de <html data-season="navidad">,
-  que pone assets/js/seasonal.js. Sin ese atributo, este archivo
-  no cambia nada en la página.
-
+  Todo depende de <html data-season="navidad">, que pone assets/js/seasonal.js.
+  Sin ese atributo este archivo no cambia nada.
   Para retirar la temporada: SEASON_CONFIG.mode = "off" en seasonal.js.
-  Para eliminarla del todo: borra este archivo, seasonal.js, sus dos
-  líneas en el <head> y los bloques con data-season-only="navidad".
+  Para eliminarla del todo: borra este archivo, seasonal.js, sus dos líneas en el <head>
+  y los bloques con data-season-only="navidad".
+  Va en la capa "sections" de sitio.css: se carga después, así que a igual especificidad gana.
 */
-
-/* ---------- 1. Tokens de temporada ---------- */
-html[data-season="navidad"] {
-  --xmas-red: #9e1b32;
-  --xmas-red-dark: #7d1427;
-  --xmas-green: #1f4d36;
-  --xmas-green-dark: #143726;
-  --xmas-gold: #d4a64a;
-  --xmas-gold-soft: #f3e2b8;
-  --xmas-cream: #fffaf2;
-
-  /* Acentos de marca re-mapeados durante la temporada. */
-  --pink: var(--xmas-red);
-  --pink-dark: var(--xmas-red-dark);
-  --yellow: var(--xmas-gold);
-}
-
-/* ---------- 2. Guirnalda de luces bajo la barra superior ---------- */
-html[data-season="navidad"] .xmas-garland {
-  position: absolute;
-  inset: 100% 0 auto;
-  height: 22px;
-  display: flex;
-  overflow: hidden;
-  pointer-events: none;
-  /* Cable: una curva por cada bombillo (celdas de 46px). */
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='22'%3E%3Cpath d='M0 1 Q23 15 46 1' fill='none' stroke='%231f4d36' stroke-width='1.3' stroke-opacity='.75'/%3E%3C/svg%3E") 0 0 / 46px 22px repeat-x;
-}
-
-html[data-season="navidad"] .xmas-garland span {
-  --bulb: var(--xmas-red);
-  position: relative;
-  flex: 0 0 46px;
-  height: 22px;
-}
-
-/* Bombillo: cuelga del punto más bajo de cada curva. */
-html[data-season="navidad"] .xmas-garland span::after {
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  width: 7px;
-  height: 11px;
-  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-  background: var(--bulb);
-  box-shadow: 0 0 8px 1px color-mix(in srgb, var(--bulb) 65%, transparent);
-  transform: translateX(-50%);
-  animation: xmas-twinkle 2.8s ease-in-out infinite;
-  animation-delay: calc(var(--i) * -0.37s);
-}
-
-html[data-season="navidad"] .xmas-garland span:nth-child(3n + 2) { --bulb: var(--xmas-gold); }
-html[data-season="navidad"] .xmas-garland span:nth-child(3n + 3) { --bulb: #2f7a52; }
-
-@keyframes xmas-twinkle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .55; }
-}
-
-/* ---------- 3. Nieve y destellos ---------- */
-html[data-season="navidad"] .xmas-snow {
-  position: fixed;
-  inset: 0;
-  z-index: 400; /* Debajo del header (1200) y de los botones flotantes (500). */
-  overflow: hidden;
-  pointer-events: none;
-  contain: strict;
-}
-
-html[data-season="navidad"] .xmas-flake {
-  position: absolute;
-  top: -24px;
-  left: var(--x);
-  width: var(--size);
-  height: var(--size);
-  border-radius: 50%;
-  opacity: var(--alpha);
-  background: radial-gradient(circle, #fff 0 45%, rgba(255, 255, 255, .7) 60%, transparent 72%);
-  /* Halo cálido para que el copo se vea también sobre fondos claros. */
-  filter: drop-shadow(0 0 1.5px rgba(120, 86, 40, .45));
-  animation: xmas-fall var(--duration) linear infinite;
-  animation-delay: var(--delay);
-  will-change: transform;
-}
-
-html[data-season="navidad"] .xmas-flake--sparkle {
-  border-radius: 0;
-  background: var(--xmas-gold);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-  filter: none;
-}
-
-@keyframes xmas-fall {
-  from { transform: translate3d(0, -5vh, 0) rotate(0deg); }
-  to { transform: translate3d(var(--drift), 108vh, 0) rotate(200deg); }
-}
-
-/* ---------- 4. Botón para pausar la nieve (lado izquierdo del header) ---------- */
-.xmas-snow-toggle {
-  display: none;
-}
-
-html[data-season="navidad"] .xmas-snow-toggle {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 40px;
-  padding: 0 12px;
-  color: var(--xmas-green);
-  background: #fff;
-  border: 1px solid rgba(31, 77, 54, .22);
-  border-radius: 999px;
-  font-size: .82rem;
-  font-weight: 700;
-  transition: background-color 180ms ease, color 180ms ease;
-}
-
-/* En la portada el header centra el logo: el botón va fijo a la izquierda. */
-html[data-season="navidad"] .site-header .xmas-snow-toggle {
-  position: absolute;
-  top: 50%;
-  left: clamp(16px, 4vw, 44px);
-  transform: translateY(-50%);
-}
-
-/* En las páginas internas va antes del logo, dentro del flujo. */
-html[data-season="navidad"] .program-detail-nav .xmas-snow-toggle {
-  order: 0;
-  margin-right: 12px;
-}
-
-html[data-season="navidad"] .xmas-snow-toggle:hover {
-  background: #f1f7f3;
-}
-
-html[data-season="navidad"] .xmas-snow-toggle[aria-pressed="false"] {
-  color: #5c5752;
-  border-color: rgba(0, 0, 0, .14);
-}
-
-@media (max-width: 560px) {
-  html[data-season="navidad"] .xmas-snow-toggle {
-    width: 40px;
-    padding: 0;
-    justify-content: center;
+@layer sections {
+  html[data-season="navidad"] {
+    --xmas-red: #b3203b;
+    --xmas-gold: #d4a64a;
+    --xmas-green: #2f7a52;
   }
 
-  html[data-season="navidad"] .xmas-snow-toggle-text {
+  /* La insignia de campaña reemplaza a la de ubicación en el inicio */
+  html[data-season="navidad"] .hero-badge { display: none; }
+  .xmas-hero-pill {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid var(--xmas-gold);
+    border-radius: 999px;
+    color: #f3e2b8;
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .xmas-hero-pill:hover { background: rgb(212 166 74 / 0.16); }
+  .xmas-hero-pill svg { color: var(--xmas-gold); }
+
+  /* Pantalla de campaña */
+  .xmas-campaign { background: radial-gradient(120% 80% at 80% 10%, rgb(179 32 59 / 0.35), transparent 60%), var(--vacio); }
+  .xmas-campaign h2 em { font-style: normal; color: var(--xmas-gold); }
+  .xmas-campaign-visual { position: absolute; top: clamp(56px, 10vh, 110px); right: var(--margen); width: clamp(150px, 26vw, 300px); }
+  @media (max-width: 759px) { .xmas-campaign-visual { right: var(--margen); width: 140px; opacity: 0.8; } }
+  .xmas-countdown { font-family: var(--f-display); font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; text-transform: uppercase; color: var(--xmas-gold); }
+  .xmas-countdown:empty { display: none; }
+  .xmas-footer-note { margin-top: 6px; color: #f3e2b8; font-size: 0.9rem; }
+
+  /* Adornos que se mecen */
+  .xmas-ornament { transform-origin: 50% 0; animation: xmas-sway 6s ease-in-out infinite; }
+  .xmas-ornament:nth-of-type(2) { animation-delay: -2s; animation-duration: 7s; }
+  .xmas-ornament:nth-of-type(3) { animation-delay: -4s; animation-duration: 5.5s; }
+
+  /* Guirnalda sobre la barra flotante */
+  .xmas-garland {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    inset: auto 12px calc(100% - 6px);
+    height: 22px;
+    display: flex;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='22'%3E%3Cpath d='M0 1 Q23 15 46 1' fill='none' stroke='%23d4a64a' stroke-width='1.2' stroke-opacity='.6'/%3E%3C/svg%3E") 0 0 / 46px 22px repeat-x;
   }
-}
-
-/* ---------- 5. Hero: franja festiva y acceso a la campaña ---------- */
-html[data-season="navidad"] .hero-intro .hero-content::before {
-  background: repeating-linear-gradient(90deg,
-    var(--xmas-red) 0 28px, var(--xmas-gold) 28px 36px, var(--xmas-green) 36px 64px, var(--xmas-gold) 64px 72px);
-}
-
-/* En temporada la insignia de campaña reemplaza a la de ubicación: una sola etiqueta sobre el título. */
-html[data-season="navidad"] .hero-badge {
-  display: none;
-}
-
-html[data-season="navidad"] .xmas-hero-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  width: fit-content;
-  margin-inline: auto;
-  padding: 8px 16px;
-  color: var(--xmas-green-dark);
-  background: linear-gradient(90deg, #fbf3e0, #f6ead0);
-  border: 1px solid rgba(212, 166, 74, .55);
-  border-radius: 999px;
-  font-size: .86rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-
-html[data-season="navidad"] .xmas-hero-pill:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(158, 27, 50, .14);
-}
-
-html[data-season="navidad"] .xmas-hero-pill svg {
-  flex: none;
-  color: var(--xmas-gold);
-}
-
-/* ---------- 6. Botones principales en rojo navideño (contraste AA) ---------- */
-html[data-season="navidad"] .btn-pink {
-  background: var(--xmas-red) !important;
-  border-color: var(--xmas-red) !important;
-  color: #fff !important;
-}
-
-html[data-season="navidad"] .btn-pink:hover {
-  background: var(--xmas-red-dark) !important;
-}
-
-/* ---------- 7. Sección de campaña navideña ---------- */
-html[data-season="navidad"] .xmas-campaign {
-  padding-block: clamp(36px, 6vw, 72px);
-}
-
-.xmas-campaign-card {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
-  align-items: center;
-  gap: clamp(24px, 4vw, 48px);
-  padding: clamp(28px, 5vw, 56px);
-  overflow: hidden;
-  color: var(--xmas-cream);
-  background:
-    radial-gradient(520px 260px at 92% 0%, rgba(212, 166, 74, .22), transparent 70%),
-    radial-gradient(420px 260px at 0% 100%, rgba(158, 27, 50, .35), transparent 70%),
-    linear-gradient(135deg, var(--xmas-green) 0%, var(--xmas-green-dark) 100%);
-  border: 1px solid rgba(212, 166, 74, .45);
-  border-radius: 24px;
-  box-shadow: 0 30px 70px rgba(20, 55, 38, .28);
-}
-
-/* Patrón sutil de estrellas pequeñas. */
-.xmas-campaign-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: .16;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.5px),
-    radial-gradient(circle at 70% 60%, #f3e2b8 0 1.2px, transparent 1.8px),
-    radial-gradient(circle at 45% 85%, #fff 0 .8px, transparent 1.3px);
-  background-size: 90px 90px, 130px 130px, 70px 70px;
-}
-
-.xmas-campaign-copy {
-  position: relative;
-  display: grid;
-  gap: 16px;
-  justify-items: start;
-}
-
-.xmas-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  color: var(--xmas-gold-soft);
-  border: 1px solid rgba(243, 226, 184, .4);
-  border-radius: 999px;
-  font-size: .76rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.xmas-campaign-copy h2 {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
-  line-height: 1;
-}
-
-.xmas-campaign-copy h2 em {
-  color: var(--xmas-gold-soft);
-  font-style: italic;
-}
-
-.xmas-campaign-copy .lead {
-  max-width: 560px;
-  margin: 0;
-  color: rgba(255, 250, 242, .88);
-}
-
-.xmas-countdown {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  padding: 10px 14px;
-  color: #fff;
-  background: rgba(255, 255, 255, .08);
-  border-left: 3px solid var(--xmas-gold);
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-.xmas-countdown:empty {
-  display: none;
-}
-
-.xmas-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 6px;
-}
-
-.xmas-campaign .xmas-btn-primary {
-  color: var(--xmas-red-dark) !important;
-  background: linear-gradient(180deg, #f6e3b4, var(--xmas-gold)) !important;
-  border: 0 !important;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, .22) !important;
-}
-
-.xmas-campaign .xmas-btn-primary:hover {
-  filter: brightness(1.05);
-}
-
-.xmas-campaign .xmas-btn-ghost {
-  color: #fff !important;
-  background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, .55) !important;
-  box-shadow: none !important;
-}
-
-.xmas-campaign .xmas-btn-ghost:hover {
-  background: rgba(255, 255, 255, .1) !important;
-}
-
-.xmas-campaign .btn:focus-visible {
-  outline: 3px solid var(--xmas-gold-soft);
-  outline-offset: 3px;
-}
-
-.xmas-campaign-visual {
-  position: relative;
-  justify-self: center;
-  width: min(100%, 300px);
-}
-
-.xmas-campaign-visual svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-.xmas-ornament {
-  transform-origin: 50% 0;
-  animation: xmas-sway 6s ease-in-out infinite;
-}
-
-.xmas-ornament:nth-of-type(2) { animation-delay: -2s; animation-duration: 7s; }
-.xmas-ornament:nth-of-type(3) { animation-delay: -4s; animation-duration: 5.5s; }
-
-@keyframes xmas-sway {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}
-
-@media (max-width: 860px) {
-  .xmas-campaign-card {
-    grid-template-columns: 1fr;
-    text-align: left;
+  .xmas-garland span { --bulb: var(--xmas-red); position: relative; flex: 0 0 46px; height: 22px; }
+  .xmas-garland span::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 7px;
+    height: 11px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    background: var(--bulb);
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--bulb) 60%, transparent);
+    transform: translateX(-50%);
+    animation: xmas-twinkle 2.8s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -0.37s);
   }
+  .xmas-garland span:nth-child(3n + 2) { --bulb: var(--xmas-gold); }
+  .xmas-garland span:nth-child(3n + 3) { --bulb: var(--xmas-green); }
 
-  .xmas-campaign-visual {
-    order: -1;
-    width: min(60%, 200px);
-    margin-bottom: -8px;
+  /* Nieve: solo transform/opacity, detrás de la barra */
+  .xmas-snow { position: fixed; inset: 0; z-index: 1000; overflow: hidden; pointer-events: none; contain: strict; }
+  .xmas-flake {
+    position: absolute;
+    top: -24px;
+    left: var(--x);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    opacity: var(--alpha);
+    background: radial-gradient(circle, #fff 0 45%, rgb(255 255 255 / 0.7) 60%, transparent 72%);
+    animation: xmas-fall var(--duration) linear infinite;
+    animation-delay: var(--delay);
+    will-change: transform;
   }
-}
+  .xmas-flake--sparkle { border-radius: 0; background: var(--xmas-gold); clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); }
 
-@media (max-width: 560px) {
-  .xmas-actions .btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-/* ---------- 8. Acentos discretos en secciones existentes ---------- */
-html[data-season="navidad"] .metric-card.featured {
-  background: linear-gradient(135deg, var(--xmas-red) 0%, #6d1222 100%) !important;
-}
-
-html[data-season="navidad"] .timeline-item:last-child .timeline-date {
-  color: #fff;
-  background: var(--xmas-red);
-}
-
-html[data-season="navidad"] .timeline-item:last-child .timeline-date::before {
-  content: "\2605";
-  margin-right: 6px;
-  color: var(--xmas-gold-soft);
-}
-
-html[data-season="navidad"] .program-card:hover {
-  border-color: rgba(212, 166, 74, .55) !important;
-}
-
-html[data-season="navidad"] .site-footer {
-  border-top: 3px solid transparent;
-  border-image: repeating-linear-gradient(90deg,
-    var(--xmas-red) 0 24px, var(--xmas-gold) 24px 30px, var(--xmas-green) 30px 54px, var(--xmas-gold) 54px 60px) 1;
-}
-
-.xmas-footer-note {
-  margin: 8px 0 0;
-  color: var(--xmas-gold-soft);
-  font-size: .9rem;
-}
-
-/* ---------- 9. Movimiento reducido e impresión ---------- */
-@media (prefers-reduced-motion: reduce) {
-  html[data-season="navidad"] .xmas-garland span::after,
-  .xmas-ornament {
-    animation: none;
-  }
-
-  html[data-season="navidad"] .xmas-snow {
-    display: none;
-  }
-}
-
-@media print {
-  .xmas-snow,
-  .xmas-garland,
+  /* Botón para pausar la nieve (lo crea seasonal.js en la barra) */
   .xmas-snow-toggle {
-    display: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--linea-fuerte);
+    border-radius: 999px;
+    background: none;
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .xmas-snow-toggle:hover { border-color: var(--texto); }
+  /* En la píldora va al final, como un ícono más */
+  .nav-shell .xmas-snow-toggle, .program-detail-nav .xmas-snow-toggle { order: 9; }
+  @media (max-width: 1279px) { .xmas-snow-toggle { width: 44px; padding: 0; justify-content: center; } .xmas-snow-toggle-text { display: none; } }
+  .xmas-snow-toggle[aria-pressed="false"] { color: var(--texto-3); }
+  @media (max-width: 560px) { .xmas-snow-toggle-text { display: none; } }
+
+  @keyframes xmas-fall {
+    from { transform: translate3d(0, -5vh, 0) rotate(0deg); }
+    to { transform: translate3d(var(--drift), 108vh, 0) rotate(200deg); }
+  }
+  @keyframes xmas-sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  @keyframes xmas-twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .xmas-snow, .xmas-garland span::after, .xmas-ornament { animation: none; }
+    .xmas-snow { display: none; }
+  }
+  @media print {
+    .xmas-snow, .xmas-garland, .xmas-snow-toggle { display: none; }
   }
 }
-
-} /* fin @layer legacy */

@@ -16,20 +16,14 @@ export const SELECTORS = {
   menuBackdrop: "#menu-backdrop",
   navLinks: ".nav-link",
   sections: "main section[id]",
-  progressBar: "#reading-progress-bar",
-  hero: ".hero",
-  heroContent: "#hero-content",
   currentYear: "#current-year",
   reveal: ".reveal",
-  quickContact: "#quick-contact",
-  contactSection: "#contacto",
   form: "#contact-form",
   formStatus: "#form-status",
   teamSlider: "#teamSlider",
   teamPrev: "#teamPrev",
   teamNext: "#teamNext",
   teamDots: "#teamDots",
-  scrollTopButton: "#scrollTopBtn",
   localVideoLoader: ".local-video-loader",
   storyBook: "[data-story-book]",
   storyPage: "[data-story-page]",
@@ -49,4 +43,6 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 const prefersReducedData = window.matchMedia("(prefers-reduced-data: reduce)").matches;
 const isSmallViewport = window.matchMedia("(max-width: 760px)").matches;
 const isLikelyLowMemory = "deviceMemory" in navigator && navigator.deviceMemory <= 4;
+// Solo la preferencia de la persona: para efectos baratos que también valen en celular (contadores).
+export const prefersLessMotion = prefersReducedMotion || prefersReducedData;
 export const shouldLimitMotion = prefersReducedMotion || prefersReducedData || isSmallViewport || isLikelyLowMemory;

@@ -20,6 +20,9 @@
 (function () {
   "use strict";
 
+  // Marca que hay JavaScript: solo así las leyendas esperan su entrada animada (sin JS se ven siempre).
+  document.documentElement.classList.add("js");
+
   const SEASON_CONFIG = {
     name: "navidad",
     mode: "auto",
