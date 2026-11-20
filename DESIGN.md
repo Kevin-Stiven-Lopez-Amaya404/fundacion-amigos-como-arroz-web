@@ -2,24 +2,29 @@
 name: Fundación Amigos Como Arroz
 description: La fundación presentada como una presentación de marca, capítulo por capítulo, con sus colores, su logo y sus fotos reales.
 colors:
-  vacio: "#050505"
-  tinta: "#131313"
-  grafito: "#1b1b1b"
-  niebla: "#2a2a2a"
-  linea: "rgb(255 255 255 / 0.12)"
-  linea-fuerte: "rgb(255 255 255 / 0.3)"
-  texto: "#f7f5f2"
-  texto-2: "#c4c2be"
-  texto-3: "#9b9b9b"
+  vacio: "#fbfaf8"
+  tinta: "#ffffff"
+  grafito: "#eef3f7"
+  niebla: "#dde4ea"
+  linea: "rgb(22 32 42 / 0.12)"
+  linea-fuerte: "rgb(22 32 42 / 0.28)"
+  texto: "#16202a"
+  texto-2: "#4a5868"
+  texto-3: "#5b6876"
+  noche: "#0f1923"
+  noche-tarjeta: "#16222e"
+  texto-sobre-noche: "#f7f5f2"
+  texto-2-sobre-noche: "#ccd4dc"
   acero: "#51595f"
   blanco: "#ffffff"
   rosa: "#e0245e"
   rosa-boton: "#c81d52"
-  rosa-claro: "#ff7aa4"
+  rosa-claro: "#c81d52"
+  rosa-sobre-noche: "#ff7aa4"
   sol: "#f6c21c"
-  crema: "#f7f5f2"
-  crema-texto: "#0a0a0a"
-  crema-texto-2: "#51595f"
+  crema: "#eef3f7"
+  crema-texto: "#16202a"
+  crema-texto-2: "#4a5868"
 typography:
   display:
     fontFamily: "Unbounded, Arial Black, sans-serif"
@@ -167,7 +172,7 @@ Modo: Persuade. Público: todos por igual (familias y jóvenes, donantes y aliad
 ## Colors
 
 ### Primary
-**Rosa del logo**: `--rosa` #e0245e; en botones, `--rosa-boton` #c81d52; sobre fondo oscuro, `--rosa-claro` #ff7aa4. Se usa en:
+**Rosa del logo**: `--rosa` #e0245e; en botones, `--rosa-boton` #c81d52; como texto, `--rosa-claro` (#c81d52 en claro, #ff7aa4 en las zonas azul noche). Se usa en:
 - las acciones (Donar, Quiero apoyar, Enviar);
 - el cuadrito de cada capítulo;
 - el estado activo;
@@ -179,12 +184,15 @@ Modo: Persuade. Público: todos por igual (familias y jóvenes, donantes y aliad
 - el brillo de fondo, junto al rosa;
 - el anillo de foco de teclado.
 
-### Neutral
-Los neutros son los de la web de referencia (negros sin tinte); los acentos siguen siendo los del logo.
-- `--vacio` #050505 (fondo), `--tinta` #131313 (tarjetas, panel del menú, chat, formulario), `--grafito` #1b1b1b (relieve), `--niebla` #2a2a2a (bordes).
-- Texto `--texto` #f7f5f2, `--texto-2` #c4c2be (el crema al 78 %), `--texto-3` #9b9b9b (gris de la referencia).
-- `--acero` #51595f: solo adornos sobre oscuro; nunca texto sobre oscuro (no llega a 4.5:1).
-- Sección clara (Momentos): `--crema` #f7f5f2 con `--crema-texto` #0a0a0a y `--crema-texto-2` #51595f.
+### Neutral (tema claro: seguridad y calma)
+La página es clara para verse limpia y transmitir seguridad y tranquilidad (pedido del usuario: «no quiero ese negro»).
+- `--vacio` #fbfaf8 (blanco cálido, fondo), `--tinta` #ffffff (tarjetas, panel del menú, chat, formulario), `--grafito` #eef3f7 (azul muy suave: Historia, Momentos e Informes van sobre él para dar ritmo), `--niebla` #dde4ea (bordes).
+- Texto `--texto` #16202a (azul noche), `--texto-2` #4a5868, `--texto-3` #5b6876; líneas en azul noche transparente.
+- En claro, `--rosa-claro` y `--cifra` son el rosa del botón (#c81d52, 5.6:1 sobre blanco) y el foco es rosa.
+
+### Zonas en azul noche
+Solo donde el texto va sobre fotos las mismas variables cambian a azul noche (nunca negro): `--vacio` #0f1923, `--tinta` #16222e, texto #f7f5f2 / #ccd4dc, `--rosa-claro` #ff7aa4 y `--cifra` y el foco en el amarillo del logo. Zonas: `.entrada`, `.hero`, `.sede-espinal-section`, `.historia` (tarjetas de historias y equipo) y, solo en escritorio, la foto y el bloque de texto de la portada de las páginas internas (en celular ese texto va debajo de la foto, en claro).
+- Los blancos transparentes para hover y líneas se calculan con `color-mix` desde `--texto`, así sirven en las dos zonas.
 
 ### Brillo y velos
 - `--brillo`: dos radiales suaves (rosa y amarillo) detrás de la secuencia de palabras, la intro de programas y el contacto.
