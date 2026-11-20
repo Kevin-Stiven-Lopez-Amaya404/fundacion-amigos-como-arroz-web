@@ -1,10 +1,5 @@
-import { SELECTORS, shouldLimitMotion } from "./config.js";
-
-// Agrupa estados que dependen del scroll: header, boton subir y contacto rapido (la barra de lectura está en motion-fx.js).
+// Barra superior que se oculta al bajar y reaparece al subir (el indicador de historias está en historias.js).
 export function initScrollState(menuApi) {
-  const quickContact = document.querySelector(SELECTORS.quickContact);
-  const contactSection = document.querySelector(SELECTORS.contactSection);
-  const scrollTopButton = document.querySelector(SELECTORS.scrollTopButton);
   const siteHeader = menuApi?.siteHeader;
   const menuToggle = menuApi?.menuToggle;
   const navList = menuApi?.navList;
@@ -14,15 +9,6 @@ export function initScrollState(menuApi) {
 
   const update = () => {
     const scrollTop = window.scrollY;
-
-    if (quickContact && contactSection) {
-      const contactTop = contactSection.getBoundingClientRect().top;
-      quickContact.classList.toggle("is-hidden", contactTop < window.innerHeight * 0.65);
-    }
-
-    if (scrollTopButton) {
-      scrollTopButton.classList.toggle("visible", scrollTop > 200);
-    }
 
     if (siteHeader && menuToggle && navList) {
       const isScrollingDown = scrollTop > lastScrollY;
@@ -49,8 +35,4 @@ export function initScrollState(menuApi) {
 
   window.addEventListener("scroll", requestUpdate, { passive: true });
   update();
-
-  scrollTopButton?.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: shouldLimitMotion ? "auto" : "smooth" });
-  });
 }

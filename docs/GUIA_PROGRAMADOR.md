@@ -29,8 +29,8 @@ landign-/
       semilla.html · siembra.html · cosecha.html · psicosocial.html
     sede-espinal/index.html         Sede Espinal
   assets/                           Se copia tal cual a _site/assets/
-    css/tokens.css                  Variables de diseño y orden de capas (@layer)
-    css/styles.css                  Estilos del sitio, dentro de @layer legacy
+    css/sitio.css                   Todo el estilo del sitio, en capas (@layer)
+    fonts/                          Big Shoulders Display (títulos) y Schibsted Grotesk (texto)
     css/seasonal/navidad.css        Temporada navideña
     js/main.js                      Arranca los módulos de la portada
     js/modules/                     Un archivo por funcionalidad
@@ -77,7 +77,7 @@ Las URL publicadas no cambian: `src/programas/semilla.html` se publica como `/pr
 |---|---|
 | `whatsapp`, `whatsappLabel` | Número para `wa.me` y cómo se muestra. También lo lee el JavaScript. |
 | `email`, `instagram`, `facebook` | Pie de página y enlaces de contacto. |
-| `cache` | Número de versión de cada CSS/JS (`styles.css?v=60`). |
+| `cache` | Número de versión de cada CSS/JS (`sitio.css?v=1`). |
 
 En las páginas se usan así:
 
@@ -98,8 +98,8 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `<head>`, cabecera o pie de las páginas internas | `src/_includes/layouts/interna.njk` |
 | WhatsApp, correo o redes | `src/_data/site.json` |
 | Lo que sabe el asistente del chat | `api/_contexto.mjs` |
-| Colores, tipografía, radios o sombras | `assets/css/tokens.css` |
-| Aspecto de un componente | `assets/css/styles.css` |
+| Colores, tipografía, radios o sombras | tokens al inicio de `assets/css/sitio.css` |
+| Aspecto de un componente | su bloque en `assets/css/sitio.css` |
 | Una interacción | su módulo en `assets/js/modules/` |
 | Activar o apagar la Navidad | `SEASON_CONFIG.mode` en `assets/js/seasonal.js` |
 
@@ -123,25 +123,28 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `config.js` | Selectores, preferencias de movimiento (`shouldLimitMotion`) y contacto. |
 | `menu.js` | Menú hamburguesa: abrir/cerrar, foco en la primera entrada, Escape, `aria-expanded`. |
 | `meta.js` | Año actual del pie. |
-| `hero.js` | Entrada y movimiento suave de la portada. |
 | `active-section.js` | Marca en el menú la sección visible. |
 | `reveal.js` | Aparición de `.reveal` (escalonada entre los que entran juntos) y contadores `data-counter`. |
-| `scroll-state.js` | Header que se oculta, botón de subir y WhatsApp flotante que se esconde junto a Contacto. |
+| `scroll-state.js` | Barra superior que se oculta al bajar y reaparece al subir. |
 | `contact-form.js` | Valida el formulario y abre WhatsApp con el mensaje. |
 | `team-slider.js` | Carrusel del equipo. |
 | `lazy-videos.js` | Carga los videos al pulsar. |
-| `story-book.js` | Libro de historias. |
+| `story-book.js` | Visor de la historia institucional: una página a la vez, con indicador segmentado. |
 | `chatbot.js` | Asistente: las preguntas rápidas responden al instante; lo que se escribe lo responde Claude por `/api/chat` y, si falla, una respuesta fija. |
-| `motion-fx.js` | Efectos ligados al scroll con `motion`: barra de lectura, foto del hero y línea de «Mejores momentos». |
+| `historias.js` | Indicador segmentado de arriba (un segmento por pantalla, se llena con `scroll()` de `motion`) y botón Compartir del carril. |
 
 Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 
 ## 8. Estilos (CSS)
 
-- `tokens.css` declara el orden de capas `tokens, legacy, base, layout, components, sections, utilities` y las variables (`--color-*`, `--radius-*`, `--shadow-1/2/3`…). Usa los nombres `--color-*` en código nuevo.
-- `styles.css` está entero dentro de `@layer legacy`. Es el CSS histórico, ya consolidado en parte (ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)).
-- Código nuevo: ponlo en una capa posterior (`components`, `sections`…). Le gana a `legacy` sin subir la especificidad ni usar `!important`.
-- Puntos de corte para código nuevo: 560, 840 y 1080 px. El CSS histórico usa 13 valores de `max-width` (420, 560, 640, 720, 760, 768, 820, 840, 860, 900, 980, 1023 y 1079); no agregues otros.
+El sitio tiene una sola hoja, `assets/css/sitio.css`, más `seasonal/navidad.css`. La dirección visual (una historia por pantalla) está descrita en [`../DESIGN.md`](../DESIGN.md).
+
+- **Capas:** `@layer reset, tokens, base, layout, components, sections, utilities`. Una regla de una capa posterior gana sin subir la especificidad. No hay `!important` salvo `[hidden]` y el modo de movimiento reducido.
+- **Tokens** (en la capa `tokens`): fondo `--vacio` y grafitos (`--tinta`, `--grafito`), texto `--texto`/`--texto-2`/`--texto-3`, `--rosa` (único color de estado) y `--rosa-boton`, `--sol` (solo para cifras), los velos sobre fotos (`--velo`, `--velo-lado`, `--velo-alto`), tipos `--f-display` (Big Shoulders Display) y `--f-texto` (Schibsted Grotesk), ambos servidos desde `assets/fonts/`.
+- **Pantalla** (`.pantalla`): cada sección ocupa al menos la altura de la ventana, con la foto en `.pantalla-fondo` y la leyenda en `.pantalla-cuerpo`, abajo a la izquierda. `.pantalla--larga` es para secciones de lectura (informes, contacto). `.pantalla-fondo--encaje` es para fotos de baja resolución: relleno desenfocado más la foto nítida a su tamaño.
+- **Carril** (`.carril`): acciones fijas a la derecha (en celular, abajo a la derecha); el contenido reserva su ancho con `--carril`.
+- **Línea de autor** (`.eyebrow`): el nombre de la sección con el logo como avatar, siempre debajo de la leyenda, nunca encima del título.
+- **Puntos de corte:** 480, 560, 640, 759/760, 899/900 y 1079/1080 px.
 
 ## 9. Formulario
 
@@ -168,6 +171,5 @@ Después abre `npm start` y revisa la portada y una página interna a 390 px y e
 
 ## 12. Riesgos conocidos
 
-- `styles.css` aún tiene 186 `!important` y 13 puntos de corte; se van a limpiar sección por sección.
 - El formulario depende de WhatsApp.
 - Antes de publicar, revisar datos reales: teléfono, correo, redes, nombres, fotos y permisos de imágenes.

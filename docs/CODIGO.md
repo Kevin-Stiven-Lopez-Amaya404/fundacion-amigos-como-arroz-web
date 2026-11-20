@@ -20,9 +20,9 @@ Detalle de cómo funciona cada pieza. Para la vista general (carpetas, cambios c
 
 Orden del documento:
 
-1. `<head>`: metadatos, `tokens.css`, `styles.css` y `navidad.css` (con `?v={{ site.cache.* }}`), precarga del hero, `seasonal.js` (debe ir en el `<head>` para marcar la temporada antes de pintar) y datos estructurados JSON-LD.
-2. `.reading-progress`, `.site-header` (logo y menú) y `<main id="main">` con las secciones (`#inicio`, `#fundacion`, `#programas`, `#impacto`, `#testimonios` (con los videos institucionales), `#momentos`, `#equipo`, `#informes` y `#contacto`).
-3. `.site-footer`, el botón flotante de WhatsApp (`#quick-contact`), el chatbot y el botón de subir.
+1. `<head>`: metadatos, precarga de las dos fuentes, `sitio.css` y `navidad.css` (con `?v={{ site.cache.* }}`), precarga del hero, `seasonal.js` (debe ir en el `<head>` para marcar la temporada antes de pintar) y datos estructurados JSON-LD.
+2. `#historias` (indicador segmentado), `.site-header` (logo, nombre y menú) y `<main id="main">` con las secciones (`#inicio`, `#fundacion`, `#programas`, `#impacto`, `#testimonios` (con los videos institucionales), `#momentos`, `#equipo`, `#informes` y `#contacto`).
+3. `.site-footer`, el carril de acciones (`#carril`: Donar, WhatsApp, Programas, Compartir y el botón del asistente) y el panel del chat.
 4. Al final: `analytics.js`, el JSON `#site-data` (WhatsApp para el JS) y `main.js` como `type="module"`.
 
 Cada sección del menú se enlaza por su `id` (`href="#programas"`); `active-section.js` depende de eso.
@@ -40,47 +40,27 @@ Estructura que genera:
   <footer> WhatsApp, correo, redes (de site.json) </footer>
 ```
 
-Las páginas internas cargan `tokens.css`, `styles.css`, `navidad.css`, `seasonal.js` y `analytics.js`, pero no `main.js`.
+Las páginas internas cargan `sitio.css`, `navidad.css`, `seasonal.js` y `analytics.js`, pero no `main.js`. Su primera sección lleva `pagina-portada` y una foto propia en `.pantalla-fondo`; el carril interno tiene WhatsApp y Programas.
 
 ## 4. CSS
 
-### Archivos y capas
+`assets/css/sitio.css` es la única hoja del sitio (más `seasonal/navidad.css`). La dirección visual y sus reglas están en [`../DESIGN.md`](../DESIGN.md).
 
 ```css
-@layer tokens, legacy, base, layout, components, sections, utilities;   /* en tokens.css */
+@layer reset, tokens, base, layout, components, sections, utilities;
 ```
 
-| Archivo | Capa | Contenido |
-|---|---|---|
-| `tokens.css` | `tokens` | Variables de color, tipografía, radios, sombras y movimiento. Los nombres antiguos (`--orange`, `--pink`…) son alias. |
-| `styles.css` | `legacy` | Todo el CSS histórico del sitio. |
-| `seasonal/navidad.css` | `legacy` | Solo se aplica con `<html data-season="navidad">`. |
+| Capa | Contenido |
+|---|---|
+| `reset` | Márgenes, `box-sizing` y `[hidden]` (el único `!important` además del movimiento reducido). |
+| `tokens` | Colores (`--vacio`, `--texto*`, `--rosa`, `--rosa-boton`, `--sol`), velos sobre fotos, tipos, márgenes (`--margen`, `--carril`, `--barra`), radios y la curva `--ease-out`. |
+| `base` | Cuerpo, títulos (Big Shoulders Display en mayúsculas), enlaces, selección, foco (`--sol`) y barras de desplazamiento. |
+| `layout` | `.pantalla`, `.pantalla-fondo` (y `--encaje` para fotos pequeñas), `.pantalla-cuerpo`, `.lead` y la línea de autor `.eyebrow`. |
+| `components` | Botones, indicador `.historias`, barra superior y menú, carril, chat, carruseles `.carrusel`/`.historia`, videos y listas. |
+| `sections` | Cada sección de la portada y las páginas internas (`.program-detail-*`, galerías, Sede Espinal). `navidad.css` también va aquí. |
+| `utilities` | Entrada de `.reveal` (solo con JavaScript: `html.js`, que pone `seasonal.js`), movimiento reducido e impresión. |
 
-Una regla en una capa posterior (por ejemplo `components`) gana a cualquier regla de `legacy`, sin importar la especificidad. Por eso el código nuevo va en esas capas y no necesita `!important`.
-
-### Estado de `styles.css`
-
-Ya se hizo esta limpieza, cada paso verificado comparando el estilo calculado de todas las páginas (ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)):
-
-- **Declaraciones muertas:** se borraron las que siempre quedaban pisadas.
-- **Reglas repetidas:** se fusionaron las del mismo selector y contexto.
-- **`!important`:** se quitaron los que no decidían nada; quedan 186.
-- **Colores, radios y sombras:** pasaron a tokens.
-
-El CSS histórico usa 13 valores de `max-width` (antes 23): 420, 560, 640, 720, 760, 768, 820, 840, 860, 900, 980, 1023 y 1079. Los que quedan no se pueden juntar sin cambiar el diseño en algún dispositivo común (por ejemplo 820 y 840 rodean al iPad Air de 834 px). Para código nuevo, usa solo 560, 840 y 1080 px.
-
-### Bloques principales
-
-- `.container`, `.section`, `.section-header`, `.btn`, `.reveal`/`.visible`: base.
-- `.site-header`, `.nav-list`, `.menu-toggle`: cabecera y menú.
-- `.hero`, `.hero-intro`: portada.
-- `.program-card`, `.program-grid`: tarjetas de programas.
-- `.program-detail-*`, `.program-timeline`: páginas de programas.
-- `.team-*`: carrusel del equipo.
-- `.contact-*`, `.contact-form`: contacto.
-- `.chatbot-*`, `.story-book-*`, `.social-dock-*`: chatbot, libro y botón flotante de WhatsApp.
-- `@layer components` al final de `styles.css`: el movimiento de la portada (encabezados de sección escalonados, botones que se hunden al pulsar, puntos y línea de la línea de tiempo, barra de lectura con `scaleX`). Con movimiento reducido todo aparece en su sitio.
-- Tres tipos de botón, sin variantes nuevas: `.btn-pink` para la acción principal de apoyo (una por bloque), `.btn-whatsapp` cuando el botón abre WhatsApp y `.btn-secondary` para todo lo demás.
+Botones: `.btn-pink` para apoyar/donar, `.btn-whatsapp` (blanco) cuando abre WhatsApp, `.btn-secondary` (contorno) para lo demás.
 
 ## 5. JavaScript
 
@@ -100,7 +80,7 @@ initTeamSlider();
 initLazyVideos();
 initStoryBook();
 initChatbot();
-initMotionFx();             // efectos ligados al scroll (motion)
+initHistorias();            // indicador segmentado y botón Compartir
 ```
 
 ### `modules/config.js`
@@ -115,16 +95,15 @@ initMotionFx();             // efectos ligados al scroll (motion)
 |---|---|
 | `menu.js` | Abre/cierra el panel, fondo oscuro, Escape, cierre al pulsar un enlace, `aria-expanded`/`aria-label`. Al abrir lleva el foco a la primera entrada y Escape lo devuelve al botón (el botón va después de la lista en el HTML). Devuelve `menuApi`. |
 | `meta.js` | Escribe el año actual en `#current-year`. |
-| `hero.js` | Marca `#hero-content` como listo y mueve suavemente la imagen con el ratón (no si `shouldLimitMotion`). |
 | `active-section.js` | Marca `.active` en el enlace de la sección visible. |
 | `reveal.js` | Añade `.visible` a `.reveal` al entrar en pantalla y anima `data-counter="180"`. Los que entran a la vez (por ejemplo las 4 tarjetas de programas) reciben `--delay` de 0, 70, 140… ms, hasta 280. Los contadores se animan también en celular; solo se saltan con movimiento o datos reducidos (`prefersLessMotion`). |
-| `scroll-state.js` | Header que se oculta al bajar, botón de subir y WhatsApp flotante que se esconde junto a Contacto. |
+| `scroll-state.js` | Barra superior que se oculta al bajar y reaparece al subir o al recibir el foco. |
 | `contact-form.js` | Valida campos con `aria-invalid` y mensajes de error; si todo está bien abre WhatsApp. |
 | `team-slider.js` | Anterior/siguiente, puntos, avance automático que se pausa fuera de pantalla o con el cursor encima. |
 | `lazy-videos.js` | Carga cada video local (`.local-video-loader`) solo al pulsarlo. |
-| `story-book.js` | Páginas del libro de historias y su estado accesible. |
+| `story-book.js` | Visor de la historia institucional: muestra una página a la vez (las demás con `hidden`), arma su indicador segmentado y anuncia «Página X de Y» en `role="status"`. |
 | `chatbot.js` | Las preguntas rápidas responden al instante con textos fijos. Lo que la persona escribe va a `/api/chat` con las últimas 8 intervenciones; mientras tanto muestra «Escribiendo…» y bloquea el campo. La respuesta se arma con `textContent`, y solo las URL `https` de WhatsApp, Instagram, Facebook o el dominio de la fundación se convierten en enlace. Si la API falla o no existe (con `npm start` no hay funciones), responde con el texto fijo y no reenvía esa pregunta. |
-| `motion-fx.js` | Con `scroll()` de `motion` (usa `ScrollTimeline`/`ViewTimeline` del navegador, fuera del hilo principal): la barra de lectura crece con `scaleX` (siempre: informa de la posición); si no hay `shouldLimitMotion`, la foto del hero baja 72 px al salir (anima `translate`, porque legacy fija `transform: none !important` en esa foto) y crea `.timeline-progress`, la línea de color de «Mejores momentos» que se dibuja con el scroll. |
+| `historias.js` | Arma `#historias`: un enlace por `main > section[id]` visible, con el título de la sección como nombre accesible. Cada segmento se llena con `scroll()` de `motion` (ScrollTimeline del navegador) cuando su pantalla sale por arriba; el de la pantalla actual lleva `aria-current="true"`. También maneja el botón Compartir del carril (menú nativo o copia del enlace). |
 
 Fuera de `modules/`:
 

@@ -5,7 +5,6 @@
   - Cada módulo de modules/ configura una sola funcionalidad (init*).
   - Aquí se inicializan en un orden claro.
 */
-import { initHero } from "./modules/hero.js";
 import { initMenu } from "./modules/menu.js";
 import { initActiveSection } from "./modules/active-section.js";
 import { initReveal } from "./modules/reveal.js";
@@ -16,12 +15,11 @@ import { initLazyVideos } from "./modules/lazy-videos.js";
 import { initStoryBook } from "./modules/story-book.js";
 import { initChatbot } from "./modules/chatbot.js";
 import { initMeta } from "./modules/meta.js";
-import { initMotionFx } from "./modules/motion-fx.js";
+import { initHistorias } from "./modules/historias.js";
 
 // Inicializacion general del sitio.
 const menuApi = initMenu();
 initMeta();
-initHero();
 initActiveSection();
 initReveal();
 initScrollState(menuApi);
@@ -30,4 +28,4 @@ initTeamSlider();
 initLazyVideos();
 initStoryBook();
 initChatbot();
-initMotionFx();
+initHistorias();
