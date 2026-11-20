@@ -1,6 +1,7 @@
 import { SELECTORS, WHATSAPP_URL } from "./config.js";
 
 // Valida el formulario antes de abrir WhatsApp con el mensaje armado por el usuario.
+// Teléfono y correo son opcionales (WhatsApp ya muestra el número); si se escriben, deben ser válidos.
 export function initContactForm() {
   const form = document.querySelector(SELECTORS.form);
   const status = document.querySelector(SELECTORS.formStatus);
@@ -38,13 +39,13 @@ export function initContactForm() {
     },
     phone(value) {
       const digits = value.replace(/\D/g, "");
-      if (!value) return "Escribe un número de teléfono.";
+      if (!value) return "";
       if (digits.length < 7 || digits.length > 15) return "El teléfono debe tener entre 7 y 15 dígitos.";
       if (/^(\d)\1+$/.test(digits)) return "Ingresa un teléfono válido.";
       return "";
     },
     email(value) {
-      if (!value) return "Escribe tu correo electrónico.";
+      if (!value) return "";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return "Ingresa un correo electrónico válido.";
       return "";
     },
@@ -54,7 +55,7 @@ export function initContactForm() {
     },
     message(value) {
       if (!value) return "Escribe tu mensaje.";
-      if (value.length < 20) return "El mensaje debe tener al menos 20 caracteres.";
+      if (value.length < 10) return "Cuéntanos un poco más (al menos 10 caracteres).";
       if (value.length > 700) return "El mensaje no debe superar los 700 caracteres.";
       return "";
     }
@@ -104,7 +105,7 @@ export function initContactForm() {
     }
 
     const interestLabels = {
-      programas: "Programas",
+      programas: "Inscripción a un programa",
       donacion: "Donación",
       voluntariado: "Voluntariado",
       alianza: "Alianza",
@@ -115,12 +116,14 @@ export function initContactForm() {
       "Hola, quiero contactar a la Fundación Amigos Como Arroz.",
       "",
       `Nombre: ${values.name}`,
-      `Teléfono: ${values.phone}`,
-      `Correo: ${values.email}`,
+      values.phone ? `Teléfono: ${values.phone}` : null,
+      values.email ? `Correo: ${values.email}` : null,
       `Interés: ${interestLabels[values.interest] || values.interest}`,
       "",
       `Mensaje: ${values.message}`
-    ].join("\n");
+    ]
+      .filter((linea) => linea !== null)
+      .join("\n");
 
     const whatsappUrl = `${WHATSAPP_URL}?text=${encodeURIComponent(whatsappMessage)}`;
 

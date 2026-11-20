@@ -134,9 +134,7 @@
 
       <a
         class="nav-donate"
-        href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#donar"
         data-analytics-event="clic_donar"
         data-analytics-category="contacto"
         data-analytics-label="Menú - donar"
@@ -203,7 +201,7 @@
           para construir proyectos de vida con esperanza.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-pink" href="#contacto">Quiero apoyar la misión</a>
+          <a class="btn btn-pink" href="#donar">Donar</a>
           <a
             class="btn btn-whatsapp"
             href="{{ 'Hola, quiero apoyar a la Fundación Amigos Como Arroz.' | whatsapp }}"
@@ -449,7 +447,20 @@
               Formación deportiva, cultural y productiva para fortalecer talentos,
               valores y uso sano del tiempo libre.
             </p>
-            <a class="btn btn-secondary" href="programas/semilla.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el programa Semilla.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Semilla"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/semilla.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
 
@@ -472,7 +483,20 @@
               Becas y acompañamiento para acceder a educación superior técnica, tecnológica
               o profesional de excelente calidad.
             </p>
-            <a class="btn btn-secondary" href="programas/siembra.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el programa Siembra.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Siembra"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/siembra.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
 
@@ -496,7 +520,20 @@
               Liderazgo juvenil y proyectos sociales para servir, participar y generar
               impacto en la comunidad.
             </p>
-            <a class="btn btn-secondary" href="programas/cosecha.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el programa Cosecha.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Cosecha"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/cosecha.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
 
@@ -520,9 +557,42 @@
               Eje transversal que apoya el sano desarrollo de beneficiarios
               y familias en su proyecto de vida.
             </p>
-            <a class="btn btn-secondary" href="programas/psicosocial.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el acompañamiento psicosocial.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Psicosocial"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/psicosocial.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
+      </div>
+      <!-- Cómo participar: el camino para familias y jóvenes, en tres pasos -->
+      <div class="como-participar reveal" aria-labelledby="como-participar-title">
+        <h3 id="como-participar-title">¿Cómo participar?</h3>
+        <ol>
+          <li><strong>Elige un programa</strong><span>Semilla, Siembra o Cosecha, según la edad y lo que buscas. El acompañamiento psicosocial está en todos.</span></li>
+          <li><strong>Escríbenos</strong><span>Por WhatsApp o con el formulario de contacto, contándonos a qué programa quieres entrar.</span></li>
+          <li><strong>Te contactamos</strong><span>Te explicamos requisitos, horarios y el siguiente paso.</span></li>
+        </ol>
+        <a
+          class="btn btn-pink"
+          href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en un programa de la fundación.' | whatsapp }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-analytics-event="clic_inscribirme"
+          data-analytics-category="programas"
+          data-analytics-label="Cómo participar - inscribirme"
+        >
+          Inscribirme por WhatsApp
+        </a>
       </div>
     </section>
 
@@ -536,7 +606,7 @@
             habilidades, confianza y comunidad.
           </p>
           <div class="impact-actions">
-            <a class="btn btn-pink" href="#contacto">Quiero apoyar</a>
+            <a class="btn btn-pink" href="#donar">Donar</a>
             <a
               class="btn btn-whatsapp"
               href="{{ 'Hola, quiero saber cómo puedo apoyar a la fundación.' | whatsapp }}"
@@ -544,9 +614,9 @@
               rel="noopener noreferrer"
               data-analytics-event="clic_whatsapp"
               data-analytics-category="contacto"
-              data-analytics-label="Impacto - hablar con la fundacion"
+              data-analytics-label="Impacto - escribir por WhatsApp"
             >
-              Hablar con la fundación
+              Escribir por WhatsApp
             </a>
           </div>
           <p class="eyebrow">Impacto</p>
@@ -895,7 +965,7 @@
           </article>
         </div>
         <div class="acciones">
-          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conoce más de nosotros</a>
+          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conocer la sede</a>
         </div>
         <p class="eyebrow">Sede Espinal</p>
         <p class="sede-espinal-badge"><strong>Espinal</strong> · Tolima</p>
@@ -1150,7 +1220,7 @@
           </article>
 
           <article class="report-row report-row--legal">
-            <div class="report-year report-year--document">5245</div>
+            <div class="report-year report-year--document">Legal</div>
             <div class="report-content">
               <span class="report-status">Documento legal</span>
               <h3>PRESENTACION 5245</h3>
@@ -1174,7 +1244,7 @@
             Escríbenos, haz una donación, únete como voluntario o conviértete en aliado estratégico.
             Cada contribución transforma vidas.
           </p>
-          <div class="contact-quick-actions" aria-label="Acciones rápidas de contacto">
+          <div class="contact-quick-actions" id="donar" aria-label="Donar, ser voluntario o inscribirse">
             <a
               class="btn btn-pink"
               href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
@@ -1182,9 +1252,9 @@
               rel="noopener noreferrer"
               data-analytics-event="clic_donar"
               data-analytics-category="contacto"
-              data-analytics-label="Contacto - donar o apoyar"
+              data-analytics-label="Contacto - donar"
             >
-              Donar o apoyar
+              Donar
             </a>
             <a
               class="btn btn-secondary"
@@ -1197,7 +1267,29 @@
             >
               Ser voluntario
             </a>
+            <a
+              class="btn btn-secondary"
+              href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en un programa de la fundación.' | whatsapp }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-analytics-event="clic_inscribirme"
+              data-analytics-category="contacto"
+              data-analytics-label="Contacto - inscribirme"
+            >
+              Inscribirme
+            </a>
           </div>
+          {%- if site.donacion and site.donacion.medios.length %}
+          <div class="como-donar" aria-labelledby="como-donar-title">
+            <h3 id="como-donar-title">Cómo donar</h3>
+            <ul>
+              {%- for medio in site.donacion.medios %}
+              <li><strong>{{ medio.nombre }}</strong><span>{{ medio.dato }}</span>{% if medio.titular %}<small>{{ medio.titular }}</small>{% endif %}</li>
+              {%- endfor %}
+            </ul>
+            <p>Cuando dones, escríbenos por WhatsApp para enviarte el certificado de donación.</p>
+          </div>
+          {%- endif %}
 
           <ul class="contact-list">
             <li class="contact-item">
@@ -1241,16 +1333,16 @@
               </div>
 
               <div class="form-group">
-                <label for="phone">Teléfono</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+57 300 000 0000" maxlength="20" aria-describedby="phone-error" required />
+                <label for="phone">Teléfono <span class="opcional">(opcional)</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+57 300 000 0000" maxlength="20" aria-describedby="phone-error" />
                 <small class="field-error" id="phone-error" aria-live="polite"></small>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" maxlength="120" aria-describedby="email-error" required />
+                <label for="email">Correo electrónico <span class="opcional">(opcional)</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" maxlength="120" aria-describedby="email-error" />
                 <small class="field-error" id="email-error" aria-live="polite"></small>
               </div>
 
@@ -1258,7 +1350,7 @@
                 <label for="interest">Interés</label>
                 <select id="interest" name="interest" aria-describedby="interest-error" required>
                   <option value="">Elige una opción</option>
-                  <option value="programas">Programas</option>
+                  <option value="programas">Inscribirme en un programa</option>
                   <option value="donacion">Donación</option>
                   <option value="voluntariado">Voluntariado</option>
                   <option value="alianza">Alianza</option>
@@ -1270,15 +1362,16 @@
 
             <div class="form-group">
               <label for="message">Mensaje</label>
-              <textarea id="message" name="message" placeholder="Escribe tu mensaje con los detalles importantes" minlength="20" maxlength="700" aria-describedby="message-error" required></textarea>
+              <textarea id="message" name="message" placeholder="Escribe tu mensaje con los detalles importantes" minlength="10" maxlength="700" aria-describedby="message-error message-ayuda" required></textarea>
               <small class="field-error" id="message-error" aria-live="polite"></small>
             </div>
 
             <div class="contact-submit">
               <button class="btn btn-pink" type="submit">
-                <span>Enviar mensaje</span>
+                <span>Enviar por WhatsApp</span>
                 <span aria-hidden="true">&rarr;</span>
               </button>
+              <p class="contact-submit-ayuda" id="message-ayuda">Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
             </div>
 
             <p class="form-status" id="form-status" role="status" aria-live="polite"></p>

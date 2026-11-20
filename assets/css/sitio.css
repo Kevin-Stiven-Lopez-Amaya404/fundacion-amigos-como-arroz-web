@@ -325,11 +325,10 @@
     border-radius: var(--radio-s);
     background: transparent;
     color: var(--texto);
-    font-family: var(--f-mono);
-    font-size: var(--t-etiqueta);
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-family: var(--f-texto);
+    font-size: var(--t-cuerpo);
+    font-weight: 600;
+    letter-spacing: 0;
     text-decoration: none;
     text-align: center;
     text-wrap: balance;
@@ -346,7 +345,7 @@
     .btn-secondary:hover { background: color-mix(in srgb, var(--texto) 10%, transparent); }
   }
   .acciones, .hero-actions, .impact-actions, .contact-quick-actions, .xmas-actions { display: flex; flex-wrap: wrap; gap: var(--e-3); align-items: center; }
-  .hero-link { display: inline-flex; align-items: center; gap: var(--e-2); min-height: 50px; padding-inline: 6px; font-family: var(--f-mono); font-size: var(--t-etiqueta); letter-spacing: 0.1em; text-transform: uppercase; color: var(--texto); }
+  .hero-link { display: inline-flex; align-items: center; gap: var(--e-2); min-height: 50px; padding-inline: 6px; font-weight: 600; color: var(--texto); }
 
   /* Progreso de lectura: línea fina arriba, un tramo por pantalla */
   .historias {
@@ -406,10 +405,9 @@
     border-radius: 8px;
     background: none;
     color: var(--texto-2);
-    font-family: var(--f-mono);
-    font-size: var(--t-nota);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-family: var(--f-texto);
+    font-size: var(--t-etiqueta);
+    font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
   }
@@ -426,10 +424,9 @@
     border-radius: 8px;
     background: var(--rosa-boton);
     color: #fff;
-    font-family: var(--f-mono);
-    font-size: var(--t-nota);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-family: var(--f-texto);
+    font-size: var(--t-etiqueta);
+    font-weight: 600;
     text-decoration: none;
   }
   .nav-donate:hover { background: var(--rosa); }
@@ -896,7 +893,8 @@
   @media (min-width: 900px) { .report-row { grid-template-columns: 11rem 1fr auto; } }
   .report-year { grid-row: span 2; font-family: var(--f-display); font-size: var(--t-h2); font-weight: 700; line-height: 0.9; color: var(--cifra); }
   @media (min-width: 900px) { .report-year { grid-row: auto; } }
-  .report-year--document { color: var(--texto); }
+  /* Documentos sin año (Formulario 5245): etiqueta pequeña, no un número que parezca un año */
+  .report-year--document { align-self: start; padding-top: 6px; font-family: var(--f-mono); font-size: var(--t-etiqueta); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--texto-3); }
   .report-content { display: grid; gap: var(--e-1); }
   .report-content h3 { font-size: var(--t-destacado); }
   .report-content p { color: var(--texto-2); font-size: var(--t-cuerpo); }
@@ -949,6 +947,27 @@
   .form-group [aria-invalid="true"] { border-color: var(--rosa-claro); }
   .field-error { min-height: 1.2em; font-size: var(--t-etiqueta); font-weight: 600; color: var(--rosa-claro); }
   .contact-submit .btn { width: 100%; }
+  .contact-submit-ayuda { margin-top: var(--e-2); font-size: var(--t-etiqueta); color: var(--texto-3); text-align: center; }
+  .form-group .opcional { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--texto-3); }
+
+  /* Cómo donar: aparece solo cuando site.json trae medios de donación reales */
+  .como-donar { display: grid; gap: var(--e-3); margin-top: var(--e-7); padding: var(--e-6); border: 1px solid var(--linea); border-radius: var(--radio); background: var(--tinta); }
+  .como-donar h3 { font-size: var(--t-destacado); }
+  .como-donar ul { display: grid; gap: var(--e-3); }
+  .como-donar li { display: grid; gap: 2px; padding-bottom: var(--e-3); border-bottom: 1px solid var(--linea); }
+  .como-donar strong { font-weight: 600; }
+  .como-donar span { font-size: var(--t-lead); font-variant-numeric: tabular-nums; user-select: all; }
+  .como-donar small, .como-donar p { font-size: var(--t-etiqueta); color: var(--texto-3); }
+
+  /* Cómo participar: tres pasos al cierre de Programas */
+  .como-participar { display: grid; gap: var(--e-6); justify-items: start; margin: 0 var(--margen) clamp(64px, 10vh, 120px); padding: clamp(24px, 4vw, 48px); border: 1px solid var(--linea); border-radius: var(--radio); background: var(--tinta); }
+  .como-participar h3 { font-size: var(--t-h3); }
+  .como-participar ol { display: grid; gap: var(--e-6); width: 100%; counter-reset: paso; }
+  @media (min-width: 900px) { .como-participar ol { grid-template-columns: repeat(3, 1fr); } }
+  .como-participar li { display: grid; gap: var(--e-2); counter-increment: paso; }
+  .como-participar li::before { content: counter(paso); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--rosa-boton); color: #fff; font-weight: 700; }
+  .como-participar strong { font-size: var(--t-destacado); font-weight: 600; }
+  .como-participar span { color: var(--texto-2); }
   .form-status { font-weight: 600; color: var(--texto-2); }
   .form-status:empty { display: none; }
 
