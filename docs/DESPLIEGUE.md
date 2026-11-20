@@ -10,12 +10,14 @@ Usa esta lista antes de publicar la pagina.
 - Confirmar nombres, roles y fotos del equipo.
 - Confirmar que los dos videos de YouTube sean los videos que quieres mostrar.
 - Revisar la pagina en computador y celular.
+- Para que el chat responda con Claude: en Vercel, Settings → Environment Variables, crear `ANTHROPIC_API_KEY` (Production y Preview) con una clave de console.anthropic.com y volver a desplegar. Sin la clave, el chat sigue funcionando con sus respuestas fijas. Conviene ponerle un limite de gasto mensual a esa clave en la consola de Anthropic.
 
 ## Archivos importantes
 
 - `src/index.html`: pagina principal.
 - `src/programas/` y `src/sede-espinal/`: paginas internas.
 - `eleventy.config.mjs` y `vercel.json`: compilacion y publicacion.
+- `api/chat.mjs` y `api/_contexto.mjs`: asistente del chat con Claude (funcion de Vercel).
 - `assets/css/styles.css`: estilos.
 - `assets/js/main.js` y `assets/js/modules/`: interacciones.
 - `src/_data/site.json`: WhatsApp, correo, redes y versiones de cache.

@@ -1,6 +1,7 @@
 import { SELECTORS, CONTACT, WHATSAPP_URL } from "./config.js";
 
-// Chatbot basico con respuestas frecuentes de la fundacion.
+// Chatbot de la portada: las preguntas rápidas responden al instante con textos fijos; lo que la persona
+// escribe se responde con Claude (/api/chat). Si la API falla o no existe (npm start), vuelve a los textos fijos.
 export function initChatbot() {
   const toggle = document.querySelector(SELECTORS.chatbotToggle);
   const panel = document.querySelector(SELECTORS.chatbotPanel);
@@ -59,6 +60,23 @@ export function initChatbot() {
     return answers.default;
   };
 
+  // Enlaces que puede traer una respuesta de Claude: solo https y solo estos sitios.
+  const HOSTS_PERMITIDOS = /^(wa\.me|(www\.)?instagram\.com|(www\.)?facebook\.com|fundacionamigoscomoarroz\.com)$/;
+  const enlazar = (texto) => {
+    const partes = [];
+    let resto = 0;
+    for (const m of texto.matchAll(/https:\/\/[^\s)]+/g)) {
+      const url = m[0].replace(/[.,;:!?]+$/, "");
+      let host = "";
+      try { host = new URL(url).hostname; } catch { continue; }
+      if (!HOSTS_PERMITIDOS.test(host)) continue;
+      partes.push(texto.slice(resto, m.index), { text: url.replace(/^https:\/\//, ""), href: url });
+      resto = m.index + url.length;
+    }
+    partes.push(texto.slice(resto));
+    return partes.filter((p) => p !== "");
+  };
+
   // Se arma con nodos DOM y textContent (sin innerHTML): así es seguro aunque las respuestas
   // pasen a un archivo de datos editable o el texto venga del usuario.
   const appendMessage = (content, type) => {
@@ -80,6 +98,39 @@ export function initChatbot() {
 
     messages.appendChild(message);
     messages.scrollTop = messages.scrollHeight;
+    return message;
+  };
+
+  const historial = []; // { role: "user" | "assistant", text } de lo escrito a mano, para dar contexto a Claude
+  let esperando = false;
+
+  const preguntarAClaude = async (pregunta) => {
+    historial.push({ role: "user", text: pregunta.slice(0, 600) });
+    const escribiendo = appendMessage("Escribiendo…", "bot");
+    escribiendo.classList.add("chatbot-message--typing");
+    esperando = true;
+    input.disabled = true;
+    try {
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: historial.slice(-8) }),
+        signal: AbortSignal.timeout(30000)
+      });
+      const datos = await r.json().catch(() => ({}));
+      if (!r.ok || typeof datos.reply !== "string") throw new Error(datos.error || String(r.status));
+      historial.push({ role: "assistant", text: datos.reply.slice(0, 600) });
+      escribiendo.remove();
+      appendMessage(enlazar(datos.reply), "bot");
+    } catch {
+      historial.pop(); // la pregunta sin respuesta no se manda como contexto la próxima vez
+      escribiendo.remove();
+      appendMessage(getAnswer(pregunta), "bot");
+    } finally {
+      esperando = false;
+      input.disabled = false;
+      input.focus();
+    }
   };
 
   const setOpen = (isOpen) => {
@@ -116,8 +167,11 @@ export function initChatbot() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    ask(input.value);
+    const pregunta = input.value.trim();
+    if (!pregunta || esperando) return;
     input.value = "";
+    appendMessage(pregunta, "user");
+    preguntarAClaude(pregunta);
   });
 
   document.addEventListener("keydown", (event) => {
