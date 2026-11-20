@@ -4,55 +4,34 @@ Esta guia explica el sitio de la Fundacion Amigos Como Arroz de la forma mas dir
 
 ## Resumen rapido
 
-El proyecto es una pagina web estatica. No necesita instalacion, base de datos ni servidor especial para funcionar.
+Sitio web estatico (HTML, CSS y JavaScript puro) que Eleventy compila. Para verlo en tu equipo:
 
-- `index.html`: contiene el contenido visible de la pagina principal.
-- `programas/`: contiene la vista general y las paginas individuales de cada programa.
-- `assets/css/styles.css`: define colores, tamanos, animaciones, responsive y apariencia visual.
-- `assets/js/main.js`: agrega interacciones como menu movil, animaciones al hacer scroll, formulario hacia WhatsApp, carrusel y boton para volver arriba.
-- `README.md`: explica como abrir y mantener el proyecto.
+```bash
+npm install   # solo la primera vez
+npm start     # abre http://localhost:8080 y se recarga al guardar
+```
 
-Para probarlo, abre `index.html` en el navegador. Si algun navegador bloquea recursos externos por abrirlo como archivo local, usa un servidor estatico sencillo desde la carpeta del proyecto.
+Abrir el HTML con doble clic ya no sirve: las paginas usan datos de plantilla y modulos de JavaScript.
+
+- `src/index.html`: contenido de la pagina principal.
+- `src/programas/` y `src/sede-espinal/`: paginas internas (solo su contenido; cabecera y pie salen de `src/_includes/layouts/interna.njk`).
+- `src/_data/site.json`: WhatsApp, correo, redes y versiones de cache, escritos una sola vez.
+- `assets/css/tokens.css` y `assets/css/styles.css`: colores, tamanos, animaciones y version movil.
+- `assets/js/modules/`: interacciones, un archivo por funcionalidad (`main.js` los arranca).
+
+La estructura completa de carpetas esta en [`GUIA_PROGRAMADOR.md`](GUIA_PROGRAMADOR.md).
 
 ## Como leer el proyecto
 
 Piensa en la pagina como tres capas:
 
-1. `index.html` es el esqueleto: textos, secciones, enlaces, imagenes, formularios y botones.
-2. `assets/css/styles.css` es la presentacion: colores, distribucion, sombras, tamanos, movimiento y version movil.
-3. `assets/js/main.js` es el comportamiento: acciones que pasan despues de hacer clic, scrollear, cargar la pagina o enviar el formulario.
+1. `src/index.html` es el esqueleto: textos, secciones, enlaces, imagenes, formularios y botones.
+2. `assets/css/` es la presentacion: colores, distribucion, sombras, tamanos, movimiento y version movil.
+3. `assets/js/modules/` es el comportamiento: acciones que pasan despues de hacer clic, scrollear, cargar la pagina o enviar el formulario.
 
-Cuando quieras cambiar algo visual, normalmente empiezas por `index.html` para ubicar el elemento y luego buscas su clase en `assets/css/styles.css`.
+Cuando quieras cambiar algo visual, ubica el elemento en `src/index.html` y luego busca su clase en `assets/css/styles.css`.
 
-Cuando quieras cambiar una interaccion, buscas el `id` o la clase en `assets/js/main.js`.
-
-## Estructura de archivos
-
-```text
-fundacion/
-  index.html
-  assets/
-    css/
-      styles.css
-    js/
-      main.js
-    img/
-      brand/
-      hero/
-      content/
-      team/
-  programas/
-    index.html
-    semilla.html
-    siembra.html
-    cosecha.html
-    psicosocial.html
-  docs/
-    DOCUMENTACION.md
-    PROGRAMAS.md
-    CODIGO.md
-  README.md
-```
+Cuando quieras cambiar una interaccion, busca el `id` o la clase en `assets/js/modules/config.js` (`SELECTORS`) y abre el modulo que la usa.
 
 ## Secciones del HTML
 
@@ -60,14 +39,14 @@ Todas las secciones principales estan dentro de `<main id="main">`.
 
 | Seccion | ID | Para que sirve |
 |---|---|---|
-| Hero / Inicio | `inicio` | Primera pantalla con nombre de la fundacion y botones principales. |
+| Hero / Inicio | `inicio` | Primera pantalla con nombre de la fundacion y botones principales. Las cifras viven solo en Impacto. |
 | Fundacion | `fundacion` | Presenta la mision general y una imagen de apoyo. |
 | Programas | `programas` | Muestra Semilla, Siembra, Cosecha y Acompanamiento Psicosocial. |
 | Impacto | `impacto` | Muestra metricas con contadores animados. |
-| Testimonios | `testimonios` | Incluye opiniones o historias de beneficiarios y comunidad. |
+| Testimonios | `testimonios` | Videos de testimonios y, debajo, los videos institucionales ("Conoce nuestra mision" y "Momentos de impacto"). |
 | Momentos | `momentos` | Linea de tiempo con hitos del ano. |
 | Equipo | `equipo` | Carrusel horizontal de integrantes. |
-| Videos | `videos` | Enlaces visuales a redes oficiales de la fundacion. |
+| Informes | `informes` | Informes de gestion y documento legal. Va antes de Contacto: primero la prueba, luego la peticion. |
 | Contacto | `contacto` | Datos de contacto y formulario que abre WhatsApp. |
 | Footer | sin ID principal | Enlaces finales y redes sociales. |
 
@@ -94,7 +73,7 @@ Si agregas una seccion nueva y quieres que aparezca en el menu, debes hacer dos 
 
 ### Cambiar textos principales
 
-Archivo: `index.html`
+Archivo: `src/index.html`
 
 Busca el titulo o texto actual y editalo directamente. Ejemplo:
 
@@ -104,7 +83,7 @@ Busca el titulo o texto actual y editalo directamente. Ejemplo:
 
 ### Cambiar programas
 
-Archivo: `index.html`
+Archivo: `src/index.html`
 
 Cada programa es una tarjeta:
 
@@ -117,11 +96,11 @@ Cada programa es una tarjeta:
 </article>
 ```
 
-Para agregar otro programa, copia una tarjeta completa y cambia icono, titulo, descripcion y enlace. Si el enlace apunta a `programas/nuevo-programa.html`, tambien debe existir ese archivo dentro de la carpeta `programas/`.
+Para agregar otro programa, copia una tarjeta completa y cambia icono, titulo, descripcion y enlace. Si el enlace apunta a `programas/nuevo-programa.html`, tambien debe existir `src/programas/nuevo-programa.html` (ver [`GUIA_PROGRAMADOR.md`](GUIA_PROGRAMADOR.md), seccion 6).
 
 ### Cambiar metricas de impacto
 
-Archivo: `index.html`
+Archivo: `src/index.html`
 
 Los numeros animados usan `data-counter`:
 
@@ -133,7 +112,7 @@ El numero final es el valor de `data-counter`. El `0` inicial se deja asi porque
 
 ### Cambiar integrantes del equipo
 
-Archivo: `index.html`
+Archivo: `src/index.html`
 
 Cada integrante esta dentro de:
 
@@ -141,61 +120,44 @@ Cada integrante esta dentro de:
 <article class="team-card-modern">
 ```
 
-Edita la imagen, el nombre, el rol y los datos de `team-meta`. El carrusel se ajusta automaticamente porque `assets/js/main.js` detecta todas las tarjetas con la clase `.team-card-modern`.
+Edita la imagen, el nombre, el rol y los datos de `team-meta`. El carrusel se ajusta automaticamente porque `assets/js/modules/team-slider.js` detecta todas las tarjetas con la clase `.team-card-modern`.
 
-### Cambiar redes visuales
+### Cambiar videos
 
-Archivo: `index.html`
+Archivo: `src/index.html`, seccion `#testimonios`
 
-La seccion actual muestra tarjetas visuales que enlazan a los canales oficiales. Cada tarjeta usa una imagen local y un enlace externo:
-
-```html
-<a class="video-link-card" href="https://www.instagram.com/amigoscomoarroz">
-```
-
-Si mas adelante tienes videos oficiales, puedes reemplazar estos enlaces por botones `.video-lazy` con el ID real del video.
+Cada video es un `<button class="local-video-loader" data-video-src="assets/videos/…mp4" data-poster="…webp">` con su poster dentro. `lazy-videos.js` solo descarga el MP4 al pulsarlo. Para cambiar un video, reemplaza el archivo en `assets/videos/` y su poster en `assets/img/opt/`.
 
 ### Cambiar WhatsApp
 
-Archivos:
+Archivo: `src/_data/site.json`
 
-- `index.html`
-- `assets/js/main.js`
-
-En `index.html` hay enlaces directos como:
-
-```html
-https://wa.me/573187073308
+```json
+"whatsapp": "573187073308",
+"whatsappLabel": "318 707 3308",
 ```
 
-En `assets/js/main.js` el formulario arma un mensaje y abre:
+Con cambiarlo ahi se actualizan todos los enlaces de las paginas, el pie, el chatbot y el formulario. En el HTML los enlaces con mensaje se escriben asi:
 
-```js
-const whatsappUrl = `https://wa.me/573187073308?text=${encodeURIComponent(whatsappMessage)}`;
+```njk
+{{ 'Hola, quiero más información.' | whatsapp }}
 ```
-
-Si cambia el numero, hay que actualizarlo en ambos archivos para que el boton flotante, el footer y el formulario apunten al mismo contacto.
 
 ## Guia del CSS
 
-Archivo: `assets/css/styles.css`
-
-El CSS esta organizado por bloques, aunque al final hay varios refinamientos y overrides acumulados. En CSS gana la regla que aparece mas abajo si tiene la misma prioridad, por eso los bloques finales son importantes.
+Archivos: `assets/css/tokens.css` (variables y orden de capas) y `assets/css/styles.css` (estilos, dentro de `@layer legacy`).
 
 ### Variables globales
 
-Al inicio estan los colores y valores base:
+Los colores, tipografia, radios y sombras estan en `tokens.css`:
 
 ```css
-:root {
-  --orange: #f37021;
-  --pink: #ec255a;
-  --dark: #151515;
-  --container: 1180px;
-}
+--color-brand-500: #c96f4a;
+--color-accent-500: #d96f84;
+--shadow-1 / --shadow-2 / --shadow-3
 ```
 
-Si quieres cambiar la identidad visual completa, empieza por estas variables.
+Si quieres cambiar la identidad visual completa, empieza por esas variables. Los nombres antiguos (`--orange`, `--pink`…) son alias de los nuevos.
 
 ### Clases base importantes
 
@@ -210,131 +172,15 @@ Si quieres cambiar la identidad visual completa, empieza por estas variables.
 
 ### Responsive
 
-Hay reglas para pantallas pequenas con `@media`, especialmente alrededor de:
-
-- `max-width: 1080px`
-- `max-width: 840px`
-- `max-width: 620px`
-- `max-width: 560px`
-- `max-width: 520px`
-- `max-width: 480px`
-
-Si algo se ve bien en computador pero mal en celular, busca primero las reglas `@media` del final del CSS.
+Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS historico todavia tiene otros (`max-width: 640px`, `980px`…; 13 en total); si algo se ve mal en celular, busca la clase y revisa sus `@media`.
 
 ### Importante sobre el CSS actual
 
-El archivo tiene muchos bloques de "refinamiento final" y varias clases repetidas, por ejemplo contacto, navegacion, logo y responsive. Esto funciona porque las ultimas reglas pisan a las anteriores, pero hace que mantenerlo sea mas dificil.
-
-Recomendacion para futuras mejoras: compactar el CSS en secciones definitivas y eliminar estilos antiguos que ya no se usan.
+`styles.css` ya se limpio en parte (declaraciones muertas, reglas repetidas fusionadas y `!important` sobrantes; ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)). Para codigo nuevo usa una capa posterior (`@layer components { … }`): le gana a `legacy` sin `!important`.
 
 ## Guia del JavaScript
 
-Archivo: `assets/js/main.js`
-
-El JavaScript se ejecuta en el navegador cuando carga la pagina. No usa librerias externas.
-
-### 1. Seleccion de elementos
-
-Al inicio se guardan referencias a elementos importantes:
-
-```js
-const siteHeader = document.querySelector("#site-header");
-const menuToggle = document.querySelector(".menu-toggle");
-const navList = document.querySelector("#nav-list");
-```
-
-Esto permite modificar clases, escuchar clics y actualizar estados.
-
-### 2. Menu movil
-
-Funciones principales:
-
-- `setMenuState(isOpen)`: abre o cierra el menu.
-- `closeMenu()`: cierra el menu si esta abierto.
-- `toggleMenu()`: alterna entre abierto y cerrado.
-
-Tambien actualiza atributos de accesibilidad como `aria-expanded` y `aria-label`.
-
-### 3. Enlace activo segun la seccion visible
-
-Usa `IntersectionObserver` para detectar que seccion esta visible y marcar el enlace del menu correspondiente con `.active`.
-
-Esto depende de que:
-
-- Las secciones tengan `id`.
-- Los enlaces del menu apunten a esos ids con `href="#id"`.
-
-### 4. Animaciones al hacer scroll
-
-Los elementos con clase `.reveal` son observados. Cuando entran en pantalla, JavaScript les agrega `.visible`.
-
-```js
-entry.target.classList.add("visible");
-```
-
-El CSS se encarga de la animacion visual.
-
-### 5. Contadores animados
-
-La funcion `animateCounter(counter)` lee `data-counter` y anima el numero.
-
-Ejemplo en HTML:
-
-```html
-<strong data-counter="180">0</strong>
-```
-
-Si el usuario tiene activada la opcion de reducir movimiento en su sistema, el contador no anima y muestra el valor final directamente.
-
-### 6. Barra de progreso y header inteligente
-
-`updateReadingProgress()` hace tres cosas:
-
-- Calcula cuanto ha bajado el usuario en la pagina.
-- Actualiza la barra superior de progreso.
-- Oculta el header al bajar y lo muestra al subir.
-
-Tambien oculta el dock de redes cuando el usuario llega cerca de la seccion de contacto.
-
-### 7. Parallax del hero
-
-En computadores con mouse y si el usuario no ha reducido animaciones, el hero reacciona suavemente al movimiento del mouse.
-
-Las posiciones se guardan en variables CSS:
-
-```js
-hero.style.setProperty("--hero-x", "...");
-hero.style.setProperty("--hero-y", "...");
-```
-
-### 8. Formulario de contacto
-
-El formulario no envia datos a un servidor. Valida campos y abre WhatsApp con un mensaje armado automaticamente.
-
-Campos requeridos:
-
-- Nombre
-- Telefono
-- Correo
-- Interes
-- Mensaje
-
-Las validaciones actuales revisan nombre completo, longitud del telefono, formato de correo, seleccion de interes y longitud del mensaje. Los errores se muestran por campo y tambien en `#form-status`.
-
-### 9. Carrusel del equipo
-
-El carrusel detecta las tarjetas `.team-card-modern`, crea puntos indicadores y avanza automaticamente cada 4.2 segundos.
-
-Se pausa cuando:
-
-- El carrusel sale de la pantalla.
-- El usuario pone el cursor encima.
-
-Los botones `#teamPrev` y `#teamNext` mueven el carrusel manualmente.
-
-### 10. Boton volver arriba
-
-El boton `#scrollTopBtn` aparece cuando el usuario baja mas de 200px y vuelve al inicio con scroll suave.
+`assets/js/main.js` es un modulo que arranca un archivo por funcionalidad de `assets/js/modules/` (menu, scroll, contadores, formulario, carrusel, videos, libro y chatbot). La tabla de modulos y su orden estan en [`CODIGO.md`](CODIGO.md), seccion 5.
 
 ## Revision del codigo
 
@@ -342,18 +188,18 @@ El boton `#scrollTopBtn` aparece cuando el usuario baja mas de 200px y vuelve al
 
 - La pagina usa HTML semantico con `section`, `article`, `header`, `main`, `footer` y etiquetas descriptivas.
 - Hay buenas bases de accesibilidad: `skip-link`, `aria-label`, `aria-live`, `aria-expanded`, `aria-controls` y textos alternativos en imagenes.
-- El JavaScript esta separado del HTML y organizado por bloques funcionales.
+- El JavaScript esta separado del HTML, en un modulo por funcionalidad.
 - Se respeta `prefers-reduced-motion`, lo cual mejora accesibilidad.
 - El formulario evita envios vacios y codifica el mensaje antes de abrir WhatsApp.
-- El sitio es facil de desplegar porque no depende de compilacion.
+- La compilacion es simple (Eleventy, sin framework) y Vercel la ejecuta sola.
 
 ### Riesgos o puntos a mejorar
 
-1. CSS demasiado acumulado.
-   Hay muchas reglas repetidas y overrides finales. Funciona, pero cada cambio visual puede tener efectos inesperados porque una regla posterior puede pisar una anterior.
+1. CSS historico todavia grande.
+   Ya se fusionaron las reglas repetidas, pero quedan 186 `!important` y 13 puntos de corte. Un cambio visual en `styles.css` puede chocar con otra regla; el codigo nuevo debe ir en una capa posterior.
 
-2. CSS acumulado en los ultimos bloques.
-   El sitio funciona, pero conviene limpiar reglas antiguas para que cada componente tenga una sola version final.
+2. Abrir el HTML con doble clic no funciona.
+   Hay que usar `npm start` (Eleventy y modulos de JavaScript).
 
 3. Dependencia de recursos externos.
    Los enlaces a redes sociales necesitan internet, pero las imagenes principales del sitio ya son locales.
@@ -374,27 +220,19 @@ El boton `#scrollTopBtn` aparece cuando el usuario baja mas de 200px y vuelve al
 
 ### Cambiar colores principales
 
-Edita `:root` en `assets/css/styles.css`.
-
-```css
---orange: #f37021;
---pink: #ec255a;
---yellow: #ffd22e;
-```
+Edita las variables `--color-*` en `assets/css/tokens.css` y sube `cache.tokens` en `src/_data/site.json`.
 
 ### Cambiar el telefono de contacto
 
-Busca el numero en todo el proyecto:
+Edita `whatsapp` y `whatsappLabel` en `src/_data/site.json`. Para comprobar que no quedo el numero viejo en otro lugar:
 
-```powershell
-Select-String -Path index.html,assets\js\main.js -Pattern "573187073308"
+```bash
+grep -rn "573187073308" src assets/js
 ```
-
-Luego reemplazalo en cada aparicion.
 
 ### Agregar una seccion nueva
 
-1. Crea un bloque `<section class="section" id="nuevo-id">` en `index.html`.
+1. Crea un bloque `<section class="section" id="nuevo-id">` en `src/index.html`.
 2. Agrega un enlace en el menu: `<a class="nav-link" href="#nuevo-id">Nombre</a>`.
 3. Agrega estilos en `assets/css/styles.css` si necesita diseno especial.
 4. Si quieres animacion, agrega la clase `reveal` a los elementos internos.
@@ -422,8 +260,8 @@ Mantener `alt` es importante para accesibilidad.
 ## Recomendaciones de mantenimiento
 
 - Mantener `assets/` para logo, imagenes propias y recursos locales.
-- Limpiar `assets/css/styles.css` y dejar una sola definicion final por componente.
-- Separar el CSS en bloques mas pequenos si el proyecto crece: `base.css`, `layout.css`, `components.css`, `responsive.css`.
+- Seguir limpiando `assets/css/styles.css` seccion por seccion y moverlo a las capas `components`/`sections`.
+- Despues de tocar un CSS o JS, subir su version en `cache` de `src/_data/site.json`.
 - Reemplazar nombres e imagenes genericas del equipo por informacion real.
 - Probar siempre en computador y celular despues de tocar header, hero, contacto o responsive.
 - Si se va a publicar formalmente, revisar SEO basico: imagen social, favicon, titulo, descripcion y datos reales.

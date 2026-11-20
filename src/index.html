@@ -47,7 +47,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700;800&display=swap"
     rel="stylesheet"
   />
   <link href="assets/css/tokens.css?v={{ site.cache.tokens }}" rel="stylesheet" />
@@ -113,19 +113,6 @@
       </a>
 
       <ul class="nav-list" id="nav-list">
-        <li class="nav-item--extra"><a class="nav-link active" href="#inicio">Inicio</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#actividades">Actividades</a></li>
-        <li><a class="nav-link" href="#fundacion">Fundación</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#historia">Historia</a></li>
-        <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
-        <li><a class="nav-link" href="#programas">Programas</a></li>
-        <li><a class="nav-link" href="#impacto">Impacto</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#testimonios">Testimonios</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#momentos">Momentos</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#equipo">Equipo</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#videos">Videos</a></li>
-        <li><a class="nav-link" href="#contacto">Contacto</a></li>
-        <li><a class="nav-link" href="#informes">Informes</a></li>
         <li class="nav-item--cta">
           <a
             class="nav-donate"
@@ -137,6 +124,12 @@
             data-analytics-label="Menú - donar"
           >Donar</a>
         </li>
+        <li><a class="nav-link" href="#fundacion">Fundación</a></li>
+        <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
+        <li><a class="nav-link" href="#programas">Programas</a></li>
+        <li><a class="nav-link" href="#impacto">Impacto</a></li>
+        <li><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li><a class="nav-link" href="#informes">Informes</a></li>
       </ul>
 
 
@@ -220,12 +213,7 @@
           >
             Escribir por WhatsApp
           </a>
-          <a class="btn btn-secondary" href="#programas">Conocer programas</a>
-        </div>
-        <div class="hero-trust" aria-label="Resumen de impacto de la fundación">
-          <span><strong>19 años</strong> acompañando procesos</span>
-          <span><strong>4.200+</strong> participantes beneficiados</span>
-          <span><strong>65+</strong> aliados e instituciones</span>
+          <a class="hero-link" href="#programas">Conocer programas <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </section>
@@ -460,7 +448,7 @@
             </li>
           </ul>
 
-          <a class="btn btn-orange" href="#programas">Conocer programas</a>
+          <a class="btn btn-secondary" href="#programas">Conocer programas</a>
         </div>
       </div>
     </section>
@@ -618,7 +606,7 @@
               <p>Acompañamiento cercano para familias, voluntarios, aliados y beneficiarios.</p>
             </article>
           </div>
-          <a class="btn btn-orange" href="./sede-espinal/index.html">Conoce más de nosotros</a>
+          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conoce más de nosotros</a>
         </div>
 
         <div class="sede-espinal-visual" aria-hidden="true">
@@ -713,7 +701,7 @@
             habilidades, confianza y comunidad.
           </p>
           <div class="impact-actions">
-            <a class="btn btn-outline" href="#contacto">Quiero apoyar</a>
+            <a class="btn btn-secondary" href="#contacto">Quiero apoyar</a>
             <a
               class="btn btn-whatsapp"
               href="{{ 'Hola, quiero saber cómo puedo apoyar a la fundación.' | whatsapp }}"
@@ -852,6 +840,64 @@
           <span>Acompañamiento</span>
           <span>Esperanza</span>
         </div>
+      <div class="video-grid-modern testimonials-more-videos">
+        <article class="video-card-modern video-card-modern--impact video-card-modern--mission reveal">
+          <div class="video-frame video-frame--mission">
+            <button
+              class="local-video-loader local-impact-video"
+              type="button"
+              data-video-src="assets/videos/conoce-nuestra-mision.mp4"
+              data-poster="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
+              data-label="Video Conoce nuestra misión"
+              aria-label="Reproducir video Conoce nuestra misión"
+            >
+              <img
+                src="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
+            srcset="assets/img/opt/videos-conoce-nuestra-mision-poster-480.webp 480w, assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp 768w"
+            sizes="(max-width: 760px) 84vw, 640px"
+                alt=""
+                width="768"
+                height="576"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="video-play-control" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="video-body">
+            <h3>Conoce nuestra misión</h3>
+            <p>Una pieza institucional para presentar quiénes somos, qué nos mueve y por qué acompañamos a la comunidad.</p>
+          </div>
+        </article>
+
+        <article class="video-card-modern video-card-modern--impact reveal">
+          <div class="video-frame video-frame--portrait">
+            <button
+              class="local-video-loader local-impact-video"
+              type="button"
+              data-video-src="assets/videos/momentos-impacto-web.mp4"
+              data-poster="assets/img/opt/videos-momentos-impacto-poster-720.webp"
+              data-label="Video Momentos de impacto"
+              aria-label="Reproducir video Momentos de impacto"
+            >
+              <img
+                src="assets/img/opt/videos-momentos-impacto-poster-720.webp"
+            srcset="assets/img/opt/videos-momentos-impacto-poster-480.webp 480w, assets/img/opt/videos-momentos-impacto-poster-720.webp 720w"
+            sizes="(max-width: 760px) 100vw, 800px"
+                alt=""
+                width="720"
+                height="1280"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="video-play-control" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="video-body">
+            <h3>Momentos de impacto</h3>
+          </div>
+        </article>
+      </div>
       </div>
     </section>
 
@@ -864,8 +910,8 @@
         <span class="eyebrow">Mejores momentos</span>
         <h2 id="timeline-title">Momentos que nos unen.</h2>
         <p class="lead">
-          Un espacio para destacar los momentos que marcaron nuestro año:
-          actividades, celebraciones, talleres, entregas, logros y encuentros con la comunidad.
+          Actividades, celebraciones, talleres, entregas y encuentros con la comunidad
+          que marcan nuestro año.
         </p>
       </div>
 
@@ -952,11 +998,11 @@
           <span class="timeline-dot" aria-hidden="true"></span>
 
           <div class="timeline-card">
-            <span class="timeline-date">Diciembre 2026</span>
-            <h3>Cierre y logros</h3>
+            <span class="timeline-date">Diciembre 2026 · próximamente</span>
+            <h3>Cierre de año</h3>
             <p>
-              Celebración de aprendizajes, permanencia, liderazgo y compromiso de los participantes,
-              voluntarios, familias y aliados.
+              Celebraremos los aprendizajes, la permanencia, el liderazgo y el compromiso de los
+              participantes, voluntarios, familias y aliados.
             </p>
           </div>
 
@@ -1101,84 +1147,116 @@
     </div>
   </section>
 
-  <!-- =========================================================
-       Videos / Sección multimedia
-       ========================================================= -->
-  <section class="section video-section" id="videos" aria-labelledby="videos-title">
-    <div class="container">
-      <div class="section-header center reveal">
-        <span class="eyebrow">Videos</span>
-        <h2 id="videos-title">Historias en video</h2>
-        <p class="lead">
-          Un espacio visual para mostrar testimonios, eventos y momentos reales de la fundación.
-        </p>
+
+
+
+    <!-- =========================================================
+         Informes de gestión
+         ========================================================= -->
+    <section class="section reports-section" id="informes" aria-labelledby="reports-title">
+      <div class="container">
+        <div class="section-header center reveal">
+          <span class="eyebrow">Transparencia</span>
+          <h2 id="reports-title">Informes y documentos.</h2>
+          <p class="lead">
+            Consulta los avances, resultados, aprendizajes y documentos
+            institucionales de la fundación.
+          </p>
+        </div>
+
+        <div class="reports-hub reveal" aria-label="Listado de informes de gestión">
+          <div class="reports-summary">
+            <span class="reports-summary-label">Archivo institucional</span>
+            <h3>Informes institucionales.</h3>
+            <p>
+             Este espacio reúne gestión, resultados, respaldo legal y transparencia institucional.
+            </p>
+          </div>
+
+          <div class="reports-list">
+            <article class="report-row report-row--latest">
+              <div class="report-year">2025</div>
+              <div class="report-content">
+                <span class="report-status">Más reciente</span>
+                <h3>Informe de gestión 2025</h3>
+                <p>Resultados, alianzas, programas e impacto social del año en curso.</p>
+              </div>
+              <div class="report-actions">
+                <a
+                  class="report-link"
+                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver documento
+                </a>
+                <a
+                  class="report-link report-link--secondary"
+                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf"
+                  download
+                >
+                  Descargar PDF
+                </a>
+              </div>
+            </article>
+
+            <article class="report-row">
+              <div class="report-year">2024</div>
+              <div class="report-content">
+                <span class="report-status">Histórico</span>
+                <h3>Informe de gestión 2024</h3>
+                <p>Actividades, beneficiarios, proyectos y gestión institucional del periodo.</p>
+              </div>
+              <div class="report-actions">
+                <a
+                  class="report-link"
+                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver documento
+                </a>
+                <a
+                  class="report-link report-link--secondary"
+                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
+                  download
+                >
+                  Descargar PDF
+                </a>
+              </div>
+            </article>
+
+            <article class="report-row report-row--legal">
+              <div class="report-year report-year--document">5245</div>
+              <div class="report-content">
+                <span class="report-status">Documento legal</span>
+                <h3>PRESENTACION 5245</h3>
+                <p>Formulario 5245 – Presentación - calificación en el régimen tributario especial año 2025</p>
+              </div>
+              <div class="report-actions">
+                <a
+                  class="report-link"
+                  href="informes/PRESENTACION-5245.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver documento
+                </a>
+                <a
+                  class="report-link report-link--secondary"
+                  href="informes/PRESENTACION-5245.pdf"
+                  download="PRESENTACION 5245.pdf"
+                >
+                  Descargar PDF
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="video-grid-modern">
-        <article class="video-card-modern video-card-modern--impact video-card-modern--mission reveal">
-          <div class="video-frame video-frame--mission">
-            <button
-              class="local-video-loader local-impact-video"
-              type="button"
-              data-video-src="assets/videos/conoce-nuestra-mision.mp4"
-              data-poster="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
-              data-label="Video Conoce nuestra misión"
-              aria-label="Reproducir video Conoce nuestra misión"
-            >
-              <img
-                src="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
-            srcset="assets/img/opt/videos-conoce-nuestra-mision-poster-480.webp 480w, assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp 768w"
-            sizes="(max-width: 760px) 84vw, 640px"
-                alt=""
-                width="768"
-                height="576"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="video-play-control" aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="video-body">
-            <h3>Conoce nuestra misión</h3>
-            <p>Una pieza institucional para presentar quiénes somos, qué nos mueve y por qué acompañamos a la comunidad.</p>
-          </div>
-        </article>
-
-        <article class="video-card-modern video-card-modern--impact reveal">
-          <div class="video-frame video-frame--portrait">
-            <button
-              class="local-video-loader local-impact-video"
-              type="button"
-              data-video-src="assets/videos/momentos-impacto-web.mp4"
-              data-poster="assets/img/opt/videos-momentos-impacto-poster-720.webp"
-              data-label="Video Momentos de impacto"
-              aria-label="Reproducir video Momentos de impacto"
-            >
-              <img
-                src="assets/img/opt/videos-momentos-impacto-poster-720.webp"
-            srcset="assets/img/opt/videos-momentos-impacto-poster-480.webp 480w, assets/img/opt/videos-momentos-impacto-poster-720.webp 720w"
-            sizes="(max-width: 760px) 100vw, 800px"
-                alt=""
-                width="720"
-                height="1280"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="video-play-control" aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="video-body">
-            <h3>Momentos de impacto</h3>
-            <p>Espacio ideal para eventos, testimonios y publicaciones que den más confianza.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-
-
-<!-- =========================================================
+    <!-- =========================================================
          Contacto
          ========================================================= -->
     <section class="section contact" id="contacto" aria-labelledby="contact-title">
@@ -1339,111 +1417,6 @@
       </div>
     </section>
 
-    <!-- =========================================================
-         Informes de gestión
-         ========================================================= -->
-    <section class="section reports-section" id="informes" aria-labelledby="reports-title">
-      <div class="container">
-        <div class="section-header center reveal">
-          <span class="eyebrow">Transparencia</span>
-          <h2 id="reports-title">Informes y documentos.</h2>
-          <p class="lead">
-            Un espacio para consultar los avances, resultados, aprendizajes y documentos
-            institucionales de la fundación.
-          </p>
-        </div>
-
-        <div class="reports-hub reveal" aria-label="Listado de informes de gestión">
-          <aside class="reports-summary">
-            <span class="reports-summary-label">Archivo institucional</span>
-            <h3>Informes institucionales.</h3>
-            <p>
-             Este espacio reúne gestión, resultados, respaldo legal y transparencia institucional.
-            </p>
-          </aside>
-
-          <div class="reports-list">
-            <article class="report-row report-row--latest">
-              <div class="report-year">2025</div>
-              <div class="report-content">
-                <span class="report-status">Más reciente</span>
-                <h3>Informe de gestión 2025</h3>
-                <p>Resultados, alianzas, programas e impacto social del año en curso.</p>
-              </div>
-              <div class="report-actions">
-                <a
-                  class="report-link"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ver documento
-                </a>
-                <a
-                  class="report-link report-link--secondary"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf"
-                  download
-                >
-                  Descargar PDF
-                </a>
-              </div>
-            </article>
-
-            <article class="report-row">
-              <div class="report-year">2024</div>
-              <div class="report-content">
-                <span class="report-status">Histórico</span>
-                <h3>Informe de gestión 2024</h3>
-                <p>Actividades, beneficiarios, proyectos y gestión institucional del periodo.</p>
-              </div>
-              <div class="report-actions">
-                <a
-                  class="report-link"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ver documento
-                </a>
-                <a
-                  class="report-link report-link--secondary"
-                  href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
-                  download
-                >
-                  Descargar PDF
-                </a>
-              </div>
-            </article>
-
-            <article class="report-row report-row--legal">
-              <div class="report-year report-year--document">5245</div>
-              <div class="report-content">
-                <span class="report-status">Documento legal</span>
-                <h3>PRESENTACION 5245</h3>
-                <p>Formulario 5245 – Presentación - calificación en el régimen tributario especial año 2025</p>
-              </div>
-              <div class="report-actions">
-                <a
-                  class="report-link"
-                  href="informes/PRESENTACION-5245.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ver documento
-                </a>
-                <a
-                  class="report-link report-link--secondary"
-                  href="informes/PRESENTACION-5245.pdf"
-                  download="PRESENTACION 5245.pdf"
-                >
-                  Descargar PDF
-                </a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
 
 </main>
 
@@ -1462,7 +1435,7 @@
         <a href="#programas">Programas</a>
         <a href="#impacto">Impacto</a>
         <a href="#momentos">Momentos</a>
-        <a href="#videos">Videos</a>
+        <a href="#testimonios">Testimonios</a>
         <a href="#equipo">Equipo</a>
         <a href="#informes">Informes</a>
         <a href="#contacto">Contacto</a>
@@ -1507,20 +1480,8 @@
     </div>
   </footer>
 
-  <!-- Botones flotantes de redes sociales -->
-  <div class="social-dock" id="quick-contact" aria-label="Contacto y redes sociales">
-    <button
-      class="social-dock-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="quick-contact"
-      aria-label="Abrir opciones de contacto"
-    >
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 20l1.1-4.6A8.4 8.4 0 1 1 21 11.5z"/>
-      </svg>
-    </button>
-
+  <!-- Botón flotante de WhatsApp (Instagram y Facebook están en el pie) -->
+  <aside class="social-dock" id="quick-contact" aria-label="Contacto por WhatsApp">
     <!-- WhatsApp -->
     <a
       class="social-dock-btn social-dock-btn--wa"
@@ -1538,44 +1499,7 @@
       </svg>
       <span class="social-dock-label">WhatsApp</span>
     </a>
-
-    <!-- Instagram -->
-    <a
-      class="social-dock-btn social-dock-btn--ig"
-      href="{{ site.instagram }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Síguenos en Instagram"
-    >
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
-      <span class="social-dock-label">Instagram</span>
-    </a>
-
-    <!-- Facebook -->
-    <a
-      class="social-dock-btn social-dock-btn--fb"
-      href="{{ site.facebook }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Síguenos en Facebook"
-    >
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-      <span class="social-dock-label">Facebook</span>
-    </a>
-
-    <!-- Chat (solo móvil: en escritorio el asistente tiene su propio botón) -->
-    <button class="social-dock-btn social-dock-btn--chat" type="button" data-open-chat aria-label="Abrir asistente de ayuda">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 12h.01M15 12h.01"/>
-      </svg>
-      <span class="social-dock-label">Asistente</span>
-    </button>
-
-  </div>
+  </aside>
 
   <!-- Asistente flotante -->
   <div class="site-chatbot" id="site-chatbot" role="region" aria-label="Chat de ayuda de la fundación">

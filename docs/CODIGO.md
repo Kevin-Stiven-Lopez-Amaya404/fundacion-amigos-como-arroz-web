@@ -1,215 +1,89 @@
-# Documentacion tecnica del codigo
+# Documentación técnica del código
 
-Esta guia explica como esta organizado el codigo del sitio y que papel cumple cada archivo. Sirve para hacer cambios sin desordenar la estructura ni repetir codigo innecesario.
+Detalle de cómo funciona cada pieza. Para la vista general (carpetas, cambios comunes, flujo de trabajo) lee primero [`GUIA_PROGRAMADOR.md`](GUIA_PROGRAMADOR.md).
 
-## 1. Estructura general
+## 1. Compilación (Eleventy)
 
-El proyecto esta construido como un sitio estatico:
+`eleventy.config.mjs`:
 
-```text
-landign-/
-  index.html
-  assets/
-    css/
-      styles.css
-    js/
-      main.js
-    img/
-      brand/
-      hero/
-      content/
-      team/
-  programas/
-    index.html
-    semilla.html
-    siembra.html
-    cosecha.html
-    psicosocial.html
-  docs/
-    DOCUMENTACION.md
-    PROGRAMAS.md
-    CODIGO.md
-```
+- **Entrada `src/`, salida `_site/`.** Solo se procesan `.html` y `.njk` (los `README.md` de `src/` no se publican).
+- **Las páginas HTML se leen como plantillas Nunjucks**, así que pueden usar `{{ site.* }}`, filtros y `layout`.
+- **`permalink` global `{{ page.filePathStem }}.html`** mantiene las URL con `.html` (`/programas/semilla.html`, `/sede-espinal/index.html`).
+- **Se copian tal cual** `assets/`, `informes/`, `robots.txt`, `sitemap.xml`, `site.webmanifest` y `.nojekyll`.
+- **Filtro `whatsapp`:** `{{ 'texto' | whatsapp }}` devuelve `https://wa.me/<número>?text=<texto codificado>`; sin texto, solo `https://wa.me/<número>`.
 
-No usa framework, base de datos ni compilador. El navegador lee directamente HTML, CSS y JavaScript.
+`vercel.json` le indica a Vercel `npm run build` y publicar `_site/`.
 
-## 2. `index.html`
+## 2. Portada: `src/index.html`
 
-Es la pagina principal del sitio. Contiene el contenido visible y la estructura semantica.
+Orden del documento:
 
-Orden principal:
+1. `<head>`: metadatos, `tokens.css`, `styles.css` y `navidad.css` (con `?v={{ site.cache.* }}`), precarga del hero, `seasonal.js` (debe ir en el `<head>` para marcar la temporada antes de pintar) y datos estructurados JSON-LD.
+2. `.reading-progress`, `.site-header` (logo y menú) y `<main id="main">` con las secciones (`#inicio`, `#fundacion`, `#programas`, `#impacto`, `#testimonios` (con los videos institucionales), `#momentos`, `#equipo`, `#informes` y `#contacto`).
+3. `.site-footer`, el botón flotante de WhatsApp (`#quick-contact`), el chatbot y el botón de subir.
+4. Al final: `analytics.js`, el JSON `#site-data` (WhatsApp para el JS) y `main.js` como `type="module"`.
 
-1. `<head>`: metadatos, titulo, CSS y precarga de la imagen principal.
-2. `<body>`: contenido visible.
-3. `.reading-progress`: barra superior que JavaScript actualiza con el scroll.
-4. `.site-header`: barra de navegacion con logo y menu hamburguesa.
-5. `#main`: todas las secciones principales.
-6. `.site-footer`: enlaces finales, redes y datos de cierre.
-7. `assets/js/main.js`: archivo que activa las interacciones.
+Cada sección del menú se enlaza por su `id` (`href="#programas"`); `active-section.js` depende de eso.
 
-Secciones dentro de `#main`:
+## 3. Páginas internas: `src/_includes/layouts/interna.njk`
 
-- `#inicio`: imagen principal.
-- `.hero-intro`: bloque de bienvenida debajo de la foto.
-- `#fundacion`: informacion institucional.
-- `#programas`: tarjetas Semilla, Siembra, Cosecha y Acompanamiento Psicosocial.
-- `#impacto`: metricas con contadores.
-- `#testimonios`: historias y comentarios.
-- `#momentos`: linea de tiempo de actividades.
-- `#equipo`: carrusel de integrantes.
-- `#videos`: videos cargados bajo demanda.
-- `#contacto`: formulario y datos de contacto.
+Variables que lee del encabezado de cada página: `title`, `description`, `canonical` (ruta; la plantilla le antepone `site.url`), `bodyClass` (opcional) y `back.href` / `back.text`.
 
-## 3. `programas/`
-
-Contiene las paginas secundarias para ampliar la informacion de los programas.
-
-Estructura:
-
-1. `index.html`: vista general de todas las rutas.
-2. `semilla.html`: detalle y linea de tiempo de Semilla.
-3. `siembra.html`: detalle y linea de tiempo de Siembra.
-4. `cosecha.html`: detalle y linea de tiempo de Cosecha.
-5. `psicosocial.html`: detalle del acompanamiento psicosocial.
-
-Los botones del `index.html` apuntan directamente a cada pagina:
+Estructura que genera:
 
 ```html
-programas/semilla.html
-programas/siembra.html
-programas/cosecha.html
-programas/psicosocial.html
+<body class="program-page {{ bodyClass }}">
+  <header class="program-detail-header"> logo + <a class="program-back-link" href="{{ back.href }}">{{ back.text }}</a> </header>
+  {{ content }}            ← el <main> de la página
+  <footer> WhatsApp, correo, redes (de site.json) </footer>
 ```
 
-Esto permite que el usuario abra la pagina y llegue al programa exacto.
+Las páginas internas cargan `tokens.css`, `styles.css`, `navidad.css`, `seasonal.js` y `analytics.js`, pero no `main.js`.
 
-## 4. `assets/css/styles.css`
+## 4. CSS
 
-Controla toda la presentacion visual:
+### Archivos y capas
 
-- Paleta de colores.
-- Tipografia.
-- Espaciados.
-- Header y menu hamburguesa.
-- Hero e imagen principal.
-- Tarjetas.
-- Formularios.
-- Carrusel del equipo.
-- Responsive para celulares y tablets.
-- Animaciones y transiciones.
-
-El archivo tiene reglas base al inicio y ajustes finales al final. En CSS, cuando dos reglas tienen la misma prioridad, gana la que esta mas abajo. Por eso los ultimos bloques son importantes.
-
-Bloques clave:
-
-- `:root`: variables globales.
-- `.container`: ancho maximo y centrado.
-- `.site-header`: barra de navegacion.
-- `.hero`: imagen panoramica principal.
-- `.hero-intro`: informacion debajo de la imagen.
-- `.program-card`: tarjetas del bloque Programas.
-- `.program-detail-*`: estilos de las paginas dentro de `programas/`.
-- `.team-*`: carrusel y fotos del equipo.
-- `.contact-*`: formulario y bloque de contacto.
-- `@media`: adaptaciones responsive.
-
-## 5. `assets/js/main.js`
-
-Contiene toda la logica interactiva. Esta organizado por funciones `init*`, donde cada una activa una parte especifica del sitio.
-
-### `SELECTORS`
-
-Centraliza las clases e ids que usa JavaScript:
-
-```js
-const SELECTORS = {
-  siteHeader: "#site-header",
-  menuToggle: ".menu-toggle",
-  navList: "#nav-list"
-};
+```css
+@layer tokens, legacy, base, layout, components, sections, utilities;   /* en tokens.css */
 ```
 
-Esto evita buscar selectores repetidos por todo el archivo.
+| Archivo | Capa | Contenido |
+|---|---|---|
+| `tokens.css` | `tokens` | Variables de color, tipografía, radios, sombras y movimiento. Los nombres antiguos (`--orange`, `--pink`…) son alias. |
+| `styles.css` | `legacy` | Todo el CSS histórico del sitio. |
+| `seasonal/navidad.css` | `legacy` | Solo se aplica con `<html data-season="navidad">`. |
 
-### `initMenu()`
+Una regla en una capa posterior (por ejemplo `components`) gana a cualquier regla de `legacy`, sin importar la especificidad. Por eso el código nuevo va en esas capas y no necesita `!important`.
 
-Controla el menu hamburguesa:
+### Estado de `styles.css`
 
-- Abre y cierra el panel.
-- Activa el fondo oscuro.
-- Cierra con la tecla Escape.
-- Cierra al hacer clic en un enlace.
-- Actualiza `aria-expanded` y `aria-label`.
+Ya se hizo esta limpieza, cada paso verificado comparando el estilo calculado de todas las páginas (ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)):
 
-### `initActiveSection()`
+- **Declaraciones muertas:** se borraron las que siempre quedaban pisadas.
+- **Reglas repetidas:** se fusionaron las del mismo selector y contexto.
+- **`!important`:** se quitaron los que no decidían nada; quedan 186.
+- **Colores, radios y sombras:** pasaron a tokens.
 
-Detecta que seccion esta visible y marca el enlace correcto del menu con `.active`.
+El CSS histórico usa 13 valores de `max-width` (antes 23): 420, 560, 640, 720, 760, 768, 820, 840, 860, 900, 980, 1023 y 1079. Los que quedan no se pueden juntar sin cambiar el diseño en algún dispositivo común (por ejemplo 820 y 840 rodean al iPad Air de 834 px). Para código nuevo, usa solo 560, 840 y 1080 px.
 
-Depende de que cada seccion tenga un `id` y cada enlace use `href="#id"`.
+### Bloques principales
 
-### `initHero()`
+- `.container`, `.section`, `.section-header`, `.btn`, `.reveal`/`.visible`: base.
+- `.site-header`, `.nav-list`, `.menu-toggle`: cabecera y menú.
+- `.hero`, `.hero-intro`: portada.
+- `.program-card`, `.program-grid`: tarjetas de programas.
+- `.program-detail-*`, `.program-timeline`: páginas de programas.
+- `.team-*`: carrusel del equipo.
+- `.contact-*`, `.contact-form`: contacto.
+- `.chatbot-*`, `.story-book-*`, `.social-dock-*`: chatbot, libro y botón flotante de WhatsApp.
+- Tres tipos de botón, sin variantes nuevas: `.btn-pink` para la acción principal de apoyo (una por bloque), `.btn-whatsapp` cuando el botón abre WhatsApp y `.btn-secondary` para todo lo demás.
 
-Activa un movimiento visual muy suave en la imagen principal cuando el usuario usa mouse.
+## 5. JavaScript
 
-Respeta `prefers-reduced-motion`, asi que no anima si el usuario prefiere menos movimiento.
+### Carga
 
-### `initReveal()`
-
-Muestra elementos con clase `.reveal` cuando entran en pantalla.
-
-Tambien anima los numeros que tienen:
-
-```html
-data-counter="180"
-```
-
-### `initScrollState(menuApi)`
-
-Agrupa lo que cambia con el scroll:
-
-- Barra de progreso.
-- Header que se oculta al bajar y aparece al subir.
-- Boton para volver arriba.
-- Contacto rapido.
-
-### `initContactForm()`
-
-Valida el formulario de contacto antes de enviar.
-
-Campos validados:
-
-- Nombre completo.
-- Telefono.
-- Correo electronico.
-- Interes.
-- Mensaje.
-
-Si todo esta correcto, arma un mensaje y abre WhatsApp con la informacion del usuario.
-
-### `initTeamSlider()`
-
-Controla el carrusel del equipo:
-
-- Boton anterior.
-- Boton siguiente.
-- Puntos indicadores.
-- Avance automatico.
-- Pausa cuando el carrusel no esta visible.
-- Pausa cuando el usuario pone el cursor encima.
-
-### `initLazyVideos()`
-
-Funcion auxiliar para videos oficiales futuros.
-
-La seccion actual enlaza a redes oficiales con tarjetas visuales. Si mas adelante se agregan botones `.video-lazy` con un `data-video-id` real, esta funcion cargara el iframe de YouTube solo cuando el usuario haga clic.
-
-### `initMeta()`
-
-Actualiza datos pequenos, como el ano actual del footer.
-
-## 6. Flujo de carga
-
-Al final de `main.js` se inicializa todo:
+`main.js` es un módulo ES (`<script type="module">`): importa cada `init*` de `modules/` y los llama en orden:
 
 ```js
 const menuApi = initMenu();
@@ -217,95 +91,59 @@ initMeta();
 initHero();
 initActiveSection();
 initReveal();
-initScrollState(menuApi);
+initScrollState(menuApi);   // necesita saber si el menú está abierto
 initContactForm();
 initTeamSlider();
 initLazyVideos();
+initStoryBook();
+initChatbot();
 ```
 
-El orden es importante:
+### `modules/config.js`
 
-- Primero se crea el menu, porque otras funciones necesitan saber si esta abierto.
-- Despues se activan datos, animaciones, scroll, formulario, carrusel y videos.
+- **`CONTACT` y `WHATSAPP_URL`:** se leen de `#site-data`, que Eleventy genera a partir de `site.json`.
+- **`SELECTORS`:** las clases e ids que usa el JS, para no repetirlos por todo el código.
+- **`shouldLimitMotion`:** vale `true` si la persona pidió menos movimiento o menos datos, si la pantalla mide 760 px o menos, o si el equipo tiene poca memoria. En esos casos los módulos reducen las animaciones.
 
-## 7. Imagenes
+### Módulos
 
-Las imagenes optimizadas viven en `assets/img/`.
+| Módulo | Detalle |
+|---|---|
+| `menu.js` | Abre/cierra el panel, fondo oscuro, Escape, cierre al pulsar un enlace, `aria-expanded`/`aria-label`. Al abrir lleva el foco a la primera entrada y Escape lo devuelve al botón (el botón va después de la lista en el HTML). Devuelve `menuApi`. |
+| `meta.js` | Escribe el año actual en `#current-year`. |
+| `hero.js` | Marca `#hero-content` como listo y mueve suavemente la imagen con el ratón (no si `shouldLimitMotion`). |
+| `active-section.js` | Marca `.active` en el enlace de la sección visible. |
+| `reveal.js` | Añade `.visible` a `.reveal` al entrar en pantalla y anima `data-counter="180"`. |
+| `scroll-state.js` | Barra de progreso, header que se oculta al bajar, botón de subir. |
+| `contact-form.js` | Valida campos con `aria-invalid` y mensajes de error; si todo está bien abre WhatsApp. |
+| `team-slider.js` | Anterior/siguiente, puntos, avance automático que se pausa fuera de pantalla o con el cursor encima. |
+| `lazy-videos.js` | Carga cada video local (`.local-video-loader`) solo al pulsarlo. |
+| `story-book.js` | Páginas del libro de historias y su estado accesible. |
+| `chatbot.js` | Preguntas rápidas y respuestas con enlaces (WhatsApp, programas, ubicación). |
 
-Ejemplos:
+Fuera de `modules/`:
 
-- `brand/logo-fundacion.jpg`
-- `hero/hero-principal.jpg`
-- `content/programa-semilla-deporte.jpg`
-- `content/taller-educativo.jpg`
-- `content/presentacion-cultural.jpg`
-- `team/directora.jpg`
-- `team/andres.jpg`
-- `team/karen.jpg`
+- **`seasonal.js`:** enciende o apaga la Navidad. Se controla con `SEASON_CONFIG.mode`, y en la URL con `?temporada=off` o `?temporada=navidad` para probar.
+- **`analytics.js`:** Google Analytics 4 opcional y eventos `data-analytics-*`.
 
-Buenas practicas usadas:
+## 6. Imágenes y videos
 
-- `loading="lazy"` en imagenes que no son principales.
-- `decoding="async"` para ayudar al navegador.
-- Imagen principal precargada con `preload`.
-- Fotos del equipo con tamano visual uniforme.
+- **Imágenes:** las páginas usan las WebP de `assets/img/opt/`, de 480, 960 y 1600 px, con `srcset`. Los originales quedan en `brand/`, `hero/`, `content/` y `team/`.
+- **Carga:** `loading="lazy"` y `decoding="async"` en todo lo que no aparece al abrir la página. La imagen del hero se precarga.
+- **Videos:** viven en `assets/videos/` con su póster y solo se cargan al pulsarlos.
 
-## 8. Formulario
-
-El formulario esta en `index.html` y se identifica por:
+## 7. Formulario
 
 ```html
 <form class="contact-form" id="contact-form" novalidate>
 ```
 
-Se usa `novalidate` porque la validacion personalizada esta en `assets/js/main.js`.
+Cada campo tiene su mensaje de error enlazado con `aria-describedby="name-error"`. `contact-form.js` actualiza `aria-invalid`, el texto del error y `#form-status`. El envío abre WhatsApp. No hay backend.
 
-Cada campo tiene su mensaje de error conectado con:
+## 8. Reglas para mantener el código limpio
 
-```html
-aria-describedby="name-error"
-```
-
-JavaScript actualiza:
-
-- `aria-invalid`
-- texto del error
-- mensaje general de estado
-
-## 9. Reglas para mantener el codigo limpio
-
-Cuando hagas cambios:
-
-1. Cambia contenido principal en `index.html` o contenido de programas en `programas/`.
-2. Cambia estilos en `assets/css/styles.css`.
-3. Cambia comportamiento en `assets/js/main.js`.
-4. No mezcles JavaScript dentro del HTML.
-5. No dupliques estilos si ya existe una clase parecida.
-6. Usa ids claros si una seccion debe conectarse con el menu.
-7. Mantiene los textos alternativos `alt` en imagenes.
-8. Prueba siempre en celular cuando toques header, hero, equipo o contacto.
-
-## 10. Como agregar un nuevo programa sin desordenar
-
-1. Agrega una tarjeta en `index.html` dentro de `.program-grid`.
-2. Usa un enlace como:
-
-```html
-<a href="programas/nuevo-programa.html">Mas informacion</a>
-```
-
-3. Crea una pagina dentro de `programas/`:
-
-```html
-programas/nuevo-programa.html
-```
-
-4. Reutiliza `.program-detail-card` y `.program-timeline`.
-5. Solo crea CSS nuevo si el programa necesita un diseno diferente.
-
-## 11. Puntos que todavia se pueden mejorar
-
-- Compactar `assets/css/styles.css`, porque tiene varios ajustes acumulados.
-- Separar el CSS por componentes si el proyecto crece.
-- Conectar el formulario a un servicio real de correo si se requiere envio por email automatico.
-- Revisar que todas las imagenes finales sean propias o tengan permiso de uso.
+1. El contenido va en `src/`, el aspecto en `assets/css/` y el comportamiento en `assets/js/modules/`.
+2. No pongas JavaScript dentro del HTML. Los datos de contacto van en `site.json`.
+3. El CSS nuevo va en una capa posterior a `legacy`, con tokens y sin `!important`.
+4. Cuando una sección deba conectarse con el menú, dale un `id` claro.
+5. Mantén `alt` en las imágenes y sube la versión de caché al tocar un CSS o JS.

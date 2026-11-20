@@ -17,7 +17,8 @@ Usa esta lista antes de publicar la pagina.
 - `src/programas/` y `src/sede-espinal/`: paginas internas.
 - `eleventy.config.mjs` y `vercel.json`: compilacion y publicacion.
 - `assets/css/styles.css`: estilos.
-- `assets/js/main.js`: interacciones.
+- `assets/js/main.js` y `assets/js/modules/`: interacciones.
+- `src/_data/site.json`: WhatsApp, correo, redes y versiones de cache.
 - `assets/js/analytics.js`: conteo de visitas y eventos.
 - `robots.txt`: permisos para buscadores.
 - `sitemap.xml`: mapa del sitio para buscadores.

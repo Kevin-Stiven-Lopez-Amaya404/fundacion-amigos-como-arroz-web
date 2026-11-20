@@ -15,7 +15,6 @@ import { initTeamSlider } from "./modules/team-slider.js";
 import { initLazyVideos } from "./modules/lazy-videos.js";
 import { initStoryBook } from "./modules/story-book.js";
 import { initChatbot } from "./modules/chatbot.js";
-import { initFloatingContact } from "./modules/floating-contact.js";
 import { initMeta } from "./modules/meta.js";
 
 // Inicializacion general del sitio.
@@ -30,4 +29,3 @@ initTeamSlider();
 initLazyVideos();
 initStoryBook();
 initChatbot();
-initFloatingContact();

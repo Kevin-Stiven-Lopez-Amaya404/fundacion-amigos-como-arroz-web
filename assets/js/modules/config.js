@@ -22,8 +22,6 @@ export const SELECTORS = {
   currentYear: "#current-year",
   reveal: ".reveal",
   quickContact: "#quick-contact",
-  dockToggle: ".social-dock-toggle",
-  openChat: "[data-open-chat]",
   contactSection: "#contacto",
   form: "#contact-form",
   formStatus: "#form-status",
