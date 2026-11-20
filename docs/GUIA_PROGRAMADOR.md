@@ -30,7 +30,7 @@ landign-/
     sede-espinal/index.html         Sede Espinal
   assets/                           Se copia tal cual a _site/assets/
     css/sitio.css                   Todo el estilo del sitio, en capas (@layer)
-    fonts/                          Big Shoulders Display (títulos) y Schibsted Grotesk (texto)
+    fonts/                          Unbounded, Schibsted Grotesk y Space Mono
     css/seasonal/navidad.css        Temporada navideña
     js/main.js                      Arranca los módulos de la portada
     js/modules/                     Un archivo por funcionalidad
@@ -125,25 +125,25 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `meta.js` | Año actual del pie. |
 | `active-section.js` | Marca en el menú la sección visible. |
 | `reveal.js` | Aparición de `.reveal` (escalonada entre los que entran juntos) y contadores `data-counter`. |
-| `scroll-state.js` | Barra superior que se oculta al bajar y reaparece al subir. |
+| `portada.js` | Pantalla de entrada, secuencia de palabras con el scroll y punto rosa del cursor. |
 | `contact-form.js` | Valida el formulario y abre WhatsApp con el mensaje. |
 | `team-slider.js` | Carrusel del equipo. |
 | `lazy-videos.js` | Carga los videos al pulsar. |
 | `story-book.js` | Visor de la historia institucional: una página a la vez, con indicador segmentado. |
 | `chatbot.js` | Asistente: las preguntas rápidas responden al instante; lo que se escribe lo responde Claude por `/api/chat` y, si falla, una respuesta fija. |
-| `historias.js` | Indicador segmentado de arriba (un segmento por pantalla, se llena con `scroll()` de `motion`) y botón Compartir del carril. |
+| `historias.js` | Indicador segmentado de arriba (un segmento por pantalla, se llena con `scroll()` de `motion`) y botón Compartir de la barra. |
 
 Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 
 ## 8. Estilos (CSS)
 
-El sitio tiene una sola hoja, `assets/css/sitio.css`, más `seasonal/navidad.css`. La dirección visual (una historia por pantalla) está descrita en [`../DESIGN.md`](../DESIGN.md).
+El sitio tiene una sola hoja, `assets/css/sitio.css`, más `seasonal/navidad.css`. La dirección visual (presentación de marca) está descrita en [`../DESIGN.md`](../DESIGN.md).
 
 - **Capas:** `@layer reset, tokens, base, layout, components, sections, utilities`. Una regla de una capa posterior gana sin subir la especificidad. No hay `!important` salvo `[hidden]` y el modo de movimiento reducido.
-- **Tokens** (en la capa `tokens`): fondo `--vacio` y grafitos (`--tinta`, `--grafito`), texto `--texto`/`--texto-2`/`--texto-3`, `--rosa` (único color de estado) y `--rosa-boton`, `--sol` (solo para cifras), los velos sobre fotos (`--velo`, `--velo-lado`, `--velo-alto`), tipos `--f-display` (Big Shoulders Display) y `--f-texto` (Schibsted Grotesk), ambos servidos desde `assets/fonts/`.
-- **Pantalla** (`.pantalla`): cada sección ocupa al menos la altura de la ventana, con la foto en `.pantalla-fondo` y la leyenda en `.pantalla-cuerpo`, abajo a la izquierda. `.pantalla--larga` es para secciones de lectura (informes, contacto). `.pantalla-fondo--encaje` es para fotos de baja resolución: relleno desenfocado más la foto nítida a su tamaño.
-- **Carril** (`.carril`): acciones fijas a la derecha (en celular, abajo a la derecha); el contenido reserva su ancho con `--carril`.
-- **Línea de autor** (`.eyebrow`): el nombre de la sección con el logo como avatar, siempre debajo de la leyenda, nunca encima del título.
+- **Tokens** (en la capa `tokens`): fondo `--vacio` y grafitos (`--tinta`, `--grafito`), texto `--texto`/`--texto-2`/`--texto-3`, `--rosa` (acción) y `--rosa-boton`, `--sol` (cifras y brillos), `--crema` para la sección clara de Momentos, `--brillo` y `--velo` sobre fotos, tipos `--f-display` (Unbounded), `--f-texto` (Schibsted Grotesk) y `--f-mono` (Space Mono), servidos desde `assets/fonts/`.
+- **Pantalla** (`.pantalla`): cada sección ocupa al menos la altura de la ventana. El inicio enmarca la foto (`--marco`); Fundación y los programas ponen la foto enmarcada al lado del texto; Sede Espinal va a sangre con la palabra gigante. `.pantalla--larga` es para secciones de lectura.
+- **Barra flotante** (`.site-header` en la portada, `.program-detail-header` en las internas): píldora fija abajo al centro con todas las acciones; el pie deja libre su alto con `--pie-libre`.
+- **Capítulo** (`.eyebrow`): «■ 01 Fundación» en monoespaciada encima del título; el número sale de un contador CSS por sección visible.
 - **Puntos de corte:** 480, 560, 640, 759/760, 899/900 y 1079/1080 px.
 
 ## 9. Formulario

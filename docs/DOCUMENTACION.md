@@ -16,7 +16,7 @@ Abrir el HTML con doble clic ya no sirve: las paginas usan datos de plantilla y 
 - `src/index.html`: contenido de la pagina principal.
 - `src/programas/` y `src/sede-espinal/`: paginas internas (solo su contenido; cabecera y pie salen de `src/_includes/layouts/interna.njk`).
 - `src/_data/site.json`: WhatsApp, correo, redes y versiones de cache, escritos una sola vez.
-- `assets/css/sitio.css`: colores, tipografia, pantallas, carril y version movil (todo el estilo).
+- `assets/css/sitio.css`: colores, tipografia, pantallas, barra flotante y version movil (todo el estilo).
 - `assets/js/modules/`: interacciones, un archivo por funcionalidad (`main.js` los arranca).
 
 La estructura completa de carpetas esta en [`GUIA_PROGRAMADOR.md`](GUIA_PROGRAMADOR.md).
@@ -145,7 +145,7 @@ Con cambiarlo ahi se actualizan todos los enlaces de las paginas, el pie, el cha
 
 ## Guia del CSS
 
-Archivo: `assets/css/sitio.css` (todo el estilo, en capas). La direccion visual esta en [`../DESIGN.md`](../DESIGN.md): cada seccion es una pantalla con foto real, la leyenda abajo y las acciones en el carril de la derecha.
+Archivo: `assets/css/sitio.css` (todo el estilo, en capas). La direccion visual esta en [`../DESIGN.md`](../DESIGN.md): estilo de presentacion de marca: pantalla de entrada, foto enmarcada en el inicio, capitulos numerados, titulos anchos en mayuscula y una barra flotante abajo con todas las acciones.
 
 ### Variables globales
 
@@ -171,7 +171,7 @@ Al inicio de `sitio.css` (capa `tokens`):
 
 ### Responsive
 
-Puntos de corte: 480, 560, 640, 760, 900 y 1080 px. En celular el carril baja a la esquina inferior derecha y el contenido le deja su ancho (`--carril`).
+Puntos de corte: 480, 560, 640, 760, 900 y 1080 px. Hasta 1079 px los enlaces de la barra flotante se abren en un panel encima de ella; Donar, WhatsApp y el asistente siguen siempre a la vista.
 
 ## Guia del JavaScript
 
