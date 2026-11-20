@@ -2,55 +2,60 @@
 name: Fundación Amigos Como Arroz
 description: La fundación presentada como una presentación de marca, capítulo por capítulo, con sus colores, su logo y sus fotos reales.
 colors:
-  vacio: "#060608"
-  tinta: "#111116"
-  grafito: "#1c1c23"
-  niebla: "#2c2c36"
+  vacio: "#050505"
+  tinta: "#131313"
+  grafito: "#1b1b1b"
+  niebla: "#2a2a2a"
   linea: "rgb(255 255 255 / 0.12)"
   linea-fuerte: "rgb(255 255 255 / 0.3)"
   texto: "#f7f5f2"
-  texto-2: "#c9c7d0"
-  texto-3: "#9d9ba8"
+  texto-2: "#c4c2be"
+  texto-3: "#9b9b9b"
+  acero: "#51595f"
   blanco: "#ffffff"
   rosa: "#e0245e"
   rosa-boton: "#c81d52"
   rosa-claro: "#ff7aa4"
   sol: "#f6c21c"
-  crema: "#f2eee7"
-  crema-texto: "#141418"
-  crema-texto-2: "#4a4952"
+  crema: "#f7f5f2"
+  crema-texto: "#0a0a0a"
+  crema-texto-2: "#51595f"
 typography:
   display:
     fontFamily: "Unbounded, Arial Black, sans-serif"
-    fontSize: "clamp(2.2rem, 6.6vw, 6.4rem)"
+    fontSize: "clamp(2.5rem, 1rem + 6.4vw, 7rem)"
     fontWeight: 700
     lineHeight: 0.95
     letterSpacing: "-0.01em"
   display-2:
     fontFamily: "Unbounded, Arial Black, sans-serif"
-    fontSize: "clamp(1.5rem, 5.4vw, 4rem)"
+    fontSize: "clamp(1.5rem, 0.2rem + 5.6vw, 4.5rem)"
     fontWeight: 700
     lineHeight: 1
+  gigante:
+    fontFamily: "Unbounded, Arial Black, sans-serif"
+    fontSize: "clamp(3rem, 1rem + 9vw, 7.75rem)"
+    fontWeight: 800
+    lineHeight: 0.9
   headline:
     fontFamily: "Schibsted Grotesk, Segoe UI, system-ui, sans-serif"
-    fontSize: "clamp(1.9rem, 4.2vw, 3.5rem)"
+    fontSize: "clamp(2rem, 1.2rem + 3.2vw, 3.625rem)"
     fontWeight: 600
     lineHeight: 1.06
     letterSpacing: "-0.022em"
   title:
     fontFamily: "Schibsted Grotesk, Segoe UI, system-ui, sans-serif"
-    fontSize: "clamp(1.35rem, 2.4vw, 1.9rem)"
+    fontSize: "clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem)"
     fontWeight: 600
     lineHeight: 1.12
-  cifra:
-    fontFamily: "Unbounded, Arial Black, sans-serif"
-    fontSize: "clamp(2.2rem, 4.4vw, 3.6rem)"
-    fontWeight: 700
-    lineHeight: 0.95
-    fontFeature: "tnum"
+  destacado:
+    fontFamily: "Schibsted Grotesk, Segoe UI, system-ui, sans-serif"
+    fontSize: "clamp(1.25rem, 1rem + 1vw, 1.5rem)"
+    fontWeight: 600
+    lineHeight: 1.25
   lead:
     fontFamily: "Schibsted Grotesk, Segoe UI, system-ui, sans-serif"
-    fontSize: "clamp(1.04rem, 1.4vw, 1.2rem)"
+    fontSize: "1.125rem"
     fontWeight: 400
     lineHeight: 1.6
   body:
@@ -60,7 +65,12 @@ typography:
     lineHeight: 1.6
   label:
     fontFamily: "Space Mono, ui-monospace, Consolas, monospace"
-    fontSize: "0.76rem"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    letterSpacing: "0.1em"
+  nota:
+    fontFamily: "Space Mono, ui-monospace, Consolas, monospace"
+    fontSize: "0.75rem"
     fontWeight: 400
     letterSpacing: "0.1em"
 rounded:
@@ -70,10 +80,14 @@ rounded:
   radio: "16px"
   circulo: "50%"
 spacing:
-  xs: "8px"
-  sm: "12px"
-  md: "20px"
-  lg: "28px"
+  e-1: "4px"
+  e-2: "8px"
+  e-3: "12px"
+  e-4: "16px"
+  e-5: "20px"
+  e-6: "24px"
+  e-7: "32px"
+  e-8: "48px"
   margen: "clamp(18px, 5vw, 80px)"
   marco: "clamp(8px, 1.1vw, 16px)"
   pildora: "60px"
@@ -166,9 +180,11 @@ Modo: Persuade. Público: todos por igual (familias y jóvenes, donantes y aliad
 - el anillo de foco de teclado.
 
 ### Neutral
-- `--vacio` #060608 (fondo), `--tinta` #111116 (tarjetas, panel del menú, chat, formulario), `--grafito`, `--niebla`.
-- Texto `--texto` #f7f5f2, `--texto-2` #c9c7d0, `--texto-3` #9d9ba8.
-- Sección clara (Momentos): `--crema` #f2eee7 con `--crema-texto` y `--crema-texto-2`.
+Los neutros son los de la web de referencia (negros sin tinte); los acentos siguen siendo los del logo.
+- `--vacio` #050505 (fondo), `--tinta` #131313 (tarjetas, panel del menú, chat, formulario), `--grafito` #1b1b1b (relieve), `--niebla` #2a2a2a (bordes).
+- Texto `--texto` #f7f5f2, `--texto-2` #c4c2be (el crema al 78 %), `--texto-3` #9b9b9b (gris de la referencia).
+- `--acero` #51595f: solo adornos sobre oscuro; nunca texto sobre oscuro (no llega a 4.5:1).
+- Sección clara (Momentos): `--crema` #f7f5f2 con `--crema-texto` #0a0a0a y `--crema-texto-2` #51595f.
 
 ### Brillo y velos
 - `--brillo`: dos radiales suaves (rosa y amarillo) detrás de la secuencia de palabras, la intro de programas y el contacto.
@@ -184,6 +200,16 @@ Modo: Persuade. Público: todos por igual (familias y jóvenes, donantes y aliad
   - las cifras y los títulos de las páginas internas.
 - **Schibsted Grotesk**: `h2` y `h3` en tono de conversación (minúscula, interlineado apretado) y todo el texto.
 - **Space Mono** en mayúsculas espaciadas: etiquetas, capítulos, botones, enlaces de la barra, fechas y estados.
+
+### Escala
+Diez papeles, con los tamaños de la referencia (`--t-*` en `sitio.css`); ningún `font-size` va escrito a mano:
+- `--t-nota` 0.75 rem: sellos, fechas, estados, enlaces de la barra.
+- `--t-etiqueta` 0.875 rem: capítulos, botones, pies de foto, errores.
+- `--t-cuerpo` 1 rem y `--t-lead` 1.125 rem: texto y entradillas.
+- `--t-destacado` 20–24 px: citas y títulos de tarjeta.
+- `--t-h3` 24–36 px, `--t-h2` 32–58 px: títulos.
+- `--t-display-2` 24–72 px, `--t-h1` 40–112 px, `--t-gigante` 48–124 px: momentos grandes en Unbounded.
+Los tamaños grandes se achican con el ancho; `--t-display-2` arranca en 24 px para que «ACOMPAÑAMIENTO» quepa a 390 px.
 
 ### Named Rules
 - Una sola palabra o frase ancha por pantalla.
@@ -206,6 +232,9 @@ Modo: Persuade. Público: todos por igual (familias y jóvenes, donantes y aliad
   - Sede Espinal: foto a sangre con ESPINAL gigante.
   - Momentos: sección clara, con cuatro columnas en escritorio.
 - **Barra flotante**: abajo al centro (`.site-header` en la portada, `.program-detail-header` en las internas).
+
+## Spacing
+Escala de 4 en 4 px (`--e-1` a `--e-8`: 4, 8, 12, 16, 20, 24, 32, 48) para todas las separaciones entre hermanos (`gap`). Los márgenes de página y de sección usan `--margen` y los `clamp()` de `.pantalla`.
 
 ## Elevation & Depth
 
