@@ -1,4 +1,4 @@
-import { scroll } from "../vendor/motion.js";
+import { gsap, ScrollTrigger } from "../vendor/gsap.js";
 import { prefersLessMotion } from "./config.js";
 
 // Efectos propios de la portada: la pantalla de entrada, la secuencia de palabras y el punto que sigue al cursor.
@@ -102,27 +102,37 @@ function initCiclo() {
 
   ciclo.classList.add("ciclo--vivo");
   avanzar(0);
-  scroll(avanzar, { target: ciclo, offset: ["start start", "end end"] });
+  ScrollTrigger.create({ trigger: ciclo, start: "top top", end: "bottom bottom", onUpdate: (self) => avanzar(self.progress) });
 }
 
-// Punto rosa que sigue al cursor (solo con mouse y sin preferencia de menos movimiento); crece sobre enlaces y botones.
+// Punto rosa que sigue al cursor (solo con mouse y sin preferencia de menos movimiento).
+// Crece sobre enlaces y botones y, sobre las zonas con data-cursor (carruseles, videos), se vuelve una píldora con texto.
 function initCursor() {
   if (prefersLessMotion || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   const punto = document.createElement("div");
   punto.className = "cursor-punto";
   punto.setAttribute("aria-hidden", "true");
+  const texto = document.createElement("span");
+  punto.append(texto);
   document.body.append(punto);
+  // quickTo reutiliza un solo tween por eje: el punto llega con un pequeño retraso suave.
+  const irX = gsap.quickTo(punto, "x", { duration: 0.35, ease: "power3" });
+  const irY = gsap.quickTo(punto, "y", { duration: 0.35, ease: "power3" });
 
   window.addEventListener(
     "pointermove",
     (evento) => {
-      punto.style.transform = `translate(${evento.clientX}px, ${evento.clientY}px)`;
+      irX(evento.clientX);
+      irY(evento.clientY);
       punto.classList.add("visible");
     },
     { passive: true }
   );
   document.addEventListener("pointerover", (evento) => {
-    punto.classList.toggle("sobre", Boolean(evento.target.closest?.("a, button, summary, [role='button']")));
+    const zona = evento.target.closest?.("[data-cursor]");
+    texto.textContent = zona?.dataset.cursor || "";
+    punto.classList.toggle("con-texto", Boolean(zona));
+    punto.classList.toggle("sobre", !zona && Boolean(evento.target.closest?.("a, button, summary, [role='button']")));
   });
   document.documentElement.addEventListener("pointerleave", () => punto.classList.remove("visible"));
 }

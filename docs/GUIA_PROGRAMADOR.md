@@ -11,7 +11,7 @@ Sitio institucional estático: HTML, CSS y JavaScript puro, sin framework, base 
 npm install      # solo la primera vez (Node.js 18 o superior)
 npm start        # servidor local en http://localhost:8080 que se recarga al guardar
 npm run build    # compila en _site/ (lo mismo que hace Vercel)
-npm run vendor:motion   # solo si cambias la versión de motion o lo que se importa de él
+npm run vendor:gsap     # solo si cambias la versión de GSAP o los plugins que se importan
 ```
 
 Abrir el HTML con doble clic **no sirve**: las páginas de `src/` llevan etiquetas de plantilla (`{{ site.whatsapp }}`) y el JavaScript usa módulos ES, que el navegador no carga desde `file://`. Usa siempre `npm start`.
@@ -35,7 +35,7 @@ landign-/
     js/main.js                      Arranca los módulos de la portada
     js/modules/                     Un archivo por funcionalidad
     js/seasonal.js · js/analytics.js
-    js/vendor/motion.js             motion empaquetado (generado; no se edita a mano)
+    js/vendor/gsap.js               GSAP + ScrollTrigger + SplitText empaquetados (generado; no se edita a mano)
     img/opt/                        Imágenes WebP que usan las páginas
     img/{brand,hero,content,team}/  Originales
     videos/
@@ -127,13 +127,13 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `reveal.js` | Aparición de `.reveal` (escalonada entre los que entran juntos) y contadores `data-counter`. |
 | `encaje.js` | Fotos enteras con relleno desenfocado en las cajas de forma fija (también en las páginas internas, vía `interna.js`). |
 | `portada.js` | Pantalla de entrada, secuencia de palabras con el scroll (frase escrita y palabras) y punto rosa del cursor. |
-| `movimiento.js` | Animaciones de la referencia: entrada del inicio, títulos que se pintan, efectos ligados al scroll y rebote de «Sigue». Curvas en `--ease-expo` y `--ease-vaiven`. |
+| `movimiento.js` | Movimiento con GSAP dentro de `gsap.matchMedia()`: entrada del inicio, títulos letra a letra, fotos que se descubren, Sede Espinal fija, programas apilados, carruseles arrastrables y rebote de «Sigue». |
 | `contact-form.js` | Valida el formulario (teléfono y correo opcionales) y abre WhatsApp con el mensaje. |
 | `team-slider.js` | Carrusel del equipo. |
 | `lazy-videos.js` | Carga los videos al pulsar. |
 | `story-book.js` | Visor de la historia institucional: una página a la vez, con indicador segmentado. |
 | `chatbot.js` | Asistente: las preguntas rápidas responden al instante; lo que se escribe lo responde Claude por `/api/chat` y, si falla, una respuesta fija. |
-| `historias.js` | Indicador segmentado de arriba (un segmento por pantalla, se llena con `scroll()` de `motion`) y botón Compartir de la barra. |
+| `historias.js` | Indicador segmentado de arriba (un segmento por pantalla, se llena con ScrollTrigger) y botón Compartir de la barra. |
 
 Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 

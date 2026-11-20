@@ -511,7 +511,11 @@
   }
 
   /* Punto rosa que sigue al cursor (lo crea portada.js) */
-  .cursor-punto { position: fixed; left: 0; top: 0; z-index: 3000; width: 12px; height: 12px; margin: -6px 0 0 -6px; pointer-events: none; opacity: 0; transition: transform 110ms var(--ease-out), opacity 200ms ease; }
+  /* La posición la mueve GSAP (quickTo); aquí solo el aspecto */
+  .cursor-punto { position: fixed; left: 0; top: 0; z-index: 3000; display: grid; place-items: center; width: 12px; height: 12px; margin: -6px 0 0 -6px; pointer-events: none; opacity: 0; transition: opacity 200ms ease; }
+  .cursor-punto > span { position: relative; z-index: 1; font-size: var(--t-nota); font-weight: 600; color: #fff; white-space: nowrap; opacity: 0; transition: opacity 180ms ease; }
+  .cursor-punto.con-texto::after { transform: scale(6.5); opacity: 1; }
+  .cursor-punto.con-texto > span { opacity: 1; }
   .cursor-punto.visible { opacity: 1; }
   .cursor-punto::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--rosa); transition: transform 220ms var(--ease-out), opacity 220ms ease; }
   .cursor-punto.sobre::after { transform: scale(2.6); opacity: 0.45; }
@@ -571,6 +575,10 @@
     scrollbar-width: thin;
   }
   .carrusel > * { scroll-snap-align: start; }
+  /* Con mouse se arrastran con inercia (Draggable): el imán del scroll pelearía con el arrastre */
+  .carrusel.arrastrable { scroll-snap-type: none; user-select: none; }
+  .carrusel.arrastrando { cursor: grabbing; }
+  .carrusel.arrastrable img { -webkit-user-drag: none; }
   .carrusel:focus-visible { outline-offset: -3px; }
 
   .historia {
@@ -810,6 +818,9 @@
   @media (max-width: 759px) { .programas-feed { --eje: 20px; } .eje-transversal span { font-size: var(--t-nota); } }
   .programas-feed .pantalla { padding-left: calc(var(--margen) + var(--eje)); }
   .program-card { gap: clamp(28px, 5vw, 80px); }
+  /* Tarjetas que se apilan al bajar (movimiento.js): fondo propio para tapar a la anterior */
+  .program-card.apilada, .program-card.apilada + .program-card { background: var(--vacio); }
+  .program-card.apilada > * { transform-origin: 50% 30%; }
   @media (min-width: 900px) { .program-card { grid-template-columns: 0.9fr 1.1fr; align-items: center; } }
   .program-card > .pantalla-fondo { position: relative; inset: auto; z-index: 0; overflow: hidden; border-radius: var(--radio); background: var(--tinta); }
   @media (min-width: 900px) { .program-card > .pantalla-fondo { order: 2; } }
@@ -1143,18 +1154,14 @@
     .js .impact-proof:not(.visible) article { opacity: 0; translate: 0 1.5rem; filter: blur(8px); }
     .js .impact-proof:not(.visible) article::after { scale: 0 1; }
 
-    /* Títulos: se pintan de izquierda a derecha (la clase la pone movimiento.js y la quita al terminar) */
-    .barrido {
-      -webkit-mask-image: linear-gradient(90deg, #000 50%, rgb(0 0 0 / 0.2) 50%);
-      mask-image: linear-gradient(90deg, #000 50%, rgb(0 0 0 / 0.2) 50%);
-      -webkit-mask-size: 200% 100%;
-      mask-size: 200% 100%;
-      -webkit-mask-position: 100% 0;
-      mask-position: 100% 0;
-      transition: -webkit-mask-position 800ms var(--ease-expo), mask-position 800ms var(--ease-expo);
-    }
-    .barrido--listo { -webkit-mask-position: 0 0; mask-position: 0 0; }
+
+    /* Inicio: el texto espera oculto a que GSAP lo haga entrar (la clase intro la pone el <head>).
+       Si el JS no llegara a correr, aparece igual a los 4 s. */
+    .intro .hero-content > *, .intro .hero-sello, .intro .siguiente { visibility: hidden; animation: aparecer-seguro 0s 4s forwards; }
+    .intro .hero > .pantalla-fondo { visibility: hidden; animation: aparecer-seguro 0s 4s forwards; }
+    .con-entrada.intro .hero-content > *, .con-entrada.intro .hero-sello, .con-entrada.intro .siguiente, .con-entrada.intro .hero > .pantalla-fondo { animation: none; }
   }
+  @keyframes aparecer-seguro { to { visibility: visible; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
   }

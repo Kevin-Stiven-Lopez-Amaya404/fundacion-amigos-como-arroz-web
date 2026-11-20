@@ -1,7 +1,7 @@
-import { animate, scroll } from "../vendor/motion.js";
+import { gsap } from "../vendor/gsap.js";
 
 // Indicador segmentado de historias: un segmento por pantalla de la portada, que se llena con el scroll
-// (scroll() de motion usa ScrollTimeline/ViewTimeline del navegador cuando existe). Cada segmento lleva a su pantalla.
+// (ScrollTrigger de GSAP). Cada segmento lleva a su pantalla.
 // También maneja el botón Compartir de la barra.
 export function initHistorias() {
   const nav = document.querySelector("#historias");
@@ -17,10 +17,7 @@ export function initHistorias() {
       enlace.append(relleno);
       nav.append(enlace);
       // El segmento queda lleno cuando su pantalla ya salió por arriba.
-      scroll(animate(relleno, { transform: ["scaleX(0)", "scaleX(1)"] }, { ease: "linear" }), {
-        target: seccion,
-        offset: ["start start", "end start"]
-      });
+      gsap.fromTo(relleno, { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { trigger: seccion, start: "top top", end: "bottom top", scrub: true } });
       return enlace;
     });
 

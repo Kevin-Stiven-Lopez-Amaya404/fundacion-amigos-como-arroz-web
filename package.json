@@ -5,12 +5,12 @@
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve",
-    "vendor:motion": "esbuild assets/js/vendor/motion-entry.js --bundle --format=esm --minify --legal-comments=none --outfile=assets/js/vendor/motion.js"
+    "vendor:gsap": "esbuild assets/js/vendor/gsap-entry.js --bundle --format=esm --minify --legal-comments=none --outfile=assets/js/vendor/gsap.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.8",
     "esbuild": "0.25.10",
-    "motion": "14.14.0"
+    "gsap": "3.15.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.11.0"
