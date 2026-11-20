@@ -29,8 +29,8 @@ fundacion/
   eleventy.config.mjs           Configuración de Eleventy (qué se copia tal cual)
   vercel.json                   Vercel ejecuta npm run build y publica _site/
   assets/
-    css/tokens.css              Tokens de diseño (colores, tipografía, radios, sombras) y orden de capas
-    css/styles.css              Estilos históricos en @layer legacy (capas v47-v49 al final)
+    css/sitio.css               Todo el estilo: tokens, pantallas, carril y secciones en @layer
+    fonts/                      Big Shoulders Display y Schibsted Grotesk (servidas desde el sitio)
     css/seasonal/navidad.css    Estilos de temporada (solo con <html data-season="navidad">)
     js/main.js                  Arranca las interacciones de la portada (<script type="module">)
     js/modules/                 Un archivo por funcionalidad (menu, chatbot, contact-form…);
@@ -117,7 +117,7 @@ La decoración navideña se enciende y apaga sola (15 nov – 6 ene). Para forza
 ## Mantenimiento rápido
 
 - Cambios de contenido: edita `src/index.html`.
-- Cambios visuales: edita `assets/css/styles.css`.
+- Cambios visuales: edita `assets/css/sitio.css` (dirección visual en `DESIGN.md`).
 - Cambios de interacción: edita el módulo de `assets/js/modules/` (y regístralo en `assets/js/main.js` si es nuevo). Los módulos no cargan abriendo el HTML con doble clic: usa `npm start`.
 - Cambios de programas: edita los archivos dentro de `src/programas/`.
 - Cambios de WhatsApp, correo o redes: edita solo `src/_data/site.json` (el HTML y el JavaScript lo leen de ahí).

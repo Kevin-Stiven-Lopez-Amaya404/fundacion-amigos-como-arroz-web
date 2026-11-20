@@ -16,7 +16,7 @@ Esta carpeta reune la documentacion que debe leer cualquier programador antes de
 - Contenido principal: `src/index.html`.
 - Programas individuales: `src/programas/`.
 - WhatsApp, correo, redes y versiones de cache: `src/_data/site.json`.
-- Estilos: `assets/css/tokens.css` y `assets/css/styles.css`.
+- Estilos: `assets/css/sitio.css` (dirección visual en `DESIGN.md`).
 - Interacciones: `assets/js/modules/`.
 - Imagenes: `assets/img/brand`, `assets/img/hero`, `assets/img/content` y `assets/img/team`.
 

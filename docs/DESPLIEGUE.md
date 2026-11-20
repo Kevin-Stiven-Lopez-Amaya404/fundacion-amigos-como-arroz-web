@@ -18,7 +18,7 @@ Usa esta lista antes de publicar la pagina.
 - `src/programas/` y `src/sede-espinal/`: paginas internas.
 - `eleventy.config.mjs` y `vercel.json`: compilacion y publicacion.
 - `api/chat.mjs` y `api/_contexto.mjs`: asistente del chat con Claude (funcion de Vercel).
-- `assets/css/styles.css`: estilos.
+- `assets/css/sitio.css` y `assets/fonts/`: estilos y fuentes.
 - `assets/js/main.js` y `assets/js/modules/`: interacciones.
 - `src/_data/site.json`: WhatsApp, correo, redes y versiones de cache.
 - `assets/js/analytics.js`: conteo de visitas y eventos.
