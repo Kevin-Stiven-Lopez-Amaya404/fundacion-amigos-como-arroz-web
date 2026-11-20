@@ -600,7 +600,7 @@
     color: var(--texto);
   }
   .historia > img, .historia .historia-media { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }
-  .historia::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(12 20 28 / 0) 35%, rgb(12 20 28 / 0.82) 72%, rgb(12 20 28 / 0.96) 100%); }
+  .historia::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgb(12 20 28 / 0) 35%, rgb(12 20 28 / 0.82) 72%, rgb(12 20 28 / 0.96) 100%); }
   @media (hover: hover) and (pointer: fine) { .historia:hover > img:not(.encaje-relleno) { transform: scale(1.04); } }
   /* Fotos enteras (modules/encaje.js): la foto no se recorta y el hueco lo llena la misma foto desenfocada */
   .encaje-relleno { filter: blur(22px) brightness(0.75) saturate(1.1); transform: scale(1.15); pointer-events: none; }
