@@ -172,7 +172,7 @@ Si quieres cambiar la identidad visual completa, empieza por esas variables. Los
 
 ### Responsive
 
-Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS historico todavia tiene otros (`max-width: 620px`, `980px`…); si algo se ve mal en celular, busca la clase y revisa sus `@media`.
+Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS historico todavia tiene otros (`max-width: 640px`, `980px`…; 13 en total); si algo se ve mal en celular, busca la clase y revisa sus `@media`.
 
 ### Importante sobre el CSS actual
 
@@ -196,7 +196,7 @@ Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS hist
 ### Riesgos o puntos a mejorar
 
 1. CSS historico todavia grande.
-   Ya se fusionaron las reglas repetidas, pero quedan 186 `!important` y varios puntos de corte antiguos. Un cambio visual en `styles.css` puede chocar con otra regla; el codigo nuevo debe ir en una capa posterior.
+   Ya se fusionaron las reglas repetidas, pero quedan 186 `!important` y 13 puntos de corte. Un cambio visual en `styles.css` puede chocar con otra regla; el codigo nuevo debe ir en una capa posterior.
 
 2. Abrir el HTML con doble clic no funciona.
    Hay que usar `npm start` (Eleventy y modulos de JavaScript).

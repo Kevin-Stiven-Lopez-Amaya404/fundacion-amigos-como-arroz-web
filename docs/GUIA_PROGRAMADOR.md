@@ -73,7 +73,7 @@ Las URL publicadas no cambian: `src/programas/semilla.html` se publica como `/pr
 |---|---|
 | `whatsapp`, `whatsappLabel` | Número para `wa.me` y cómo se muestra. También lo lee el JavaScript. |
 | `email`, `instagram`, `facebook` | Pie de página y enlaces de contacto. |
-| `cache` | Número de versión de cada CSS/JS (`styles.css?v=57`). |
+| `cache` | Número de versión de cada CSS/JS (`styles.css?v=58`). |
 
 En las páginas se usan así:
 
@@ -135,7 +135,7 @@ Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 - `tokens.css` declara el orden de capas `tokens, legacy, base, layout, components, sections, utilities` y las variables (`--color-*`, `--radius-*`, `--shadow-1/2/3`…). Usa los nombres `--color-*` en código nuevo.
 - `styles.css` está entero dentro de `@layer legacy`. Es el CSS histórico, ya consolidado en parte (ver [`AUDITORIA-ESTRUCTURA-2026-11.md`](AUDITORIA-ESTRUCTURA-2026-11.md)).
 - Código nuevo: ponlo en una capa posterior (`components`, `sections`…). Le gana a `legacy` sin subir la especificidad ni usar `!important`.
-- Puntos de corte para código nuevo: 560, 840 y 1080 px. El CSS histórico todavía usa otros.
+- Puntos de corte para código nuevo: 560, 840 y 1080 px. El CSS histórico usa 13 valores de `max-width` (420, 560, 640, 720, 760, 768, 820, 840, 860, 900, 980, 1023 y 1079); no agregues otros.
 
 ## 9. Formulario
 
@@ -162,6 +162,6 @@ Después abre `npm start` y revisa la portada y una página interna a 390 px y e
 
 ## 12. Riesgos conocidos
 
-- `styles.css` aún tiene 186 `!important` y varios puntos de corte antiguos; se van a limpiar sección por sección.
+- `styles.css` aún tiene 186 `!important` y 13 puntos de corte; se van a limpiar sección por sección.
 - El formulario depende de WhatsApp.
 - Antes de publicar, revisar datos reales: teléfono, correo, redes, nombres, fotos y permisos de imágenes.

@@ -65,7 +65,7 @@ Ya se hizo esta limpieza, cada paso verificado comparando el estilo calculado de
 - **`!important`:** se quitaron los que no decidían nada; quedan 186.
 - **Colores, radios y sombras:** pasaron a tokens.
 
-Aún no hay un punto de corte único: el CSS histórico usa varios `max-width`. Para código nuevo, usa solo 560, 840 y 1080 px.
+El CSS histórico usa 13 valores de `max-width` (antes 23): 420, 560, 640, 720, 760, 768, 820, 840, 860, 900, 980, 1023 y 1079. Los que quedan no se pueden juntar sin cambiar el diseño en algún dispositivo común (por ejemplo 820 y 840 rodean al iPad Air de 834 px). Para código nuevo, usa solo 560, 840 y 1080 px.
 
 ### Bloques principales
 
