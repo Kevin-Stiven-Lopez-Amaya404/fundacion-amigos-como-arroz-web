@@ -128,7 +128,7 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `encaje.js` | Fotos enteras con relleno desenfocado en las cajas de forma fija (también en las páginas internas, vía `interna.js`). |
 | `portada.js` | Pantalla de entrada, secuencia de palabras con el scroll (frase escrita y palabras) y punto rosa del cursor. |
 | `movimiento.js` | Animaciones de la referencia: entrada del inicio, títulos que se pintan, efectos ligados al scroll y rebote de «Sigue». Curvas en `--ease-expo` y `--ease-vaiven`. |
-| `contact-form.js` | Valida el formulario y abre WhatsApp con el mensaje. |
+| `contact-form.js` | Valida el formulario (teléfono y correo opcionales) y abre WhatsApp con el mensaje. |
 | `team-slider.js` | Carrusel del equipo. |
 | `lazy-videos.js` | Carga los videos al pulsar. |
 | `story-book.js` | Visor de la historia institucional: una página a la vez, con indicador segmentado. |
@@ -145,7 +145,7 @@ El sitio tiene una sola hoja, `assets/css/sitio.css`, más `seasonal/navidad.css
 - **Tokens** (en la capa `tokens`): fondo `--vacio` y grafitos (`--tinta`, `--grafito`), texto `--texto`/`--texto-2`/`--texto-3`, `--rosa` (acción) y `--rosa-boton`, `--sol` (cifras y brillos), `--crema` para la sección clara de Momentos, `--brillo` y `--velo` sobre fotos, tipos `--f-display` (Unbounded), `--f-texto` (Schibsted Grotesk) y `--f-mono` (Space Mono), servidos desde `assets/fonts/`. La página es clara (#fbfaf8, tarjetas #ffffff, secciones alternas #eef3f7, texto #16202a); las zonas con texto sobre foto redefinen las mismas variables en azul noche (#0f1923) en la capa `tokens` de `sitio.css`, así que un componente no necesita colores propios para funcionar en las dos. Tamaños de letra solo con la escala `--t-nota`, `--t-etiqueta`, `--t-cuerpo`, `--t-lead`, `--t-destacado`, `--t-h3`, `--t-h2`, `--t-display-2`, `--t-h1` y `--t-gigante`; separaciones con `--e-1` a `--e-8` (de 4 en 4 px).
 - **Pantalla** (`.pantalla`): cada sección ocupa al menos la altura de la ventana. El inicio enmarca la foto (`--marco`); Fundación y los programas ponen la foto enmarcada al lado del texto; Sede Espinal va a sangre con la palabra gigante. `.pantalla--larga` es para secciones de lectura.
 - **Barra flotante** (`.site-header` en la portada, `.program-detail-header` en las internas): píldora fija abajo al centro con todas las acciones; el pie deja libre su alto con `--pie-libre`.
-- **Capítulo** (`.eyebrow`): «■ 01 Fundación» en monoespaciada encima del título; el número sale de un contador CSS por sección visible.
+- **Etiqueta de sección** (`.eyebrow`): «■ Fundación» en monoespaciada encima del título, sin número (se quitó en la auditoría HU24).
 - **Puntos de corte:** 480, 560, 640, 759/760, 899/900 y 1079/1080 px.
 
 ## 9. Formulario

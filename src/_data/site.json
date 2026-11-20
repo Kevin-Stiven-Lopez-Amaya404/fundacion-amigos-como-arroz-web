@@ -6,5 +6,8 @@
   "email": "amigoscomoarroz@gmail.com",
   "instagram": "https://www.instagram.com/amigoscomoarroz",
   "facebook": "https://www.facebook.com/amigoscomoarroz",
-  "cache": { "sitio": 9, "navidad": 8, "seasonal": 3, "analytics": 1, "main": 17 }
+  "cache": { "sitio": 10, "navidad": 8, "seasonal": 3, "analytics": 1, "main": 18 },
+  "donacion": {
+    "medios": []
+  }
 }
