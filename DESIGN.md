@@ -234,6 +234,15 @@ Tarjetas de 440 px de ancho máximo con esquinas redondeadas. La foto crece un p
 ### Inputs
 Fondo `--vacio`, borde `--linea-fuerte` y contorno rosa al enfocar. Las etiquetas van en Space Mono.
 
+### Movimiento
+Mismos tiempos y curvas que la referencia: `--ease-expo` (0.16, 1, 0.3, 1) para lo que entra y `--ease-vaiven` (0.65, 0, 0.35, 1) para lo que se mueve en pantalla; duraciones de 0.5 s (revelar), 0.8 s (aparecer) y 1.2 s (inicio).
+- Inicio: al entrar, la foto crece de 0.6 a 1 y el nombre sube línea a línea; al bajar, se aleja y se apaga.
+- Secuencia: la frase se escribe con cursor y las palabras cambian con desenfoque; dos brillos se desplazan detrás.
+- Títulos de sección: se pintan de izquierda a derecha una vez.
+- Programas y Sede Espinal: texto y palabra gigante desde un desenfoque ligado al scroll.
+- Impacto: filas escalonadas (0.18 s) y líneas que se dibujan.
+- Con movimiento reducido no corre nada de esto; en celulares, sin desenfoques.
+
 ### Temporada de Navidad
 La guirnalda va sobre la píldora y el botón de nieve es un ícono más de la barra.
 
