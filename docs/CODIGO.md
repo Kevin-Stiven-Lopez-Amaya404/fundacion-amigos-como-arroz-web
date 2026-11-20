@@ -19,7 +19,7 @@ Detalle de cómo funciona cada pieza. Para la vista general (carpetas, cambios c
 Orden del documento:
 
 1. `<head>`: metadatos, `tokens.css`, `styles.css` y `navidad.css` (con `?v={{ site.cache.* }}`), precarga del hero, `seasonal.js` (debe ir en el `<head>` para marcar la temporada antes de pintar) y datos estructurados JSON-LD.
-2. `.reading-progress`, `.site-header` (logo y menú) y `<main id="main">` con las secciones (`#inicio`, `#fundacion`, `#programas`, `#impacto`, `#testimonios`, `#momentos`, `#equipo`, `#videos`, `#contacto`, `#informes`…).
+2. `.reading-progress`, `.site-header` (logo y menú) y `<main id="main">` con las secciones (`#inicio`, `#fundacion`, `#programas`, `#impacto`, `#testimonios` (con los videos institucionales), `#momentos`, `#equipo`, `#informes` y `#contacto`).
 3. `.site-footer`, el botón flotante de WhatsApp (`#quick-contact`), el chatbot y el botón de subir.
 4. Al final: `analytics.js`, el JSON `#site-data` (WhatsApp para el JS) y `main.js` como `type="module"`.
 
