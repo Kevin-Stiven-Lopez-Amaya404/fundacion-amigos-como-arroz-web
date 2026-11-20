@@ -9,13 +9,13 @@
     name="description"
     content="{{ description }}"
   />
-  <meta name="theme-color" content="#0b0b0f" />
+  <meta name="theme-color" content="#060608" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="{{ site.url }}{{ canonical }}" />
   <link rel="icon" href="../assets/img/brand/logo-fundacion.jpg" type="image/jpeg" />
   <link rel="manifest" href="../site.webmanifest" />
   <title>{{ title }}</title>
-  <link rel="preload" href="../assets/fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="../assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link href="../assets/css/sitio.css?v={{ site.cache.sitio }}" rel="stylesheet" />
   <link href="../assets/css/seasonal/navidad.css?v={{ site.cache.navidad }}" rel="stylesheet" />
@@ -35,9 +35,8 @@
           alt="Logo Fundación Amigos Como Arroz"
           decoding="async"
         />
-        <span class="brand-name" aria-hidden="true">Amigos Como Arroz<small>Fundación · Neiva y Espinal</small></span>
       </a>
-      <a class="program-back-link" href="{{ back.href }}">{{ back.text }}</a>
+      <a class="program-back-link" href="{{ back.href }}"><span>{{ back.text }}</span></a>
       <a
         class="nav-donate"
         href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
@@ -47,6 +46,21 @@
         data-analytics-category="contacto"
         data-analytics-label="Página interna - donar"
       >Donar</a>
+      <a
+        class="pill-icono"
+      aria-label="Escribir por WhatsApp"
+      href="{{ 'Hola, quiero más información sobre la Fundación Amigos Como Arroz.' | whatsapp }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-analytics-event="clic_whatsapp_flotante"
+      data-analytics-category="contacto"
+      data-analytics-label="Barra interna - WhatsApp"
+    >
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5zm4.4 12.5c-.18.5-1.06.97-1.47 1.03-.38.05-.85.08-1.37-.09-.32-.1-.72-.24-1.24-.46-2.18-.96-3.6-3.18-3.71-3.33-.11-.15-.89-1.2-.89-2.28 0-1.09.57-1.62.77-1.84.2-.22.44-.28.59-.28h.42c.14 0 .32-.05.5.38.18.43.62 1.49.67 1.6.06.11.09.24.02.38-.07.15-.11.24-.22.37-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.25 1.56.86.77 1.59 1.01 1.81 1.12.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.29-.18.5-.11.2.07 1.27.6 1.49.71.22.11.37.16.42.25.05.09.05.53-.13 1.03z"/></svg>
+    </a>
+      <a class="pill-icono" aria-label="Ver todos los programas" href="../programas/index.html">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+    </a>
     </div>
   </header>
 
@@ -64,23 +78,6 @@
     </div>
   </footer>
 
-  <aside class="carril" aria-label="Acciones rápidas">
-    <a
-      class="carril-btn"
-      href="{{ 'Hola, quiero más información sobre la Fundación Amigos Como Arroz.' | whatsapp }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-analytics-event="clic_whatsapp_flotante"
-      data-analytics-category="contacto"
-      data-analytics-label="Carril interno - WhatsApp"
-    >
-      <span class="disco"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5zm4.4 12.5c-.18.5-1.06.97-1.47 1.03-.38.05-.85.08-1.37-.09-.32-.1-.72-.24-1.24-.46-2.18-.96-3.6-3.18-3.71-3.33-.11-.15-.89-1.2-.89-2.28 0-1.09.57-1.62.77-1.84.2-.22.44-.28.59-.28h.42c.14 0 .32-.05.5.38.18.43.62 1.49.67 1.6.06.11.09.24.02.38-.07.15-.11.24-.22.37-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.25 1.56.86.77 1.59 1.01 1.81 1.12.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.29-.18.5-.11.2.07 1.27.6 1.49.71.22.11.37.16.42.25.05.09.05.53-.13 1.03z"/></svg></span>
-      WhatsApp
-    </a>
-    <a class="carril-btn carril-btn--programas" href="../programas/index.html">
-      <span class="disco"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>
-      Programas
-    </a>
-  </aside>
+
 </body>
 </html>
