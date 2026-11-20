@@ -123,7 +123,7 @@ initMotionFx();             // efectos ligados al scroll (motion)
 | `team-slider.js` | Anterior/siguiente, puntos, avance automático que se pausa fuera de pantalla o con el cursor encima. |
 | `lazy-videos.js` | Carga cada video local (`.local-video-loader`) solo al pulsarlo. |
 | `story-book.js` | Páginas del libro de historias y su estado accesible. |
-| `chatbot.js` | Preguntas rápidas y respuestas con enlaces (WhatsApp, programas, ubicación). |
+| `chatbot.js` | Las preguntas rápidas responden al instante con textos fijos. Lo que la persona escribe va a `/api/chat` con las últimas 8 intervenciones; mientras tanto muestra «Escribiendo…» y bloquea el campo. La respuesta se arma con `textContent`, y solo las URL `https` de WhatsApp, Instagram, Facebook o el dominio de la fundación se convierten en enlace. Si la API falla o no existe (con `npm start` no hay funciones), responde con el texto fijo y no reenvía esa pregunta. |
 | `motion-fx.js` | Con `scroll()` de `motion` (usa `ScrollTimeline`/`ViewTimeline` del navegador, fuera del hilo principal): la barra de lectura crece con `scaleX` (siempre: informa de la posición); si no hay `shouldLimitMotion`, la foto del hero baja 72 px al salir (anima `translate`, porque legacy fija `transform: none !important` en esa foto) y crea `.timeline-progress`, la línea de color de «Mejores momentos» que se dibuja con el scroll. |
 
 Fuera de `modules/`:
@@ -131,13 +131,23 @@ Fuera de `modules/`:
 - **`seasonal.js`:** enciende o apaga la Navidad. Se controla con `SEASON_CONFIG.mode`, y en la URL con `?temporada=off` o `?temporada=navidad` para probar.
 - **`analytics.js`:** Google Analytics 4 opcional y eventos `data-analytics-*`.
 
-## 6. Imágenes y videos
+## 6. Asistente con Claude (`api/`)
+
+Vercel publica cada archivo de `api/` como una función; los que empiezan por `_` no se publican.
+
+- **`api/chat.mjs`** (`POST /api/chat`) usa el SDK oficial `@anthropic-ai/sdk` con `claude-opus-5-5`, esfuerzo `low` (es un chat breve) y `max_tokens: 2048` como tope de gasto. Si el modelo rechaza la pregunta, `fallbacks: "default"` la reintenta en otro modelo. Si aun así la rechaza, responde con un mensaje amable.
+- **Protecciones:** solo acepta `POST`, solo desde el dominio de la fundación, `landign*.vercel.app` y `localhost`, y como mucho 8 mensajes por minuto e IP. Ese límite vive en la memoria de cada instancia; si hay abuso, pasarlo a Upstash o Vercel KV. Cada mensaje tiene de 1 a 600 caracteres y la conversación como mucho 8 turnos. El historial lo manda el navegador, así que no es de fiar: va como texto dentro de un solo mensaje del usuario, nunca como turnos del asistente.
+- **Errores:** usa las clases del SDK (`RateLimitError`, `AuthenticationError`, `APIError`) y devuelve 503/502/500 sin detalles. El navegador entonces usa la respuesta fija.
+- **`api/_contexto.mjs`** tiene las reglas y los datos de la fundación. Lee WhatsApp, correo y redes de `site.json`; el resto está copiado del sitio. **Si cambias programas, cifras, equipo o contacto en la portada, cámbialo también aquí.** No pongas fechas ni nada variable, porque rompería la caché del prompt.
+- **Clave:** la variable `ANTHROPIC_API_KEY` se configura en Vercel (Settings → Environment Variables). Nunca va en el código ni en el navegador.
+
+## 7. Imágenes y videos
 
 - **Imágenes:** las páginas usan las WebP de `assets/img/opt/`, de 480, 960 y 1600 px, con `srcset`. Los originales quedan en `brand/`, `hero/`, `content/` y `team/`.
 - **Carga:** `loading="lazy"` y `decoding="async"` en todo lo que no aparece al abrir la página. La imagen del hero se precarga.
 - **Videos:** viven en `assets/videos/` con su póster y solo se cargan al pulsarlos.
 
-## 7. Formulario
+## 8. Formulario
 
 ```html
 <form class="contact-form" id="contact-form" novalidate>
@@ -145,7 +155,7 @@ Fuera de `modules/`:
 
 Cada campo tiene su mensaje de error enlazado con `aria-describedby="name-error"`. `contact-form.js` actualiza `aria-invalid`, el texto del error y `#form-status`. El envío abre WhatsApp. No hay backend.
 
-## 8. Reglas para mantener el código limpio
+## 9. Reglas para mantener el código limpio
 
 1. El contenido va en `src/`, el aspecto en `assets/css/` y el comportamiento en `assets/js/modules/`.
 2. No pongas JavaScript dentro del HTML. Los datos de contacto van en `site.json`.

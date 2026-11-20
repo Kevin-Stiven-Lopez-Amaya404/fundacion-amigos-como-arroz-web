@@ -40,6 +40,8 @@ landign-/
     img/{brand,hero,content,team}/  Originales
     videos/
   informes/                         PDF de informes de gestión
+  api/chat.mjs                      Función de Vercel: el chat responde con Claude (POST /api/chat)
+  api/_contexto.mjs                 Instrucciones y datos de la fundación que recibe el asistente
   eleventy.config.mjs               Qué se copia, el filtro whatsapp y las URL .html
   vercel.json                       Vercel ejecuta npm run build y publica _site/
   docs/                             Esta documentación y las auditorías
@@ -75,7 +77,7 @@ Las URL publicadas no cambian: `src/programas/semilla.html` se publica como `/pr
 |---|---|
 | `whatsapp`, `whatsappLabel` | Número para `wa.me` y cómo se muestra. También lo lee el JavaScript. |
 | `email`, `instagram`, `facebook` | Pie de página y enlaces de contacto. |
-| `cache` | Número de versión de cada CSS/JS (`styles.css?v=59`). |
+| `cache` | Número de versión de cada CSS/JS (`styles.css?v=60`). |
 
 En las páginas se usan así:
 
@@ -95,6 +97,7 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | Contenido de un programa | `src/programas/<programa>.html` (y su tarjeta en `src/index.html`, sección `#programas`) |
 | `<head>`, cabecera o pie de las páginas internas | `src/_includes/layouts/interna.njk` |
 | WhatsApp, correo o redes | `src/_data/site.json` |
+| Lo que sabe el asistente del chat | `api/_contexto.mjs` |
 | Colores, tipografía, radios o sombras | `assets/css/tokens.css` |
 | Aspecto de un componente | `assets/css/styles.css` |
 | Una interacción | su módulo en `assets/js/modules/` |
@@ -128,7 +131,7 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `team-slider.js` | Carrusel del equipo. |
 | `lazy-videos.js` | Carga los videos al pulsar. |
 | `story-book.js` | Libro de historias. |
-| `chatbot.js` | Asistente con preguntas frecuentes. |
+| `chatbot.js` | Asistente: las preguntas rápidas responden al instante; lo que se escribe lo responde Claude por `/api/chat` y, si falla, una respuesta fija. |
 | `motion-fx.js` | Efectos ligados al scroll con `motion`: barra de lectura, foto del hero y línea de «Mejores momentos». |
 
 Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
