@@ -41,7 +41,7 @@
   <link href="assets/css/seasonal/navidad.css?v={{ site.cache.navidad }}" rel="stylesheet" />
   <script src="assets/js/seasonal.js?v={{ site.cache.seasonal }}"></script>
   <!-- Pantalla de entrada: solo en la primera visita de la sesión y nunca si se llega con un enlace a una sección -->
-  <script>try{if(!location.hash&&sessionStorage.getItem("entrada")!=="1")document.documentElement.classList.add("con-entrada")}catch(e){}</script>
+  <script>try{var h=document.documentElement;if(!location.hash){if(sessionStorage.getItem("entrada")!=="1")h.classList.add("con-entrada");if(!matchMedia("(prefers-reduced-motion: reduce)").matches)h.classList.add("intro")}}catch(e){}</script>
   <link
     rel="preload"
     as="image"
@@ -134,7 +134,9 @@
 
       <a
         class="nav-donate"
-        href="#donar"
+        href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
+        target="_blank"
+        rel="noopener noreferrer"
         data-analytics-event="clic_donar"
         data-analytics-category="contacto"
         data-analytics-label="Menú - donar"
@@ -201,7 +203,15 @@
           para construir proyectos de vida con esperanza.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-pink" href="#donar">Donar</a>
+          <a
+            class="btn btn-pink"
+            href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="clic_donar"
+            data-analytics-category="contacto"
+            data-analytics-label="Donar"
+          >Donar</a>
           <a
             class="btn btn-whatsapp"
             href="{{ 'Hola, quiero apoyar a la Fundación Amigos Como Arroz.' | whatsapp }}"
@@ -606,7 +616,15 @@
             habilidades, confianza y comunidad.
           </p>
           <div class="impact-actions">
-            <a class="btn btn-pink" href="#donar">Donar</a>
+            <a
+            class="btn btn-pink"
+            href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="clic_donar"
+            data-analytics-category="contacto"
+            data-analytics-label="Donar"
+          >Donar</a>
             <a
               class="btn btn-whatsapp"
               href="{{ 'Hola, quiero saber cómo puedo apoyar a la fundación.' | whatsapp }}"
@@ -737,7 +755,7 @@
       <div class="carrusel testimonial-video-carousel" role="region" tabindex="0" aria-label="Carrusel de testimonios en video">
         <article class="historia testimonial-video-showcase">
           <button
-            class="local-video-loader testimonial-video"
+            data-cursor="Ver" class="local-video-loader testimonial-video"
             type="button"
             data-video-src="assets/videos/testimoni1.mp4"
             data-poster="assets/img/opt/videos-testimoni1-poster-480.webp"
@@ -756,7 +774,7 @@
 
         <article class="historia testimonial-video-showcase">
           <button
-            class="local-video-loader testimonial-video"
+            data-cursor="Ver" class="local-video-loader testimonial-video"
             type="button"
             data-video-src="assets/videos/testimonio2.mp4"
             data-poster="assets/img/opt/videos-testimonio2-poster-480.webp"
@@ -775,7 +793,7 @@
 
         <article class="historia video-card-modern">
           <button
-            class="local-video-loader local-impact-video"
+            data-cursor="Ver" class="local-video-loader local-impact-video"
             type="button"
             data-video-src="assets/videos/conoce-nuestra-mision.mp4"
             data-poster="assets/img/opt/videos-conoce-nuestra-mision-poster-768.webp"
@@ -802,7 +820,7 @@
 
         <article class="historia video-card-modern">
           <button
-            class="local-video-loader local-impact-video"
+            data-cursor="Ver" class="local-video-loader local-impact-video"
             type="button"
             data-video-src="assets/videos/momentos-impacto-web.mp4"
             data-poster="assets/img/opt/videos-momentos-impacto-poster-720.webp"

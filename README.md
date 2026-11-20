@@ -55,7 +55,7 @@ fundacion/
 - Menú móvil.
 - Animaciones al hacer scroll.
 - Contadores animados.
-- Barra de progreso de lectura y efectos ligados al scroll con `motion` (foto del hero y línea de «Mejores momentos»).
+- Movimiento con GSAP (ScrollTrigger y SplitText): entrada del inicio, títulos letra a letra, fotos que se descubren, Sede Espinal fija, programas que se apilan, carruseles que se arrastran y barra de progreso de lectura.
 - Carrusel del equipo.
 - Videos incrustados.
 - Formulario que abre WhatsApp con el mensaje armado.
