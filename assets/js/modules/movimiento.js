@@ -1,134 +1,241 @@
-import { animate, scroll } from "../vendor/motion.js";
-import { prefersLessMotion, shouldLimitMotion } from "./config.js";
+import { gsap, ScrollTrigger, SplitText } from "../vendor/gsap.js";
 
-// Movimiento al estilo de la presentación de marca: mismos tiempos y curvas que la referencia de diseño.
-const EXPO = [0.16, 1, 0.3, 1];
-const EN_VAIVEN = [0.65, 0, 0.35, 1];
+// Movimiento de la portada con GSAP: las mismas ideas de la web de referencia, escritas para este sitio.
+// Todo vive dentro de gsap.matchMedia(): con «reducir movimiento» no se crea nada y, si cambia el ancho
+// de la pantalla, GSAP deshace lo creado y lo vuelve a armar con la versión que corresponde.
+const EXPO = "expo.out"; // salida exponencial, como la curva (0.16, 1, 0.3, 1) de la referencia
 const REVELAR = { duration: 0.5, ease: EXPO };
 const INICIO = { duration: 1.2, ease: EXPO };
 
 export function initMovimiento() {
-  if (prefersLessMotion) return;
-  initIntroInicio();
-  initInicioAlBajar();
-  initTitulos();
-  initRebote();
-  // Los efectos con desenfoque cuestan más: solo en equipos que van sobrados.
-  if (shouldLimitMotion) return;
-  initTextoSonador();
-  initEspinal();
-}
-
-// Al cerrar la entrada: la foto crece y el texto sube por partes, como al arrancar la presentación.
-function initIntroInicio() {
-  const hero = document.querySelector(".hero");
-  if (!hero || !document.documentElement.classList.contains("con-entrada")) return;
-  const subir = (el, delay, desde = "0 30px", opciones = REVELAR) =>
-    el && animate(el, { opacity: [0, 1], translate: [desde, "0 0"] }, { ...opciones, delay });
-
-  document.addEventListener(
-    "entrada:cerrada",
-    () => {
-      const fondo = hero.querySelector(".pantalla-fondo");
-      animate(fondo, { scale: [0.6, 1] }, { ...INICIO, delay: 0.3 });
-      animate(fondo.querySelectorAll("img"), { opacity: [0, 1] }, { ...REVELAR, delay: 0.3 });
-      hero.querySelectorAll(".hero-title span").forEach((linea, i) => subir(linea, 0.9 + i * 0.12, "0 40px", INICIO));
-      subir(hero.querySelector(".hero-badge"), 0.95, "0 -10px");
-      subir(hero.querySelector(".hero-kicker"), 1.1);
-      subir(hero.querySelector(".hero-description"), 1.1);
-      subir(hero.querySelector(".hero-actions"), 1.2);
-      animate(hero.querySelectorAll(".hero-sello, .siguiente"), { opacity: [0, 1] }, { ...REVELAR, delay: (i) => 1.2 + i * 0.15 });
+  const mm = gsap.matchMedia();
+  mm.add(
+    {
+      movimiento: "(prefers-reduced-motion: no-preference)",
+      escritorio: "(min-width: 900px) and (min-height: 640px)",
+      mouse: "(hover: hover) and (pointer: fine)"
     },
-    { once: true }
+    ({ conditions }) => {
+      if (!conditions.movimiento) return;
+      const { escritorio, mouse } = conditions;
+      // GSAP deshace solo tweens, ScrollTriggers, SplitText y Draggable; los oyentes propios se limpian aquí.
+      const limpiezas = [
+        introInicio(),
+        inicioAlBajar(),
+        titulos(),
+        fotos(),
+        textoSonador(escritorio),
+        espinal(escritorio),
+        escritorio && programasApilados(),
+        mouse && carruseles(),
+        rebote()
+      ];
+      return () => limpiezas.forEach((limpiar) => typeof limpiar === "function" && limpiar());
+    }
   );
+  // Las fuentes y las fotos cambian el alto de la página: se recalculan los puntos de inicio.
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
 }
 
-// Al bajar, la foto del inicio se aleja y se apaga.
-function initInicioAlBajar() {
+// Entrada del inicio: la foto crece y el nombre sube línea a línea (tras «Entrar», o al cargar si no hay entrada).
+function introInicio() {
+  const raiz = document.documentElement;
+  const hero = document.querySelector(".hero");
+  if (!hero || !raiz.classList.contains("intro")) return;
+  const fondo = hero.querySelector(".pantalla-fondo");
+  const nombre = SplitText.create(hero.querySelector(".hero-title"), { type: "lines", mask: "lines" });
+
+  const tl = gsap.timeline({ paused: true, onStart: () => raiz.classList.remove("intro") });
+  tl.fromTo(fondo, { scale: 0.6 }, { scale: 1, ...INICIO }, 0.3)
+    .fromTo(fondo.querySelectorAll("img"), { autoAlpha: 0 }, { autoAlpha: 1, ...REVELAR }, 0.3)
+    .fromTo(nombre.lines, { yPercent: 110 }, { yPercent: 0, ...INICIO, stagger: 0.12 }, 0.9)
+    .fromTo(hero.querySelector(".hero-title"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0.9)
+    .fromTo(hero.querySelector(".hero-badge"), { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, ...REVELAR }, 0.95)
+    .fromTo(hero.querySelectorAll(".hero-kicker, .hero-description"), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, ...REVELAR, stagger: 0.06 }, 1.1)
+    .fromTo(hero.querySelectorAll(".hero-actions, .xmas-hero-pill"), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, ...REVELAR }, 1.2)
+    .fromTo(hero.querySelectorAll(".hero-sello, .siguiente"), { autoAlpha: 0 }, { autoAlpha: 1, ...REVELAR, stagger: 0.15 }, 1.2);
+
+  const empezar = () => tl.play();
+  if (raiz.classList.contains("con-entrada")) document.addEventListener("entrada:cerrada", empezar, { once: true });
+  else empezar();
+  return () => document.removeEventListener("entrada:cerrada", empezar);
+}
+
+// Al bajar, la foto del inicio se aleja, se acerca por dentro y se apaga.
+function inicioAlBajar() {
   const hero = document.querySelector(".hero");
   const fondo = hero?.querySelector(".pantalla-fondo");
   if (!fondo) return;
-  scroll(animate(fondo, { transform: ["translateY(0) scale(1)", "translateY(90px) scale(0.94)"], opacity: [1, 0.3] }, { ease: "linear" }), {
-    target: hero,
-    offset: ["start start", "end start"]
+  const scrollTrigger = { trigger: hero, start: "top top", end: "bottom top", scrub: true };
+  gsap.to(fondo, { y: 90, opacity: 0.3, ease: "none", scrollTrigger });
+  gsap.to(fondo.querySelectorAll("img"), { scale: 1.08, ease: "none", scrollTrigger });
+}
+
+// Títulos de sección: las letras se encienden una tras otra al entrar (como el «Statement» de la referencia).
+function titulos() {
+  gsap.utils.toArray("main > section h2").forEach((titulo) => {
+    if (titulo.closest(".programas-intro")) return; // ese título ya tiene su propio efecto
+    const split = SplitText.create(titulo, { type: "words,chars" });
+    gsap.fromTo(
+      split.chars,
+      { opacity: 0.12 },
+      { opacity: 1, duration: 0.5, ease: EXPO, stagger: 0.026, scrollTrigger: { trigger: titulo, start: "top 85%", once: true } }
+    );
   });
 }
 
-// Títulos de sección: se pintan de izquierda a derecha la primera vez que entran (máscara en CSS).
-function initTitulos() {
-  const titulos = document.querySelectorAll("main section h2");
-  if (!("IntersectionObserver" in window)) return;
-  const observador = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach(({ isIntersecting, target }) => {
-        if (!isIntersecting) return;
-        observador.unobserve(target);
-        target.classList.add("barrido--listo");
-        // Ya pintado: se quita la máscara para que el título quede como cualquier texto.
-        target.addEventListener("transitionend", () => target.classList.remove("barrido", "barrido--listo"), { once: true });
-      });
-    },
-    { threshold: 0.4 }
-  );
-  titulos.forEach((titulo) => {
-    titulo.classList.add("barrido");
-    observador.observe(titulo);
+// Fotos: se descubren de abajo hacia arriba y se asientan; en Programas, además, se mueven más lento que la página.
+function fotos() {
+  gsap.utils.toArray(".marco-foto, .historia-foto, .timeline-item > img").forEach((caja) => {
+    const img = caja.tagName === "IMG" ? null : caja.querySelector("img:not(.encaje-relleno)");
+    const tl = gsap.timeline({ scrollTrigger: { trigger: caja, start: "top 88%", once: true } });
+    tl.fromTo(caja, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: EXPO, clearProps: "clipPath" });
+    if (img) tl.fromTo(img, { scale: 1.2 }, { scale: 1, duration: 1.4, ease: EXPO, clearProps: "scale" }, 0);
+  });
+
+  gsap.utils.toArray(".program-card > .pantalla-fondo").forEach((caja) => {
+    gsap.fromTo(caja, { clipPath: "inset(100% 0% 0% 0%)" }, {
+      clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: EXPO, clearProps: "clipPath",
+      scrollTrigger: { trigger: caja, start: "top 88%", once: true }
+    });
+    const img = caja.querySelector("img");
+    gsap.fromTo(img, { yPercent: -5, scale: 1.12 }, {
+      yPercent: 5, ease: "none",
+      scrollTrigger: { trigger: caja, start: "top bottom", end: "bottom top", scrub: true }
+    });
   });
 }
 
-// «Sigue» da dos saltitos si la persona lleva 5 segundos quieta arriba de la página.
-function initRebote() {
-  const sigue = document.querySelector(".siguiente");
-  if (!sigue) return;
-  let espera;
-  const armar = () => {
-    clearTimeout(espera);
-    espera = setTimeout(() => {
-      if (window.scrollY < 80 && !document.documentElement.classList.contains("con-entrada")) {
-        animate(sigue, { translate: ["0 0", "0 -8px", "0 0", "0 -8px", "0 0"] }, { duration: 1.2, ease: EN_VAIVEN, times: [0, 0.25, 0.5, 0.75, 1] });
-      }
-      armar();
-    }, 5000);
-  };
-  ["scroll", "pointermove", "keydown", "touchstart"].forEach((evento) => window.addEventListener(evento, armar, { passive: true }));
-  armar();
-}
-
-// Intro de programas: cada línea aparece desde un desenfoque al llegar y se va igual al salir.
-function initTextoSonador() {
+// Intro de Programas: cada línea aparece al llegar y se va al salir (con desenfoque solo en escritorio).
+function textoSonador(escritorio) {
   const intro = document.querySelector(".programas-intro");
   const encabezado = intro?.querySelector(".section-header");
   if (!encabezado) return;
   encabezado.classList.remove("reveal");
   const lineas = [encabezado.querySelector(".eyebrow"), encabezado.querySelector("h2"), encabezado.querySelector(".lead")].filter(Boolean);
+  const oculto = (subir) => ({ opacity: 0, y: subir ? "2.5rem" : "-2.5rem", filter: escritorio ? "blur(16px)" : "none" });
   lineas.forEach((linea, i) => {
     const retraso = i * 0.04;
-    const tramos = [0.12 + retraso, 0.38 + retraso, 0.62 - retraso, 0.88 - retraso];
-    const efecto = animate(
-      linea,
-      {
-        opacity: [0, 0, 1, 1, 0, 0],
-        filter: ["blur(16px)", "blur(16px)", "blur(0px)", "blur(0px)", "blur(16px)", "blur(16px)"],
-        translate: ["0 2.5rem", "0 2.5rem", "0 0", "0 0", "0 -2.5rem", "0 -2.5rem"]
-      },
-      { ease: "linear", times: [0, ...tramos, 1] }
-    );
-    scroll(efecto, { target: intro, offset: ["start end", "end start"] });
+    gsap.timeline({ scrollTrigger: { trigger: intro, start: "top bottom", end: "bottom top", scrub: true } })
+      .set(linea, oculto(true), 0)
+      .to(linea, { opacity: 1, y: 0, filter: "blur(0px)", ease: "none", duration: 0.26 }, 0.12 + retraso)
+      .to(linea, { ...oculto(false), ease: "none", duration: 0.26 }, 0.62 - retraso)
+      .set({}, {}, 1); // el tramo mide 1, igual que la sección: los tiempos de arriba son fracciones de ella
   });
 }
 
-// Sede Espinal: la foto se acerca a su sitio y ESPINAL aparece desde un desenfoque fuerte.
-function initEspinal() {
+// Sede Espinal: en escritorio la pantalla se queda fija mientras la foto se asienta, ESPINAL aparece desde un
+// desenfoque y luego sube el texto (como «The Shift»). En celular, la misma idea sin fijar la pantalla.
+function espinal(escritorio) {
   const sede = document.querySelector(".sede-espinal-section");
   if (!sede) return;
-  const rango = { target: sede, offset: ["start end", "start start"] };
   const foto = sede.querySelector(".pantalla-fondo img");
-  if (foto) scroll(animate(foto, { scale: [1.15, 1] }, { ease: "linear" }), rango);
   const palabra = sede.querySelector(".palabra-gigante");
-  if (palabra) {
-    scroll(
-      animate(palabra, { opacity: [0, 0, 1], filter: ["blur(36px)", "blur(36px)", "blur(0px)"] }, { ease: "linear", times: [0, 0.45, 1] }),
-      rango
-    );
+  const copia = sede.querySelector(".sede-espinal-copy");
+  const cabe = sede.offsetHeight <= window.innerHeight * 1.05;
+
+  if (escritorio && cabe) {
+    copia.classList.remove("reveal");
+    gsap.timeline({ scrollTrigger: { trigger: sede, start: "top top", end: "+=90%", pin: true, scrub: 0.6 } })
+      .fromTo(foto, { scale: 1.25 }, { scale: 1, ease: "none", duration: 1 }, 0)
+      .fromTo(palabra, { autoAlpha: 0, filter: "blur(36px)", letterSpacing: "0.25em" }, { autoAlpha: 1, filter: "blur(0px)", letterSpacing: "0em", ease: "power2.out", duration: 0.55 }, 0)
+      .fromTo(copia, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.45 }, 0.5);
+    return;
   }
+  gsap.fromTo(foto, { scale: 1.15 }, { scale: 1, ease: "none", scrollTrigger: { trigger: sede, start: "top bottom", end: "top top", scrub: true } });
+  gsap.fromTo(palabra, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, ...INICIO, scrollTrigger: { trigger: sede, start: "top 75%", once: true } });
+}
+
+// Programas en escritorio: cada tarjeta se queda quieta cuando termina de verse y la siguiente sube por encima,
+// mientras la de abajo se achica y se apaga un poco.
+function programasApilados() {
+  const tarjetas = gsap.utils.toArray(".programas-feed > .program-card");
+  tarjetas.forEach((tarjeta, i) => {
+    const siguiente = tarjetas[i + 1];
+    if (!siguiente || tarjeta.offsetHeight > window.innerHeight * 1.1) return;
+    tarjeta.classList.add("apilada");
+    ScrollTrigger.create({ trigger: tarjeta, start: "bottom bottom", endTrigger: siguiente, end: "top top", pin: true, pinSpacing: false });
+    // Se achica y se apaga solo cuando la siguiente ya tapa media pantalla: mientras se lee, queda intacta.
+    gsap.to(tarjeta.children, {
+      scale: 0.94, opacity: 0.55, ease: "none",
+      scrollTrigger: { trigger: siguiente, start: "top 55%", end: "top top", scrub: true }
+    });
+  });
+}
+
+// Carruseles con mouse: se arrastran y, al soltar, siguen con inercia hasta frenar; el cursor muestra «Arrastra».
+// (Hecho a mano: el modo «scroll» de Draggable envuelve el contenido y rompería la cuadrícula del carrusel.)
+function carruseles() {
+  const limpiezas = gsap.utils.toArray(".carrusel").map((carrusel) => {
+    if (carrusel.scrollWidth <= carrusel.clientWidth + 4) return null;
+    carrusel.dataset.cursor = "Arrastra";
+    carrusel.classList.add("arrastrable");
+    let inicioX = 0, inicioScroll = 0, ultimoX = 0, ultimoT = 0, velocidad = 0, arrastrando = false, movio = false;
+
+    const bajar = (e) => {
+      // Sobre botones y enlaces también se arrastra; si la mano no se movió, su clic funciona normal.
+      if (e.button !== 0 || e.target.closest("video, input, textarea, select")) return;
+      arrastrando = true; movio = false;
+      inicioX = ultimoX = e.clientX; inicioScroll = carrusel.scrollLeft; ultimoT = performance.now(); velocidad = 0;
+      gsap.killTweensOf(carrusel);
+      carrusel.classList.add("arrastrando");
+    };
+    const mover = (e) => {
+      if (!arrastrando) return;
+      const ahora = performance.now();
+      velocidad = (e.clientX - ultimoX) / Math.max(1, ahora - ultimoT);
+      ultimoX = e.clientX; ultimoT = ahora;
+      if (Math.abs(e.clientX - inicioX) > 4) movio = true;
+      carrusel.scrollLeft = inicioScroll - (e.clientX - inicioX);
+    };
+    const soltar = () => {
+      if (!arrastrando) return;
+      arrastrando = false;
+      carrusel.classList.remove("arrastrando");
+      // Inercia: sigue en la dirección del gesto, proporcional a la velocidad final, y frena suave.
+      gsap.to(carrusel, { scrollLeft: carrusel.scrollLeft - velocidad * 420, duration: 0.9, ease: "power3.out" });
+    };
+    // Un arrastre no debe contar como clic en una tarjeta.
+    const clic = (e) => { if (movio) { e.preventDefault(); e.stopPropagation(); movio = false; } };
+
+    carrusel.addEventListener("pointerdown", bajar);
+    window.addEventListener("pointermove", mover, { passive: true });
+    window.addEventListener("pointerup", soltar);
+    carrusel.addEventListener("click", clic, true);
+    const sinArrastreNativo = (e) => e.preventDefault(); // enlaces e imágenes no se «levantan» al arrastrar
+    carrusel.addEventListener("dragstart", sinArrastreNativo);
+    return () => {
+      carrusel.removeEventListener("dragstart", sinArrastreNativo);
+      carrusel.removeEventListener("pointerdown", bajar);
+      window.removeEventListener("pointermove", mover);
+      window.removeEventListener("pointerup", soltar);
+      carrusel.removeEventListener("click", clic, true);
+      carrusel.classList.remove("arrastrable", "arrastrando");
+      delete carrusel.dataset.cursor;
+    };
+  });
+  return () => limpiezas.forEach((limpiar) => limpiar?.());
+}
+
+// «Sigue» da dos saltitos si la persona lleva 5 segundos quieta arriba de la página.
+function rebote() {
+  const sigue = document.querySelector(".siguiente");
+  if (!sigue) return;
+  const salto = gsap.timeline({ paused: true }).to(sigue, { y: -8, duration: 0.3, ease: "power2.inOut", yoyo: true, repeat: 3 });
+  let espera;
+  const armar = () => {
+    clearTimeout(espera);
+    espera = setTimeout(() => {
+      if (window.scrollY < 80 && !document.documentElement.classList.contains("con-entrada")) salto.restart();
+      armar();
+    }, 5000);
+  };
+  const eventos = ["scroll", "pointermove", "keydown", "touchstart"];
+  eventos.forEach((evento) => window.addEventListener(evento, armar, { passive: true }));
+  armar();
+  return () => {
+    clearTimeout(espera);
+    eventos.forEach((evento) => window.removeEventListener(evento, armar));
+  };
 }
