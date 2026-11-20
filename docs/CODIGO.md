@@ -60,7 +60,7 @@ Las páginas internas cargan `sitio.css`, `navidad.css`, `seasonal.js` y `analyt
 | `sections` | Cada sección de la portada y las páginas internas (`.program-detail-*`, galerías, Sede Espinal). `navidad.css` también va aquí. |
 | `utilities` | Entrada de `.reveal` (solo con JavaScript: `html.js`, que pone `seasonal.js`), movimiento reducido e impresión. |
 
-Botones: `.btn-pink` para apoyar/donar, `.btn-whatsapp` (blanco) cuando abre WhatsApp, `.btn-secondary` (contorno) para lo demás.
+Botones: `.btn-pink` para la acción principal (Donar, Inscribirme), `.btn-whatsapp` (azul noche) para «Escribir por WhatsApp», `.btn-secondary` (contorno) para lo demás. Todo «Donar» apunta a `#donar` (acciones de Contacto); el bloque «Cómo donar» se pinta solo si `site.donacion.medios` trae datos (ver README).
 
 ## 5. JavaScript
 
@@ -100,7 +100,7 @@ initHistorias();            // indicador segmentado y botón Compartir
 | `encaje.js` | Fotos sin recortar: en las cajas de forma fija pone la foto entera (`.encajada`, `object-fit: contain`) y detrás una copia desenfocada (`.encaje-relleno`, la versión más chica del `srcset`). En los videos el relleno va fuera del botón para seguir detrás cuando empieza el video. Lo cargan `main.js` y, en las páginas internas, `interna.js`. |
 | `portada.js` | Pantalla de entrada (`#entrada`: la decide un script del `<head>`; se cierra con el botón, la rueda, deslizando o el teclado, no vuelve en la sesión y al cerrarse avisa con el evento `entrada:cerrada`), secuencia de palabras `.ciclo` (fija con el scroll: primero se escribe la frase con cursor y luego cambia la palabra; `scroll()` de `motion`) y punto rosa que sigue al cursor (solo con mouse y sin movimiento reducido). |
 | `movimiento.js` | Animaciones de la referencia con `animate()` y `scroll()` de `motion`: entrada del inicio tras `entrada:cerrada`, la foto del inicio que se aleja al bajar, títulos `h2` que se pintan (clase `.barrido`, máscara en CSS), rebote de «Sigue», texto con desenfoque en la intro de programas y Sede Espinal (foto y ESPINAL). Nada corre con movimiento reducido; los desenfoques tampoco con `shouldLimitMotion`. |
-| `contact-form.js` | Valida campos con `aria-invalid` y mensajes de error; si todo está bien abre WhatsApp. |
+| `contact-form.js` | Valida campos con `aria-invalid` y mensajes de error; si todo está bien abre WhatsApp. Nombre, interés y mensaje son obligatorios; teléfono y correo, opcionales pero validados si se escriben. |
 | `team-slider.js` | Anterior/siguiente, puntos, avance automático que se pausa fuera de pantalla o con el cursor encima. |
 | `lazy-videos.js` | Carga cada video local (`.local-video-loader`) solo al pulsarlo. |
 | `story-book.js` | Visor de la historia institucional: muestra una página a la vez (las demás con `hidden`), arma su indicador segmentado y anuncia «Página X de Y» en `role="status"`. |

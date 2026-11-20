@@ -107,11 +107,11 @@
 
       <ul class="nav-list" id="nav-list">
         <li><a class="nav-link" href="#fundacion">Fundación</a></li>
-        <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
         <li><a class="nav-link" href="#programas">Programas</a></li>
         <li><a class="nav-link" href="#impacto">Impacto</a></li>
-        <li><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
         <li><a class="nav-link" href="#informes">Informes</a></li>
+        <li><a class="nav-link" href="#contacto">Contacto</a></li>
         <li class="nav-item--compartir">
           <button class="nav-compartir" type="button" data-compartir>
             <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4z"/></svg>
@@ -134,9 +134,7 @@
 
       <a
         class="nav-donate"
-        href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#donar"
         data-analytics-event="clic_donar"
         data-analytics-category="contacto"
         data-analytics-label="Menú - donar"
@@ -203,7 +201,7 @@
           para construir proyectos de vida con esperanza.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-pink" href="#contacto">Quiero apoyar la misión</a>
+          <a class="btn btn-pink" href="#donar">Donar</a>
           <a
             class="btn btn-whatsapp"
             href="{{ 'Hola, quiero apoyar a la Fundación Amigos Como Arroz.' | whatsapp }}"
@@ -228,9 +226,9 @@
 
       <p class="hero-sello" aria-hidden="true">Amigos Como Arroz<small>Fundación · Neiva y Espinal</small></p>
 
-      <a class="siguiente" href="#actividades">
+      <a class="siguiente" href="#fundacion">
         <span>Sigue</span>
-        <strong>Talentos que crecen fuera del aula</strong>
+        <strong>Educación que transforma vidas</strong>
         <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </section>
@@ -248,163 +246,6 @@
         <div class="ciclo-puntos"><span></span><span></span><span></span><span></span></div>
       </div>
     </div>
-
-    <!-- Campaña de temporada (Navidad): solo se muestra con la temporada activa (assets/js/seasonal.js) -->
-    <section class="pantalla xmas-campaign" id="navidad" aria-labelledby="xmas-title" data-season-only="navidad" hidden>
-      <div class="xmas-campaign-visual" aria-hidden="true">
-        <svg viewBox="0 0 240 230">
-          <path d="M10 14 C70 40 170 40 230 14" fill="none" stroke="#d4a64a" stroke-width="2" opacity=".7"/>
-          <g class="xmas-ornament">
-            <line x1="60" y1="24" x2="60" y2="96" stroke="#f3e2b8" stroke-width="1.5"/>
-            <rect x="52" y="92" width="16" height="10" rx="2" fill="#d4a64a"/>
-            <circle cx="60" cy="132" r="32" fill="#9e1b32"/>
-            <path d="M32 126 Q60 140 88 126" fill="none" stroke="#f3e2b8" stroke-width="2.5" opacity=".75"/>
-            <circle cx="49" cy="118" r="7" fill="#fff" opacity=".25"/>
-          </g>
-          <g class="xmas-ornament">
-            <line x1="120" y1="33" x2="120" y2="140" stroke="#f3e2b8" stroke-width="1.5"/>
-            <rect x="111" y="136" width="18" height="11" rx="2" fill="#d4a64a"/>
-            <circle cx="120" cy="182" r="38" fill="#d4a64a"/>
-            <path d="M120 160 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z" fill="#9e1b32"/>
-            <circle cx="106" cy="168" r="8" fill="#fff" opacity=".3"/>
-          </g>
-          <g class="xmas-ornament">
-            <line x1="182" y1="24" x2="182" y2="80" stroke="#f3e2b8" stroke-width="1.5"/>
-            <rect x="175" y="76" width="14" height="9" rx="2" fill="#d4a64a"/>
-            <circle cx="182" cy="110" r="26" fill="#2f7a52"/>
-            <circle cx="182" cy="110" r="26" fill="none" stroke="#f3e2b8" stroke-width="2" stroke-dasharray="3 6" opacity=".8"/>
-            <circle cx="173" cy="100" r="6" fill="#fff" opacity=".25"/>
-          </g>
-        </svg>
-      </div>
-      <div class="pantalla-cuerpo xmas-campaign-copy reveal">
-        <h2 id="xmas-title">Esta Navidad, <em>regala oportunidades.</em></h2>
-        <p class="lead">
-          Tu aporte se convierte en formación, becas y acompañamiento para niños, jóvenes
-          y familias de Neiva y Espinal. Sembremos juntos un nuevo año lleno de esperanza.
-        </p>
-        <p class="xmas-countdown" data-xmas-countdown aria-live="off"></p>
-        <div class="xmas-actions">
-          <a
-            class="btn btn-pink xmas-btn-primary"
-            href="{{ 'Hola, quiero hacer una donación de Navidad a la Fundación Amigos Como Arroz.' | whatsapp }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics-event="clic_donar"
-            data-analytics-category="navidad"
-            data-analytics-label="Campaña Navidad - donar"
-          >
-            Donar esta Navidad
-          </a>
-          <a
-            class="btn btn-secondary xmas-btn-ghost"
-            href="{{ 'Hola, quiero ser voluntario en las actividades de Navidad de la fundación.' | whatsapp }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics-event="clic_voluntario"
-            data-analytics-category="navidad"
-            data-analytics-label="Campaña Navidad - voluntariado"
-          >
-            Ser voluntario en Navidad
-          </a>
-        </div>
-        <p class="eyebrow xmas-eyebrow">Temporada navideña</p>
-      </div>
-    </section>
-
-    <!-- Actividades extracurriculares -->
-    <section class="pantalla pantalla--larga" id="actividades" aria-labelledby="activities-title">
-      <div class="encabezado reveal">
-        <h2 id="activities-title">Talentos que crecen fuera del aula.</h2>
-        <p class="lead">
-          Espacios formativos donde el deporte, el arte, la tecnología y los idiomas fortalecen
-          disciplina, confianza y trabajo en equipo.
-        </p>
-        <p class="eyebrow">Actividades extracurriculares</p>
-      </div>
-
-      <div class="carrusel extracurricular-carousel" role="region" tabindex="0" aria-label="Galería de actividades extracurriculares">
-        <article class="historia activity-slide">
-          <img
-            src="assets/img/opt/semilla-futbol-kep4527-960.webp"
-            srcset="assets/img/opt/semilla-futbol-kep4527-480.webp 480w, assets/img/opt/semilla-futbol-kep4527-960.webp 960w, assets/img/opt/semilla-futbol-kep4527-1600.webp 1600w"
-            sizes="(max-width: 759px) 78vw, 440px"
-            alt="Niños participando en fútbol formativo"
-            width="1800"
-            height="1013"
-            loading="lazy"
-            decoding="async"
-          />
-          <span class="etiqueta">Deporte</span>
-          <h3>Fútbol formativo</h3>
-          <p>Disciplina, convivencia y liderazgo desde el juego.</p>
-        </article>
-
-        <article class="historia activity-slide">
-          <img
-            src="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp"
-            srcset="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-480.webp 480w, assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp 960w, assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-1600.webp 1600w"
-            sizes="(max-width: 759px) 78vw, 440px"
-            alt="Participantes en actividad de danza"
-            width="1800"
-            height="1350"
-            loading="lazy"
-            decoding="async"
-          />
-          <span class="etiqueta">Arte</span>
-          <h3>Danza</h3>
-          <p>Expresión corporal, alegría y seguridad personal.</p>
-        </article>
-
-        <article class="historia activity-slide">
-          <img
-            src="assets/img/opt/semilla-patinaje-kep4555-960.webp"
-            srcset="assets/img/opt/semilla-patinaje-kep4555-480.webp 480w, assets/img/opt/semilla-patinaje-kep4555-960.webp 960w, assets/img/opt/semilla-patinaje-kep4555-1600.webp 1600w"
-            sizes="(max-width: 759px) 78vw, 440px"
-            alt="Niños en práctica de patinaje"
-            width="1800"
-            height="1013"
-            loading="lazy"
-            decoding="async"
-          />
-          <span class="etiqueta">Movimiento</span>
-          <h3>Patinaje</h3>
-          <p>Coordinación, constancia y hábitos saludables.</p>
-        </article>
-
-        <article class="historia activity-slide">
-          <img
-            src="assets/img/opt/semilla-robotica-kep4489-960.webp"
-            srcset="assets/img/opt/semilla-robotica-kep4489-480.webp 480w, assets/img/opt/semilla-robotica-kep4489-960.webp 960w, assets/img/opt/semilla-robotica-kep4489-1600.webp 1600w"
-            sizes="(max-width: 759px) 78vw, 440px"
-            alt="Niños aprendiendo robótica"
-            width="1800"
-            height="1013"
-            loading="lazy"
-            decoding="async"
-          />
-          <span class="etiqueta">Tecnología</span>
-          <h3>Robótica</h3>
-          <p>Creatividad, pensamiento lógico y solución de problemas.</p>
-        </article>
-
-        <article class="historia activity-slide">
-          <img
-            src="assets/img/opt/semilla-ingles-kep4501-960.webp"
-            srcset="assets/img/opt/semilla-ingles-kep4501-480.webp 480w, assets/img/opt/semilla-ingles-kep4501-960.webp 960w, assets/img/opt/semilla-ingles-kep4501-1600.webp 1600w"
-            sizes="(max-width: 759px) 78vw, 440px"
-            alt="Niños en actividad de inglés"
-            width="1800"
-            height="1013"
-            loading="lazy"
-            decoding="async"
-          />
-          <span class="etiqueta">Idiomas</span>
-          <h3>Inglés</h3>
-          <p>Nuevas herramientas para comunicarse y soñar en grande.</p>
-        </article>
-      </div>
-    </section>
 
     <!-- Fundación -->
     <section class="pantalla capitulo" id="fundacion" aria-labelledby="about-title">
@@ -565,50 +406,6 @@
       </div>
     </section>
 
-    <!-- Sede Espinal -->
-    <section class="pantalla sede-espinal-section" id="sede-espinal" aria-labelledby="sede-espinal-title">
-      <div class="pantalla-fondo" aria-hidden="true">
-        <img
-          src="assets/img/opt/img-content-taller-educativo-960.webp"
-          srcset="assets/img/opt/img-content-taller-educativo-480.webp 480w, assets/img/opt/img-content-taller-educativo-960.webp 960w, assets/img/opt/img-content-taller-educativo-1200.webp 1200w"
-          sizes="100vw"
-          alt=""
-          width="1200"
-          height="675"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <p class="palabra-gigante" aria-hidden="true">Espinal</p>
-
-      <div class="pantalla-cuerpo sede-espinal-copy reveal">
-        <h2 id="sede-espinal-title">Un nuevo punto de encuentro para acompañar más vidas.</h2>
-        <p class="lead">
-          La sede Espinal fortalece la presencia de la fundación y acerca nuestros procesos
-          educativos, sociales y comunitarios a más niños, jóvenes y familias.
-        </p>
-
-        <div class="sede-espinal-details" aria-label="Enfoque de la sede Espinal">
-          <article>
-            <span>01</span>
-            <strong>Formación</strong>
-            <p>Espacios para aprendizaje, actividades extracurriculares y desarrollo de talentos.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <strong>Comunidad</strong>
-            <p>Acompañamiento cercano para familias, voluntarios, aliados y beneficiarios.</p>
-          </article>
-        </div>
-        <div class="acciones">
-          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conoce más de nosotros</a>
-        </div>
-        <p class="eyebrow">Sede Espinal</p>
-        <p class="sede-espinal-badge"><strong>Espinal</strong> · Tolima</p>
-      </div>
-    </section>
-
     <!-- Programas: una pantalla por programa; el acompañamiento psicosocial los cruza a todos -->
     <section id="programas" aria-labelledby="programs-title">
       <div class="pantalla programas-intro">
@@ -650,7 +447,20 @@
               Formación deportiva, cultural y productiva para fortalecer talentos,
               valores y uso sano del tiempo libre.
             </p>
-            <a class="btn btn-secondary" href="programas/semilla.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el programa Semilla.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Semilla"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/semilla.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
 
@@ -673,7 +483,20 @@
               Becas y acompañamiento para acceder a educación superior técnica, tecnológica
               o profesional de excelente calidad.
             </p>
-            <a class="btn btn-secondary" href="programas/siembra.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el programa Siembra.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Siembra"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/siembra.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
 
@@ -697,7 +520,20 @@
               Liderazgo juvenil y proyectos sociales para servir, participar y generar
               impacto en la comunidad.
             </p>
-            <a class="btn btn-secondary" href="programas/cosecha.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el programa Cosecha.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Cosecha"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/cosecha.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
 
@@ -721,9 +557,42 @@
               Eje transversal que apoya el sano desarrollo de beneficiarios
               y familias en su proyecto de vida.
             </p>
-            <a class="btn btn-secondary" href="programas/psicosocial.html">Más información <span aria-hidden="true">&rarr;</span></a>
+            <div class="acciones">
+              <a
+                class="btn btn-pink"
+                href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en el acompañamiento psicosocial.' | whatsapp }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="clic_inscribirme"
+                data-analytics-category="programas"
+                data-analytics-label="Programas - inscribirme Psicosocial"
+              >
+                Inscribirme
+              </a>
+              <a class="btn btn-secondary" href="programas/psicosocial.html">Conocer el programa <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
         </article>
+      </div>
+      <!-- Cómo participar: el camino para familias y jóvenes, en tres pasos -->
+      <div class="como-participar reveal" aria-labelledby="como-participar-title">
+        <h3 id="como-participar-title">¿Cómo participar?</h3>
+        <ol>
+          <li><strong>Elige un programa</strong><span>Semilla, Siembra o Cosecha, según la edad y lo que buscas. El acompañamiento psicosocial está en todos.</span></li>
+          <li><strong>Escríbenos</strong><span>Por WhatsApp o con el formulario de contacto, contándonos a qué programa quieres entrar.</span></li>
+          <li><strong>Te contactamos</strong><span>Te explicamos requisitos, horarios y el siguiente paso.</span></li>
+        </ol>
+        <a
+          class="btn btn-pink"
+          href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en un programa de la fundación.' | whatsapp }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-analytics-event="clic_inscribirme"
+          data-analytics-category="programas"
+          data-analytics-label="Cómo participar - inscribirme"
+        >
+          Inscribirme por WhatsApp
+        </a>
       </div>
     </section>
 
@@ -737,7 +606,7 @@
             habilidades, confianza y comunidad.
           </p>
           <div class="impact-actions">
-            <a class="btn btn-pink" href="#contacto">Quiero apoyar</a>
+            <a class="btn btn-pink" href="#donar">Donar</a>
             <a
               class="btn btn-whatsapp"
               href="{{ 'Hola, quiero saber cómo puedo apoyar a la fundación.' | whatsapp }}"
@@ -745,9 +614,9 @@
               rel="noopener noreferrer"
               data-analytics-event="clic_whatsapp"
               data-analytics-category="contacto"
-              data-analytics-label="Impacto - hablar con la fundacion"
+              data-analytics-label="Impacto - escribir por WhatsApp"
             >
-              Hablar con la fundación
+              Escribir por WhatsApp
             </a>
           </div>
           <p class="eyebrow">Impacto</p>
@@ -789,6 +658,69 @@
           <strong>Comunidad activa</strong>
           <span>Voluntarios, aliados y líderes que multiplican oportunidades en el territorio.</span>
         </article>
+      </div>
+    </section>
+
+    <!-- Campaña de temporada (Navidad): solo se muestra con la temporada activa (assets/js/seasonal.js) -->
+    <section class="pantalla xmas-campaign" id="navidad" aria-labelledby="xmas-title" data-season-only="navidad" hidden>
+      <div class="xmas-campaign-visual" aria-hidden="true">
+        <svg viewBox="0 0 240 230">
+          <path d="M10 14 C70 40 170 40 230 14" fill="none" stroke="#d4a64a" stroke-width="2" opacity=".7"/>
+          <g class="xmas-ornament">
+            <line x1="60" y1="24" x2="60" y2="96" stroke="#f3e2b8" stroke-width="1.5"/>
+            <rect x="52" y="92" width="16" height="10" rx="2" fill="#d4a64a"/>
+            <circle cx="60" cy="132" r="32" fill="#9e1b32"/>
+            <path d="M32 126 Q60 140 88 126" fill="none" stroke="#f3e2b8" stroke-width="2.5" opacity=".75"/>
+            <circle cx="49" cy="118" r="7" fill="#fff" opacity=".25"/>
+          </g>
+          <g class="xmas-ornament">
+            <line x1="120" y1="33" x2="120" y2="140" stroke="#f3e2b8" stroke-width="1.5"/>
+            <rect x="111" y="136" width="18" height="11" rx="2" fill="#d4a64a"/>
+            <circle cx="120" cy="182" r="38" fill="#d4a64a"/>
+            <path d="M120 160 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z" fill="#9e1b32"/>
+            <circle cx="106" cy="168" r="8" fill="#fff" opacity=".3"/>
+          </g>
+          <g class="xmas-ornament">
+            <line x1="182" y1="24" x2="182" y2="80" stroke="#f3e2b8" stroke-width="1.5"/>
+            <rect x="175" y="76" width="14" height="9" rx="2" fill="#d4a64a"/>
+            <circle cx="182" cy="110" r="26" fill="#2f7a52"/>
+            <circle cx="182" cy="110" r="26" fill="none" stroke="#f3e2b8" stroke-width="2" stroke-dasharray="3 6" opacity=".8"/>
+            <circle cx="173" cy="100" r="6" fill="#fff" opacity=".25"/>
+          </g>
+        </svg>
+      </div>
+      <div class="pantalla-cuerpo xmas-campaign-copy reveal">
+        <h2 id="xmas-title">Esta Navidad, <em>regala oportunidades.</em></h2>
+        <p class="lead">
+          Tu aporte se convierte en formación, becas y acompañamiento para niños, jóvenes
+          y familias de Neiva y Espinal. Sembremos juntos un nuevo año lleno de esperanza.
+        </p>
+        <p class="xmas-countdown" data-xmas-countdown aria-live="off"></p>
+        <div class="xmas-actions">
+          <a
+            class="btn btn-pink xmas-btn-primary"
+            href="{{ 'Hola, quiero hacer una donación de Navidad a la Fundación Amigos Como Arroz.' | whatsapp }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="clic_donar"
+            data-analytics-category="navidad"
+            data-analytics-label="Campaña Navidad - donar"
+          >
+            Donar esta Navidad
+          </a>
+          <a
+            class="btn btn-secondary xmas-btn-ghost"
+            href="{{ 'Hola, quiero ser voluntario en las actividades de Navidad de la fundación.' | whatsapp }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="clic_voluntario"
+            data-analytics-category="navidad"
+            data-analytics-label="Campaña Navidad - voluntariado"
+          >
+            Ser voluntario en Navidad
+          </a>
+        </div>
+        <p class="eyebrow xmas-eyebrow">Temporada navideña</p>
       </div>
     </section>
 
@@ -899,6 +831,144 @@
         <span>Confianza</span>
         <span>Acompañamiento</span>
         <span>Esperanza</span>
+      </div>
+    </section>
+
+    <!-- Actividades extracurriculares -->
+    <section class="pantalla pantalla--larga" id="actividades" aria-labelledby="activities-title">
+      <div class="encabezado reveal">
+        <h2 id="activities-title">Talentos que crecen fuera del aula.</h2>
+        <p class="lead">
+          Espacios formativos donde el deporte, el arte, la tecnología y los idiomas fortalecen
+          disciplina, confianza y trabajo en equipo.
+        </p>
+        <p class="eyebrow">Actividades extracurriculares</p>
+      </div>
+
+      <div class="carrusel extracurricular-carousel" role="region" tabindex="0" aria-label="Galería de actividades extracurriculares">
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-futbol-kep4527-960.webp"
+            srcset="assets/img/opt/semilla-futbol-kep4527-480.webp 480w, assets/img/opt/semilla-futbol-kep4527-960.webp 960w, assets/img/opt/semilla-futbol-kep4527-1600.webp 1600w"
+            sizes="(max-width: 759px) 78vw, 440px"
+            alt="Niños participando en fútbol formativo"
+            width="1800"
+            height="1013"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Deporte</span>
+          <h3>Fútbol formativo</h3>
+          <p>Disciplina, convivencia y liderazgo desde el juego.</p>
+        </article>
+
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp"
+            srcset="assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-480.webp 480w, assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-960.webp 960w, assets/img/opt/semilla-danza-whatsapp-image-2026-06-14-at-10-42-04-am-1600.webp 1600w"
+            sizes="(max-width: 759px) 78vw, 440px"
+            alt="Participantes en actividad de danza"
+            width="1800"
+            height="1350"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Arte</span>
+          <h3>Danza</h3>
+          <p>Expresión corporal, alegría y seguridad personal.</p>
+        </article>
+
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-patinaje-kep4555-960.webp"
+            srcset="assets/img/opt/semilla-patinaje-kep4555-480.webp 480w, assets/img/opt/semilla-patinaje-kep4555-960.webp 960w, assets/img/opt/semilla-patinaje-kep4555-1600.webp 1600w"
+            sizes="(max-width: 759px) 78vw, 440px"
+            alt="Niños en práctica de patinaje"
+            width="1800"
+            height="1013"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Movimiento</span>
+          <h3>Patinaje</h3>
+          <p>Coordinación, constancia y hábitos saludables.</p>
+        </article>
+
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-robotica-kep4489-960.webp"
+            srcset="assets/img/opt/semilla-robotica-kep4489-480.webp 480w, assets/img/opt/semilla-robotica-kep4489-960.webp 960w, assets/img/opt/semilla-robotica-kep4489-1600.webp 1600w"
+            sizes="(max-width: 759px) 78vw, 440px"
+            alt="Niños aprendiendo robótica"
+            width="1800"
+            height="1013"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Tecnología</span>
+          <h3>Robótica</h3>
+          <p>Creatividad, pensamiento lógico y solución de problemas.</p>
+        </article>
+
+        <article class="historia activity-slide">
+          <img
+            src="assets/img/opt/semilla-ingles-kep4501-960.webp"
+            srcset="assets/img/opt/semilla-ingles-kep4501-480.webp 480w, assets/img/opt/semilla-ingles-kep4501-960.webp 960w, assets/img/opt/semilla-ingles-kep4501-1600.webp 1600w"
+            sizes="(max-width: 759px) 78vw, 440px"
+            alt="Niños en actividad de inglés"
+            width="1800"
+            height="1013"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="etiqueta">Idiomas</span>
+          <h3>Inglés</h3>
+          <p>Nuevas herramientas para comunicarse y soñar en grande.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Sede Espinal -->
+    <section class="pantalla sede-espinal-section" id="sede-espinal" aria-labelledby="sede-espinal-title">
+      <div class="pantalla-fondo" aria-hidden="true">
+        <img
+          src="assets/img/opt/img-content-taller-educativo-960.webp"
+          srcset="assets/img/opt/img-content-taller-educativo-480.webp 480w, assets/img/opt/img-content-taller-educativo-960.webp 960w, assets/img/opt/img-content-taller-educativo-1200.webp 1200w"
+          sizes="100vw"
+          alt=""
+          width="1200"
+          height="675"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <p class="palabra-gigante" aria-hidden="true">Espinal</p>
+
+      <div class="pantalla-cuerpo sede-espinal-copy reveal">
+        <h2 id="sede-espinal-title">Un nuevo punto de encuentro para acompañar más vidas.</h2>
+        <p class="lead">
+          La sede Espinal fortalece la presencia de la fundación y acerca nuestros procesos
+          educativos, sociales y comunitarios a más niños, jóvenes y familias.
+        </p>
+
+        <div class="sede-espinal-details" aria-label="Enfoque de la sede Espinal">
+          <article>
+            <span>01</span>
+            <strong>Formación</strong>
+            <p>Espacios para aprendizaje, actividades extracurriculares y desarrollo de talentos.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>Comunidad</strong>
+            <p>Acompañamiento cercano para familias, voluntarios, aliados y beneficiarios.</p>
+          </article>
+        </div>
+        <div class="acciones">
+          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conocer la sede</a>
+        </div>
+        <p class="eyebrow">Sede Espinal</p>
+        <p class="sede-espinal-badge"><strong>Espinal</strong> · Tolima</p>
       </div>
     </section>
 
@@ -1150,7 +1220,7 @@
           </article>
 
           <article class="report-row report-row--legal">
-            <div class="report-year report-year--document">5245</div>
+            <div class="report-year report-year--document">Legal</div>
             <div class="report-content">
               <span class="report-status">Documento legal</span>
               <h3>PRESENTACION 5245</h3>
@@ -1174,7 +1244,7 @@
             Escríbenos, haz una donación, únete como voluntario o conviértete en aliado estratégico.
             Cada contribución transforma vidas.
           </p>
-          <div class="contact-quick-actions" aria-label="Acciones rápidas de contacto">
+          <div class="contact-quick-actions" id="donar" aria-label="Donar, ser voluntario o inscribirse">
             <a
               class="btn btn-pink"
               href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
@@ -1182,9 +1252,9 @@
               rel="noopener noreferrer"
               data-analytics-event="clic_donar"
               data-analytics-category="contacto"
-              data-analytics-label="Contacto - donar o apoyar"
+              data-analytics-label="Contacto - donar"
             >
-              Donar o apoyar
+              Donar
             </a>
             <a
               class="btn btn-secondary"
@@ -1197,7 +1267,29 @@
             >
               Ser voluntario
             </a>
+            <a
+              class="btn btn-secondary"
+              href="{{ 'Hola, quiero inscribirme (o inscribir a alguien de mi familia) en un programa de la fundación.' | whatsapp }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-analytics-event="clic_inscribirme"
+              data-analytics-category="contacto"
+              data-analytics-label="Contacto - inscribirme"
+            >
+              Inscribirme
+            </a>
           </div>
+          {%- if site.donacion and site.donacion.medios.length %}
+          <div class="como-donar" aria-labelledby="como-donar-title">
+            <h3 id="como-donar-title">Cómo donar</h3>
+            <ul>
+              {%- for medio in site.donacion.medios %}
+              <li><strong>{{ medio.nombre }}</strong><span>{{ medio.dato }}</span>{% if medio.titular %}<small>{{ medio.titular }}</small>{% endif %}</li>
+              {%- endfor %}
+            </ul>
+            <p>Cuando dones, escríbenos por WhatsApp para enviarte el certificado de donación.</p>
+          </div>
+          {%- endif %}
 
           <ul class="contact-list">
             <li class="contact-item">
@@ -1241,16 +1333,16 @@
               </div>
 
               <div class="form-group">
-                <label for="phone">Teléfono</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+57 300 000 0000" maxlength="20" aria-describedby="phone-error" required />
+                <label for="phone">Teléfono <span class="opcional">(opcional)</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+57 300 000 0000" maxlength="20" aria-describedby="phone-error" />
                 <small class="field-error" id="phone-error" aria-live="polite"></small>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" maxlength="120" aria-describedby="email-error" required />
+                <label for="email">Correo electrónico <span class="opcional">(opcional)</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" maxlength="120" aria-describedby="email-error" />
                 <small class="field-error" id="email-error" aria-live="polite"></small>
               </div>
 
@@ -1258,7 +1350,7 @@
                 <label for="interest">Interés</label>
                 <select id="interest" name="interest" aria-describedby="interest-error" required>
                   <option value="">Elige una opción</option>
-                  <option value="programas">Programas</option>
+                  <option value="programas">Inscribirme en un programa</option>
                   <option value="donacion">Donación</option>
                   <option value="voluntariado">Voluntariado</option>
                   <option value="alianza">Alianza</option>
@@ -1270,15 +1362,16 @@
 
             <div class="form-group">
               <label for="message">Mensaje</label>
-              <textarea id="message" name="message" placeholder="Escribe tu mensaje con los detalles importantes" minlength="20" maxlength="700" aria-describedby="message-error" required></textarea>
+              <textarea id="message" name="message" placeholder="Escribe tu mensaje con los detalles importantes" minlength="10" maxlength="700" aria-describedby="message-error message-ayuda" required></textarea>
               <small class="field-error" id="message-error" aria-live="polite"></small>
             </div>
 
             <div class="contact-submit">
               <button class="btn btn-pink" type="submit">
-                <span>Enviar mensaje</span>
+                <span>Enviar por WhatsApp</span>
                 <span aria-hidden="true">&rarr;</span>
               </button>
+              <p class="contact-submit-ayuda" id="message-ayuda">Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
             </div>
 
             <p class="form-status" id="form-status" role="status" aria-live="polite"></p>

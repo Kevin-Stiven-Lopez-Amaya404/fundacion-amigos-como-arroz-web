@@ -1,6 +1,6 @@
 ---
 name: Fundación Amigos Como Arroz
-description: La fundación presentada como una presentación de marca, capítulo por capítulo, con sus colores, su logo y sus fotos reales.
+description: La fundación presentada como una presentación de marca, ordenada para quien llega (quiénes somos, programas, impacto, cómo ayudar), con sus colores, su logo y sus fotos reales.
 colors:
   vacio: "#fbfaf8"
   tinta: "#ffffff"
@@ -101,7 +101,7 @@ components:
   button-primary:
     backgroundColor: "{colors.rosa-boton}"
     textColor: "{colors.blanco}"
-    typography: "{typography.label}"
+    typography: "{typography.body}"
     rounded: "{rounded.radio-s}"
     padding: "0 22px"
     height: "50px"
@@ -110,7 +110,7 @@ components:
   button-whatsapp:
     backgroundColor: "{colors.texto}"
     textColor: "{colors.vacio}"
-    typography: "{typography.label}"
+    typography: "{typography.body}"
     rounded: "{rounded.radio-s}"
     padding: "0 22px"
     height: "50px"
@@ -160,7 +160,7 @@ El sitio se presenta como una **presentación de marca**. Toma el ritmo de las w
 - pantalla de entrada con un botón central;
 - foto enmarcada;
 - palabras que cambian con el scroll;
-- capítulos numerados;
+- secciones con su etiqueta (sin números);
 - fotos a sangre con una palabra gigante;
 - una sección clara;
 - un cierre enorme.
@@ -174,7 +174,7 @@ Modo: Persuade. Público: todos por igual (familias y jóvenes, donantes y aliad
 ### Primary
 **Rosa del logo**: `--rosa` #e0245e; en botones, `--rosa-boton` #c81d52; como texto, `--rosa-claro` (#c81d52 en claro, #ff7aa4 en las zonas azul noche). Se usa en:
 - las acciones (Donar, Quiero apoyar, Enviar);
-- el cuadrito de cada capítulo;
+- el cuadrito de cada etiqueta de sección;
 - el estado activo;
 - el punto del cursor.
 
@@ -207,13 +207,13 @@ Solo donde el texto va sobre fotos las mismas variables cambian a azul noche (nu
   - los títulos «Acompañamiento para cada etapa», «Resultados que transforman» y «Sé parte de la misión»;
   - las cifras y los títulos de las páginas internas.
 - **Schibsted Grotesk**: `h2` y `h3` en tono de conversación (minúscula, interlineado apretado) y todo el texto.
-- **Space Mono** en mayúsculas espaciadas: etiquetas, capítulos, botones, enlaces de la barra, fechas y estados.
+- **Space Mono** en mayúsculas espaciadas: etiquetas de sección, fechas y estados. Los botones y los enlaces de la barra van en Schibsted Grotesk (600, 16 y 14 px), con mayúscula inicial: se leen mejor.
 
 ### Escala
 Diez papeles, con los tamaños de la referencia (`--t-*` en `sitio.css`); ningún `font-size` va escrito a mano:
 - `--t-nota` 0.75 rem: sellos, fechas, estados, enlaces de la barra.
-- `--t-etiqueta` 0.875 rem: capítulos, botones, pies de foto, errores.
-- `--t-cuerpo` 1 rem y `--t-lead` 1.125 rem: texto y entradillas.
+- `--t-etiqueta` 0.875 rem: etiquetas de sección, enlaces de la barra, pies de foto, errores.
+- `--t-cuerpo` 1 rem y `--t-lead` 1.125 rem: texto, botones y entradillas.
 - `--t-destacado` 20–24 px: citas y títulos de tarjeta.
 - `--t-h3` 24–36 px, `--t-h2` 32–58 px: títulos.
 - `--t-display-2` 24–72 px, `--t-h1` 40–112 px, `--t-gigante` 48–124 px: momentos grandes en Unbounded.
@@ -232,8 +232,9 @@ Los tamaños grandes se achican con el ancho; `--t-display-2` arranca en 24 px p
   - Arriba a la izquierda, el sello «Amigos Como Arroz / Fundación · Neiva y Espinal».
   - Abajo a la izquierda, el nombre, el texto y los botones; a la derecha, «Sigue» en vertical.
   - La foto de los fundadores mide 868 px: en escritorio va a la derecha sobre su copia desenfocada; en celular, arriba a todo el ancho.
-- **Secuencia de palabras** (`.ciclo`): la pantalla queda fija mientras el scroll cambia Educación, Liderazgo, Bienestar y Comunidad. Repite la frase del inicio, así que es decorativa.
-- **Capítulos**: cada sección abre con «■ 01 Nombre» en monoespaciada (contador CSS).
+- **Secuencia de palabras** (`.ciclo`): la pantalla queda fija mientras el scroll cambia Educación, Liderazgo, Bienestar y Comunidad. Son dos pantallas de recorrido; repite la frase del inicio, así que es decorativa y no se muestra en celular.
+- **Orden de la portada** (auditoría HU24): Inicio → Fundación + Historia («Quiénes somos») → Programas (con «¿Cómo participar?») → Impacto → Navidad → Testimonios → Talentos → Sede Espinal → Momentos → Equipo → Informes → Contacto. El menú sigue ese orden.
+- **Etiqueta de sección**: «■ Nombre» en monoespaciada encima del título, sin número.
 - **Composición por sección**:
   - Fundación y programas: texto a un lado y foto enmarcada al otro.
   - Historia: tarjeta con el visor y la foto.
@@ -255,7 +256,7 @@ Radios de 8 px (botones, campos), 14 px (píldora) y 16 px (fotos, tarjetas). C�
 ## Components
 
 ### Barra flotante
-- **Portada**: logo, enlaces de sección (Space Mono), Compartir, Donar (rosa), WhatsApp y el asistente.
+- **Portada**: logo, enlaces de sección, Compartir, Donar (rosa, lleva a `#donar`), WhatsApp y el asistente.
 - **Hasta 1079 px**: los enlaces se abren en un panel encima de la píldora; Donar, WhatsApp y el asistente siguen a la vista.
 - **Páginas internas**: logo, volver, Donar, WhatsApp y Programas.
 
@@ -271,6 +272,11 @@ Punto rosa que sigue al mouse y crece sobre enlaces y botones. Solo aparece con 
 - Fotos a sangre (inicio, Sede Espinal): en celular van en una franja con su proporción y el texto debajo.
 - Los videos se ven completos, sin agrandarse más que su resolución.
 - Cada `srcset` lista todos los anchos que existen en `assets/img/opt`.
+
+### Acciones
+Tres acciones con nombre fijo en toda la página: **Donar** (siempre a `#donar`, en Contacto), **Ser voluntario** e **Inscribirme** (WhatsApp con el programa ya escrito). WhatsApp como canal se llama «Escribir por WhatsApp»; los enlaces a otra página dicen adónde van («Conocer el programa», «Conocer la sede»).
+- «Cómo donar» (en Contacto) solo aparece cuando `site.json` trae `donacion.medios` reales.
+- El formulario abre WhatsApp y lo dice en el botón; teléfono y correo son opcionales.
 
 ### Carruseles
 Tarjetas de 440 px de ancho máximo con esquinas redondeadas; las de talentos son más bajas (470 px) porque sus fotos son horizontales. La foto crece un poco al pasar el cursor.

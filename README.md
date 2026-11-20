@@ -128,3 +128,18 @@ La decoración navideña se enciende y apaga sola (15 nov – 6 ene). Para forza
 ## Recomendación
 
 Antes de publicar, revisa especialmente nombres reales del equipo, teléfono, correo, redes sociales, videos oficiales e imágenes definitivas.
+
+## Datos para donar
+
+El bloque «Cómo donar» de Contacto aparece solo cuando `src/_data/site.json` trae medios reales en `donacion.medios`, por ejemplo:
+
+```json
+"donacion": {
+  "medios": [
+    { "nombre": "Nequi", "dato": "300 000 0000", "titular": "Fundación Amigos Como Arroz" },
+    { "nombre": "Cuenta de ahorros Bancolombia", "dato": "000-000000-00", "titular": "NIT 000.000.000-0" }
+  ]
+}
+```
+
+Mientras la lista esté vacía, «Donar» lleva a Contacto y abre WhatsApp con el mensaje de donación.
