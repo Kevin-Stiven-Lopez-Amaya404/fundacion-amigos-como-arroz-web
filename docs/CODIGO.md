@@ -14,6 +14,8 @@ Detalle de cómo funciona cada pieza. Para la vista general (carpetas, cambios c
 
 `vercel.json` le indica a Vercel `npm run build` y publicar `_site/`.
 
+**Librería de animación (`motion`).** El sitio no tiene empaquetador, así que `assets/js/vendor/motion.js` se genera una vez con esbuild y se guarda en Git (6,7 KB comprimido): `assets/js/vendor/motion-entry.js` dice qué funciones se incluyen (`animate` de `motion/mini` y `scroll`). Si cambias la versión de `motion` o necesitas otra función, edita esa entrada y ejecuta `npm run vendor:motion`. `motion` y `esbuild` son dependencias de desarrollo: Vercel no las usa para publicar.
+
 ## 2. Portada: `src/index.html`
 
 Orden del documento:
@@ -77,6 +79,7 @@ El CSS histórico usa 13 valores de `max-width` (antes 23): 420, 560, 640, 720, 
 - `.team-*`: carrusel del equipo.
 - `.contact-*`, `.contact-form`: contacto.
 - `.chatbot-*`, `.story-book-*`, `.social-dock-*`: chatbot, libro y botón flotante de WhatsApp.
+- `@layer components` al final de `styles.css`: el movimiento de la portada (encabezados de sección escalonados, botones que se hunden al pulsar, puntos y línea de la línea de tiempo, barra de lectura con `scaleX`). Con movimiento reducido todo aparece en su sitio.
 - Tres tipos de botón, sin variantes nuevas: `.btn-pink` para la acción principal de apoyo (una por bloque), `.btn-whatsapp` cuando el botón abre WhatsApp y `.btn-secondary` para todo lo demás.
 
 ## 5. JavaScript
@@ -97,6 +100,7 @@ initTeamSlider();
 initLazyVideos();
 initStoryBook();
 initChatbot();
+initMotionFx();             // efectos ligados al scroll (motion)
 ```
 
 ### `modules/config.js`
@@ -113,13 +117,14 @@ initChatbot();
 | `meta.js` | Escribe el año actual en `#current-year`. |
 | `hero.js` | Marca `#hero-content` como listo y mueve suavemente la imagen con el ratón (no si `shouldLimitMotion`). |
 | `active-section.js` | Marca `.active` en el enlace de la sección visible. |
-| `reveal.js` | Añade `.visible` a `.reveal` al entrar en pantalla y anima `data-counter="180"`. |
-| `scroll-state.js` | Barra de progreso, header que se oculta al bajar, botón de subir. |
+| `reveal.js` | Añade `.visible` a `.reveal` al entrar en pantalla y anima `data-counter="180"`. Los que entran a la vez (por ejemplo las 4 tarjetas de programas) reciben `--delay` de 0, 70, 140… ms, hasta 280. Los contadores se animan también en celular; solo se saltan con movimiento o datos reducidos (`prefersLessMotion`). |
+| `scroll-state.js` | Header que se oculta al bajar, botón de subir y WhatsApp flotante que se esconde junto a Contacto. |
 | `contact-form.js` | Valida campos con `aria-invalid` y mensajes de error; si todo está bien abre WhatsApp. |
 | `team-slider.js` | Anterior/siguiente, puntos, avance automático que se pausa fuera de pantalla o con el cursor encima. |
 | `lazy-videos.js` | Carga cada video local (`.local-video-loader`) solo al pulsarlo. |
 | `story-book.js` | Páginas del libro de historias y su estado accesible. |
 | `chatbot.js` | Preguntas rápidas y respuestas con enlaces (WhatsApp, programas, ubicación). |
+| `motion-fx.js` | Con `scroll()` de `motion` (usa `ScrollTimeline`/`ViewTimeline` del navegador, fuera del hilo principal): la barra de lectura crece con `scaleX` (siempre: informa de la posición); si no hay `shouldLimitMotion`, la foto del hero baja 72 px al salir (anima `translate`, porque legacy fija `transform: none !important` en esa foto) y crea `.timeline-progress`, la línea de color de «Mejores momentos» que se dibuja con el scroll. |
 
 Fuera de `modules/`:
 

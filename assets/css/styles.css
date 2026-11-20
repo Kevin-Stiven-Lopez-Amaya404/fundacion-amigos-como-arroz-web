@@ -498,7 +498,7 @@ p {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 720ms ease, transform 720ms ease;
+  transition: opacity 640ms var(--ease-out), transform 640ms var(--ease-out);
   transition-delay: var(--delay, 0ms);
 }
 
@@ -7856,3 +7856,77 @@ main > .section,
 }
 
 } /* fin @layer legacy */
+
+/* Movimiento de la portada (HU16). Va en "components" para ganar a legacy sin !important.
+   El modo de movimiento reducido de legacy usa !important y sigue ganando. */
+@layer components {
+  /* Encabezados de sección: antetítulo, título y texto entran uno tras otro */
+  .section-header.reveal > * {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 560ms var(--ease-out) var(--delay, 0ms),
+      transform 560ms var(--ease-out) var(--delay, 0ms);
+  }
+  .section-header.reveal > :nth-child(2) { --delay: 70ms; }
+  .section-header.reveal > :nth-child(3) { --delay: 140ms; }
+  .section-header.reveal.visible > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Botones: respuesta al pulsar; el levantamiento solo con ratón (en táctil se queda pegado) */
+  .btn:active {
+    transform: scale(0.97);
+    transition-duration: 120ms;
+  }
+  @media (hover: none) {
+    .btn:hover:not(:active) { transform: none; }
+  }
+
+  /* Línea de tiempo: el punto de cada momento crece al aparecer */
+  .timeline-item.reveal .timeline-dot {
+    scale: 0.4;
+    transition: scale 420ms var(--ease-out) 160ms;
+  }
+  .timeline-item.reveal.visible .timeline-dot { scale: 1; }
+
+  /* Línea de tiempo: la línea de color se dibuja con el scroll (motion-fx.js crea el elemento) */
+  .timeline-progress {
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 50%;
+    width: 4px;
+    margin-left: -2px;
+    background: linear-gradient(180deg, var(--pink), var(--orange), var(--yellow));
+    border-radius: var(--radius-pill);
+    box-shadow: 0 0 24px rgba(243, 112, 33, 0.22);
+    transform-origin: top;
+    pointer-events: none;
+  }
+  .timeline.has-progress::before {
+    opacity: 0.22;
+    box-shadow: none;
+  }
+  @media (max-width: 840px) {
+    .timeline-progress {
+      left: 16px;
+      top: 16px;
+    }
+  }
+
+  /* Movimiento reducido: todo aparece en su sitio, sin desplazamiento ni escala */
+  @media (prefers-reduced-motion: reduce) {
+    .section-header.reveal > * { opacity: 1; transform: none; }
+    .timeline-item.reveal .timeline-dot { scale: 1; }
+  }
+
+  /* Barra de lectura: escala en vez de ancho (no recalcula el diseño en cada scroll) */
+  .reading-progress span {
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: none;
+  }
+}
