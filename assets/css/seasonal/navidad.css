@@ -26,7 +26,7 @@
     border: 1px solid var(--xmas-gold);
     border-radius: 999px;
     color: #f3e2b8;
-    font-size: 0.86rem;
+    font-size: var(--t-etiqueta);
     font-weight: 600;
     text-decoration: none;
   }
@@ -38,9 +38,9 @@
   .xmas-campaign h2 em { font-style: normal; color: var(--xmas-gold); }
   .xmas-campaign-visual { position: absolute; top: clamp(56px, 10vh, 110px); right: var(--margen); width: clamp(150px, 26vw, 300px); }
   @media (max-width: 759px) { .xmas-campaign-visual { right: var(--margen); width: 140px; opacity: 0.8; } }
-  .xmas-countdown { font-family: var(--f-display); font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; text-transform: uppercase; color: var(--xmas-gold); }
+  .xmas-countdown { font-family: var(--f-display); font-size: var(--t-destacado); font-weight: 700; text-transform: uppercase; color: var(--xmas-gold); }
   .xmas-countdown:empty { display: none; }
-  .xmas-footer-note { margin-top: 6px; color: #f3e2b8; font-size: 0.9rem; }
+  .xmas-footer-note { margin-top: 6px; color: #f3e2b8; font-size: var(--t-etiqueta); }
 
   /* Adornos que se mecen */
   .xmas-ornament { transform-origin: 50% 0; animation: xmas-sway 6s ease-in-out infinite; }
@@ -103,7 +103,7 @@
     border-radius: 999px;
     background: none;
     font-family: var(--f-mono);
-    font-size: 0.7rem;
+    font-size: var(--t-nota);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
