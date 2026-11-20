@@ -14,6 +14,8 @@ Detalle de cómo funciona cada pieza. Para la vista general (carpetas, cambios c
 
 `vercel.json` le indica a Vercel `npm run build` y publicar `_site/`.
 
+**Librería de animación (`motion`).** El sitio no tiene empaquetador, así que `assets/js/vendor/motion.js` se genera una vez con esbuild y se guarda en Git (6,7 KB comprimido): `assets/js/vendor/motion-entry.js` dice qué funciones se incluyen (`animate` de `motion/mini` y `scroll`). Si cambias la versión de `motion` o necesitas otra función, edita esa entrada y ejecuta `npm run vendor:motion`. `motion` y `esbuild` son dependencias de desarrollo: Vercel no las usa para publicar.
+
 ## 2. Portada: `src/index.html`
 
 Orden del documento:

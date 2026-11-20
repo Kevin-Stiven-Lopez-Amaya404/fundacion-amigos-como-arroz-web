@@ -11,6 +11,7 @@ Sitio institucional estático: HTML, CSS y JavaScript puro, sin framework, base 
 npm install      # solo la primera vez (Node.js 18 o superior)
 npm start        # servidor local en http://localhost:8080 que se recarga al guardar
 npm run build    # compila en _site/ (lo mismo que hace Vercel)
+npm run vendor:motion   # solo si cambias la versión de motion o lo que se importa de él
 ```
 
 Abrir el HTML con doble clic **no sirve**: las páginas de `src/` llevan etiquetas de plantilla (`{{ site.whatsapp }}`) y el JavaScript usa módulos ES, que el navegador no carga desde `file://`. Usa siempre `npm start`.
@@ -34,6 +35,7 @@ landign-/
     js/main.js                      Arranca los módulos de la portada
     js/modules/                     Un archivo por funcionalidad
     js/seasonal.js · js/analytics.js
+    js/vendor/motion.js             motion empaquetado (generado; no se edita a mano)
     img/opt/                        Imágenes WebP que usan las páginas
     img/{brand,hero,content,team}/  Originales
     videos/
