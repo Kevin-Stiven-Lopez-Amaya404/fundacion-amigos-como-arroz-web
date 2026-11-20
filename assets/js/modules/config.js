@@ -49,4 +49,6 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 const prefersReducedData = window.matchMedia("(prefers-reduced-data: reduce)").matches;
 const isSmallViewport = window.matchMedia("(max-width: 760px)").matches;
 const isLikelyLowMemory = "deviceMemory" in navigator && navigator.deviceMemory <= 4;
+// Solo la preferencia de la persona: para efectos baratos que también valen en celular (contadores).
+export const prefersLessMotion = prefersReducedMotion || prefersReducedData;
 export const shouldLimitMotion = prefersReducedMotion || prefersReducedData || isSmallViewport || isLikelyLowMemory;

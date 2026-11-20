@@ -75,7 +75,7 @@ Las URL publicadas no cambian: `src/programas/semilla.html` se publica como `/pr
 |---|---|
 | `whatsapp`, `whatsappLabel` | Número para `wa.me` y cómo se muestra. También lo lee el JavaScript. |
 | `email`, `instagram`, `facebook` | Pie de página y enlaces de contacto. |
-| `cache` | Número de versión de cada CSS/JS (`styles.css?v=58`). |
+| `cache` | Número de versión de cada CSS/JS (`styles.css?v=59`). |
 
 En las páginas se usan así:
 
@@ -122,13 +122,14 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `meta.js` | Año actual del pie. |
 | `hero.js` | Entrada y movimiento suave de la portada. |
 | `active-section.js` | Marca en el menú la sección visible. |
-| `reveal.js` | Aparición de `.reveal` y contadores `data-counter`. |
-| `scroll-state.js` | Barra de progreso, header que se oculta y botón de subir. |
+| `reveal.js` | Aparición de `.reveal` (escalonada entre los que entran juntos) y contadores `data-counter`. |
+| `scroll-state.js` | Header que se oculta, botón de subir y WhatsApp flotante que se esconde junto a Contacto. |
 | `contact-form.js` | Valida el formulario y abre WhatsApp con el mensaje. |
 | `team-slider.js` | Carrusel del equipo. |
 | `lazy-videos.js` | Carga los videos al pulsar. |
 | `story-book.js` | Libro de historias. |
 | `chatbot.js` | Asistente con preguntas frecuentes. |
+| `motion-fx.js` | Efectos ligados al scroll con `motion`: barra de lectura, foto del hero y línea de «Mejores momentos». |
 
 Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 

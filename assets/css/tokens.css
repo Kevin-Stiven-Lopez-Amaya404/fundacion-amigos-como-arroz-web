@@ -100,6 +100,8 @@
     /* Maquetación */
     --container: 1180px;
     --transition: 230ms ease;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);        /* entradas y salidas */
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);    /* movimiento dentro de la pantalla */
     --hero-x: 50%;
     --hero-y: 50%;
 

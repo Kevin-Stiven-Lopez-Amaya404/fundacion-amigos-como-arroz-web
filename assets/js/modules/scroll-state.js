@@ -1,8 +1,7 @@
 import { SELECTORS, shouldLimitMotion } from "./config.js";
 
-// Agrupa estados que dependen del scroll: progreso de lectura, header, boton subir y contacto rapido.
+// Agrupa estados que dependen del scroll: header, boton subir y contacto rapido (la barra de lectura está en motion-fx.js).
 export function initScrollState(menuApi) {
-  const progressBar = document.querySelector(SELECTORS.progressBar);
   const quickContact = document.querySelector(SELECTORS.quickContact);
   const contactSection = document.querySelector(SELECTORS.contactSection);
   const scrollTopButton = document.querySelector(SELECTORS.scrollTopButton);
@@ -15,12 +14,6 @@ export function initScrollState(menuApi) {
 
   const update = () => {
     const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-
-    if (progressBar) {
-      progressBar.style.width = `${progress}%`;
-    }
 
     if (quickContact && contactSection) {
       const contactTop = contactSection.getBoundingClientRect().top;

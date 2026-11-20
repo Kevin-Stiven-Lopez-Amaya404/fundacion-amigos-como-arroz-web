@@ -1,4 +1,4 @@
-import { SELECTORS, shouldLimitMotion } from "./config.js";
+import { SELECTORS, prefersLessMotion } from "./config.js";
 
 // Muestra elementos con clase .reveal y anima contadores cuando entran al viewport.
 export function initReveal() {
@@ -13,7 +13,7 @@ export function initReveal() {
     const target = Number(counter.dataset.counter);
     if (!Number.isFinite(target)) return;
 
-    if (shouldLimitMotion) {
+    if (prefersLessMotion) {
       setCounterValue(counter, target);
       return;
     }
@@ -47,10 +47,6 @@ export function initReveal() {
     });
   };
 
-  revealElements.forEach((element, index) => {
-    element.style.setProperty("--delay", `${Math.min(index * 55, 300)}ms`);
-  });
-
   if (!("IntersectionObserver" in window)) {
     revealElements.forEach(reveal);
     return;
@@ -58,11 +54,14 @@ export function initReveal() {
 
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        reveal(entry.target);
-        observer.unobserve(entry.target);
-      });
+      // Escalonado solo entre los que entran juntos (tarjetas de una misma fila), no por posición en la página.
+      entries
+        .filter((entry) => entry.isIntersecting)
+        .forEach((entry, index) => {
+          entry.target.style.setProperty("--delay", `${Math.min(index * 70, 280)}ms`);
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        });
     },
     {
       threshold: 0.18,

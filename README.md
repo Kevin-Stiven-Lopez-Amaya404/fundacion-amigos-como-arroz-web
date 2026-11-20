@@ -55,7 +55,7 @@ fundacion/
 - Menú móvil.
 - Animaciones al hacer scroll.
 - Contadores animados.
-- Barra de progreso de lectura.
+- Barra de progreso de lectura y efectos ligados al scroll con `motion` (foto del hero y línea de «Mejores momentos»).
 - Carrusel del equipo.
 - Videos incrustados.
 - Formulario que abre WhatsApp con el mensaje armado.

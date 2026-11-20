@@ -16,6 +16,7 @@ import { initLazyVideos } from "./modules/lazy-videos.js";
 import { initStoryBook } from "./modules/story-book.js";
 import { initChatbot } from "./modules/chatbot.js";
 import { initMeta } from "./modules/meta.js";
+import { initMotionFx } from "./modules/motion-fx.js";
 
 // Inicializacion general del sitio.
 const menuApi = initMenu();
@@ -29,3 +30,4 @@ initTeamSlider();
 initLazyVideos();
 initStoryBook();
 initChatbot();
+initMotionFx();
