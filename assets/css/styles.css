@@ -212,12 +212,6 @@ p {
   z-index: 1;
 }
 
-.btn-outline {
-  color: var(--dark);
-  background: var(--white);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-}
 
 
 .reading-progress {
@@ -450,7 +444,7 @@ p {
 }
 
 .program-card a:hover {
-  color: var(--pink-dark);
+  color: var(--color-accent-900);
 }
 
 
@@ -1270,7 +1264,7 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: rgba(118, 107, 97, 0.72);
+  color: var(--color-muted);
 }
 
 input:hover,
@@ -2146,7 +2140,7 @@ textarea {
 .metric-card.featured {
   color: var(--white);
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, var(--orange) 0%, var(--pink-dark) 100%);
+  background: linear-gradient(135deg, var(--orange-dark) 0%, var(--color-accent-800) 100%);
   border-color: transparent;
 }
 
@@ -2285,8 +2279,8 @@ textarea {
   padding: 11px 18px 11px 13px;
   border-radius: var(--radius-pill);
   color: var(--color-white);
-  font-family: sans-serif;
-  font-weight: 900;
+  font-family: var(--font-body);
+  font-weight: 800;
   font-size: 0.88rem;
   text-decoration: none;
   box-shadow: var(--shadow-1);
@@ -2305,24 +2299,12 @@ textarea {
   outline: 4px solid rgba(255,255,255,0.6);
   outline-offset: 3px;
 }
-.social-dock-btn--ig  {
-  background: linear-gradient(135deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888);
-  box-shadow: 0 6px 22px rgba(220,39,67,0.35);
-}
 
 .social-dock-btn svg {
   flex-shrink: 0;
 }
 
 
-.social-dock-btn:nth-child(1) { animation: dockIn 0.45s 0.05s both ease; }
-.social-dock-btn:nth-child(2) { animation: dockIn 0.45s 0.15s both ease; }
-.social-dock-btn:nth-child(3) { animation: dockIn 0.45s 0.25s both ease; }
-
-@keyframes dockIn {
-  from { opacity: 0; transform: translateX(40px) scale(0.85); }
-  to   { opacity: 1; transform: translateX(0)    scale(1);    }
-}
 
 
 @media (max-width: 520px) {
@@ -2495,14 +2477,10 @@ textarea {
 .team-dots{
   display:flex;
   justify-content:center;
-  gap:8px;
+  gap:0;
   margin-top: 16px;
 }
 
-.team-dot.active{
-  width: 28px;
-  background: var(--orange);
-}
 
 .video-section{
   background:
@@ -3096,6 +3074,27 @@ main > section:not(.hero) {
   font-weight: 900;
 }
 
+/* HU13 · Cabecera interna: logo a la izquierda; "volver" y "Donar" a la derecha. */
+.program-detail-nav .program-back-link {
+  margin-left: auto;
+}
+
+@media (max-width: 560px) {
+  .program-detail-nav {
+    gap: 10px;
+  }
+
+  .program-detail-nav .program-back-link {
+    font-size: .88rem;
+    line-height: 1.25;
+    text-align: right;
+  }
+
+  .program-detail-nav .nav-donate {
+    padding: 10px 16px;
+  }
+}
+
 .program-detail-hero {
   padding: clamp(70px, 10vw, 118px) 0 clamp(46px, 7vw, 74px);
   background:
@@ -3224,7 +3223,7 @@ main > section:not(.hero) {
   width: 54px;
   height: 54px;
   color: var(--white);
-  background: var(--orange);
+  background: var(--orange-dark);
   border: 5px solid var(--white);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
@@ -3435,15 +3434,26 @@ main > section:not(.hero) {
   margin-top: 14px;
 }
 
-.hero-intro .btn-secondary {
-  color: var(--dark);
-  background: var(--color-surface-warm);
-  border: 1px solid rgba(243, 112, 33, .22);
-  box-shadow: none;
+/* HU13 · Tercera acción del hero como enlace: dos botones, no tres del mismo peso. */
+.hero-intro .hero-link {
+  justify-self: center;
+  width: fit-content;
+  margin-inline: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 8px;
+  color: var(--color-brand-700);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }
 
-.hero-intro .btn-secondary:hover {
-  background: var(--soft-orange);
+.hero-intro .hero-link:hover {
+  text-decoration-thickness: 2px;
 }
 
 @media (max-width: 560px) {
@@ -4076,7 +4086,7 @@ p,
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #9aa0a6;
+  color: var(--color-muted);
 }
 
 .contact-form input:hover,
@@ -4223,7 +4233,7 @@ p,
 .program-card a {
   width: fit-content;
   margin-top: auto;
-  color: var(--pink);
+  color: var(--color-accent-800);
   font-weight: 900;
   display: inline-flex;
   align-items: center;
@@ -4574,12 +4584,6 @@ p,
   filter: saturate(1.08) contrast(1.04) brightness(1.03);
 }
 
-.hero-slide:has(img[src*="pantalla inicio"]),
-.hero-slide:has(img[src*="pantalla%20inicio"]),
-.hero-slide.is-active:has(img[src*="pantalla inicio"]),
-.hero-slide.is-active:has(img[src*="pantalla%20inicio"]) {
-  transform: none;
-}
 
 .hero-slide--single-photo {
   display: grid;
@@ -4604,15 +4608,7 @@ p,
   transform: none !important;
 }
 
-.hero:has(.hero-slide img[src*="pantalla inicio"]),
-.hero:has(.hero-slide img[src*="pantalla%20inicio"]) {
-  min-height: clamp(680px, 92vh, 980px) !important;
-}
 
-.hero:has(.hero-slide img[src*="pantalla inicio"]) .hero-wave,
-.hero:has(.hero-slide img[src*="pantalla%20inicio"]) .hero-wave {
-  height: 58px;
-}
 
 .hero-slide:nth-child(2) img {
   object-position: center 46%;
@@ -4767,19 +4763,15 @@ p,
   border: 0;
   border-radius: var(--radius-pill);
   color: var(--white);
-  background: linear-gradient(135deg, #7c3aed, #ec255a);
-  box-shadow:
-    0 18px 42px rgba(124, 58, 237, .30),
-    0 0 0 8px rgba(236, 37, 90, .10);
+  background: var(--color-brand-700);
+  box-shadow: 0 10px 26px rgba(120, 52, 28, .30);
   transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
 }
 
 .chatbot-toggle:hover {
   transform: translateY(-4px) scale(1.06);
   filter: brightness(1.06);
-  box-shadow:
-    0 24px 54px rgba(124, 58, 237, .36),
-    0 0 0 10px rgba(255, 210, 46, .18);
+  box-shadow: 0 14px 32px rgba(120, 52, 28, .36);
 }
 
 .chatbot-toggle::after {
@@ -4802,7 +4794,7 @@ p,
   height: 38px;
   background: var(--white);
   border-radius: var(--radius-md) var(--radius-md) var(--radius-lg) var(--radius-lg);
-  box-shadow: inset 0 -4px 0 rgba(124, 58, 237, .08);
+  box-shadow: inset 0 -4px 0 rgba(120, 52, 28, .08);
 }
 
 .chatbot-robot-face::before,
@@ -4812,7 +4804,7 @@ p,
   top: 13px;
   width: 7px;
   height: 7px;
-  background: #7c3aed;
+  background: var(--color-brand-700);
   border-radius: var(--radius-pill);
 }
 
@@ -4830,7 +4822,7 @@ p,
   bottom: 9px;
   width: 18px;
   height: 9px;
-  border-bottom: 3px solid #ec255a;
+  border-bottom: 3px solid var(--color-accent-800);
   border-radius: 0 0 999px 999px;
   background: transparent;
   transform: translateX(-50%);
@@ -5612,7 +5604,7 @@ p,
 .report-status {
   width: fit-content;
   padding: 7px 11px;
-  color: var(--pink-dark);
+  color: var(--color-accent-900);
   background: rgba(236, 37, 90, .08);
   border: 1px solid rgba(236, 37, 90, .14);
   border-radius: var(--radius-pill);
@@ -5660,8 +5652,8 @@ p,
   padding: clamp(24px, 4vw, 38px);
   color: var(--white);
   background:
-    radial-gradient(circle at 88% 10%, rgba(255, 210, 46, .35), transparent 240px),
-    linear-gradient(135deg, var(--orange), var(--pink));
+    radial-gradient(circle at 88% 10%, rgba(255, 210, 46, .16), transparent 240px),
+    linear-gradient(135deg, var(--orange-dark), var(--color-accent-800));
   border-radius: var(--radius-sm);
 }
 
@@ -5685,7 +5677,7 @@ p,
 
 .reports-summary p {
   max-width: 440px;
-  color: rgba(255, 255, 255, .86);
+  color: var(--white);
   line-height: 1.68;
 }
 
@@ -6157,7 +6149,7 @@ p,
 .photo-showcase-head span {
   width: fit-content;
   padding: 7px 11px;
-  color: var(--pink-dark);
+  color: var(--color-accent-900);
   background: rgba(236, 37, 90, .08);
   border: 1px solid rgba(236, 37, 90, .14);
   border-radius: var(--radius-pill);
@@ -6406,7 +6398,7 @@ p,
 
 .report-row--latest .report-status {
   color: var(--white);
-  background: var(--pink);
+  background: var(--color-accent-800);
   border-color: transparent;
 }
 
@@ -7378,17 +7370,9 @@ p,
 }
 
 @media (max-width: 720px) {
-  .hero {
-    height: clamp(420px, 68svh, 640px);
-  }
-
   .hero-gallery::after {
-    height: clamp(62px, 18vw, 104px);
+    height: clamp(40px, 12vw, 64px);
     clip-path: polygon(0 0, 10% 12%, 22% 30%, 35% 45%, 46% 54%, 50% 56%, 54% 54%, 65% 45%, 78% 30%, 90% 12%, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .hero-slide img[src*="duenos-hero-clean"] {
-    object-position: center;
   }
 
   .hero-slide--single-photo::before {
@@ -7563,16 +7547,6 @@ p,
 }
 
 /* 4. Contraste AA (4.5:1) en botones con texto blanco. */
-.btn-orange {
-  color: var(--white);
-  box-shadow: 0 18px 35px rgba(243, 112, 33, 0.28);
-  background: var(--color-brand-700) !important;
-  border-color: var(--color-brand-700);
-}
-
-.btn-orange:hover {
-  background: #8f452a !important;
-}
 
 .btn-pink {
   position: relative;
@@ -7598,9 +7572,6 @@ p,
   background: #0f7a3f !important;
 }
 
-.social-dock-btn--fb { box-shadow: 0 6px 22px rgba(24,119,242,0.35);
-  background: #1565d8 !important;
-}
 
 /* 5. Contacto: el bloque con título, botones de donar/voluntariado, dirección,
       teléfono y correo estaba oculto (display:none) aunque existe en el HTML. */
@@ -7702,25 +7673,54 @@ main > .section,
   }
 }
 
-/* J5 · Puntos del carrusel del equipo: área táctil de 24 × 24 px (WCAG 2.5.8)
-   sin cambiar su tamaño visual. */
+/* D1b · Móvil y tableta: la foto se muestra en su proporción (868 × 606)
+   para que el título y el primer botón entren en la primera pantalla. */
+@media (max-width: 1023px) {
+  .hero,
+  .hero:has(.hero-slide img[src*="duenos-hero-clean"]) {
+    height: min(calc(100vw * 606 / 868 + 24px), 52svh);
+  }
+
+  /* cover: los 24 px extra (bajo la ola) se rellenan con la foto, sin franjas */
+  .hero-slide img[src*="duenos-hero-clean"] {
+    object-fit: cover !important;
+    object-position: 50% 18%;
+  }
+}
+
+/* J5 · Puntos del carrusel del equipo: el botón mide 24 × 24 px (WCAG 2.5.8) y
+   el punto visible (9 px; 28 px el activo) se dibuja con ::before. */
 .team-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: var(--radius-pill);
-  border: 0;
-  background: rgba(17,17,17,.20);
-  transition: transform .25s ease, background .25s ease, width .25s ease;
   position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  transition: width .25s ease;
 }
 
 .team-dot::before {
   content: "";
   position: absolute;
-  inset: 50% auto auto 50%;
-  width: max(100%, 24px);
-  height: 24px;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-pill);
+  background: rgba(17,17,17,.20);
   transform: translate(-50%, -50%);
+  transition: width .25s ease, background .25s ease;
+}
+
+.team-dot.active {
+  width: 32px;
+}
+
+.team-dot.active::before {
+  width: 28px;
+  background: var(--orange);
 }
 
 /* D6/D7 · Pie de las páginas internas: contraste AA (antes 2,82:1). */
@@ -7779,8 +7779,7 @@ main > .section,
 
 @media (min-width: 1080px) {
   .site-header .menu-toggle,
-  .menu-backdrop,
-  .site-header .nav-item--extra {
+  .menu-backdrop {
     display: none !important;
   }
 
@@ -7837,14 +7836,19 @@ main > .section,
     transform: scale(1.03) !important;
   }
 
+  /* "Donar" va primero en el HTML (orden de foco en móvil) y al final en escritorio */
   .site-header .nav-item--cta {
+    order: 99;
     margin-left: 10px;
   }
 }
 
 @media (max-width: 1079px) {
+  /* order -1 solo pone "Donar" antes del rótulo "Apartados" (::before); en el HTML ya va primero */
   .nav-list .nav-item--cta {
-    padding: 10px 12px 6px;
+    order: -1;
+    padding: 4px 12px 10px;
+    counter-increment: none;
   }
 
   .nav-list .nav-donate {
@@ -7852,47 +7856,33 @@ main > .section,
   }
 }
 
-/* D5 · Móvil: un solo botón de contacto en vez de 4 flotantes. */
-.social-dock-toggle,
-.social-dock-btn--chat {
-  display: none;
-}
-
+/* D5 · Flotantes (HU13): WhatsApp a la derecha, a un toque; el asistente a la
+   izquierda sobre el botón de subir. Instagram y Facebook viven en el pie. */
 @media (max-width: 760px) {
-  .social-dock {
-    flex-direction: column-reverse;
-  }
-
-  .social-dock-toggle {
-    display: grid;
-    place-items: center;
+  .social-dock-btn--wa {
     width: 56px;
     height: 56px;
-    border: 0;
+    padding: 0;
+    justify-content: center;
     border-radius: 50%;
-    background: var(--color-brand-700);
-    color: var(--color-white);
-    box-shadow: 0 10px 26px rgba(120, 52, 28, .32);
-    cursor: pointer;
   }
 
-  .social-dock[aria-label] .social-dock-toggle[aria-expanded="true"] {
-    background: var(--color-ink);
-  }
-
-  .social-dock:not(.is-open) .social-dock-btn {
+  .social-dock-btn--wa .social-dock-label {
     display: none;
-  }
-
-  .social-dock.is-open .social-dock-btn--chat {
-    display: flex;
-    border: 0;
-    background: #8e3b9c;
-    cursor: pointer;
   }
 
   .site-chatbot .chatbot-toggle {
-    display: none;
+    width: 50px;
+    height: 50px;
+  }
+
+  .site-chatbot .chatbot-robot-face {
+    transform: scale(.82);
+  }
+
+  .site-chatbot .chatbot-toggle::after {
+    right: 4px;
+    top: 4px;
   }
 }
 

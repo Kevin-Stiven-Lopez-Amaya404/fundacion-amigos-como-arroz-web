@@ -20,7 +20,7 @@ Orden del documento:
 
 1. `<head>`: metadatos, `tokens.css`, `styles.css` y `navidad.css` (con `?v={{ site.cache.* }}`), precarga del hero, `seasonal.js` (debe ir en el `<head>` para marcar la temporada antes de pintar) y datos estructurados JSON-LD.
 2. `.reading-progress`, `.site-header` (logo y menú) y `<main id="main">` con las secciones (`#inicio`, `#fundacion`, `#programas`, `#impacto`, `#testimonios`, `#momentos`, `#equipo`, `#videos`, `#contacto`, `#informes`…).
-3. `.site-footer`, el chatbot, el contacto flotante y el botón de subir.
+3. `.site-footer`, el botón flotante de WhatsApp (`#quick-contact`), el chatbot y el botón de subir.
 4. Al final: `analytics.js`, el JSON `#site-data` (WhatsApp para el JS) y `main.js` como `type="module"`.
 
 Cada sección del menú se enlaza por su `id` (`href="#programas"`); `active-section.js` depende de eso.
@@ -62,7 +62,7 @@ Ya se hizo esta limpieza, cada paso verificado comparando el estilo calculado de
 
 - **Declaraciones muertas:** se borraron las que siempre quedaban pisadas.
 - **Reglas repetidas:** se fusionaron las del mismo selector y contexto.
-- **`!important`:** se quitaron los que no decidían nada; quedan 188.
+- **`!important`:** se quitaron los que no decidían nada; quedan 186.
 - **Colores, radios y sombras:** pasaron a tokens.
 
 Aún no hay un punto de corte único: el CSS histórico usa varios `max-width`. Para código nuevo, usa solo 560, 840 y 1080 px.
@@ -76,7 +76,8 @@ Aún no hay un punto de corte único: el CSS histórico usa varios `max-width`. 
 - `.program-detail-*`, `.program-timeline`: páginas de programas.
 - `.team-*`: carrusel del equipo.
 - `.contact-*`, `.contact-form`: contacto.
-- `.chatbot-*`, `.story-book-*`, `.social-dock-*`: chatbot, libro y contacto flotante.
+- `.chatbot-*`, `.story-book-*`, `.social-dock-*`: chatbot, libro y botón flotante de WhatsApp.
+- Tres tipos de botón, sin variantes nuevas: `.btn-pink` para la acción principal de apoyo (una por bloque), `.btn-whatsapp` cuando el botón abre WhatsApp y `.btn-secondary` para todo lo demás.
 
 ## 5. JavaScript
 
@@ -96,7 +97,6 @@ initTeamSlider();
 initLazyVideos();
 initStoryBook();
 initChatbot();
-initFloatingContact();
 ```
 
 ### `modules/config.js`
@@ -109,7 +109,7 @@ initFloatingContact();
 
 | Módulo | Detalle |
 |---|---|
-| `menu.js` | Abre/cierra el panel, fondo oscuro, Escape, cierre al pulsar un enlace, `aria-expanded`/`aria-label`. Devuelve `menuApi`. |
+| `menu.js` | Abre/cierra el panel, fondo oscuro, Escape, cierre al pulsar un enlace, `aria-expanded`/`aria-label`. Al abrir lleva el foco a la primera entrada y Escape lo devuelve al botón (el botón va después de la lista en el HTML). Devuelve `menuApi`. |
 | `meta.js` | Escribe el año actual en `#current-year`. |
 | `hero.js` | Marca `#hero-content` como listo y mueve suavemente la imagen con el ratón (no si `shouldLimitMotion`). |
 | `active-section.js` | Marca `.active` en el enlace de la sección visible. |
@@ -120,7 +120,6 @@ initFloatingContact();
 | `lazy-videos.js` | Carga cada video local (`.local-video-loader`) solo al pulsarlo. |
 | `story-book.js` | Páginas del libro de historias y su estado accesible. |
 | `chatbot.js` | Preguntas rápidas y respuestas con enlaces (WhatsApp, programas, ubicación). |
-| `floating-contact.js` | Abre/cierra el contacto rápido flotante. |
 
 Fuera de `modules/`:
 

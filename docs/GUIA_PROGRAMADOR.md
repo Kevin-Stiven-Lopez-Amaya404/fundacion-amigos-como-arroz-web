@@ -73,7 +73,7 @@ Las URL publicadas no cambian: `src/programas/semilla.html` se publica como `/pr
 |---|---|
 | `whatsapp`, `whatsappLabel` | Número para `wa.me` y cómo se muestra. También lo lee el JavaScript. |
 | `email`, `instagram`, `facebook` | Pie de página y enlaces de contacto. |
-| `cache` | Número de versión de cada CSS/JS (`styles.css?v=55`). |
+| `cache` | Número de versión de cada CSS/JS (`styles.css?v=56`). |
 
 En las páginas se usan así:
 
@@ -116,7 +116,7 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | Módulo | Qué hace |
 |---|---|
 | `config.js` | Selectores, preferencias de movimiento (`shouldLimitMotion`) y contacto. |
-| `menu.js` | Menú hamburguesa: abrir/cerrar, Escape, `aria-expanded`. |
+| `menu.js` | Menú hamburguesa: abrir/cerrar, foco en la primera entrada, Escape, `aria-expanded`. |
 | `meta.js` | Año actual del pie. |
 | `hero.js` | Entrada y movimiento suave de la portada. |
 | `active-section.js` | Marca en el menú la sección visible. |
@@ -127,7 +127,6 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `lazy-videos.js` | Carga los videos al pulsar. |
 | `story-book.js` | Libro de historias. |
 | `chatbot.js` | Asistente con preguntas frecuentes. |
-| `floating-contact.js` | Botón flotante de contacto rápido. |
 
 Las páginas internas no cargan `main.js`; solo `seasonal.js` y `analytics.js`.
 
@@ -163,6 +162,6 @@ Después abre `npm start` y revisa la portada y una página interna a 390 px y e
 
 ## 12. Riesgos conocidos
 
-- `styles.css` aún tiene 188 `!important` y varios puntos de corte antiguos; se van a limpiar sección por sección.
+- `styles.css` aún tiene 186 `!important` y varios puntos de corte antiguos; se van a limpiar sección por sección.
 - El formulario depende de WhatsApp.
 - Antes de publicar, revisar datos reales: teléfono, correo, redes, nombres, fotos y permisos de imágenes.

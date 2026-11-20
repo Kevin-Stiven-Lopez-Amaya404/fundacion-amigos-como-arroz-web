@@ -186,7 +186,7 @@ Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS hist
 
 ## Guia del JavaScript
 
-`assets/js/main.js` es un modulo que arranca un archivo por funcionalidad de `assets/js/modules/` (menu, scroll, contadores, formulario, carrusel, videos, libro, chatbot y contacto flotante). La tabla de modulos y su orden estan en [`CODIGO.md`](CODIGO.md), seccion 5.
+`assets/js/main.js` es un modulo que arranca un archivo por funcionalidad de `assets/js/modules/` (menu, scroll, contadores, formulario, carrusel, videos, libro y chatbot). La tabla de modulos y su orden estan en [`CODIGO.md`](CODIGO.md), seccion 5.
 
 ## Revision del codigo
 
@@ -202,7 +202,7 @@ Para codigo nuevo usa solo tres puntos de corte: 560, 840 y 1080 px. El CSS hist
 ### Riesgos o puntos a mejorar
 
 1. CSS historico todavia grande.
-   Ya se fusionaron las reglas repetidas, pero quedan 188 `!important` y varios puntos de corte antiguos. Un cambio visual en `styles.css` puede chocar con otra regla; el codigo nuevo debe ir en una capa posterior.
+   Ya se fusionaron las reglas repetidas, pero quedan 186 `!important` y varios puntos de corte antiguos. Un cambio visual en `styles.css` puede chocar con otra regla; el codigo nuevo debe ir en una capa posterior.
 
 2. Abrir el HTML con doble clic no funciona.
    Hay que usar `npm start` (Eleventy y modulos de JavaScript).

@@ -59,7 +59,7 @@ fundacion/
 - Carrusel del equipo.
 - Videos incrustados.
 - Formulario que abre WhatsApp con el mensaje armado.
-- Dock flotante de redes sociales.
+- Botón flotante de WhatsApp (Instagram y Facebook están en el pie).
 - Botón para volver al inicio.
 - Analítica opcional para contar visitas reales con Google Analytics 4.
 

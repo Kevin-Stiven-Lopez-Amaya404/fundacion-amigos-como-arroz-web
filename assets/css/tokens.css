@@ -51,6 +51,7 @@
     --color-slate-700: #4f5458;
     --color-slate-600: #5f6468;
     --color-accent-800: #b84a62;
+    --color-accent-900: #9e3a51; /* texto rosa sobre fondos rosados (≥ 4,5:1) */
 
     /* Tipografía */
     --font-title: "Cormorant Garamond", "Playfair Display", Georgia, serif;

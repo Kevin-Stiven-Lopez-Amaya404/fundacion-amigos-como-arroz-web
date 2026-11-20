@@ -27,7 +27,7 @@
     window: { from: "11-15", to: "01-06" },
     themeColor: "#9e1b32",
     // Copos simultáneos. En móvil se usa la versión reducida.
-    snowflakes: { desktop: 22, mobile: 10 },
+    snowflakes: { desktop: 14, mobile: 6 }, // pocos y tenues: decoran sin tapar el texto
     storageKey: "fac-nieve"
   };
 
@@ -137,7 +137,7 @@
       flake.style.setProperty("--duration", `${11 + Math.random() * 12}s`);
       flake.style.setProperty("--delay", `${-Math.random() * 20}s`);
       flake.style.setProperty("--drift", `${Math.round(Math.random() * 80 - 40)}px`);
-      flake.style.setProperty("--alpha", (0.55 + Math.random() * 0.4).toFixed(2));
+      flake.style.setProperty("--alpha", (0.35 + Math.random() * 0.3).toFixed(2));
       fragment.appendChild(flake);
     }
 

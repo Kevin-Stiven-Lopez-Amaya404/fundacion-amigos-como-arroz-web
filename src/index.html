@@ -113,19 +113,6 @@
       </a>
 
       <ul class="nav-list" id="nav-list">
-        <li class="nav-item--extra"><a class="nav-link active" href="#inicio">Inicio</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#actividades">Actividades</a></li>
-        <li><a class="nav-link" href="#fundacion">Fundación</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#historia">Historia</a></li>
-        <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
-        <li><a class="nav-link" href="#programas">Programas</a></li>
-        <li><a class="nav-link" href="#impacto">Impacto</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#testimonios">Testimonios</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#momentos">Momentos</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#equipo">Equipo</a></li>
-        <li class="nav-item--extra"><a class="nav-link" href="#videos">Videos</a></li>
-        <li><a class="nav-link" href="#contacto">Contacto</a></li>
-        <li><a class="nav-link" href="#informes">Informes</a></li>
         <li class="nav-item--cta">
           <a
             class="nav-donate"
@@ -137,6 +124,12 @@
             data-analytics-label="Menú - donar"
           >Donar</a>
         </li>
+        <li><a class="nav-link" href="#fundacion">Fundación</a></li>
+        <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
+        <li><a class="nav-link" href="#programas">Programas</a></li>
+        <li><a class="nav-link" href="#impacto">Impacto</a></li>
+        <li><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li><a class="nav-link" href="#informes">Informes</a></li>
       </ul>
 
 
@@ -220,7 +213,7 @@
           >
             Escribir por WhatsApp
           </a>
-          <a class="btn btn-secondary" href="#programas">Conocer programas</a>
+          <a class="hero-link" href="#programas">Conocer programas <span aria-hidden="true">&rarr;</span></a>
         </div>
         <div class="hero-trust" aria-label="Resumen de impacto de la fundación">
           <span><strong>19 años</strong> acompañando procesos</span>
@@ -460,7 +453,7 @@
             </li>
           </ul>
 
-          <a class="btn btn-orange" href="#programas">Conocer programas</a>
+          <a class="btn btn-secondary" href="#programas">Conocer programas</a>
         </div>
       </div>
     </section>
@@ -618,7 +611,7 @@
               <p>Acompañamiento cercano para familias, voluntarios, aliados y beneficiarios.</p>
             </article>
           </div>
-          <a class="btn btn-orange" href="./sede-espinal/index.html">Conoce más de nosotros</a>
+          <a class="btn btn-secondary" href="./sede-espinal/index.html">Conoce más de nosotros</a>
         </div>
 
         <div class="sede-espinal-visual" aria-hidden="true">
@@ -713,7 +706,7 @@
             habilidades, confianza y comunidad.
           </p>
           <div class="impact-actions">
-            <a class="btn btn-outline" href="#contacto">Quiero apoyar</a>
+            <a class="btn btn-secondary" href="#contacto">Quiero apoyar</a>
             <a
               class="btn btn-whatsapp"
               href="{{ 'Hola, quiero saber cómo puedo apoyar a la fundación.' | whatsapp }}"
@@ -1169,7 +1162,6 @@
           </div>
           <div class="video-body">
             <h3>Momentos de impacto</h3>
-            <p>Espacio ideal para eventos, testimonios y publicaciones que den más confianza.</p>
           </div>
         </article>
       </div>
@@ -1354,13 +1346,13 @@
         </div>
 
         <div class="reports-hub reveal" aria-label="Listado de informes de gestión">
-          <aside class="reports-summary">
+          <div class="reports-summary">
             <span class="reports-summary-label">Archivo institucional</span>
             <h3>Informes institucionales.</h3>
             <p>
              Este espacio reúne gestión, resultados, respaldo legal y transparencia institucional.
             </p>
-          </aside>
+          </div>
 
           <div class="reports-list">
             <article class="report-row report-row--latest">
@@ -1507,20 +1499,8 @@
     </div>
   </footer>
 
-  <!-- Botones flotantes de redes sociales -->
-  <div class="social-dock" id="quick-contact" aria-label="Contacto y redes sociales">
-    <button
-      class="social-dock-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="quick-contact"
-      aria-label="Abrir opciones de contacto"
-    >
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 20l1.1-4.6A8.4 8.4 0 1 1 21 11.5z"/>
-      </svg>
-    </button>
-
+  <!-- Botón flotante de WhatsApp (Instagram y Facebook están en el pie) -->
+  <aside class="social-dock" id="quick-contact" aria-label="Contacto por WhatsApp">
     <!-- WhatsApp -->
     <a
       class="social-dock-btn social-dock-btn--wa"
@@ -1538,44 +1518,7 @@
       </svg>
       <span class="social-dock-label">WhatsApp</span>
     </a>
-
-    <!-- Instagram -->
-    <a
-      class="social-dock-btn social-dock-btn--ig"
-      href="{{ site.instagram }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Síguenos en Instagram"
-    >
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
-      <span class="social-dock-label">Instagram</span>
-    </a>
-
-    <!-- Facebook -->
-    <a
-      class="social-dock-btn social-dock-btn--fb"
-      href="{{ site.facebook }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Síguenos en Facebook"
-    >
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-      <span class="social-dock-label">Facebook</span>
-    </a>
-
-    <!-- Chat (solo móvil: en escritorio el asistente tiene su propio botón) -->
-    <button class="social-dock-btn social-dock-btn--chat" type="button" data-open-chat aria-label="Abrir asistente de ayuda">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 12h.01M15 12h.01"/>
-      </svg>
-      <span class="social-dock-label">Asistente</span>
-    </button>
-
-  </div>
+  </aside>
 
   <!-- Asistente flotante -->
   <div class="site-chatbot" id="site-chatbot" role="region" aria-label="Chat de ayuda de la fundación">

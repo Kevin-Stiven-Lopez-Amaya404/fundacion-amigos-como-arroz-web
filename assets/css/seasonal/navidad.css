@@ -177,6 +177,11 @@ html[data-season="navidad"] .hero-intro .hero-content::before {
     var(--xmas-red) 0 28px, var(--xmas-gold) 28px 36px, var(--xmas-green) 36px 64px, var(--xmas-gold) 64px 72px);
 }
 
+/* En temporada la insignia de campaña reemplaza a la de ubicación: una sola etiqueta sobre el título. */
+html[data-season="navidad"] .hero-badge {
+  display: none;
+}
+
 html[data-season="navidad"] .xmas-hero-pill {
   display: inline-flex;
   align-items: center;
