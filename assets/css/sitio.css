@@ -120,6 +120,9 @@
 
     --sombra: 0 24px 60px -24px rgb(0 0 0 / 0.85), 0 4px 14px rgb(0 0 0 / 0.4);
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    /* Curvas de la referencia: salida exponencial para entradas, vaivén para lo que se mueve en pantalla */
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-vaiven: cubic-bezier(0.65, 0, 0.35, 1);
   }
 }
 
@@ -665,17 +668,24 @@
 
   /* Secuencia de palabras */
   .ciclo { position: relative; }
-  .ciclo--vivo { height: 320svh; }
-  .ciclo-fijo { display: grid; place-content: center; justify-items: center; gap: 26px; min-height: 70svh; padding: 64px var(--margen); text-align: center; background: var(--brillo), var(--vacio); }
+  .ciclo--vivo { height: 500svh; }
+  .ciclo-fijo { position: relative; isolation: isolate; overflow: hidden; display: grid; place-content: center; justify-items: center; gap: 26px; min-height: 70svh; padding: 64px var(--margen); text-align: center; background: var(--vacio); }
+  /* Dos brillos (rosa y amarillo del logo) que se desplazan despacio detrás de las palabras */
+  .ciclo-fijo::before, .ciclo-fijo::after { content: ""; position: absolute; z-index: -1; translate: -50% -50%; pointer-events: none; }
+  .ciclo-fijo::before { top: 50%; left: 85%; width: min(1100px, 140vw); height: min(860px, 110vw); background: radial-gradient(ellipse at 50% 50%, rgb(224 36 94 / 0.2) 0%, transparent 70%); }
+  .ciclo-fijo::after { top: 42%; left: 28%; width: min(900px, 120vw); height: min(720px, 96vw); background: radial-gradient(ellipse at 50% 50%, rgb(246 194 28 / 0.12) 0%, transparent 70%); }
+  .ciclo-frase .oculta { opacity: 0; }
+  .ciclo-cursor { display: inline-block; width: 0.6em; height: 1.1em; margin-right: 1px; vertical-align: -0.2em; background: var(--texto); }
   .ciclo--vivo .ciclo-fijo { position: sticky; top: 0; height: 100svh; }
   .ciclo-frase { font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-2); }
   .ciclo-palabras { display: grid; }
   .ciclo-palabras li { font-family: var(--f-display); font-size: clamp(1.8rem, 7.4vw, 7rem); font-weight: 700; line-height: 1; text-transform: uppercase; }
-  .ciclo--vivo .ciclo-palabras li { grid-area: 1 / 1; opacity: 0; filter: blur(16px); transform: translateY(0.2em) scale(0.98); transition: opacity 600ms var(--ease-out), filter 600ms var(--ease-out), transform 600ms var(--ease-out); }
-  .ciclo--vivo .ciclo-palabras li.activa { opacity: 1; filter: none; transform: none; }
+  /* Una palabra sale desenfocándose y, cuando termina, entra la siguiente */
+  .ciclo--vivo .ciclo-palabras li { grid-area: 1 / 1; opacity: 0; filter: blur(30px); transition: opacity 500ms var(--ease-expo), filter 500ms var(--ease-expo); }
+  .ciclo--vivo .ciclo-palabras li.activa { opacity: 1; filter: blur(0); transition-delay: 500ms; }
   .ciclo-puntos { display: none; gap: 6px; }
   .ciclo--vivo .ciclo-puntos { display: flex; }
-  .ciclo-puntos span { width: 6px; height: 6px; background: rgb(255 255 255 / 0.3); transition: width 300ms var(--ease-out), background-color 300ms ease; }
+  .ciclo-puntos span { width: 6px; height: 6px; background: rgb(255 255 255 / 0.3); transition: width 500ms var(--ease-expo), background-color 500ms var(--ease-expo); }
   .ciclo-puntos span.activa { width: 22px; background: var(--rosa); }
 
   /* Capítulo con foto enmarcada al lado (Fundación) */
@@ -759,7 +769,8 @@
   .metric-card.featured strong { color: var(--rosa-claro); }
   .metric-card span { font-size: 0.98rem; color: var(--texto-2); max-width: 26ch; }
   .impact-proof { display: grid; margin-top: clamp(40px, 7vh, 80px); border-top: 1px solid var(--linea); }
-  .impact-proof article { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 22px 0 22px 24px; border-bottom: 1px solid var(--linea); background: linear-gradient(var(--rosa), var(--rosa)) 0 calc(22px + 0.55em) / 8px 8px no-repeat; }
+  .impact-proof article { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; position: relative; padding: 22px 0 22px 24px; background: linear-gradient(var(--rosa), var(--rosa)) 0 calc(22px + 0.55em) / 8px 8px no-repeat; }
+  .impact-proof article::after { content: ""; position: absolute; inset: auto 0 0; height: 1px; background: var(--linea); transform-origin: left; }
   .impact-proof strong { font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 600; color: var(--texto); }
   .impact-proof span { font-size: clamp(1.15rem, 2vw, 1.6rem); color: var(--texto-3); }
 
@@ -994,17 +1005,54 @@
   @media (min-width: 900px) { .program-footer .footer-inner { grid-template-columns: 1fr auto; } }
 
   @keyframes girar { to { transform: rotate(1turn); } }
+  @keyframes parpadeo { 50% { opacity: 0; } }
+  @keyframes deriva-rosa {
+    40% { opacity: 0.82; transform: translate(-14%, 8%) scale(1.12); }
+    70% { transform: translate(-5%, -10%) scale(0.94); }
+  }
+  @keyframes deriva-sol {
+    0%, 100% { opacity: 0.88; }
+    45% { transform: translate(16%, -10%) scale(1.1); }
+    75% { opacity: 0.72; transform: translate(6%, 12%) scale(0.92); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ciclo-fijo::before { animation: deriva-rosa 20s var(--ease-vaiven) infinite; }
+    .ciclo-fijo::after { animation: deriva-sol 26s var(--ease-vaiven) infinite; }
+    .ciclo-cursor { animation: parpadeo 0.9s step-end infinite; }
+  }
   @keyframes latido {
     0% { transform: scale(0.9); opacity: 0.9; }
     100% { transform: scale(1.5); opacity: 0; }
   }
 }
 
-/* ---------- Movimiento: la leyenda entra una vez desde abajo; con JS solamente ---------- */
+/* ---------- Movimiento (solo con JS): mismos tiempos que la referencia; el resto vive en modules/movimiento.js ---------- */
 @layer utilities {
   @media (prefers-reduced-motion: no-preference) {
-    .js .reveal:not(.visible) { opacity: 0; transform: translateY(22px); filter: blur(6px); }
-    .js .reveal { transition: opacity 700ms var(--ease-out) var(--delay, 0ms), transform 700ms var(--ease-out) var(--delay, 0ms), filter 700ms var(--ease-out) var(--delay, 0ms); }
+    .js .reveal:not(.visible) { opacity: 0; transform: translateY(2.5rem); }
+    .js .reveal { transition: opacity 800ms var(--ease-expo) var(--delay, 0ms), transform 800ms var(--ease-expo) var(--delay, 0ms); }
+
+    /* Impacto: las filas entran una por una y su línea se dibuja de izquierda a derecha */
+    .js .impact-proof.reveal:not(.visible) { opacity: 1; transform: none; }
+    .impact-proof article { --fila: 0ms; }
+    .impact-proof article:nth-child(2) { --fila: 180ms; }
+    .impact-proof article:nth-child(3) { --fila: 360ms; }
+    .js .impact-proof article { transition: opacity 500ms var(--ease-expo) var(--fila), translate 500ms var(--ease-expo) var(--fila), filter 500ms var(--ease-expo) var(--fila); }
+    .js .impact-proof article::after { transition: scale 500ms var(--ease-expo) calc(var(--fila) + 90ms); }
+    .js .impact-proof:not(.visible) article { opacity: 0; translate: 0 1.5rem; filter: blur(8px); }
+    .js .impact-proof:not(.visible) article::after { scale: 0 1; }
+
+    /* Títulos: se pintan de izquierda a derecha (la clase la pone movimiento.js y la quita al terminar) */
+    .barrido {
+      -webkit-mask-image: linear-gradient(90deg, #000 50%, rgb(0 0 0 / 0.2) 50%);
+      mask-image: linear-gradient(90deg, #000 50%, rgb(0 0 0 / 0.2) 50%);
+      -webkit-mask-size: 200% 100%;
+      mask-size: 200% 100%;
+      -webkit-mask-position: 100% 0;
+      mask-position: 100% 0;
+      transition: -webkit-mask-position 800ms var(--ease-expo), mask-position 800ms var(--ease-expo);
+    }
+    .barrido--listo { -webkit-mask-position: 0 0; mask-position: 0 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }

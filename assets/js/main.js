@@ -16,6 +16,7 @@ import { initChatbot } from "./modules/chatbot.js";
 import { initMeta } from "./modules/meta.js";
 import { initHistorias } from "./modules/historias.js";
 import { initPortada } from "./modules/portada.js";
+import { initMovimiento } from "./modules/movimiento.js";
 
 // Inicializacion general del sitio.
 initMenu();
@@ -28,4 +29,5 @@ initLazyVideos();
 initStoryBook();
 initChatbot();
 initHistorias();
+initMovimiento();
 initPortada();
