@@ -34,13 +34,13 @@
   .xmas-hero-pill svg { color: var(--xmas-gold); }
 
   /* Pantalla de campaña */
-  .xmas-campaign { background: radial-gradient(120% 80% at 80% 10%, rgb(179 32 59 / 0.35), transparent 60%), var(--vacio); }
-  .xmas-campaign h2 em { font-style: normal; color: var(--xmas-gold); }
+  .xmas-campaign { background: radial-gradient(120% 80% at 80% 10%, rgb(179 32 59 / 0.08), transparent 60%), var(--vacio); }
+  .xmas-campaign h2 em { font-style: normal; color: var(--xmas-red); }
   .xmas-campaign-visual { position: absolute; top: clamp(56px, 10vh, 110px); right: var(--margen); width: clamp(150px, 26vw, 300px); }
   @media (max-width: 759px) { .xmas-campaign-visual { right: var(--margen); width: 140px; opacity: 0.8; } }
-  .xmas-countdown { font-family: var(--f-display); font-size: var(--t-destacado); font-weight: 700; text-transform: uppercase; color: var(--xmas-gold); }
+  .xmas-countdown { font-family: var(--f-display); font-size: var(--t-destacado); font-weight: 700; text-transform: uppercase; color: var(--xmas-red); }
   .xmas-countdown:empty { display: none; }
-  .xmas-footer-note { margin-top: 6px; color: #f3e2b8; font-size: var(--t-etiqueta); }
+  .xmas-footer-note { margin-top: 6px; color: var(--xmas-red); font-size: var(--t-etiqueta); }
 
   /* Adornos que se mecen */
   .xmas-ornament { transform-origin: 50% 0; animation: xmas-sway 6s ease-in-out infinite; }
@@ -85,7 +85,8 @@
     height: var(--size);
     border-radius: 50%;
     opacity: var(--alpha);
-    background: radial-gradient(circle, #fff 0 45%, rgb(255 255 255 / 0.7) 60%, transparent 72%);
+    /* Núcleo blanco con borde azul suave: se ve sobre el fondo claro y sobre las fotos */
+    background: radial-gradient(circle, #fff 0 38%, #c3d3e3 58%, transparent 72%);
     animation: xmas-fall var(--duration) linear infinite;
     animation-delay: var(--delay);
     will-change: transform;
