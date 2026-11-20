@@ -265,8 +265,15 @@ Radios de 8 px (botones, campos), 14 px (píldora) y 16 px (fotos, tarjetas). C�
 ### Punto del cursor
 Punto rosa que sigue al mouse y crece sobre enlaces y botones. Solo aparece con un mouse y si la persona no pidió menos movimiento.
 
+### Fotos y videos: nunca cortar a las personas
+- Ninguna foto se recorta para llenar una caja. En las cajas de forma fija (tarjetas de talentos, historias, equipo y videos, foto de «Nuestra historia», portada de las páginas internas en escritorio) la foto va entera (`contain`) y el hueco lo llena la misma foto desenfocada (`modules/encaje.js`).
+- Galerías, Momentos, programas y Fundación: la caja toma la proporción de cada foto; las tiras de las páginas internas igualan la altura.
+- Fotos a sangre (inicio, Sede Espinal): en celular van en una franja con su proporción y el texto debajo.
+- Los videos se ven completos, sin agrandarse más que su resolución.
+- Cada `srcset` lista todos los anchos que existen en `assets/img/opt`.
+
 ### Carruseles
-Tarjetas de 440 px de ancho máximo con esquinas redondeadas. La foto crece un poco al pasar el cursor.
+Tarjetas de 440 px de ancho máximo con esquinas redondeadas; las de talentos son más bajas (470 px) porque sus fotos son horizontales. La foto crece un poco al pasar el cursor.
 
 ### Inputs
 Fondo `--vacio`, borde `--linea-fuerte` y contorno rosa al enfocar. Las etiquetas van en Space Mono.

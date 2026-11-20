@@ -125,6 +125,7 @@ La portada escribe `whatsapp` y `whatsappLabel` en `<script type="application/js
 | `meta.js` | Año actual del pie. |
 | `active-section.js` | Marca en el menú la sección visible. |
 | `reveal.js` | Aparición de `.reveal` (escalonada entre los que entran juntos) y contadores `data-counter`. |
+| `encaje.js` | Fotos enteras con relleno desenfocado en las cajas de forma fija (también en las páginas internas, vía `interna.js`). |
 | `portada.js` | Pantalla de entrada, secuencia de palabras con el scroll (frase escrita y palabras) y punto rosa del cursor. |
 | `movimiento.js` | Animaciones de la referencia: entrada del inicio, títulos que se pintan, efectos ligados al scroll y rebote de «Sigue». Curvas en `--ease-expo` y `--ease-vaiven`. |
 | `contact-form.js` | Valida el formulario y abre WhatsApp con el mensaje. |
