@@ -35,6 +35,7 @@ function initEntrada() {
     resto.forEach((el) => (el.inert = false));
     raiz.classList.remove("con-entrada");
     window.scrollTo(0, 0);
+    document.dispatchEvent(new Event("entrada:cerrada"));
     const quitar = () => entrada.remove();
     if (prefersLessMotion) return quitar();
     entrada.classList.add("saliendo");
@@ -55,27 +56,53 @@ function initEntrada() {
   );
 }
 
-// Secuencia de palabras: la pantalla queda fija mientras el scroll cambia la palabra (Educación, Liderazgo...).
+// Secuencia de palabras: la pantalla queda fija; con el scroll primero se escribe la frase y luego cambia la palabra.
 function initCiclo() {
   const ciclo = document.querySelector(".ciclo");
   if (!ciclo) return;
   const palabras = Array.from(ciclo.querySelectorAll(".ciclo-palabras li"));
   const puntos = Array.from(ciclo.querySelectorAll(".ciclo-puntos span"));
-  let actual = -1;
+  const frase = ciclo.querySelector(".ciclo-frase");
+  const letras = Array.from(frase.textContent, (letra) => {
+    const span = document.createElement("span");
+    span.textContent = letra;
+    return span;
+  });
+  const cursor = document.createElement("span");
+  cursor.className = "ciclo-cursor";
+  frase.replaceChildren(...letras);
+  // Un tramo para escribir la frase y uno por palabra.
+  const tramos = palabras.length + 1;
+  let escritas = -1;
+  let actual = -2;
 
+  const escribir = (cuantas) => {
+    if (cuantas === escritas) return;
+    escritas = cuantas;
+    letras.forEach((letra, i) => letra.classList.toggle("oculta", i >= cuantas));
+    if (cuantas > 0 && cuantas < letras.length) frase.insertBefore(cursor, letras[cuantas]);
+    else cursor.remove();
+  };
   const mostrar = (indice) => {
     if (indice === actual) return;
     actual = indice;
     palabras.forEach((p, i) => p.classList.toggle("activa", i === indice));
     puntos.forEach((p, i) => p.classList.toggle("activa", i === indice));
   };
+  const avanzar = (progreso) => {
+    const tramo = progreso * tramos;
+    if (tramo < 1 && !prefersLessMotion) {
+      escribir(Math.round(Math.min(1, tramo * 1.15) * letras.length));
+      mostrar(-1);
+    } else {
+      escribir(letras.length);
+      mostrar(Math.max(0, Math.min(palabras.length - 1, Math.floor(tramo - 1))));
+    }
+  };
 
   ciclo.classList.add("ciclo--vivo");
-  mostrar(0);
-  scroll((progreso) => mostrar(Math.min(palabras.length - 1, Math.floor(progreso * palabras.length))), {
-    target: ciclo,
-    offset: ["start start", "end end"]
-  });
+  avanzar(0);
+  scroll(avanzar, { target: ciclo, offset: ["start start", "end end"] });
 }
 
 // Punto rosa que sigue al cursor (solo con mouse y sin preferencia de menos movimiento); crece sobre enlaces y botones.
