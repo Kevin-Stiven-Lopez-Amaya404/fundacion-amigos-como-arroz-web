@@ -2,7 +2,7 @@ import { animate, scroll } from "../vendor/motion.js";
 
 // Indicador segmentado de historias: un segmento por pantalla de la portada, que se llena con el scroll
 // (scroll() de motion usa ScrollTimeline/ViewTimeline del navegador cuando existe). Cada segmento lleva a su pantalla.
-// También maneja el botón Compartir del carril.
+// También maneja el botón Compartir de la barra.
 export function initHistorias() {
   const nav = document.querySelector("#historias");
   const secciones = Array.from(document.querySelectorAll("main > section[id]")).filter((s) => !s.hidden);

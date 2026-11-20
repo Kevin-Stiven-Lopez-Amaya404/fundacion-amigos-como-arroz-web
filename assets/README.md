@@ -5,7 +5,7 @@ Recursos estaticos del sitio.
 ## Carpetas
 
 - `css/`: `sitio.css` (todo el estilo, en capas) y `seasonal/` (temporadas).
-- `fonts/`: Big Shoulders Display (títulos) y Schibsted Grotesk (texto), servidas desde el sitio.
+- `fonts/`: Unbounded (títulos grandes), Schibsted Grotesk (texto) y Space Mono (etiquetas), servidas desde el sitio.
 - `js/`: `main.js` arranca los modulos de `js/modules/`; `seasonal.js` y `analytics.js` van aparte.
 - `img/`: imagenes optimizadas organizadas por uso.
 

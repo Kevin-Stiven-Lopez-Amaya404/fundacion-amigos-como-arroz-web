@@ -36,9 +36,9 @@
   /* Pantalla de campaña */
   .xmas-campaign { background: radial-gradient(120% 80% at 80% 10%, rgb(179 32 59 / 0.35), transparent 60%), var(--vacio); }
   .xmas-campaign h2 em { font-style: normal; color: var(--xmas-gold); }
-  .xmas-campaign-visual { position: absolute; top: calc(var(--barra) + 40px); right: calc(var(--margen) + var(--carril)); width: clamp(150px, 26vw, 300px); }
+  .xmas-campaign-visual { position: absolute; top: clamp(56px, 10vh, 110px); right: var(--margen); width: clamp(150px, 26vw, 300px); }
   @media (max-width: 759px) { .xmas-campaign-visual { right: var(--margen); width: 140px; opacity: 0.8; } }
-  .xmas-countdown { font-family: var(--f-display); font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; text-transform: uppercase; color: var(--xmas-gold); }
+  .xmas-countdown { font-family: var(--f-display); font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; text-transform: uppercase; color: var(--xmas-gold); }
   .xmas-countdown:empty { display: none; }
   .xmas-footer-note { margin-top: 6px; color: #f3e2b8; font-size: 0.9rem; }
 
@@ -47,10 +47,10 @@
   .xmas-ornament:nth-of-type(2) { animation-delay: -2s; animation-duration: 7s; }
   .xmas-ornament:nth-of-type(3) { animation-delay: -4s; animation-duration: 5.5s; }
 
-  /* Guirnalda bajo la barra superior */
+  /* Guirnalda sobre la barra flotante */
   .xmas-garland {
     position: absolute;
-    inset: 100% 0 auto;
+    inset: auto 12px calc(100% - 6px);
     height: 22px;
     display: flex;
     overflow: hidden;
@@ -75,7 +75,7 @@
   .xmas-garland span:nth-child(3n + 2) { --bulb: var(--xmas-gold); }
   .xmas-garland span:nth-child(3n + 3) { --bulb: var(--xmas-green); }
 
-  /* Nieve: solo transform/opacity, detrás de la barra y del carril */
+  /* Nieve: solo transform/opacity, detrás de la barra */
   .xmas-snow { position: fixed; inset: 0; z-index: 1000; overflow: hidden; pointer-events: none; contain: strict; }
   .xmas-flake {
     position: absolute;
@@ -101,15 +101,16 @@
     padding: 0 14px;
     border: 1px solid var(--linea-fuerte);
     border-radius: 999px;
-    background: rgb(11 11 15 / 0.45);
-    font-size: 0.8rem;
-    font-weight: 600;
+    background: none;
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
   .xmas-snow-toggle:hover { border-color: var(--texto); }
-  /* A la derecha, junto al menú: el logo y el nombre no se aprietan */
-  .nav-shell .xmas-snow-toggle, .program-detail-nav .xmas-snow-toggle { order: 2; }
-  .nav-shell .menu-toggle { order: 3; }
-  .program-detail-nav .nav-donate { order: 3; }
+  /* En la píldora va al final, como un ícono más */
+  .nav-shell .xmas-snow-toggle, .program-detail-nav .xmas-snow-toggle { order: 9; }
+  @media (max-width: 1279px) { .xmas-snow-toggle { width: 44px; padding: 0; justify-content: center; } .xmas-snow-toggle-text { display: none; } }
   .xmas-snow-toggle[aria-pressed="false"] { color: var(--texto-3); }
   @media (max-width: 560px) { .xmas-snow-toggle-text { display: none; } }
 

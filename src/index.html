@@ -10,7 +10,7 @@
     content="Fundación Amigos Como Arroz en Neiva, Huila: educación, acompañamiento social, liderazgo y oportunidades para niños, jóvenes y familias."
   />
 
-  <meta name="theme-color" content="#0b0b0f" />
+  <meta name="theme-color" content="#060608" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fundacionamigoscomoarroz.com/" />
   <title>Fundación Amigos Como Arroz | Educación y oportunidades</title>
@@ -34,12 +34,14 @@
   <link rel="apple-touch-icon" href="assets/img/brand/logo-fundacion.jpg" />
   <link rel="manifest" href="site.webmanifest" />
 
-  <link rel="preload" href="assets/fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link href="assets/css/sitio.css?v={{ site.cache.sitio }}" rel="stylesheet" />
   <!-- Temporada (Navidad). Se enciende/apaga en assets/js/seasonal.js -->
   <link href="assets/css/seasonal/navidad.css?v={{ site.cache.navidad }}" rel="stylesheet" />
   <script src="assets/js/seasonal.js?v={{ site.cache.seasonal }}"></script>
+  <!-- Pantalla de entrada: solo en la primera visita de la sesión y nunca si se llega con un enlace a una sección -->
+  <script>try{if(!location.hash&&sessionStorage.getItem("entrada")!=="1")document.documentElement.classList.add("con-entrada")}catch(e){}</script>
   <link
     rel="preload"
     as="image"
@@ -75,11 +77,23 @@
 <body>
   <a class="skip-link" href="#main">Saltar al contenido principal</a>
 
+  <!-- Entrada: pantalla de bienvenida con un botón central. Solo con JS, una vez por sesión y nunca si se llega con un enlace a una sección (assets/js/modules/portada.js) -->
+  <div class="entrada" id="entrada">
+    <div class="entrada-fondo" aria-hidden="true"></div>
+    <img class="entrada-logo" src="assets/img/opt/img-brand-logo-fundacion-160.webp" width="160" height="160" alt="" decoding="async" />
+    <p class="entrada-titulo" aria-hidden="true"><span>Amigos</span><span>Como Arroz</span></p>
+    <button class="entrada-boton" type="button" aria-label="Entrar al sitio de la Fundación Amigos Como Arroz">
+      <span>Entrar</span>
+    </button>
+    <p class="entrada-lema">[ Sembrando esperanza, cosechando futuro ]</p>
+  </div>
+
   <!-- Indicador segmentado: un segmento por pantalla (lo arma assets/js/modules/historias.js) -->
   <nav class="historias" id="historias" aria-label="Historias de la página"></nav>
 
+  <!-- Barra de navegación flotante (abajo, en forma de píldora) -->
   <header class="site-header" id="site-header">
-    <nav class="nav-shell container" aria-label="Navegación principal">
+    <nav class="nav-shell" aria-label="Navegación principal">
       <a class="brand" href="#inicio" aria-label="Fundación Amigos Como Arroz, inicio">
         <img
           class="logo-mark"
@@ -89,27 +103,21 @@
           alt="Logo Fundación Amigos Como Arroz"
           decoding="async"
         />
-        <span class="brand-name" aria-hidden="true">Amigos Como Arroz<small>Fundación · Neiva y Espinal</small></span>
       </a>
 
       <ul class="nav-list" id="nav-list">
-        <li class="nav-item--cta">
-          <a
-            class="nav-donate"
-            href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-analytics-event="clic_donar"
-            data-analytics-category="contacto"
-            data-analytics-label="Menú - donar"
-          >Donar</a>
-        </li>
         <li><a class="nav-link" href="#fundacion">Fundación</a></li>
         <li><a class="nav-link" href="#sede-espinal">Sede Espinal</a></li>
         <li><a class="nav-link" href="#programas">Programas</a></li>
         <li><a class="nav-link" href="#impacto">Impacto</a></li>
         <li><a class="nav-link" href="#contacto">Contacto</a></li>
         <li><a class="nav-link" href="#informes">Informes</a></li>
+        <li class="nav-item--compartir">
+          <button class="nav-compartir" type="button" data-compartir>
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4z"/></svg>
+            <span>Compartir</span>
+          </button>
+        </li>
       </ul>
 
       <button
@@ -122,6 +130,38 @@
         <span></span>
         <span></span>
         <span></span>
+      </button>
+
+      <a
+        class="nav-donate"
+        href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-analytics-event="clic_donar"
+        data-analytics-category="contacto"
+        data-analytics-label="Menú - donar"
+      >Donar</a>
+      <a
+        class="pill-icono"
+        href="{{ 'Hola, quiero recibir información sobre la Fundación Amigos Como Arroz.' | whatsapp }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Escribir por WhatsApp"
+        data-analytics-event="clic_whatsapp_flotante"
+        data-analytics-category="contacto"
+        data-analytics-label="Barra - WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5zm4.4 12.5c-.18.5-1.06.97-1.47 1.03-.38.05-.85.08-1.37-.09-.32-.1-.72-.24-1.24-.46-2.18-.96-3.6-3.18-3.71-3.33-.11-.15-.89-1.2-.89-2.28 0-1.09.57-1.62.77-1.84.2-.22.44-.28.59-.28h.42c.14 0 .32-.05.5.38.18.43.62 1.49.67 1.6.06.11.09.24.02.38-.07.15-.11.24-.22.37-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.25 1.56.86.77 1.59 1.01 1.81 1.12.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.29-.18.5-.11.2.07 1.27.6 1.49.71.22.11.37.16.42.25.05.09.05.53-.13 1.03z"/></svg>
+      </a>
+      <button
+        class="pill-icono"
+        type="button"
+        id="chatbotToggle"
+        aria-controls="chatbotPanel"
+        aria-expanded="false"
+        aria-label="Abrir asistente de ayuda"
+      >
+        <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg>
       </button>
     </nav>
   </header>
@@ -186,12 +226,28 @@
         <p class="eyebrow hero-badge">Neiva, Huila · educación · comunidad</p>
       </div>
 
+      <p class="hero-sello" aria-hidden="true">Amigos Como Arroz<small>Fundación · Neiva y Espinal</small></p>
+
       <a class="siguiente" href="#actividades">
         <span>Sigue</span>
         <strong>Talentos que crecen fuera del aula</strong>
-        <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </section>
+
+    <!-- Secuencia de palabras: repite, palabra por palabra con el scroll, lo que dice el inicio (decorativa: aria-hidden) -->
+    <div class="ciclo" aria-hidden="true">
+      <div class="ciclo-fijo">
+        <p class="ciclo-frase">Impulsamos a niños, jóvenes y familias con…</p>
+        <ul class="ciclo-palabras">
+          <li>Educación</li>
+          <li>Liderazgo</li>
+          <li>Bienestar</li>
+          <li>Comunidad</li>
+        </ul>
+        <div class="ciclo-puntos"><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
 
     <!-- Campaña de temporada (Navidad): solo se muestra con la temporada activa (assets/js/seasonal.js) -->
     <section class="pantalla xmas-campaign" id="navidad" aria-labelledby="xmas-title" data-season-only="navidad" hidden>
@@ -351,22 +407,19 @@
     </section>
 
     <!-- Fundación -->
-    <section class="pantalla" id="fundacion" aria-labelledby="about-title">
-      <div class="pantalla-fondo pantalla-fondo--encaje" aria-hidden="true">
-        <img class="relleno" src="assets/img/opt/img-content-programa-semilla-deporte-480.webp" alt="" width="480" height="622" loading="lazy" decoding="async" />
+    <section class="pantalla capitulo" id="fundacion" aria-labelledby="about-title">
+      <figure class="marco-foto reveal">
         <img
-          class="nitida"
           src="assets/img/opt/img-content-programa-semilla-deporte-833.webp"
           srcset="assets/img/opt/img-content-programa-semilla-deporte-480.webp 480w, assets/img/opt/img-content-programa-semilla-deporte-833.webp 833w"
-          sizes="(max-width: 899px) 100vw, 58vw"
-          alt=""
+          sizes="(max-width: 899px) 100vw, 40vw"
+          alt="Jóvenes y voluntarios trabajando juntos."
           width="833"
           height="1080"
           loading="lazy"
           decoding="async"
         />
-      </div>
-      <span class="sr-only">Foto: jóvenes y voluntarios trabajando juntos.</span>
+      </figure>
 
       <div class="pantalla-cuerpo about-content reveal">
         <p class="cifra-mayor about-badge">
@@ -402,25 +455,26 @@
     </section>
 
     <!-- Historia institucional: visor de historias, una página a la vez (assets/js/modules/story-book.js) -->
-    <section class="pantalla foundation-story-section" id="historia" aria-labelledby="story-title">
-      <div class="pantalla-fondo" aria-hidden="true">
+    <section class="pantalla pantalla--larga foundation-story-section" id="historia" aria-labelledby="story-title">
+      <div class="encabezado encabezado--centro reveal">
+        <h2 id="story-title">Sembrando esperanza, cosechando futuro.</h2>
+        <p class="eyebrow">Nuestra historia</p>
+      </div>
+
+      <div class="historia-tarjeta reveal">
+      <figure class="historia-foto" aria-hidden="true">
         <img
           src="assets/img/opt/img-hero-hero-principal-960.webp"
           srcset="assets/img/opt/img-hero-hero-principal-480.webp 480w, assets/img/opt/img-hero-hero-principal-960.webp 960w, assets/img/opt/img-hero-hero-principal-1200.webp 1200w"
-          sizes="100vw"
+          sizes="(max-width: 899px) 100vw, 40vw"
           alt=""
           width="1200"
           height="507"
           loading="lazy"
           decoding="async"
         />
-      </div>
-      <div class="encabezado reveal">
-        <h2 id="story-title">Sembrando esperanza, cosechando futuro.</h2>
-        <p class="eyebrow">Nuestra historia</p>
-      </div>
-
-      <div class="story-book reveal" data-story-book>
+      </figure>
+      <div class="story-book" data-story-book>
         <div class="story-book-pages">
           <article class="story-book-page" data-story-page>
             <h3>Un origen con propósito</h3>
@@ -508,6 +562,7 @@
           </button>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- Sede Espinal -->
@@ -524,6 +579,8 @@
           decoding="async"
         />
       </div>
+
+      <p class="palabra-gigante" aria-hidden="true">Espinal</p>
 
       <div class="pantalla-cuerpo sede-espinal-copy reveal">
         <h2 id="sede-espinal-title">Un nuevo punto de encuentro para acompañar más vidas.</h2>
@@ -554,8 +611,14 @@
 
     <!-- Programas: una pantalla por programa; el acompañamiento psicosocial los cruza a todos -->
     <section id="programas" aria-labelledby="programs-title">
-      <div class="pantalla pantalla--larga">
-        <div class="section-header reveal">
+      <div class="pantalla programas-intro">
+        <svg class="programas-orbitas" viewBox="0 0 400 300" aria-hidden="true">
+          <ellipse cx="200" cy="150" rx="190" ry="140"/>
+          <ellipse cx="200" cy="150" rx="120" ry="140"/>
+          <ellipse cx="200" cy="150" rx="60" ry="140"/>
+          <line x1="200" y1="0" x2="200" y2="300"/>
+        </svg>
+        <div class="section-header encabezado--centro reveal">
           <h2 id="programs-title">Acompañamiento para cada etapa.</h2>
           <p class="lead">
             Organizamos nuestro trabajo en programas que promueven educación, liderazgo y bienestar.
@@ -1257,54 +1320,7 @@
     </div>
   </footer>
 
-  <!-- Carril de acciones: siempre a un toque (Donar, WhatsApp, Programas, Compartir y el asistente) -->
-  <aside class="carril" id="carril" aria-label="Acciones rápidas">
-    <a
-      class="carril-btn carril-btn--donar"
-      href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-analytics-event="clic_donar"
-      data-analytics-category="contacto"
-      data-analytics-label="Carril - donar"
-    >
-      <span class="disco"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12.6 12 20l-7.5-7.4A4.6 4.6 0 0 1 12 6.2a4.6 4.6 0 0 1 7.5 6.4z"/></svg></span>
-      Donar
-    </a>
-    <a
-      class="carril-btn"
-      href="{{ 'Hola, quiero recibir información sobre la Fundación Amigos Como Arroz.' | whatsapp }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-analytics-event="clic_whatsapp_flotante"
-      data-analytics-category="contacto"
-      data-analytics-label="Carril - WhatsApp"
-    >
-      <span class="disco"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c-5.25 0-9.5 4.02-9.5 8.98 0 1.76.53 3.4 1.45 4.78L2.5 21.5l5.42-1.37c1.23.65 2.63 1.01 4.08 1.01 5.25 0 9.5-4.02 9.5-8.98S17.25 2.5 12 2.5zm4.4 12.5c-.18.5-1.06.97-1.47 1.03-.38.05-.85.08-1.37-.09-.32-.1-.72-.24-1.24-.46-2.18-.96-3.6-3.18-3.71-3.33-.11-.15-.89-1.2-.89-2.28 0-1.09.57-1.62.77-1.84.2-.22.44-.28.59-.28h.42c.14 0 .32-.05.5.38.18.43.62 1.49.67 1.6.06.11.09.24.02.38-.07.15-.11.24-.22.37-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.25 1.56.86.77 1.59 1.01 1.81 1.12.22.11.35.09.48-.06.13-.15.55-.64.7-.86.15-.22.29-.18.5-.11.2.07 1.27.6 1.49.71.22.11.37.16.42.25.05.09.05.53-.13 1.03z"/></svg></span>
-      WhatsApp
-    </a>
-    <a class="carril-btn carril-btn--programas" href="#programas">
-      <span class="disco"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>
-      Programas
-    </a>
-    <button class="carril-btn carril-btn--compartir" type="button" data-compartir>
-      <span class="disco"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4z"/></svg></span>
-      Compartir
-    </button>
-    <button
-      class="carril-btn"
-      type="button"
-      id="chatbotToggle"
-      aria-controls="chatbotPanel"
-      aria-expanded="false"
-      aria-label="Abrir asistente de ayuda"
-    >
-      <span class="disco"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></span>
-      Asistente
-    </button>
-  </aside>
-
-  <!-- Asistente (se abre desde el carril) -->
+  <!-- Asistente (se abre desde la barra flotante) -->
   <div class="site-chatbot" id="site-chatbot" role="region" aria-label="Chat de ayuda de la fundación">
     <div class="chatbot-panel" id="chatbotPanel" hidden>
       <div class="chatbot-head">

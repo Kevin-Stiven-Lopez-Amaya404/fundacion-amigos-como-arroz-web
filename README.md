@@ -29,8 +29,8 @@ fundacion/
   eleventy.config.mjs           Configuración de Eleventy (qué se copia tal cual)
   vercel.json                   Vercel ejecuta npm run build y publica _site/
   assets/
-    css/sitio.css               Todo el estilo: tokens, pantallas, carril y secciones en @layer
-    fonts/                      Big Shoulders Display y Schibsted Grotesk (servidas desde el sitio)
+    css/sitio.css               Todo el estilo: tokens, pantallas, barra flotante y secciones en @layer
+    fonts/                      Unbounded (títulos grandes), Schibsted Grotesk (texto) y Space Mono (etiquetas), servidas desde el sitio
     css/seasonal/navidad.css    Estilos de temporada (solo con <html data-season="navidad">)
     js/main.js                  Arranca las interacciones de la portada (<script type="module">)
     js/modules/                 Un archivo por funcionalidad (menu, chatbot, contact-form…);

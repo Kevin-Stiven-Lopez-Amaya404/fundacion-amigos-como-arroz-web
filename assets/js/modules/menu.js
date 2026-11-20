@@ -20,7 +20,6 @@ export function initMenu() {
       menuBackdrop.hidden = !isOpen;
     }
 
-    siteHeader.classList.remove("is-hidden");
     menuToggle.setAttribute("aria-expanded", String(isOpen));
     menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu");
   };
@@ -45,10 +44,6 @@ export function initMenu() {
       closeMenu();
       menuToggle.focus();
     }
-  });
-
-  siteHeader.addEventListener("focusin", () => {
-    siteHeader.classList.remove("is-hidden");
   });
 
   navLinks.forEach((link) => {
