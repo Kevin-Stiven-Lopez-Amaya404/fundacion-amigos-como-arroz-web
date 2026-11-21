@@ -118,13 +118,15 @@
     header.appendChild(garland);
   };
 
-  // Nieve y destellos: solo transform/opacity (GPU), sin eventos de scroll.
-  let snowLayer = null;
+  // Nieve y destellos: solo transform/opacity (GPU), sin eventos de scroll. Solo cae en el inicio, en la
+  // campaña de Navidad y en la portada de las páginas internas, detrás del texto; nunca sobre formularios.
+  // Con «ahorro de datos» no se crea.
+  const SNOW_AREAS = ".hero > .pantalla-fondo, .pagina-portada > .pantalla-fondo, #navidad:not([hidden])";
+  const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+  let snowLayers = [];
 
-  const buildSnow = () => {
-    if (snowLayer || reduceMotion.matches) return;
-
-    snowLayer = document.createElement("div");
+  const buildSnowLayer = (area) => {
+    const snowLayer = document.createElement("div");
     snowLayer.className = "xmas-snow";
     snowLayer.setAttribute("aria-hidden", "true");
 
@@ -145,35 +147,41 @@
     }
 
     snowLayer.appendChild(fragment);
-    document.body.appendChild(snowLayer);
+    area.prepend(snowLayer);
+    return snowLayer;
+  };
+
+  const buildSnow = () => {
+    if (snowLayers.length || reduceMotion.matches || saveData) return;
+    snowLayers = Array.from(document.querySelectorAll(SNOW_AREAS), buildSnowLayer);
   };
 
   const removeSnow = () => {
-    snowLayer?.remove();
-    snowLayer = null;
+    snowLayers.forEach((layer) => layer.remove());
+    snowLayers = [];
   };
 
   // Botón para pausar la nieve (WCAG 2.2.2: todo movimiento de más de 5 s debe poder detenerse).
   const buildSnowToggle = () => {
-    const shell = document.querySelector(".site-header .nav-shell, .program-detail-nav");
-    if (!shell || reduceMotion.matches || shell.querySelector(".xmas-snow-toggle")) return;
+    const menu = document.querySelector(".site-header .nav-list");
+    const shell = menu || document.querySelector(".program-detail-nav");
+    if (!shell || reduceMotion.matches || saveData || shell.querySelector(".xmas-snow-toggle")) return;
 
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "xmas-snow-toggle";
+    // En la portada va dentro del menú con el estilo de Compartir: la píldora no crece ni se desborda.
+    button.className = menu ? "nav-compartir xmas-snow-toggle" : "xmas-snow-toggle";
     button.innerHTML =
       '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">' +
       '<path d="M12 2v20M3.3 7l17.4 10M20.7 7 3.3 17M9.2 3.6 12 5.8l2.8-2.2M9.2 20.4 12 18.2l2.8 2.2M3.6 10.4l2.9 1.6-2.9 1.6M20.4 10.4 17.5 12l2.9 1.6"/></svg>' +
       '<span class="xmas-snow-toggle-text"></span>';
 
-    const render = (isOn) => {
-      button.setAttribute("aria-pressed", String(isOn));
-      button.setAttribute("aria-label", isOn ? "Pausar la nieve decorativa" : "Activar la nieve decorativa");
-      button.querySelector(".xmas-snow-toggle-text").textContent = isOn ? "Nieve" : "Sin nieve";
-    };
+    // Botón de alternar: su nombre es «Nieve» y aria-pressed dice si está activa (el texto visible es el nombre).
+    button.querySelector(".xmas-snow-toggle-text").textContent = "Nieve";
+    const render = (isOn) => button.setAttribute("aria-pressed", String(isOn));
 
     button.addEventListener("click", () => {
-      const isOn = !snowLayer;
+      const isOn = !snowLayers.length;
       if (isOn) {
         buildSnow();
       } else {
@@ -183,8 +191,15 @@
       render(isOn);
     });
 
-    render(Boolean(snowLayer));
-    shell.prepend(button);
+    render(snowLayers.length > 0);
+    if (menu) {
+      const item = document.createElement("li");
+      item.className = "nav-item--nieve";
+      item.append(button);
+      menu.append(item);
+    } else {
+      shell.prepend(button);
+    }
   };
 
   // Cuenta regresiva con la tradición colombiana: Novena (16-24 dic), Navidad y Año Nuevo.

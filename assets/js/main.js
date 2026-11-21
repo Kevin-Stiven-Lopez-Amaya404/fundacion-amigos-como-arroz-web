@@ -14,14 +14,12 @@ import { initLazyVideos } from "./modules/lazy-videos.js";
 import { initEncaje } from "./modules/encaje.js";
 import { initStoryBook } from "./modules/story-book.js";
 import { initChatbot } from "./modules/chatbot.js";
-import { initMeta } from "./modules/meta.js";
 import { initHistorias } from "./modules/historias.js";
 import { initPortada } from "./modules/portada.js";
 import { initMovimiento } from "./modules/movimiento.js";
 
 // Inicializacion general del sitio.
 initMenu();
-initMeta();
 initActiveSection();
 initReveal();
 initContactForm();

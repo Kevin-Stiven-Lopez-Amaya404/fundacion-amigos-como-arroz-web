@@ -210,7 +210,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
-  body.menu-open, .con-entrada body { overflow: hidden; }
+  body.menu-open { overflow: hidden; }
 
   /* Momentos grandes: tipografía ancha en mayúsculas. Frases: grotesca, en tono de conversación. */
   h1 {
@@ -373,6 +373,8 @@
     left: 50%;
     bottom: calc(14px + env(safe-area-inset-bottom));
     z-index: 1200;
+    /* max-content: con left 50% el ancho disponible sería solo media pantalla y la píldora se encogía */
+    width: max-content;
     max-width: calc(100vw - 16px);
     transform: translateX(-50%);
   }
@@ -872,8 +874,9 @@
   @media (min-width: 1000px) { .timeline { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); margin-inline: 0; padding-inline: 0; overflow: visible; } }
   .timeline-item { display: flex; flex-direction: column; justify-content: flex-start; gap: var(--e-2); height: auto; padding: 0; border-radius: 0; background: none; color: var(--crema-texto); }
   .timeline-item::after { display: none; }
-  /* Mismo marco para las cuatro fotos (la vertical no estira la fila); entera, sin recortar a nadie */
-  .timeline-item > img { position: static; z-index: 0; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; margin-bottom: 8px; border-radius: 6px; background: var(--niebla); }
+  /* Mismo marco 4:3 en las cuatro fotos (misma altura de imagen en todas las tarjetas); el encuadre de cada una
+     se ajusta con --encuadre en el HTML para no cortar caras */
+  .timeline-item > img { position: static; z-index: 0; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: var(--encuadre, 50% 50%); margin-bottom: 8px; border-radius: 6px; }
   .timeline-item h3 { order: 0; font-size: var(--t-destacado); }
   .timeline-item p { font-size: var(--t-cuerpo); color: var(--crema-texto-2); }
   .timeline-date { order: -1; font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.1em; text-transform: uppercase; color: var(--crema-texto-2); }
@@ -882,6 +885,8 @@
 
   /* Equipo */
   .team-card-modern .team-chip { font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.1em; text-transform: uppercase; color: var(--rosa-claro); }
+  /* Sin nombre confirmado, la tarjeta muestra el cargo con el estilo de etiqueta, no como nombre de persona */
+  .team-card-modern h3.team-cargo { font-family: var(--f-mono); font-size: var(--t-etiqueta); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rosa-claro); }
   .team-info-modern { display: grid; gap: var(--e-2); }
   .team-meta { display: flex; flex-wrap: wrap; gap: var(--e-2); }
   .team-meta span { padding: 4px 10px; border: 1px solid var(--linea-fuerte); border-radius: 6px; font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.06em; text-transform: uppercase; }
@@ -1159,10 +1164,11 @@
     /* Inicio: el texto espera oculto a que GSAP lo haga entrar (la clase intro la pone el <head>).
        Si el JS no llegara a correr, aparece igual a los 4 s. */
     .intro .hero-content > *, .intro .hero-sello, .intro .siguiente { visibility: hidden; animation: aparecer-seguro 0s 4s forwards; }
-    .intro .hero > .pantalla-fondo { visibility: hidden; animation: aparecer-seguro 0s 4s forwards; }
-    .con-entrada.intro .hero-content > *, .con-entrada.intro .hero-sello, .con-entrada.intro .siguiente, .con-entrada.intro .hero > .pantalla-fondo { animation: none; }
+    /* La entrada no bloquea: portada.js la cierra a los 1,2 s (o al primer gesto); si el JS fallara, se va a los 3 s. */
+    .con-entrada .entrada { animation: retirar-entrada 0s 3s forwards; }
   }
   @keyframes aparecer-seguro { to { visibility: visible; } }
+  @keyframes retirar-entrada { to { visibility: hidden; opacity: 0; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
   }

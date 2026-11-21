@@ -1,5 +1,6 @@
 {#- Plantilla de las páginas internas (programas y sede).
     Front matter: title, description, canonical (ruta), bodyClass (opcional), back.href y back.text. -#}
+{%- set raiz = page.url | raiz -%}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,9 +40,7 @@
       <a class="program-back-link" href="{{ back.href }}"><span>{{ back.text }}</span></a>
       <a
         class="nav-donate"
-        href="{{ 'Hola, quiero hacer una donación a la Fundación Amigos Como Arroz.' | whatsapp }}"
-        target="_blank"
-        rel="noopener noreferrer"
+        {% donarAtributos raiz %}
         data-analytics-event="clic_donar"
         data-analytics-category="contacto"
         data-analytics-label="Página interna - donar"
@@ -67,7 +66,7 @@
 {{ content | safe }}
 <footer class="site-footer program-footer">
     <div class="footer-inner container">
-      <p class="footer-copy">© Fundación Amigos Como Arroz.<br>Transformando vidas en Neiva, Huila.</p>
+      <p class="footer-copy">© {{ fechas.anio }} Fundación Amigos Como Arroz.<br>Transformando vidas en Neiva, Huila.</p>
       <nav class="footer-links" aria-label="Enlaces del pie de página">
         <a href="../index.html#fundacion">Fundación</a>
         <a href="../programas/index.html">Programas</a>

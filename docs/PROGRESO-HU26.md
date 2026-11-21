@@ -10,18 +10,18 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 0.2 Capturas 390 y 1440, Lighthouse móvil (portada, Semilla, Sede Espinal) y axe por página en `docs/auditoria-hu26/antes/` (capturas fuera de Git, resumen en Markdown)
 
 ## Fase 1 · Errores visibles
-- [ ] 1.1 Barra flotante sin desbordes de 320 a 1920 px (botón Nieve)
-- [ ] 1.2 Pastilla de Navidad del inicio libre en celular
-- [ ] 1.3 Pantalla de entrada que no bloquea (1,2 s, primer gesto; nunca con movimiento reducido, Save-Data, ancla ni bots)
-- [ ] 1.4 GSAP: texto de programas siempre visible y ESPINAL sin cortes (1024, 1280, 1440, 1920 y 1280×650)
-- [ ] 1.5 Informes: textos del 2025 y del formulario 5245
-- [ ] 1.6 Equipo desde `site.json`, cargo sin nombre y rol de Caren pendiente
-- [ ] 1.7 Momentos con proporción fija y encuadre
-- [ ] 1.8 Fechas automáticas (años, pie, «próximamente», Navidad hasta el 6 de enero)
-- [ ] 1.9 Respuestas fijas del chat (remitir al equipo, nuevas respuestas desde `site.json`)
-- [ ] 1.10 Decoración de Navidad: sin tapar, solo inicio y campaña, Save-Data, contraste
-- [ ] 1.11 Nombres de archivo (`drirectora`, `testimoni1`)
-- [ ] 1.12 Textos alternativos
+- [x] 1.1 Barra flotante sin desbordes de 320 a 1920 px (botón Nieve)
+- [x] 1.2 Pastilla de Navidad del inicio libre en celular
+- [x] 1.3 Pantalla de entrada que no bloquea (1,2 s, primer gesto; nunca con movimiento reducido, Save-Data, ancla ni bots)
+- [x] 1.4 GSAP: texto de programas siempre visible y ESPINAL sin cortes (1024, 1280, 1440, 1920 y 1280×650)
+- [x] 1.5 Informes: textos del 2025 y del formulario 5245
+- [x] 1.6 Equipo desde `site.json`, cargo sin nombre y rol de Caren pendiente
+- [x] 1.7 Momentos con proporción fija y encuadre
+- [x] 1.8 Fechas automáticas (años, pie, «próximamente», Navidad hasta el 6 de enero)
+- [x] 1.9 Respuestas fijas del chat (remitir al equipo, nuevas respuestas desde `site.json`)
+- [x] 1.10 Decoración de Navidad: sin tapar, solo inicio y campaña, Save-Data, contraste
+- [x] 1.11 Nombres de archivo (`drirectora`, `testimoni1`)
+- [x] 1.12 Textos alternativos
 
 ## Fase 2 · Navegación y estructura
 - [ ] 2.1 Navegación completa en páginas internas con menú móvil (reutiliza `menu.js`)

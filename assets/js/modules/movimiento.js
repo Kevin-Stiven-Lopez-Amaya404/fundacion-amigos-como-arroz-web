@@ -48,8 +48,8 @@ function introInicio() {
   const nombre = SplitText.create(hero.querySelector(".hero-title"), { type: "lines", mask: "lines" });
 
   const tl = gsap.timeline({ paused: true, onStart: () => raiz.classList.remove("intro") });
-  tl.fromTo(fondo, { scale: 0.6 }, { scale: 1, ...INICIO }, 0.3)
-    .fromTo(fondo.querySelectorAll("img"), { autoAlpha: 0 }, { autoAlpha: 1, ...REVELAR }, 0.3)
+  // La foto se pinta desde el primer momento (detrás de la entrada): solo se asienta, sin aparecer de la nada.
+  tl.fromTo(fondo, { scale: 1.12 }, { scale: 1, ...INICIO }, 0)
     .fromTo(nombre.lines, { yPercent: 110 }, { yPercent: 0, ...INICIO, stagger: 0.12 }, 0.9)
     .fromTo(hero.querySelector(".hero-title"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0.9)
     .fromTo(hero.querySelector(".hero-badge"), { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, ...REVELAR }, 0.95)

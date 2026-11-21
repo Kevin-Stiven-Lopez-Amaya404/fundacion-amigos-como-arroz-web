@@ -8,8 +8,9 @@ export function initPortada() {
   initCursor();
 }
 
-// Entrada: la decide un script en el <head> (clase con-entrada) para que no parpadee la página.
-// Se cierra con el botón, con la rueda, deslizando o con el teclado, y no vuelve en la misma sesión.
+// Entrada: la decide un script en el <head> (clase con-entrada) para que no parpadee la página; no sale con
+// movimiento reducido, ahorro de datos ni enlace a una sección. Es decorativa y no bloquea: el inicio ya está
+// pintado detrás, se cierra sola a los 1,2 s o con el primer gesto (scroll, toque, clic o tecla) y no vuelve en la sesión.
 function initEntrada() {
   const raiz = document.documentElement;
   const entrada = document.getElementById("entrada");
@@ -18,42 +19,27 @@ function initEntrada() {
     return;
   }
 
-  entrada.hidden = false;
-  const resto = Array.from(document.body.children).filter((el) => el !== entrada && el.tagName !== "SCRIPT");
-  resto.forEach((el) => (el.inert = true));
-  const boton = entrada.querySelector(".entrada-boton");
-  boton.focus({ preventScroll: true });
-
   const control = new AbortController();
   const cerrar = () => {
     control.abort();
+    clearTimeout(reloj);
     try {
       sessionStorage.setItem("entrada", "1");
     } catch {
       // Sin almacenamiento (modo privado): la entrada vuelve a salir en la próxima visita, nada más.
     }
-    resto.forEach((el) => (el.inert = false));
     raiz.classList.remove("con-entrada");
-    window.scrollTo(0, 0);
     document.dispatchEvent(new Event("entrada:cerrada"));
     const quitar = () => entrada.remove();
-    if (prefersLessMotion) return quitar();
     entrada.classList.add("saliendo");
     entrada.addEventListener("transitionend", quitar, { once: true });
     setTimeout(quitar, 1000);
   };
 
+  const reloj = setTimeout(cerrar, 1200);
   const opciones = { signal: control.signal, passive: true };
-  boton.addEventListener("click", cerrar, { signal: control.signal });
-  window.addEventListener("wheel", cerrar, opciones);
-  window.addEventListener("touchmove", cerrar, opciones);
-  document.addEventListener(
-    "keydown",
-    (evento) => {
-      if (["Escape", "ArrowDown", "PageDown", "End"].includes(evento.key)) cerrar();
-    },
-    { signal: control.signal }
-  );
+  ["wheel", "touchstart", "pointerdown", "scroll"].forEach((tipo) => window.addEventListener(tipo, cerrar, opciones));
+  document.addEventListener("keydown", cerrar, opciones);
 }
 
 // Secuencia de palabras: la pantalla queda fija; con el scroll primero se escribe la frase y luego cambia la palabra.
