@@ -991,6 +991,18 @@
   .como-participar strong { font-size: var(--t-destacado); font-weight: 600; }
   .como-participar span { color: var(--texto-2); }
   .form-status { font-weight: 600; color: var(--texto-2); }
+  .form-status[data-tipo="error"] { color: var(--rosa-claro); }
+  /* Resumen de errores, aviso de menores y autorización de datos */
+  .form-resumen { display: grid; gap: var(--e-2); padding: var(--e-4); border: 2px solid var(--rosa-claro); border-radius: var(--radio-s); }
+  .form-resumen:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+  .form-resumen-titulo { font-weight: 700; }
+  .form-resumen ul { display: grid; gap: var(--e-1); padding-left: var(--e-5); list-style: disc; }
+  .form-resumen a { color: var(--texto); }
+  .form-aviso { padding: var(--e-3) var(--e-4); border-left: 3px solid var(--cifra); background: var(--grafito); font-size: var(--t-etiqueta); }
+  .form-check { grid-template-columns: auto 1fr; align-items: start; column-gap: var(--e-3); }
+  .form-check input { width: 24px; height: 24px; margin: 2px 0 0; accent-color: var(--rosa-boton); }
+  .form-check label { font-size: var(--t-etiqueta); font-weight: 500; text-transform: none; letter-spacing: 0; }
+  .form-check .field-error { grid-column: 2; }
   .form-status:empty { display: none; }
 
   /* Pie */
@@ -1128,6 +1140,25 @@
   .sede-contact-card .btn { justify-self: start; }
 
   /* Pie de las páginas internas */
+  /* Páginas de texto (política de datos, términos) */
+  .texto-legal { display: grid; gap: var(--e-4); max-width: 48rem; padding-block: var(--e-8) clamp(64px, 10vw, 120px); padding-inline: var(--margen); }
+  .texto-legal-cabeza { display: grid; gap: var(--e-3); margin-bottom: var(--e-4); }
+  .texto-legal h1 { font-size: var(--t-h2); }
+  .texto-legal h2 { margin-top: var(--e-6); font-size: var(--t-destacado); }
+  .texto-legal p, .texto-legal li { color: var(--texto-2); }
+  .texto-legal ul { display: grid; gap: var(--e-2); padding-left: var(--e-6); list-style: disc; }
+  .texto-legal strong { color: var(--texto); }
+  .aviso-revision { padding: var(--e-4); border: 2px dashed var(--cifra); border-radius: var(--radio-s); background: var(--grafito); font-size: var(--t-etiqueta); }
+
+  /* Aviso de cookies: abajo a la izquierda, sin tapar la barra; Aceptar y Rechazar con el mismo peso */
+  .aviso-cookies { position: fixed; left: 12px; right: 12px; bottom: calc(var(--pie-libre) + 8px); z-index: 1300; display: grid; gap: var(--e-3); max-width: 26rem; padding: var(--e-5); border: 1px solid var(--linea); border-radius: var(--radio); background: var(--tinta); box-shadow: var(--sombra); font-size: var(--t-etiqueta); }
+  .aviso-cookies-titulo { font-weight: 700; font-size: var(--t-cuerpo); }
+  .aviso-cookies-botones { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .aviso-cookies-botones .btn { flex: 1; }
+  .footer-boton { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+  .footer-boton:hover { text-decoration: underline; }
+  .chatbot-privacidad { padding: var(--e-2) var(--e-4) var(--e-3); font-size: var(--t-nota); color: var(--texto-2); }
+
   /* Migas de pan de las páginas internas */
   .migas { padding-top: var(--e-6); padding-inline: calc(var(--marco) + var(--margen)); }
   .migas ol, .nav-sub, .footer-sedes ul, .otros-programas ul { margin: 0; padding: 0; list-style: none; }

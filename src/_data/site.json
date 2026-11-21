@@ -38,11 +38,10 @@
     }
   ],
   "cache": {
-    "sitio": 13,
+    "sitio": 14,
     "navidad": 10,
     "seasonal": 5,
-    "analytics": 1,
-    "main": 22
+    "main": 23
   },
   "legal": {
     "razonSocial": "",

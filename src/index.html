@@ -1164,6 +1164,12 @@ canonical: /
           </div>
 
           <form class="contact-form" id="contact-form" novalidate>
+            {#- Resumen de errores: lo llena contact-form.js al enviar con errores y recibe el foco #}
+            <div class="form-resumen" id="form-resumen" tabindex="-1" role="group" aria-labelledby="form-resumen-titulo" hidden>
+              <p class="form-resumen-titulo" id="form-resumen-titulo">Revisa estos campos antes de enviar:</p>
+              <ul></ul>
+            </div>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Nombre completo</label>
@@ -1199,10 +1205,18 @@ canonical: /
               </div>
             </div>
 
+            <p class="form-aviso" id="aviso-menor" hidden>Si inscribes a un menor, debes ser su madre, padre o acudiente.</p>
+
             <div class="form-group">
               <label for="message">Mensaje</label>
               <textarea id="message" name="message" placeholder="Escribe tu mensaje con los detalles importantes" minlength="10" maxlength="700" aria-describedby="message-error message-ayuda" required></textarea>
               <small class="field-error" id="message-error" aria-live="polite"></small>
+            </div>
+
+            <div class="form-group form-check">
+              <input id="autorizo" name="autorizo" type="checkbox" aria-describedby="autorizo-error" required />
+              <label for="autorizo">Autorizo el tratamiento de mis datos según la <a href="privacidad.html">Política de tratamiento de datos</a>.</label>
+              <small class="field-error" id="autorizo-error" aria-live="polite"></small>
             </div>
 
             <div class="contact-submit">
@@ -1250,15 +1264,15 @@ canonical: /
 
       <form class="chatbot-form" id="chatbotForm">
         <label class="sr-only" for="chatbotInput">Escribe tu pregunta</label>
-        <input id="chatbotInput" type="text" maxlength="600" autocomplete="off" placeholder="Escribe tu duda" />
+        <input id="chatbotInput" type="text" maxlength="600" autocomplete="off" placeholder="Escribe tu duda" aria-describedby="chatbot-privacidad" />
         <button type="submit">Enviar</button>
       </form>
+      <p class="chatbot-privacidad" id="chatbot-privacidad">No escribas datos personales sensibles. Tus mensajes se procesan con un servicio de IA. <a href="privacidad.html">Ver política</a>.</p>
     </div>
   </div>
 
-<script src="assets/js/analytics.js?v={{ site.cache.analytics }}" defer></script>
 {#- Datos para el JS (config.js): contacto y lo que usan las respuestas fijas del chat (respuestas.js). #}
-<script type="application/json" id="site-data">{{ { whatsapp: site.whatsapp, whatsappLabel: site.whatsappLabel, chat: { sedes: site.sedes, faq: site.faq, rte: site.legal.rte, donar: { pagina: donar.pagina, href: "donar.html" }, voluntariado: "voluntariado.html" } } | json | safe }}</script>
+<script type="application/json" id="site-data">{{ { whatsapp: site.whatsapp, whatsappLabel: site.whatsappLabel, analytics: site.analytics, chat: { sedes: site.sedes, faq: site.faq, rte: site.legal.rte, donar: { pagina: donar.pagina, href: "donar.html" }, voluntariado: "voluntariado.html" } } | json | safe }}</script>
 <script type="module" src="assets/js/main.js?v={{ site.cache.main }}"></script>
 
 </body>

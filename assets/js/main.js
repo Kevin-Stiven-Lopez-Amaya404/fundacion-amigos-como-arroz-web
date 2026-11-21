@@ -16,6 +16,8 @@ import { initStoryBook } from "./modules/story-book.js";
 import { initChatbot } from "./modules/chatbot.js";
 import { initHistorias } from "./modules/historias.js";
 import { initCompartir } from "./modules/compartir.js";
+import { initEventos } from "./modules/eventos.js";
+import { initCookies } from "./modules/cookies.js";
 import { initPortada } from "./modules/portada.js";
 import { initMovimiento } from "./modules/movimiento.js";
 
@@ -31,5 +33,7 @@ initStoryBook();
 initChatbot();
 initHistorias();
 initCompartir();
+initEventos();
+initCookies();
 initMovimiento();
 initPortada();

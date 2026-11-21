@@ -34,13 +34,13 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 2.8 Compartir con Web Share API o copia anunciada, también en internas
 
 ## Fase 3 · Legal y datos personales
-- [ ] 3.1 `privacidad.html` (aviso de revisión legal, `noindex` hasta `politicaRevisada`)
-- [ ] 3.2 `terminos.html`
-- [ ] 3.3 Formulario: autorización, aviso de menores, resumen de errores
-- [ ] 3.4 Línea fija de privacidad en el chat
-- [ ] 3.5 Aviso de cookies (GA solo si acepta; preferencias en el pie; sin aviso si no hay ID)
-- [ ] 3.6 ID de GA4 en `site.json` vía `#site-data`
-- [ ] 3.7 Política y términos en el pie y en el sitemap
+- [x] 3.1 `privacidad.html` (aviso de revisión legal, `noindex` hasta `politicaRevisada`)
+- [x] 3.2 `terminos.html`
+- [x] 3.3 Formulario: autorización, aviso de menores, resumen de errores
+- [x] 3.4 Línea fija de privacidad en el chat
+- [x] 3.5 Aviso de cookies (GA solo si acepta; preferencias en el pie; sin aviso si no hay ID)
+- [x] 3.6 ID de GA4 en `site.json` vía `#site-data`
+- [ ] 3.7 Política y términos en el pie y en el sitemap (pie hecho; el sitemap se genera en la 6.5)
 
 ## Fase 4 · Donaciones, voluntariado y alianzas
 - [ ] 4.1 `donar.html`

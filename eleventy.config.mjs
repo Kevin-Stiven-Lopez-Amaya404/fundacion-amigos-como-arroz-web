@@ -3,7 +3,9 @@ import { readFileSync } from "node:fs";
 
 import { whatsapp as armarWhatsapp, raiz, hayDonacion, migasLd, MENSAJE_DONAR } from "./lib/sitio.mjs";
 
-const site = JSON.parse(readFileSync("src/_data/site.json", "utf8"));
+// SITIO_DATOS: carpeta de datos alternativa (solo la usa npm run build:ejemplo; ver scripts/ejemplo.mjs).
+const DATOS = process.env.SITIO_DATOS || "src/_data";
+const site = JSON.parse(readFileSync(`${DATOS}/site.json`, "utf8"));
 const whatsapp = (texto) => armarWhatsapp(site.whatsapp, texto);
 
 export default function (eleventyConfig) {
@@ -31,6 +33,8 @@ export default function (eleventyConfig) {
   // Donar: si hay al menos un medio de pago o una pasarela en site.json, los botones llevan a donar.html;
   // si no, abren WhatsApp como siempre. La condición vive solo aquí.
   eleventyConfig.addGlobalData("donar", { pagina: hayDonacion(site) });
+  // "production" en la publicación de Vercel; "preview" en las vistas previas; "local" en tu computador.
+  eleventyConfig.addGlobalData("entorno", process.env.VERCEL_ENV || "local");
   // <a {% donarAtributos raiz %} …>: href (y target/rel cuando es WhatsApp).
   eleventyConfig.addShortcode("donarAtributos", (prefijo = "", mensaje = MENSAJE_DONAR) =>
     hayDonacion(site)
@@ -38,7 +42,7 @@ export default function (eleventyConfig) {
       : `href="${whatsapp(mensaje)}" target="_blank" rel="noopener noreferrer"`);
 
   return {
-    dir: { input: "src", output: "_site" },
+    dir: { input: "src", output: "_site", data: process.env.SITIO_DATOS ? `../${process.env.SITIO_DATOS}` : "_data" },
     templateFormats: ["html", "njk"],
     htmlTemplateEngine: "njk",
   };

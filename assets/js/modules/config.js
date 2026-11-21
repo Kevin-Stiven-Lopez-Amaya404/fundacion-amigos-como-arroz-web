@@ -1,6 +1,6 @@
 // Datos y ajustes compartidos por los módulos.
 
-// Datos de contacto: vienen de src/_data/site.json (Eleventy los escribe en <script id="site-data">).
+// Datos de site.json que usa el JS (Eleventy los escribe en <script id="site-data">): contacto, analítica y chat.
 const siteData = JSON.parse(document.getElementById("site-data")?.textContent || "{}");
 export const SITE_DATA = siteData;
 export const CONTACT = {

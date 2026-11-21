@@ -7,7 +7,8 @@
     "start": "eleventy --serve",
     "vendor:gsap": "esbuild assets/js/vendor/gsap-entry.js --bundle --format=esm --minify --legal-comments=none --outfile=assets/js/vendor/gsap.js",
     "iconos": "node scripts/iconos.mjs",
-    "compartir": "node scripts/compartir.mjs"
+    "compartir": "node scripts/compartir.mjs",
+    "build:ejemplo": "node scripts/ejemplo.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.8",

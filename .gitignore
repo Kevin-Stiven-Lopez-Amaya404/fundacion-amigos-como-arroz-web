@@ -15,3 +15,5 @@ docs/auditoria-hu26/despues/
 
 # Datos de ejemplo para probar (nunca a Git)
 src/_data/site.ejemplo.json
+_site-ejemplo/
+.cache-ejemplo/
