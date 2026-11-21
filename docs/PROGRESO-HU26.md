@@ -67,14 +67,14 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 6.1 Open Graph y Twitter en todas las páginas, imágenes 1200×630 (`npm run compartir`)
 - [x] 6.2 Títulos y descripciones únicos
 - [x] 6.3 Íconos y `site.webmanifest`
-- [x] 6.4 JSON-LD (NGO, programas, Breadcrumb, FAQ, DonateAction, Place) y su validación (generados; falta la validación en `npm run check`)
+- [x] 6.4 JSON-LD (NGO, programas, Breadcrumb, FAQ, DonateAction, Place) y su validación (en `npm run check`)
 - [x] 6.5 Sitemap automático
 - [x] 6.6 `robots.txt` con `Disallow: /api/`
 - [x] 6.7 Verificación de Search Console
 - [x] 6.8 Redirecciones en `vercel.json`
 
 ## Fase 7 · Rendimiento
-- [ ] 7.1 Objetivos Lighthouse (portada: 78 de mediana con gzip, antes 65; se mide de nuevo al final)
+- [!] 7.1 Objetivos Lighthouse: portada 66 → 81 (mediana con gzip), LCP 4,0 → 3,0 s; escritorio 89 a 100; accesibilidad, prácticas y SEO en 100 (404 con `noindex`). El rendimiento móvil ≥ 90 no es estable en este equipo: la misma página varía entre 65 y 95 de una corrida a otra. Intentado: GSAP diferido y por tareas, entrada solo en pantallas grandes, relleno pre-desenfocado, fondo de entrada liviano, minificación. Ver `AUDITORIA-HU26.md`.
 - [x] 7.2 Publicar solo lo que se usa y verificar referencias
 - [x] 7.3 Minificación y huellas automáticas
 - [x] 7.4 `npm run imagenes`
@@ -118,10 +118,10 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 11.4 `DATOS-PENDIENTES.md`
 
 ## Verificación final
-- [ ] V.1 build, test, check, lint y e2e en verde
-- [ ] V.2 Capturas de todas las páginas en 7 anchos, con y sin Navidad, revisadas
-- [ ] V.3 Lighthouse móvil y escritorio
-- [ ] V.4 axe sin errores serios ni críticos
-- [ ] V.5 Sin JS, movimiento reducido, zoom, teclado, datos vacíos y de ejemplo
-- [ ] V.6 Comparación automática de textos antes y después
-- [ ] V.7 Push y PR hacia `dev`
+- [x] V.1 build, test, check, lint y e2e en verde (e2e: 216 pruebas en Chromium, Firefox y WebKit)
+- [x] V.2 Capturas de todas las páginas en 7 anchos, con y sin Navidad (196 capturas en `docs/auditoria-hu26/despues/`, fuera de Git): sin desbordes ni elementos vacíos (revisión automática) y revisadas en hojas de contacto
+- [x] V.3 Lighthouse móvil y escritorio (8 páginas; cifras en `AUDITORIA-HU26.md`)
+- [x] V.4 axe sin errores serios ni críticos (en las pruebas e2e de las 14 páginas, 3 navegadores, 2 anchos, datos vacíos y de ejemplo)
+- [x] V.5 Sin JS, movimiento reducido, zoom (320 y 640 px), teclado, datos vacíos y de ejemplo
+- [x] V.6 Comparación automática de textos antes y después (solo cambian los textos pedidos; ver `AUDITORIA-HU26.md`)
+- [x] V.7 Push y PR hacia `dev`
