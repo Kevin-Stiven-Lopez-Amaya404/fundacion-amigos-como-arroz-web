@@ -45,6 +45,8 @@ async function revisarPagina(page, url) {
     await Promise.all([...document.images].filter((i) => !i.complete && i.loading !== "lazy").map((i) => new Promise((r) => (i.onload = i.onerror = r))));
   });
   await page.waitForTimeout(800);
+  // La entrada del inicio (GSAP) termina después de 1,2 s; en máquinas lentas axe medía los botones a medio aparecer.
+  await page.waitForFunction(() => [...document.querySelectorAll(".hero-actions")].every((e) => getComputedStyle(e).opacity === "1"), null, { timeout: 10000 });
   const desborde = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   // El contraste se mide sobre el estado final: sin transiciones a medio camino (con varias pruebas en paralelo,
   // WebKit a veces medía un texto todavía semitransparente).
