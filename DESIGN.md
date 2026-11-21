@@ -292,6 +292,7 @@ Mismos tiempos y curvas que la referencia, recreados con código propio: salida 
 - Fotos: se descubren de abajo hacia arriba y se asientan; las de Programas tienen paralaje.
 - Sede Espinal (escritorio): la pantalla se queda fija mientras la foto se asienta, ESPINAL aparece desde un desenfoque y sube el texto, como «The Shift».
 - Programas (escritorio): cada tarjeta se queda quieta y la siguiente sube por encima.
+- Tarjetas de carruseles e informes: suben en grupo, una tras otra (0.08 s), cuando su fila entra a la pantalla.
 - Carruseles (con mouse): se arrastran con inercia y el cursor dice «Arrastra»; sobre un video, «Ver».
 - Impacto: filas escalonadas (0.18 s) y líneas que se dibujan.
 - Con movimiento reducido no corre nada de esto; en celulares todo se mueve, pero sin desenfoques ni pantallas fijas.

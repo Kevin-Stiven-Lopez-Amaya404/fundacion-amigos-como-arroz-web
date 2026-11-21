@@ -819,7 +819,7 @@
   .programas-feed .pantalla { padding-left: calc(var(--margen) + var(--eje)); }
   .program-card { gap: clamp(28px, 5vw, 80px); }
   /* Tarjetas que se apilan al bajar (movimiento.js): fondo propio para tapar a la anterior */
-  .program-card.apilada, .program-card.apilada + .program-card { background: var(--vacio); }
+  .program-card.apilada { background: var(--vacio); }
   .program-card.apilada > * { transform-origin: 50% 30%; }
   @media (min-width: 900px) { .program-card { grid-template-columns: 0.9fr 1.1fr; align-items: center; } }
   .program-card > .pantalla-fondo { position: relative; inset: auto; z-index: 0; overflow: hidden; border-radius: var(--radio); background: var(--tinta); }
@@ -872,7 +872,8 @@
   @media (min-width: 1000px) { .timeline { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); margin-inline: 0; padding-inline: 0; overflow: visible; } }
   .timeline-item { display: flex; flex-direction: column; justify-content: flex-start; gap: var(--e-2); height: auto; padding: 0; border-radius: 0; background: none; color: var(--crema-texto); }
   .timeline-item::after { display: none; }
-  .timeline-item > img { position: static; z-index: 0; height: auto; margin-bottom: 8px; border-radius: 6px; }
+  /* Mismo marco para las cuatro fotos (la vertical no estira la fila); entera, sin recortar a nadie */
+  .timeline-item > img { position: static; z-index: 0; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; margin-bottom: 8px; border-radius: 6px; background: var(--niebla); }
   .timeline-item h3 { order: 0; font-size: var(--t-destacado); }
   .timeline-item p { font-size: var(--t-cuerpo); color: var(--crema-texto-2); }
   .timeline-date { order: -1; font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.1em; text-transform: uppercase; color: var(--crema-texto-2); }
