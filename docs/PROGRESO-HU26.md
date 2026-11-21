@@ -112,10 +112,10 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 10.4 Errores de las herramientas corregidos
 
 ## Fase 11 · Documentación
-- [ ] 11.1 README y docs al día
-- [ ] 11.2 Auditorías anteriores marcadas como históricas y `AUDITORIA-HU26.md`
-- [ ] 11.3 `GUIA-CONTENIDO.md`
-- [ ] 11.4 `DATOS-PENDIENTES.md`
+- [x] 11.1 README y docs al día
+- [x] 11.2 Auditorías anteriores marcadas como históricas y `AUDITORIA-HU26.md`
+- [x] 11.3 `GUIA-CONTENIDO.md`
+- [x] 11.4 `DATOS-PENDIENTES.md`
 
 ## Verificación final
 - [ ] V.1 build, test, check, lint y e2e en verde
