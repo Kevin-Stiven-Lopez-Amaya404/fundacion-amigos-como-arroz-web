@@ -17,3 +17,7 @@ docs/auditoria-hu26/despues/
 src/_data/site.ejemplo.json
 _site-ejemplo/
 .cache-ejemplo/
+
+# Resultados de Playwright
+test-results/
+playwright-report/
