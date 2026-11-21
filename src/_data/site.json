@@ -7,12 +7,42 @@
   "email": "amigoscomoarroz@gmail.com",
   "instagram": "https://www.instagram.com/amigoscomoarroz",
   "facebook": "https://www.facebook.com/amigoscomoarroz",
+  "compartir": {
+    "imagen": "assets/img/compartir/general.jpg",
+    "alt": "Niños, jóvenes y familias de la Fundación Amigos Como Arroz"
+  },
+  "programas": [
+    {
+      "nombre": "Semilla",
+      "pagina": "semilla.html",
+      "publico": "Para niños, niñas y familias",
+      "resumen": "Formación deportiva, cultural y productiva para fortalecer talentos, valores y uso sano del tiempo libre."
+    },
+    {
+      "nombre": "Siembra",
+      "pagina": "siembra.html",
+      "publico": "",
+      "resumen": "Becas y acompañamiento para acceder a educación superior técnica, tecnológica o profesional de excelente calidad."
+    },
+    {
+      "nombre": "Cosecha",
+      "pagina": "cosecha.html",
+      "publico": "Para líderes comunitarios",
+      "resumen": "Liderazgo juvenil y proyectos sociales para servir, participar y generar impacto en la comunidad."
+    },
+    {
+      "nombre": "Acompañamiento psicosocial",
+      "pagina": "psicosocial.html",
+      "publico": "Para familias y beneficiarios",
+      "resumen": "Eje transversal que apoya el sano desarrollo de beneficiarios y familias en su proyecto de vida."
+    }
+  ],
   "cache": {
-    "sitio": 12,
-    "navidad": 9,
-    "seasonal": 4,
+    "sitio": 13,
+    "navidad": 10,
+    "seasonal": 5,
     "analytics": 1,
-    "main": 21
+    "main": 22
   },
   "legal": {
     "razonSocial": "",

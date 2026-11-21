@@ -5,12 +5,15 @@
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve",
-    "vendor:gsap": "esbuild assets/js/vendor/gsap-entry.js --bundle --format=esm --minify --legal-comments=none --outfile=assets/js/vendor/gsap.js"
+    "vendor:gsap": "esbuild assets/js/vendor/gsap-entry.js --bundle --format=esm --minify --legal-comments=none --outfile=assets/js/vendor/gsap.js",
+    "iconos": "node scripts/iconos.mjs",
+    "compartir": "node scripts/compartir.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.8",
     "esbuild": "0.25.10",
-    "gsap": "3.15.0"
+    "gsap": "3.15.0",
+    "sharp": "0.34.4"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.11.0"

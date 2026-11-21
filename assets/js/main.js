@@ -15,6 +15,7 @@ import { initEncaje } from "./modules/encaje.js";
 import { initStoryBook } from "./modules/story-book.js";
 import { initChatbot } from "./modules/chatbot.js";
 import { initHistorias } from "./modules/historias.js";
+import { initCompartir } from "./modules/compartir.js";
 import { initPortada } from "./modules/portada.js";
 import { initMovimiento } from "./modules/movimiento.js";
 
@@ -29,5 +30,6 @@ initLazyVideos();
 initStoryBook();
 initChatbot();
 initHistorias();
+initCompartir();
 initMovimiento();
 initPortada();

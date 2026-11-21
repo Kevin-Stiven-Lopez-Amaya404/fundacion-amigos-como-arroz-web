@@ -24,14 +24,14 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 1.12 Textos alternativos
 
 ## Fase 2 · Navegación y estructura
-- [ ] 2.1 Navegación completa en páginas internas con menú móvil (reutiliza `menu.js`)
-- [ ] 2.2 Migas de pan visibles y `BreadcrumbList`
-- [ ] 2.3 «Otros programas» y bloque de acción en cada programa
-- [ ] 2.4 Pie común (include)
-- [ ] 2.5 `<head>` común (include)
-- [ ] 2.6 Rutas relativas en raíz y subcarpetas
-- [ ] 2.7 Enlaces internos canónicos
-- [ ] 2.8 Compartir con Web Share API o copia anunciada, también en internas
+- [x] 2.1 Navegación completa en páginas internas con menú móvil (reutiliza `menu.js`)
+- [x] 2.2 Migas de pan visibles y `BreadcrumbList`
+- [x] 2.3 «Otros programas» y bloque de acción en cada programa
+- [x] 2.4 Pie común (include)
+- [x] 2.5 `<head>` común (include)
+- [x] 2.6 Rutas relativas en raíz y subcarpetas
+- [x] 2.7 Enlaces internos canónicos
+- [x] 2.8 Compartir con Web Share API o copia anunciada, también en internas
 
 ## Fase 3 · Legal y datos personales
 - [ ] 3.1 `privacidad.html` (aviso de revisión legal, `noindex` hasta `politicaRevisada`)
@@ -64,9 +64,9 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [ ] 5.12 Página 404
 
 ## Fase 6 · SEO
-- [ ] 6.1 Open Graph y Twitter en todas las páginas, imágenes 1200×630
+- [x] 6.1 Open Graph y Twitter en todas las páginas, imágenes 1200×630 (`npm run compartir`)
 - [ ] 6.2 Títulos y descripciones únicos
-- [ ] 6.3 Íconos y `site.webmanifest`
+- [x] 6.3 Íconos y `site.webmanifest`
 - [ ] 6.4 JSON-LD (NGO, programas, Breadcrumb, FAQ, DonateAction, Place) y su validación
 - [ ] 6.5 Sitemap automático
 - [ ] 6.6 `robots.txt` con `Disallow: /api/`
@@ -95,7 +95,7 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [ ] 8.6 Zoom 200 % y 400 %
 - [ ] 8.7 Encabezados, landmarks y nombres de enlaces
 - [ ] 8.8 Aviso de pestaña nueva
-- [ ] 8.9 `lang="es-CO"`
+- [x] 8.9 `lang="es-CO"`
 
 ## Fase 9 · Seguridad y chat
 - [ ] 9.1 Encabezados de seguridad y CSP sin violaciones

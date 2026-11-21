@@ -1,13 +1,13 @@
 // Eleventy compila src/ en _site/. Los recursos se copian tal cual.
 import { readFileSync } from "node:fs";
 
-import { whatsapp as armarWhatsapp, raiz, hayDonacion, MENSAJE_DONAR } from "./lib/sitio.mjs";
+import { whatsapp as armarWhatsapp, raiz, hayDonacion, migasLd, MENSAJE_DONAR } from "./lib/sitio.mjs";
 
 const site = JSON.parse(readFileSync("src/_data/site.json", "utf8"));
 const whatsapp = (texto) => armarWhatsapp(site.whatsapp, texto);
 
 export default function (eleventyConfig) {
-  for (const path of [".nojekyll", "assets", "informes", "robots.txt", "sitemap.xml", "site.webmanifest"]) {
+  for (const path of [".nojekyll", "assets", "informes", "robots.txt", "sitemap.xml", "site.webmanifest", "favicon.ico"]) {
     eleventyConfig.addPassthroughCopy(path);
   }
   // Mantener las URL actuales (programas/cosecha.html, no programas/cosecha/).
@@ -21,6 +21,9 @@ export default function (eleventyConfig) {
 
   // {{ page.url | raiz }} → prefijo relativo hasta la raíz del sitio ("" en la raíz, "../" en programas/…).
   eleventyConfig.addFilter("raiz", raiz);
+
+  // {{ migas | migasLd(nombre, canonical) }} → objeto BreadcrumbList para JSON-LD.
+  eleventyConfig.addFilter("migasLd", (migas, nombre, canonical) => migasLd(site.url, migas, nombre, canonical));
 
   // {{ datos | json }} → JSON seguro dentro de <script> (un "</script>" en un dato no puede cerrar la etiqueta).
   eleventyConfig.addFilter("json", (valor) => JSON.stringify(valor).replace(/</g, "\\u003c"));

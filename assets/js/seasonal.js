@@ -100,7 +100,7 @@
 
   // Guirnalda de luces bajo la barra superior. Decorativa: aria-hidden.
   const buildGarland = () => {
-    const header = document.querySelector(".site-header, .program-detail-header");
+    const header = document.querySelector(".site-header");
     if (!header || header.querySelector(".xmas-garland")) return;
 
     const garland = document.createElement("div");
@@ -164,13 +164,12 @@
   // Botón para pausar la nieve (WCAG 2.2.2: todo movimiento de más de 5 s debe poder detenerse).
   const buildSnowToggle = () => {
     const menu = document.querySelector(".site-header .nav-list");
-    const shell = menu || document.querySelector(".program-detail-nav");
-    if (!shell || reduceMotion.matches || saveData || shell.querySelector(".xmas-snow-toggle")) return;
+    if (!menu || reduceMotion.matches || saveData || menu.querySelector(".xmas-snow-toggle")) return;
 
     const button = document.createElement("button");
     button.type = "button";
-    // En la portada va dentro del menú con el estilo de Compartir: la píldora no crece ni se desborda.
-    button.className = menu ? "nav-compartir xmas-snow-toggle" : "xmas-snow-toggle";
+    // Va dentro del menú con el estilo de Compartir: la píldora no crece ni se desborda.
+    button.className = "nav-compartir xmas-snow-toggle";
     button.innerHTML =
       '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">' +
       '<path d="M12 2v20M3.3 7l17.4 10M20.7 7 3.3 17M9.2 3.6 12 5.8l2.8-2.2M9.2 20.4 12 18.2l2.8 2.2M3.6 10.4l2.9 1.6-2.9 1.6M20.4 10.4 17.5 12l2.9 1.6"/></svg>' +
@@ -192,14 +191,10 @@
     });
 
     render(snowLayers.length > 0);
-    if (menu) {
-      const item = document.createElement("li");
-      item.className = "nav-item--nieve";
-      item.append(button);
-      menu.append(item);
-    } else {
-      shell.prepend(button);
-    }
+    const item = document.createElement("li");
+    item.className = "nav-item--nieve";
+    item.append(button);
+    menu.append(item);
   };
 
   // Cuenta regresiva con la tradición colombiana: Novena (16-24 dic), Navidad y Año Nuevo.
@@ -238,7 +233,7 @@
     revealSeasonBlocks();
     buildGarland();
     // La nieve solo aparece si hay dónde poner su botón de pausa.
-    const canPause = Boolean(document.querySelector(".site-header .nav-shell, .program-detail-nav"));
+    const canPause = Boolean(document.querySelector(".site-header .nav-list"));
     if (canPause && readSnowPreference()) buildSnow();
     buildSnowToggle();
     updateCountdown();

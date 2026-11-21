@@ -97,13 +97,11 @@
   }
   .xmas-flake--sparkle { border-radius: 0; background: var(--xmas-gold); clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); }
 
-  /* Botón para pausar la nieve (lo crea seasonal.js). En la portada va en el menú, junto a Compartir, y toma su
+  /* Botón para pausar la nieve (lo crea seasonal.js). Va en el menú de la barra, junto a Compartir, y toma su
      estilo (.nav-compartir): ícono en escritorio, fila con texto en el menú del celular. */
   .nav-item--nieve .xmas-snow-toggle { border-top: 0; margin-top: 0; }
   .xmas-snow-toggle[aria-pressed="false"] { color: var(--texto-3); }
-  /* Páginas internas: un ícono redondo más de la píldora */
-  .program-detail-nav .xmas-snow-toggle { order: 9; display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0; border: 1px solid var(--linea); border-radius: 50%; background: none; color: var(--texto); }
-  .program-detail-nav .xmas-snow-toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
 
   @keyframes xmas-fall {
     from { transform: translate3d(0, -5vh, 0) rotate(0deg); }

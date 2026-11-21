@@ -21,7 +21,7 @@ export function initMenu() {
     }
 
     menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu");
+    menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
   };
 
   const closeMenu = () => {
