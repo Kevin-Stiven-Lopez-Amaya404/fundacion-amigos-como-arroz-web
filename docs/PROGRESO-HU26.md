@@ -74,7 +74,7 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 6.8 Redirecciones en `vercel.json`
 
 ## Fase 7 · Rendimiento
-- [!] 7.1 Objetivos Lighthouse: portada 66 → 81 (mediana con gzip), LCP 4,0 → 3,0 s; escritorio 89 a 100; accesibilidad, prácticas y SEO en 100 (404 con `noindex`). El rendimiento móvil ≥ 90 no es estable en este equipo: la misma página varía entre 65 y 95 de una corrida a otra. Intentado: GSAP diferido y por tareas, entrada solo en pantallas grandes, relleno pre-desenfocado, fondo de entrada liviano, minificación. Ver `AUDITORIA-HU26.md`.
+- [!] 7.1 Objetivos Lighthouse: portada 66 → 81 (mediana con gzip), LCP 4,0 → 3,0 s; escritorio 89 a 100; accesibilidad, prácticas y SEO en 100 (404 con `noindex`). El rendimiento móvil ≥ 90 no es estable en este equipo: la misma página varía entre 65 y 95 de una corrida a otra. Intentado: GSAP diferido y por tareas, foto principal de Siembra de 185 a 86 KB en celular (versión de 720 px), entrada solo en pantallas grandes, relleno pre-desenfocado, fondo de entrada liviano, minificación. Ver `AUDITORIA-HU26.md`.
 - [x] 7.2 Publicar solo lo que se usa y verificar referencias
 - [x] 7.3 Minificación y huellas automáticas
 - [x] 7.4 `npm run imagenes`
