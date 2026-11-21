@@ -4,6 +4,11 @@ El sitio ya está listo para mostrar todo esto: solo falta que la fundación ent
 escriba en `src/_data/site.json` (ver `docs/GUIA-CONTENIDO.md`). Mientras un campo esté vacío, la sección que
 depende de él no aparece: nada queda vacío ni con texto de relleno a la vista.
 
+Ya resuelto (no hace falta pedirlo): las autorizaciones de imagen de los menores están firmadas, y los medios de
+pago no se publican: la fundación coordina cada donación por WhatsApp (los botones «Donar» abren WhatsApp y
+`donar.html` lo explica). Si algún día se quieren publicar, los campos `donacion.medios` y `donacion.pasarela`
+siguen disponibles (ver `GUIA-CONTENIDO.md`).
+
 | Dato | Quién lo entrega | Campo en `site.json` | Qué se activa al llenarlo |
 |---|---|---|---|
 | Razón social | Dirección o contabilidad | `legal.razonSocial` | Aparece en el pie, en Transparencia, en la política de datos y en el JSON-LD (`legalName`). |
@@ -14,8 +19,6 @@ depende de él no aparece: nada queda vacío ni con texto de relleno a la vista.
 | Certificado de existencia y representación legal (PDF) | Dirección | `legal.certificadoExistencia` | Fila en Transparencia. |
 | Acta de asamblea (PDF, opcional) | Dirección | `legal.actaAsamblea` | Fila en Transparencia. |
 | Revisión legal de la política de datos y los términos | Abogado o abogada | `legal.politicaRevisada` (`true`) y `legal.vigenciaPolitica` (fecha) | Se quita el aviso de borrador, las dos páginas dejan de llevar `noindex` y entran al sitemap. |
-| Medios de pago (cuentas, Nequi, Daviplata…) | Tesorería | `donacion.medios`: `[{ "nombre", "tipo", "numero", "titular" }]` | Página `donar.html` con botón para copiar; todos los botones «Donar» pasan a llevar a esa página. |
-| Pasarela de pago (Wompi, ePayco, PSE…) | Tesorería | `donacion.pasarela`: `{ "nombre", "url" }` | Botón «Donar en línea» en Donar (y los botones «Donar» llevan a la página). |
 | Montos sugeridos con su impacto | Dirección y tesorería | `donacion.montos`: `[{ "valor", "impacto" }]` | Bloque «Lo que hace tu aporte» en Donar. |
 | Donación en especie | Coordinación | `donacion.especie`: `["útiles escolares", …]` | Bloque «Donaciones en especie» en Donar. |
 | Dirección, horario, teléfono y mapa de Neiva | Coordinación | `sedes[0]`: `direccion` (ya está), `horario`, `telefono`, `mapa` | Contacto, pie, chat y botón «Cómo llegar». |
@@ -38,4 +41,3 @@ depende de él no aparece: nada queda vacío ni con texto de relleno a la vista.
 | Subtítulos y transcripciones de los videos | Comunicaciones | `testimonios[n].subtitulos` (`.vtt` en `assets/videos/subtitulos/`) y `transcripcion` | Subtítulos en el reproductor y enlace «Leer la transcripción». |
 | Logo en alta resolución o en vector (SVG) | Comunicaciones | Reemplazar `assets/img/brand/logo-fundacion.jpg` y correr `npm run iconos` | Íconos nítidos en celulares y al instalar el sitio. Hoy el logo mide 160 × 160 px. |
 | Correo con dominio propio | Quien administre el dominio | `email` (por ejemplo `contacto@fundacionamigoscomoarroz.com`) | Cambia en todo el sitio, el chat y `security.txt`. |
-| Confirmación de las autorizaciones de imagen de los menores que aparecen en fotos y videos | Coordinación y familias | (no es un campo) | Si falta alguna, hay que retirar esa foto o video del sitio. |
