@@ -98,12 +98,12 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 8.9 `lang="es-CO"`
 
 ## Fase 9 · Seguridad y chat
-- [ ] 9.1 Encabezados de seguridad y CSP sin violaciones
-- [ ] 9.2 Caché en `vercel.json`
-- [ ] 9.3 `api/chat.mjs` (Haiku, 400 tokens, `CHAT_ACTIVO`, tamaño del cuerpo, registros sin texto)
-- [ ] 9.4 `api/_contexto.mjs` desde `site.json`
-- [ ] 9.5 `security.txt`
-- [ ] 9.6 `rel="noopener noreferrer"` en enlaces externos
+- [x] 9.1 Encabezados de seguridad y CSP sin violaciones
+- [x] 9.2 Caché en `vercel.json`
+- [x] 9.3 `api/chat.mjs` (Haiku, 400 tokens, `CHAT_ACTIVO`, tamaño del cuerpo, registros sin texto)
+- [x] 9.4 `api/_contexto.mjs` desde `site.json`
+- [x] 9.5 `security.txt`
+- [x] 9.6 `rel="noopener noreferrer"` en enlaces externos
 
 ## Fase 10 · Pruebas e integración continua
 - [ ] 10.1 `npm test`, `test:e2e`, `check`, `lighthouse`, `lint`

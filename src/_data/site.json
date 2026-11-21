@@ -124,7 +124,8 @@
     "mision": "",
     "vision": "",
     "valores": [],
-    "junta": []
+    "junta": [],
+    "historia": "Nació en septiembre de 2007 como expresión del compromiso social de la Organización Roa Florhuila con las comunidades de sus zonas de influencia. Está inspirada en el legado de don Aníbal Roa Villamil (Q.E.P.D.) y de su esposa, doña Clara Inés Solano de Roa. Trabaja con niños, niñas, adolescentes, jóvenes y familias en condición de vulnerabilidad mediante programas que fortalecen el aprendizaje, el liderazgo, la permanencia educativa y el bienestar psicosocial."
   },
   "faq": [],
   "convocatorias": [],
@@ -259,5 +260,12 @@
       "subtitulos": "",
       "transcripcion": ""
     }
+  ],
+  "actividades": [
+    "fútbol formativo",
+    "danza",
+    "patinaje",
+    "robótica",
+    "inglés"
   ]
 }
