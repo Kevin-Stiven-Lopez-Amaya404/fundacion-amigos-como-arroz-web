@@ -7,9 +7,11 @@ import { initCompartir } from "./modules/compartir.js";
 import { initEncaje } from "./modules/encaje.js";
 import { initEventos } from "./modules/eventos.js";
 import { initCookies } from "./modules/cookies.js";
+import { initCopiar } from "./modules/copiar.js";
 
 initMenu();
 initCompartir();
 initEncaje();
 initEventos();
 initCookies();
+initCopiar();

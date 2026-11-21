@@ -43,10 +43,10 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [ ] 3.7 Política y términos en el pie y en el sitemap (pie hecho; el sitemap se genera en la 6.5)
 
 ## Fase 4 · Donaciones, voluntariado y alianzas
-- [ ] 4.1 `donar.html`
-- [ ] 4.2 Botones «Donar» con destino global
-- [ ] 4.3 `voluntariado.html`
-- [ ] 4.4 `aliados.html` y franja de logos
+- [x] 4.1 `donar.html`
+- [x] 4.2 Botones «Donar» con destino global
+- [x] 4.3 `voluntariado.html`
+- [x] 4.4 `aliados.html` y franja de logos
 - [ ] 4.5 Eventos de analítica nuevos
 
 ## Fase 5 · Confianza e información institucional
