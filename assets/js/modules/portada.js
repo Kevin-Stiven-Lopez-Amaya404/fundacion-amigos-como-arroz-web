@@ -102,7 +102,8 @@ function initCiclo() {
 
   ciclo.classList.add("ciclo--vivo");
   avanzar(0);
-  ScrollTrigger.create({ trigger: ciclo, start: "top top", end: "bottom bottom", onUpdate: (self) => avanzar(self.progress) });
+  // Empieza a escribir mientras la pantalla va subiendo: al quedar fija, la frase ya está casi completa.
+  ScrollTrigger.create({ trigger: ciclo, start: "top 60%", end: "bottom bottom", onUpdate: (self) => avanzar(self.progress) });
 }
 
 // Punto rosa que sigue al cursor (solo con mouse y sin preferencia de menos movimiento).
