@@ -17,6 +17,7 @@ import {
   programaLd,
   indexable,
   minificarHtml,
+  avisarPestanaNueva,
   MENSAJE_DONAR
 } from "./lib/sitio.mjs";
 import { empaquetar, huella } from "./scripts/empaquetar.mjs";
@@ -52,8 +53,11 @@ export default function (eleventyConfig) {
   // JS y CSS empaquetados y minificados al terminar cada compilación.
   eleventyConfig.on("eleventy.after", ({ dir }) => empaquetar(dir.output));
 
-  // HTML sin comentarios ni sangría (minificación conservadora: no toca el contenido de las etiquetas).
-  eleventyConfig.addTransform("minificar", (contenido, ruta) => (typeof ruta === "string" && ruta.endsWith(".html") ? minificarHtml(contenido) : contenido));
+  // HTML: aviso oculto en los enlaces que abren otra pestaña, y sin comentarios ni sangría (minificación
+  // conservadora: no toca el contenido de las etiquetas).
+  eleventyConfig.addTransform("html", (contenido, ruta) =>
+    typeof ruta === "string" && ruta.endsWith(".html") ? minificarHtml(avisarPestanaNueva(contenido)) : contenido
+  );
 
   // lastmod del sitemap: la fecha del último commit de cada archivo (las noticias usan su propia fecha).
   eleventyConfig.addGlobalData("date", "git Last Modified");

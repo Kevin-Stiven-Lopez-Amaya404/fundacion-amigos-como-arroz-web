@@ -87,14 +87,14 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 7.11 Temporada diferida y liviana
 
 ## Fase 8 · Accesibilidad
-- [ ] 8.1 Carruseles (teclado, botones, posición anunciada)
-- [ ] 8.2 Libro de historia
-- [ ] 8.3 Menú móvil y chat como diálogos
-- [ ] 8.4 «Saltar al contenido» cierra la entrada
-- [ ] 8.5 Contraste
-- [ ] 8.6 Zoom 200 % y 400 %
-- [ ] 8.7 Encabezados, landmarks y nombres de enlaces
-- [ ] 8.8 Aviso de pestaña nueva
+- [x] 8.1 Carruseles (teclado, botones, posición anunciada)
+- [x] 8.2 Libro de historia
+- [x] 8.3 Menú móvil y chat como diálogos
+- [x] 8.4 «Saltar al contenido» cierra la entrada
+- [x] 8.5 Contraste
+- [x] 8.6 Zoom 200 % y 400 %
+- [x] 8.7 Encabezados, landmarks y nombres de enlaces
+- [x] 8.8 Aviso de pestaña nueva
 - [x] 8.9 `lang="es-CO"`
 
 ## Fase 9 · Seguridad y chat

@@ -5,7 +5,7 @@
             <div class="report-year{% if doc.legal %} report-year--document{% endif %}">{{ doc.etiqueta }}</div>
             <div class="report-content">
               <span class="report-status">{{ doc.estado }}</span>
-              <h3>{{ doc.titulo }}</h3>
+              <h{{ nivelDoc or 3 }}>{{ doc.titulo }}</h{{ nivelDoc or 3 }}>
               <p>{{ doc.descripcion }}</p>
             </div>
             <div class="report-actions">

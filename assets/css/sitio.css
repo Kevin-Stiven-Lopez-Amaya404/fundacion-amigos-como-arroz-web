@@ -792,7 +792,9 @@
   .story-book-status { order: -1; flex-basis: 100%; font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.1em; text-transform: uppercase; color: var(--texto-3); }
   .story-book-btn { min-height: 46px; padding: 0 18px; border: 1px solid var(--linea-fuerte); border-radius: var(--radio-s); background: none; font-family: var(--f-mono); font-size: var(--t-etiqueta); letter-spacing: 0.1em; text-transform: uppercase; }
   .story-book-btn:hover:not(:disabled) { border-color: var(--texto); background: color-mix(in srgb, var(--texto) 6%, transparent); }
-  .story-book-btn:disabled { opacity: 0.35; cursor: default; }
+  .story-book-btn:disabled, .story-book-btn[aria-disabled="true"], .team-slider-btn[aria-disabled="true"] { opacity: 0.35; cursor: default; }
+  /* Botones Anterior y Siguiente de los carruseles (los crea carruseles.js) */
+  .carrusel-controles { display: flex; gap: var(--e-2); margin-top: var(--e-3); padding-inline: var(--margen); }
 
   /* Sede Espinal: foto a sangre con la palabra gigante */
   .sede-espinal-section { justify-items: center; align-content: space-between; gap: var(--e-7); padding-top: clamp(36px, 6vh, 72px); text-align: center; }

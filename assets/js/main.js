@@ -20,6 +20,7 @@ import { initCompartir } from "./modules/compartir.js";
 import { initEventos } from "./modules/eventos.js";
 import { initCookies } from "./modules/cookies.js";
 import { initTemporada } from "./modules/temporada.js";
+import { initCarruseles } from "./modules/carruseles.js";
 
 initEntrada();
 initMenu();
@@ -35,6 +36,7 @@ initCompartir();
 initEventos();
 initCookies();
 initTemporada();
+initCarruseles();
 
 // GSAP y las animaciones, después de la primera pintura (doble requestAnimationFrame).
 requestAnimationFrame(() =>

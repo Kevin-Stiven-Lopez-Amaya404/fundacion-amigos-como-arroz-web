@@ -8,6 +8,7 @@ bodyClass: pagina-texto
 ---
 {#- Documentos de site.documentos; los legales opcionales (estados financieros, certificado de existencia,
     acta de asamblea) de site.legal, solo si existen. -#}
+{%- set nivelDoc = 2 %}
 {%- set opcionales = [
   { titulo: "Estados financieros", archivo: site.legal.estadosFinancieros },
   { titulo: "Certificado de existencia y representación legal", archivo: site.legal.certificadoExistencia },

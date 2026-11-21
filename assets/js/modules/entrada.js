@@ -33,4 +33,6 @@ export function initEntrada() {
   const opciones = { signal: control.signal, passive: true };
   ["wheel", "touchstart", "pointerdown", "scroll"].forEach((tipo) => window.addEventListener(tipo, cerrar, opciones));
   document.addEventListener("keydown", cerrar, opciones);
+  // «Saltar al contenido» también la cierra y lleva al contenido.
+  document.querySelector(".skip-link")?.addEventListener("click", cerrar, opciones);
 }

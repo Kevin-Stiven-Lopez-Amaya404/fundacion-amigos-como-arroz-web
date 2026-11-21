@@ -1,5 +1,6 @@
 import { SELECTORS, SITE_DATA } from "./config.js";
 import { responder } from "./respuestas.js";
+import { atraparFoco } from "./foco.js";
 
 // Chatbot de la portada: las preguntas rápidas responden al instante con textos fijos; lo que la persona
 // escribe se responde con Claude (/api/chat). Si la API falla o no existe (npm start), vuelve a los textos fijos
@@ -50,6 +51,14 @@ export function initChatbot() {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.textContent = part.text;
+      if (/^https?:/.test(part.href)) {
+        const aviso = document.createElement("span");
+        aviso.className = "sr-only";
+        aviso.textContent = " (se abre en una pestaña nueva)";
+        link.append(aviso);
+      } else {
+        link.removeAttribute("target");
+      }
       message.append(link);
     }
 
@@ -90,9 +99,15 @@ export function initChatbot() {
     }
   };
 
+  // El panel se comporta como un diálogo: foco dentro mientras está abierto, Escape lo cierra y el foco vuelve
+  // al botón que lo abrió.
+  let soltarFoco = null;
   const setOpen = (isOpen) => {
     panel.hidden = !isOpen;
     toggle.setAttribute("aria-expanded", String(isOpen));
+    soltarFoco?.();
+    soltarFoco = isOpen ? atraparFoco(panel, toggle) : null;
+    if (!isOpen) toggle.focus();
 
     if (isOpen) {
       setTimeout(() => input.focus(), 80);
