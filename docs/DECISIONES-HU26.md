@@ -30,3 +30,6 @@ Decisiones tomadas sin consultar durante HU26: qué se decidió, por qué y cóm
 | 24 | Las noticias son Markdown en `src/noticias/`; el listado `noticias/` solo se publica si hay al menos un `.md`. El modelo `_ejemplo.md.txt` no se compila. | Lo pide el encargo; sin noticias no hay página vacía. | Borrar `src/noticias/`. |
 | 25 | Las convocatorias y «próximamente» se resuelven al compilar. Si hay convocatorias, conviene una publicación diaria (por ejemplo, un *Deploy Hook* de Vercel programado). | El sitio es estático. | — |
 | 26 | La 404 usa enlaces desde la raíz (`raizFija: "/"`), porque Vercel la muestra en cualquier ruta. | Con rutas relativas los enlaces fallarían en subcarpetas. | — |
+| 27 | La política y los términos no entran al sitemap mientras lleven `noindex` (hasta `politicaRevisada: true`); entran solos después. | El encargo pide ambas cosas; un sitemap no debe listar páginas `noindex`. | — |
+| 28 | Los programas usan JSON-LD `Service` con la fundación como `provider`. | `EducationalOccupationalProgram` es para programas que forman para un oficio; Semilla o el acompañamiento psicosocial no lo son. | `programaLd` en `lib/sitio.mjs`. |
+| 29 | `lastmod` del sitemap sale de la fecha del último commit de cada archivo (`date: "git Last Modified"`). | Refleja cambios reales sin mantenerlo a mano. | Quitar el `addGlobalData("date", …)`. |

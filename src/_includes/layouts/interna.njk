@@ -10,6 +10,9 @@
 {%- include "partials/head.njk" %}
   {#- Migas de pan para buscadores (las mismas que se ven en la página) #}
   <script type="application/ld+json">{{ migas | migasLd(nombre, canonical) | json | safe }}</script>
+  {%- if programa %}
+  <script type="application/ld+json">{{ site | programaLd(programa, description) | json | safe }}</script>
+  {%- endif %}
   {%- if lugar %}
   <script type="application/ld+json">{{ site | lugarLd(lugar) | json | safe }}</script>
   {%- endif %}

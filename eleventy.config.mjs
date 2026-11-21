@@ -1,7 +1,7 @@
 // Eleventy compila src/ en _site/. Los recursos se copian tal cual.
 import { readFileSync, statSync } from "node:fs";
 
-import { whatsapp as armarWhatsapp, raiz, hayDonacion, migasLd, ngoLd, lugarLd, peso, faqDe, faqLd, convocatoriasAbiertas, fechaLarga, MENSAJE_DONAR } from "./lib/sitio.mjs";
+import { whatsapp as armarWhatsapp, raiz, hayDonacion, migasLd, ngoLd, lugarLd, peso, faqDe, faqLd, convocatoriasAbiertas, fechaLarga, programaLd, indexable, MENSAJE_DONAR } from "./lib/sitio.mjs";
 
 // SITIO_DATOS: carpeta de datos alternativa (solo la usa npm run build:ejemplo; ver scripts/ejemplo.mjs).
 const DATOS = process.env.SITIO_DATOS || "src/_data";
@@ -9,11 +9,14 @@ const site = JSON.parse(readFileSync(`${DATOS}/site.json`, "utf8"));
 const whatsapp = (texto) => armarWhatsapp(site.whatsapp, texto);
 
 export default function (eleventyConfig) {
-  for (const path of [".nojekyll", "assets", "informes", "robots.txt", "sitemap.xml", "site.webmanifest", "favicon.ico"]) {
+  for (const path of [".nojekyll", "assets", "informes", "robots.txt", "site.webmanifest", "favicon.ico"]) {
     eleventyConfig.addPassthroughCopy(path);
   }
   // Los README de las carpetas son documentación, no páginas.
   eleventyConfig.ignores.add("src/**/README.md");
+
+  // lastmod del sitemap: la fecha del último commit de cada archivo (las noticias usan su propia fecha).
+  eleventyConfig.addGlobalData("date", "git Last Modified");
 
   // Mantener las URL actuales (programas/cosecha.html, no programas/cosecha/).
   eleventyConfig.addGlobalData("permalink", "{{ page.filePathStem }}.html");
@@ -34,6 +37,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("ngoLd", ngoLd);
   eleventyConfig.addFilter("lugarLd", lugarLd);
   eleventyConfig.addFilter("faqDe", faqDe);
+  eleventyConfig.addFilter("esIndexable", indexable);
+  eleventyConfig.addFilter("programaLd", (site, pagina, descripcion) => programaLd(site, pagina, descripcion));
+  // Páginas del sitemap: las que se publican y se indexan (sin la 404 ni las que llevan noindex).
+  eleventyConfig.addFilter("paraSitemap", (paginas) => paginas.filter((p) => p.url && p.outputPath?.endsWith(".html") && indexable(p.data)));
   eleventyConfig.addFilter("faqLd", faqLd);
   eleventyConfig.addFilter("fechaLarga", fechaLarga);
   eleventyConfig.addFilter("convocatoriasAbiertas", (lista, hoy, programa) => convocatoriasAbiertas(lista, hoy, programa));

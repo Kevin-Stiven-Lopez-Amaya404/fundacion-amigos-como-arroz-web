@@ -40,7 +40,7 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 3.4 Línea fija de privacidad en el chat
 - [x] 3.5 Aviso de cookies (GA solo si acepta; preferencias en el pie; sin aviso si no hay ID)
 - [x] 3.6 ID de GA4 en `site.json` vía `#site-data`
-- [ ] 3.7 Política y términos en el pie y en el sitemap (pie hecho; el sitemap se genera en la 6.5)
+- [x] 3.7 Política y términos en el pie y en el sitemap (entran solos al sitemap cuando `politicaRevisada` es `true`)
 
 ## Fase 4 · Donaciones, voluntariado y alianzas
 - [x] 4.1 `donar.html`
@@ -65,13 +65,13 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 
 ## Fase 6 · SEO
 - [x] 6.1 Open Graph y Twitter en todas las páginas, imágenes 1200×630 (`npm run compartir`)
-- [ ] 6.2 Títulos y descripciones únicos
+- [x] 6.2 Títulos y descripciones únicos
 - [x] 6.3 Íconos y `site.webmanifest`
-- [ ] 6.4 JSON-LD (NGO, programas, Breadcrumb, FAQ, DonateAction, Place) y su validación
-- [ ] 6.5 Sitemap automático
-- [ ] 6.6 `robots.txt` con `Disallow: /api/`
-- [ ] 6.7 Verificación de Search Console
-- [ ] 6.8 Redirecciones en `vercel.json`
+- [ ] 6.4 JSON-LD (NGO, programas, Breadcrumb, FAQ, DonateAction, Place) y su validación (generados; falta la validación en `npm run check`)
+- [x] 6.5 Sitemap automático
+- [x] 6.6 `robots.txt` con `Disallow: /api/`
+- [x] 6.7 Verificación de Search Console
+- [x] 6.8 Redirecciones en `vercel.json`
 
 ## Fase 7 · Rendimiento
 - [ ] 7.1 Objetivos Lighthouse

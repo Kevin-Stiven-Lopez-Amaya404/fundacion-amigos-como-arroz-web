@@ -9,7 +9,7 @@
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}" />
   <meta name="theme-color" content="#fbfaf8" />
-  <meta name="robots" content="{{ 'noindex, follow' if (indexar === false or indexar === 'false') else 'index, follow' }}" />
+  <meta name="robots" content="{{ 'index, follow' if ({ indexar: indexar } | esIndexable) else 'noindex, follow' }}" />
   <link rel="canonical" href="{{ urlCanonica }}" />
   {%- if site.verificacion.google %}
   <meta name="google-site-verification" content="{{ site.verificacion.google }}" />

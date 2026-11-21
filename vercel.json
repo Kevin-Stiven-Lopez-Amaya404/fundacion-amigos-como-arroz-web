@@ -1,4 +1,15 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "_site"
+  "outputDirectory": "_site",
+  "redirects": [
+    {
+      "source": "/:ruta*",
+      "has": [{ "type": "host", "value": "www.fundacionamigoscomoarroz.com" }],
+      "destination": "https://fundacionamigoscomoarroz.com/:ruta*",
+      "permanent": true
+    },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/programas/index.html", "destination": "/programas/", "permanent": true },
+    { "source": "/sede-espinal/index.html", "destination": "/sede-espinal/", "permanent": true }
+  ]
 }
