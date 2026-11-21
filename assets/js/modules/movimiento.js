@@ -24,6 +24,7 @@ export function initMovimiento() {
         inicioAlBajar(),
         titulos(),
         fotos(),
+        tarjetas(),
         textoSonador(escritorio),
         espinal(escritorio),
         escritorio && programasApilados(),
@@ -107,6 +108,23 @@ function fotos() {
   });
 }
 
+// Tarjetas de carruseles e informes: suben en grupo, una tras otra, cuando su fila entra a la pantalla.
+function tarjetas() {
+  const lista = gsap.utils.toArray(".carrusel > .historia, .report-row");
+  if (!lista.length) return;
+  gsap.set(lista, { autoAlpha: 0, y: 48 });
+  ScrollTrigger.batch(lista, {
+    start: "top 92%",
+    once: true,
+    onEnter: (grupo) => {
+      // Las que ya quedaron arriba (al llegar con un enlace a otra sección) aparecen sin esperar su turno.
+      const nuevas = grupo.filter((t) => t.getBoundingClientRect().bottom >= 0);
+      gsap.set(grupo.filter((t) => !nuevas.includes(t)), { clearProps: "transform,opacity,visibility" });
+      gsap.to(nuevas, { autoAlpha: 1, y: 0, duration: 0.9, ease: EXPO, stagger: 0.08, clearProps: "transform,opacity,visibility" });
+    }
+  });
+}
+
 // Intro de Programas: cada línea aparece al llegar y se va al salir (con desenfoque solo en escritorio).
 function textoSonador(escritorio) {
   const intro = document.querySelector(".programas-intro");
@@ -154,14 +172,18 @@ function programasApilados() {
   tarjetas.forEach((tarjeta, i) => {
     const siguiente = tarjetas[i + 1];
     if (!siguiente || tarjeta.offsetHeight > window.innerHeight * 1.1) return;
+    // Fondo opaco en la fija y en la que la tapa (al fijarla, GSAP la envuelve y «+» en CSS ya no sirve).
     tarjeta.classList.add("apilada");
+    siguiente.classList.add("apilada");
     ScrollTrigger.create({ trigger: tarjeta, start: "bottom bottom", endTrigger: siguiente, end: "top top", pin: true, pinSpacing: false });
     // Se achica y se apaga solo cuando la siguiente ya tapa media pantalla: mientras se lee, queda intacta.
-    gsap.to(tarjeta.children, {
-      scale: 0.94, opacity: 0.55, ease: "none",
+    // fromTo sin render inmediato: si GSAP leyera la opacidad al crear, tomaría el 0 del texto aún sin revelar.
+    gsap.fromTo(tarjeta.children, { scale: 1, opacity: 1 }, {
+      scale: 0.94, opacity: 0.55, ease: "none", immediateRender: false,
       scrollTrigger: { trigger: siguiente, start: "top 55%", end: "top top", scrub: true }
     });
   });
+  return () => tarjetas.forEach((tarjeta) => tarjeta.classList.remove("apilada"));
 }
 
 // Carruseles con mouse: se arrastran y, al soltar, siguen con inercia hasta frenar; el cursor muestra «Arrastra».
