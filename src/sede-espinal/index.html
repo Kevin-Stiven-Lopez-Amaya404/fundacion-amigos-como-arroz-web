@@ -6,6 +6,7 @@ canonical: /sede-espinal/
 bodyClass: sede-page
 ogImagen: "assets/img/compartir/sede-espinal.jpg"
 nombre: "Sede Espinal"
+lugar: "Espinal"
 ---
     <section class="pagina-portada sede-detail-hero" aria-labelledby="sede-title">
       <div class="pantalla-fondo pagina-foto" aria-hidden="true">
@@ -111,6 +112,9 @@ nombre: "Sede Espinal"
             Comunícate con la fundación para recibir orientación sobre actividades, participación,
             voluntariado o formas de apoyo.
           </p>
+          {#- Dirección, horario, teléfono y «Cómo llegar» desde site.sedes (solo lo que exista) #}
+          {%- set sede = site.sedes | selectattr("ciudad", "equalto", "Espinal") | first %}
+          {%- if sede %}{% include "partials/sede.njk" %}{% endif %}
         </div>
         <a
           class="btn btn-whatsapp"

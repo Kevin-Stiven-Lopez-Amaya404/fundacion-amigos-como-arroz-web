@@ -38,10 +38,10 @@
     }
   ],
   "cache": {
-    "sitio": 15,
+    "sitio": 16,
     "navidad": 10,
     "seasonal": 5,
-    "main": 24
+    "main": 25
   },
   "legal": {
     "razonSocial": "",
@@ -200,6 +200,68 @@
       },
       "alt": "Caren González, integrante del equipo de la fundación",
       "pendiente": "Confirmar su rol: la etiqueta dice «Voluntariado», pero el texto habla de gestión sostenible y las etiquetas de redes y apoyo."
+    }
+  ],
+  "documentos": [
+    {
+      "etiqueta": "2025",
+      "anio": 2025,
+      "tipo": "Informe de gestión",
+      "estado": "Más reciente",
+      "titulo": "Informe de gestión 2025",
+      "descripcion": "Resultados, alianzas, programas e impacto social del año 2025.",
+      "archivo": "informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf",
+      "destacado": true
+    },
+    {
+      "etiqueta": "2024",
+      "anio": 2024,
+      "tipo": "Informe de gestión",
+      "estado": "Histórico",
+      "titulo": "Informe de gestión 2024",
+      "descripcion": "Actividades, beneficiarios, proyectos y gestión institucional del periodo.",
+      "archivo": "informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
+    },
+    {
+      "etiqueta": "Legal",
+      "anio": 2025,
+      "tipo": "Documento legal",
+      "estado": "Documento legal",
+      "titulo": "Formulario 5245: calificación en el Régimen Tributario Especial",
+      "descripcion": "Presentación de la solicitud de calificación en el Régimen Tributario Especial, año 2025.",
+      "archivo": "informes/PRESENTACION-5245.pdf",
+      "nombreDescarga": "PRESENTACION 5245.pdf",
+      "legal": true
+    }
+  ],
+  "testimonios": [
+    {
+      "video": "assets/videos/testimonio1.mp4",
+      "poster": "assets/img/opt/videos-testimonio1-poster-480.webp",
+      "posterAncho": 480,
+      "posterAlto": 624,
+      "etiqueta": "Historia 01",
+      "titulo": "Una voz que habla desde la experiencia.",
+      "texto": "Momentos reales de acompañamiento, confianza y transformación.",
+      "nombre": "",
+      "programa": "",
+      "cita": "",
+      "subtitulos": "",
+      "transcripcion": ""
+    },
+    {
+      "video": "assets/videos/testimonio2.mp4",
+      "poster": "assets/img/opt/videos-testimonio2-poster-480.webp",
+      "posterAncho": 848,
+      "posterAlto": 480,
+      "etiqueta": "Historia 02",
+      "titulo": "Cuando alguien cree contigo, algo empieza a cambiar.",
+      "texto": "Testimonios que muestran el valor humano detrás de cada proceso.",
+      "nombre": "",
+      "programa": "",
+      "cita": "",
+      "subtitulos": "",
+      "transcripcion": ""
     }
   ]
 }

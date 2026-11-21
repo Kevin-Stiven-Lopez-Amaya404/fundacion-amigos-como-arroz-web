@@ -1,7 +1,7 @@
 // Eleventy compila src/ en _site/. Los recursos se copian tal cual.
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 
-import { whatsapp as armarWhatsapp, raiz, hayDonacion, migasLd, MENSAJE_DONAR } from "./lib/sitio.mjs";
+import { whatsapp as armarWhatsapp, raiz, hayDonacion, migasLd, ngoLd, lugarLd, peso, faqDe, faqLd, convocatoriasAbiertas, fechaLarga, MENSAJE_DONAR } from "./lib/sitio.mjs";
 
 // SITIO_DATOS: carpeta de datos alternativa (solo la usa npm run build:ejemplo; ver scripts/ejemplo.mjs).
 const DATOS = process.env.SITIO_DATOS || "src/_data";
@@ -12,6 +12,9 @@ export default function (eleventyConfig) {
   for (const path of [".nojekyll", "assets", "informes", "robots.txt", "sitemap.xml", "site.webmanifest", "favicon.ico"]) {
     eleventyConfig.addPassthroughCopy(path);
   }
+  // Los README de las carpetas son documentación, no páginas.
+  eleventyConfig.ignores.add("src/**/README.md");
+
   // Mantener las URL actuales (programas/cosecha.html, no programas/cosecha/).
   eleventyConfig.addGlobalData("permalink", "{{ page.filePathStem }}.html");
 
@@ -26,6 +29,23 @@ export default function (eleventyConfig) {
 
   // {{ migas | migasLd(nombre, canonical) }} → objeto BreadcrumbList para JSON-LD.
   eleventyConfig.addFilter("migasLd", (migas, nombre, canonical) => migasLd(site.url, migas, nombre, canonical));
+
+  // {{ site | ngoLd }} → JSON-LD de la fundación para la portada.
+  eleventyConfig.addFilter("ngoLd", ngoLd);
+  eleventyConfig.addFilter("lugarLd", lugarLd);
+  eleventyConfig.addFilter("faqDe", faqDe);
+  eleventyConfig.addFilter("faqLd", faqLd);
+  eleventyConfig.addFilter("fechaLarga", fechaLarga);
+  eleventyConfig.addFilter("convocatoriasAbiertas", (lista, hoy, programa) => convocatoriasAbiertas(lista, hoy, programa));
+
+  // {{ "informes/archivo.pdf" | peso }} → «19,5 MB» (tamaño real del archivo al compilar; vacío si no existe).
+  eleventyConfig.addFilter("peso", (ruta) => {
+    try {
+      return peso(statSync(ruta).size);
+    } catch {
+      return "";
+    }
+  });
 
   // {{ datos | json }} → JSON seguro dentro de <script> (un "</script>" en un dato no puede cerrar la etiqueta).
   eleventyConfig.addFilter("json", (valor) => JSON.stringify(valor).replace(/</g, "\\u003c"));
@@ -43,7 +63,7 @@ export default function (eleventyConfig) {
 
   return {
     dir: { input: "src", output: "_site", data: process.env.SITIO_DATOS ? `../${process.env.SITIO_DATOS}` : "_data" },
-    templateFormats: ["html", "njk"],
+    templateFormats: ["html", "njk", "md"],
     htmlTemplateEngine: "njk",
   };
 }

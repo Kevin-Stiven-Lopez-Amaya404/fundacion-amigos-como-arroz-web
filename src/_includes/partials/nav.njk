@@ -24,7 +24,7 @@
         <li><a class="nav-link" href="#contacto">Contacto</a></li>
         {%- else %}
         <li><a class="nav-link" href="{{ raiz or './' }}">Inicio</a></li>
-        <li><a class="nav-link{% if page.url.startsWith('/programas/') %} active{% endif %}" href="{{ raiz }}programas/">Programas</a>
+        <li><a class="nav-link{% if (page.url or '').startsWith('/programas/') %} active{% endif %}" href="{{ raiz }}programas/">Programas</a>
           {#- Los cuatro programas: en el panel del menú (celular y tableta); en escritorio se llega desde Programas. #}
           <ul class="nav-sub" aria-label="Programas">
             {%- for programa in site.programas %}
@@ -32,8 +32,8 @@
             {%- endfor %}
           </ul>
         </li>
-        <li><a class="nav-link{% if page.url.startsWith('/sede-espinal/') %} active{% endif %}" href="{{ raiz }}sede-espinal/">Sede Espinal</a></li>
-        <li><a class="nav-link" href="{{ raiz }}#informes">Transparencia</a></li>
+        <li><a class="nav-link{% if (page.url or '').startsWith('/sede-espinal/') %} active{% endif %}" href="{{ raiz }}sede-espinal/">Sede Espinal</a></li>
+        <li><a class="nav-link" href="{{ raiz }}transparencia.html">Transparencia</a></li>
         <li><a class="nav-link" href="{{ raiz }}#contacto">Contacto</a></li>
         {%- endif %}
         <li class="nav-item--compartir">

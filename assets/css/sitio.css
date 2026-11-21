@@ -1166,6 +1166,45 @@
   .franja-aliados ul { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-6) var(--e-8); margin: 0; padding: 0; list-style: none; }
   .franja-aliados img { width: auto; height: 64px; object-fit: contain; }
 
+  /* Preguntas frecuentes, convocatorias, Quiénes somos y fuente de las cifras */
+  .faq { display: grid; gap: var(--e-5); max-width: 52rem; padding-block: var(--e-8); padding-inline: var(--margen); }
+  .faq h2 { font-size: var(--t-h3); }
+  .faq-lista { display: grid; border-top: 1px solid var(--linea); }
+  .faq details { border-bottom: 1px solid var(--linea); }
+  .faq summary { display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); min-height: 56px; padding-block: var(--e-3); font-weight: 600; cursor: pointer; list-style: none; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--f-mono); font-size: var(--t-lead); color: var(--texto-2); }
+  .faq details[open] summary::after { content: "−"; }
+  .faq details p { padding-bottom: var(--e-4); color: var(--texto-2); max-width: 62ch; }
+  .convocatorias { display: grid; gap: var(--e-4); padding-block: var(--e-6); padding-inline: var(--margen); }
+  .convocatoria { display: grid; gap: var(--e-2); max-width: 52rem; padding: var(--e-6); border-left: 4px solid var(--cifra); border-radius: var(--radio-s); background: var(--grafito); }
+  .convocatoria-etiqueta { font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.1em; text-transform: uppercase; color: var(--texto-2); }
+  .convocatoria-titulo { font-family: var(--f-display); font-size: var(--t-destacado); font-weight: 700; }
+  .quienes-grid { display: grid; gap: var(--e-6); }
+  @media (min-width: 760px) { .quienes-grid { grid-template-columns: repeat(2, 1fr); } }
+  .quienes-grid h3 { margin-bottom: var(--e-2); font-size: var(--t-destacado); }
+  .quienes-grid p { color: var(--texto-2); }
+  .metrics-fuente { margin-top: var(--e-4); font-size: var(--t-etiqueta); color: var(--texto-2); }
+  .contact-sedes { display: grid; gap: var(--e-3); }
+  .sede-datos { display: grid; gap: 2px; font-size: var(--t-etiqueta); color: var(--texto-2); }
+  .sede-datos strong { color: var(--texto); }
+  .sede-mapa { display: inline-flex; align-items: center; min-height: 32px; font-weight: 600; }
+  .reports-mas { padding-top: var(--e-4); }
+  .testimonio-cita { margin: var(--e-2) 0 0; font-style: italic; }
+  .testimonio-autor { font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.08em; text-transform: uppercase; }
+  .testimonio-transcripcion { display: inline-flex; align-items: center; min-height: 32px; font-weight: 600; }
+  .report-peso { color: var(--texto-3); font-weight: 400; }
+  .datos-legales { display: grid; gap: var(--e-2); margin: 0; }
+  .datos-legales div { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .datos-legales dt { font-weight: 600; }
+  .datos-legales dd { margin: 0; color: var(--texto-2); }
+  .pagina-seccion--ancha { max-width: 72rem; }
+  .lista-404 { display: flex; flex-wrap: wrap; gap: var(--e-3); margin: 0; padding: 0; list-style: none; }
+  .lista-noticias { display: grid; gap: var(--e-4); margin: 0; padding: 0; list-style: none; }
+  .lista-noticias a { display: grid; gap: var(--e-2); padding: var(--e-6); border: 1px solid var(--linea); border-radius: var(--radio); color: var(--texto); text-decoration: none; }
+  .lista-noticias time { font-family: var(--f-mono); font-size: var(--t-nota); letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-2); }
+  .noticia-imagen { width: 100%; height: auto; border-radius: var(--radio); }
+
   /* Páginas de texto (política de datos, términos) */
   .texto-legal { display: grid; gap: var(--e-4); max-width: 48rem; padding-block: var(--e-8) clamp(64px, 10vw, 120px); padding-inline: var(--margen); }
   .texto-legal-cabeza { display: grid; gap: var(--e-3); margin-bottom: var(--e-4); }

@@ -1,14 +1,18 @@
 {#- Plantilla de las páginas internas (programas, sede y páginas de la raíz como donar.html).
     Encabezado ---: title, description, canonical (ruta), nombre (nombre corto para las migas),
     migas (opcional: [{ nombre, url }] desde la raíz, sin Inicio ni la página actual), bodyClass (opcional),
-    ogImagen (opcional), jsonLd (opcional, objeto) e indexar: false (opcional). -#}
-{%- set raiz = page.url | raiz -%}
+    ogImagen (opcional), jsonLd (opcional, objeto), lugar (opcional: ciudad de una sede → JSON-LD Place)
+    e indexar: false (opcional). -#}
+{%- set raiz = raizFija or (page.url | raiz) -%}
 <!DOCTYPE html>
 <html lang="es-CO">
 <head>
 {%- include "partials/head.njk" %}
   {#- Migas de pan para buscadores (las mismas que se ven en la página) #}
   <script type="application/ld+json">{{ migas | migasLd(nombre, canonical) | json | safe }}</script>
+  {%- if lugar %}
+  <script type="application/ld+json">{{ site | lugarLd(lugar) | json | safe }}</script>
+  {%- endif %}
   {%- if jsonLd %}
   <script type="application/ld+json">{{ jsonLd | json | safe }}</script>
   {%- endif %}
@@ -30,7 +34,11 @@
 
   <main id="main">
 {{ content | safe }}
-{%- if programa %}{% include "partials/otros-programas.njk" %}{% endif %}
+{%- if programa %}
+{%- include "partials/convocatorias.njk" %}
+{%- include "partials/faq.njk" %}
+{%- include "partials/otros-programas.njk" %}
+{%- endif %}
   </main>
 {%- include "partials/pie.njk" %}
 

@@ -47,21 +47,21 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 4.2 Botones «Donar» con destino global
 - [x] 4.3 `voluntariado.html`
 - [x] 4.4 `aliados.html` y franja de logos
-- [ ] 4.5 Eventos de analítica nuevos
+- [x] 4.5 Eventos de analítica nuevos
 
 ## Fase 5 · Confianza e información institucional
-- [ ] 5.1 Bloque `legal`
-- [ ] 5.2 Pie con todo el contenido institucional
-- [ ] 5.3 Sedes en `site.json`, Contacto y Sede Espinal con «Cómo llegar»
-- [ ] 5.4 `transparencia.html` desde `documentos`
-- [ ] 5.5 Cifras de impacto en `site.json` con corte y fuente
-- [ ] 5.6 Quiénes somos (misión, visión, valores, junta)
-- [ ] 5.7 Preguntas frecuentes con `FAQPage`
-- [ ] 5.8 Convocatorias
-- [ ] 5.9 Testimonios en video (subtítulos, transcripción, datos)
-- [ ] 5.10 Noticias (estructura lista)
-- [ ] 5.11 Correo desde `site.email`
-- [ ] 5.12 Página 404
+- [x] 5.1 Bloque `legal`
+- [x] 5.2 Pie con todo el contenido institucional
+- [x] 5.3 Sedes en `site.json`, Contacto y Sede Espinal con «Cómo llegar»
+- [x] 5.4 `transparencia.html` desde `documentos`
+- [x] 5.5 Cifras de impacto en `site.json` con corte y fuente
+- [x] 5.6 Quiénes somos (misión, visión, valores, junta)
+- [x] 5.7 Preguntas frecuentes con `FAQPage`
+- [x] 5.8 Convocatorias
+- [x] 5.9 Testimonios en video (subtítulos, transcripción, datos)
+- [x] 5.10 Noticias (estructura lista)
+- [x] 5.11 Correo desde `site.email`
+- [x] 5.12 Página 404
 
 ## Fase 6 · SEO
 - [x] 6.1 Open Graph y Twitter en todas las páginas, imágenes 1200×630 (`npm run compartir`)

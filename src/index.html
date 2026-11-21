@@ -18,28 +18,7 @@ canonical: /
     imagesizes="(max-width: 899px) 100vw, 58vw"
     fetchpriority="high"
   />
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "NGO",
-      "name": "Fundación Amigos Como Arroz",
-      "url": "https://fundacionamigoscomoarroz.com/",
-      "logo": "https://fundacionamigoscomoarroz.com/assets/img/brand/logo-fundacion.jpg",
-      "email": "{{ site.email }}",
-      "telephone": "+57 {{ site.whatsappLabel }}",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Carrera 7A No. 16-25, barrio Quirinal",
-        "addressLocality": "Neiva",
-        "addressRegion": "Huila",
-        "addressCountry": "CO"
-      },
-      "sameAs": [
-        "{{ site.instagram }}",
-        "{{ site.facebook }}"
-      ]
-    }
-  </script>
+  <script type="application/ld+json">{{ site | ngoLd | json | safe }}</script>
 </head>
 
 <body>
@@ -309,6 +288,8 @@ canonical: /
       </div>
     </section>
 
+    {%- include "partials/quienes.njk" %}
+
     <!-- Programas: una pantalla por programa; el acompañamiento psicosocial los cruza a todos -->
     <section id="programas" aria-labelledby="programs-title">
       <div class="pantalla programas-intro">
@@ -497,6 +478,8 @@ canonical: /
           Inscribirme por WhatsApp
         </a>
       </div>
+      {%- include "partials/convocatorias.njk" %}
+      {%- include "partials/faq.njk" %}
     </section>
 
     <!-- Impacto: las cifras como frases -->
@@ -539,6 +522,12 @@ canonical: /
           </p>
           {%- endfor %}
         </div>
+        {%- if site.impacto.corte or site.impacto.fuente %}
+        <p class="metrics-fuente">
+          Cifras{% if site.impacto.corte %} a {{ site.impacto.corte }}{% endif %}{% if site.impacto.fuente %}, según {{ site.impacto.fuente }}{% endif %}.
+          {%- if site.impacto.informe %} <a href="{{ site.impacto.informe }}" target="_blank" rel="noopener noreferrer">Ver el informe<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.{% endif %}
+        </p>
+        {%- endif %}
       </div>
       <div class="impact-proof reveal" aria-label="Formas de impacto">
         <article>
@@ -628,43 +617,31 @@ canonical: /
       </div>
 
       <div class="carrusel testimonial-video-carousel" role="region" tabindex="0" aria-label="Carrusel de testimonios en video">
+        {#- Testimonios desde site.testimonios: nombre, programa, cita, subtítulos (.vtt) y transcripción son opcionales #}
+        {%- for t in site.testimonios %}
         <article class="historia testimonial-video-showcase">
           <button
             data-cursor="Ver" class="local-video-loader testimonial-video"
             type="button"
-            data-video-src="assets/videos/testimonio1.mp4"
-            data-poster="assets/img/opt/videos-testimonio1-poster-480.webp"
-            data-label="Video testimonial 1 de la fundación"
-            aria-label="Video testimonial 1 de la fundación"
+            data-video-src="{{ t.video }}"
+            data-poster="{{ t.poster }}"
+            data-label="{{ t.etiqueta }}: {{ t.titulo }}"
+            {%- if t.subtitulos %} data-captions="{{ t.subtitulos }}"{% endif %}
+            aria-label="Reproducir video {{ t.etiqueta }}: {{ t.titulo }}"
           >
-            <img src="assets/img/opt/videos-testimonio1-poster-480.webp" alt="" width="480" height="624" loading="lazy" decoding="async" />
+            <img src="{{ t.poster }}" alt="" width="{{ t.posterAncho }}" height="{{ t.posterAlto }}" loading="lazy" decoding="async" />
             <span class="video-play-control" aria-hidden="true"></span>
           </button>
           <div class="testimonial-video-info">
-            <span>Historia 01</span>
-            <strong>Una voz que habla desde la experiencia.</strong>
-            <p>Momentos reales de acompañamiento, confianza y transformación.</p>
+            <span>{{ t.etiqueta }}</span>
+            <strong>{{ t.titulo }}</strong>
+            <p>{{ t.texto }}</p>
+            {%- if t.cita %}<blockquote class="testimonio-cita">«{{ t.cita }}»</blockquote>{% endif %}
+            {%- if t.nombre or t.programa %}<p class="testimonio-autor">{{ t.nombre }}{% if t.nombre and t.programa %} · {% endif %}{{ t.programa }}</p>{% endif %}
+            {%- if t.transcripcion %}<a class="testimonio-transcripcion" href="{{ t.transcripcion }}">Leer la transcripción<span class="sr-only"> de {{ t.etiqueta }}</span></a>{% endif %}
           </div>
         </article>
-
-        <article class="historia testimonial-video-showcase">
-          <button
-            data-cursor="Ver" class="local-video-loader testimonial-video"
-            type="button"
-            data-video-src="assets/videos/testimonio2.mp4"
-            data-poster="assets/img/opt/videos-testimonio2-poster-480.webp"
-            data-label="Video testimonial 2 de la fundación"
-            aria-label="Video testimonial 2 de la fundación"
-          >
-            <img src="assets/img/opt/videos-testimonio2-poster-480.webp" alt="" width="848" height="480" loading="lazy" decoding="async" />
-            <span class="video-play-control" aria-hidden="true"></span>
-          </button>
-          <div class="testimonial-video-info">
-            <span>Historia 02</span>
-            <strong>Cuando alguien cree contigo, algo empieza a cambiar.</strong>
-            <p>Testimonios que muestran el valor humano detrás de cada proceso.</p>
-          </div>
-        </article>
+        {%- endfor %}
 
         <article class="historia video-card-modern">
           <button
@@ -1036,44 +1013,11 @@ canonical: /
         </div>
 
         <div class="reports-list">
-          <article class="report-row report-row--latest">
-            <div class="report-year">2025</div>
-            <div class="report-content">
-              <span class="report-status">Más reciente</span>
-              <h3>Informe de gestión 2025</h3>
-              <p>Resultados, alianzas, programas e impacto social del año 2025.</p>
-            </div>
-            <div class="report-actions">
-              <a class="report-link" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf" target="_blank" rel="noopener noreferrer">Ver documento</a>
-              <a class="report-link report-link--secondary" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf" download>Descargar PDF</a>
-            </div>
-          </article>
-
-          <article class="report-row">
-            <div class="report-year">2024</div>
-            <div class="report-content">
-              <span class="report-status">Histórico</span>
-              <h3>Informe de gestión 2024</h3>
-              <p>Actividades, beneficiarios, proyectos y gestión institucional del periodo.</p>
-            </div>
-            <div class="report-actions">
-              <a class="report-link" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf" target="_blank" rel="noopener noreferrer">Ver documento</a>
-              <a class="report-link report-link--secondary" href="informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf" download>Descargar PDF</a>
-            </div>
-          </article>
-
-          <article class="report-row report-row--legal">
-            <div class="report-year report-year--document">Legal</div>
-            <div class="report-content">
-              <span class="report-status">Documento legal</span>
-              <h3>Formulario 5245: calificación en el Régimen Tributario Especial</h3>
-              <p>Presentación de la solicitud de calificación en el Régimen Tributario Especial, año 2025.</p>
-            </div>
-            <div class="report-actions">
-              <a class="report-link" href="informes/PRESENTACION-5245.pdf" target="_blank" rel="noopener noreferrer">Ver documento</a>
-              <a class="report-link report-link--secondary" href="informes/PRESENTACION-5245.pdf" download="PRESENTACION 5245.pdf">Descargar PDF</a>
-            </div>
-          </article>
+          {#- Los documentos salen de site.documentos (los mismos de transparencia.html) #}
+          {%- for doc in site.documentos %}
+          {%- include "partials/documento.njk" %}
+          {%- endfor %}
+          <p class="reports-mas"><a href="transparencia.html">Ver todos los documentos de transparencia</a></p>
         </div>
       </div>
     </section>
@@ -1120,24 +1064,26 @@ canonical: /
               Inscribirme
             </a>
           </div>
-          {%- if site.donacion and site.donacion.medios.length %}
+          {%- if donar.pagina %}
           <div class="como-donar" aria-labelledby="como-donar-title">
             <h3 id="como-donar-title">Cómo donar</h3>
             <ul>
               {%- for medio in site.donacion.medios %}
-              <li><strong>{{ medio.nombre }}</strong><span>{{ medio.dato }}</span>{% if medio.titular %}<small>{{ medio.titular }}</small>{% endif %}</li>
+              <li><strong>{{ medio.nombre }}</strong><span>{{ medio.numero }}</span>{% if medio.titular %}<small>{{ medio.titular }}</small>{% endif %}</li>
               {%- endfor %}
             </ul>
-            <p>Cuando dones, escríbenos por WhatsApp para enviarte el certificado de donación.</p>
+            <p><a href="donar.html">Todas las formas de donar</a></p>
           </div>
           {%- endif %}
 
           <ul class="contact-list">
             <li class="contact-item">
               <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-              <div>
-                <strong>Ubicación</strong>
-                <small>Carrera 7A No. 16-25, barrio Quirinal · Neiva, Huila</small>
+              <div class="contact-sedes">
+                <strong>Sedes</strong>
+                {%- for sede in site.sedes %}
+                {% include "partials/sede.njk" %}
+                {%- endfor %}
               </div>
             </li>
             <li class="contact-item">
