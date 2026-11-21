@@ -51,7 +51,8 @@ export default function (eleventyConfig) {
   eleventyConfig.ignores.add("src/**/README.md");
 
   // JS y CSS empaquetados y minificados al terminar cada compilación.
-  eleventyConfig.on("eleventy.after", ({ dir }) => empaquetar(dir.output));
+  // (directories.output respeta --output, que usa npm run build:ejemplo; dir.output no.)
+  eleventyConfig.on("eleventy.after", ({ directories, dir }) => empaquetar(directories?.output ?? dir.output));
 
   // HTML: aviso oculto en los enlaces que abren otra pestaña, y sin comentarios ni sangría (minificación
   // conservadora: no toca el contenido de las etiquetas).

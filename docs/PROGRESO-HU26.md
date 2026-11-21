@@ -67,7 +67,7 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 6.1 Open Graph y Twitter en todas las páginas, imágenes 1200×630 (`npm run compartir`)
 - [x] 6.2 Títulos y descripciones únicos
 - [x] 6.3 Íconos y `site.webmanifest`
-- [ ] 6.4 JSON-LD (NGO, programas, Breadcrumb, FAQ, DonateAction, Place) y su validación (generados; falta la validación en `npm run check`)
+- [x] 6.4 JSON-LD (NGO, programas, Breadcrumb, FAQ, DonateAction, Place) y su validación (generados; falta la validación en `npm run check`)
 - [x] 6.5 Sitemap automático
 - [x] 6.6 `robots.txt` con `Disallow: /api/`
 - [x] 6.7 Verificación de Search Console
@@ -106,10 +106,10 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 9.6 `rel="noopener noreferrer"` en enlaces externos
 
 ## Fase 10 · Pruebas e integración continua
-- [ ] 10.1 `npm test`, `test:e2e`, `check`, `lighthouse`, `lint`
-- [ ] 10.2 GitHub Actions
-- [ ] 10.3 Node fijo (`engines`, `.nvmrc`)
-- [ ] 10.4 Errores de las herramientas corregidos
+- [x] 10.1 `npm test`, `test:e2e`, `check`, `lighthouse`, `lint`
+- [x] 10.2 GitHub Actions
+- [x] 10.3 Node fijo (`engines`, `.nvmrc`)
+- [x] 10.4 Errores de las herramientas corregidos
 
 ## Fase 11 · Documentación
 - [ ] 11.1 README y docs al día

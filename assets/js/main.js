@@ -37,6 +37,8 @@ initEventos();
 initCookies();
 initTemporada();
 initCarruseles();
+// Marca que la interacción ya arrancó (la usan las pruebas automáticas para no actuar antes de tiempo).
+document.documentElement.dataset.listo = "";
 
 // GSAP y las animaciones, después de la primera pintura (doble requestAnimationFrame).
 requestAnimationFrame(() =>

@@ -7,7 +7,8 @@ export function initCopiar() {
     boton.addEventListener("click", async () => {
       let mensaje;
       try {
-        await navigator.clipboard.writeText(boton.dataset.copiar);
+        // Si el navegador no responde (permiso pendiente), a los 1,5 s se muestra el número para copiarlo a mano.
+        await Promise.race([navigator.clipboard.writeText(boton.dataset.copiar), new Promise((_, no) => setTimeout(() => no(new Error("sin respuesta")), 1500))]);
         mensaje = `Copiado: ${boton.dataset.copiar}`;
         boton.firstChild.textContent = "Copiado";
       } catch {

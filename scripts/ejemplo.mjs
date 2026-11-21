@@ -17,6 +17,7 @@ const site = mezclar(JSON.parse(readFileSync("src/_data/site.json", "utf8")), JS
 
 const datos = ".cache-ejemplo/_data";
 rmSync(".cache-ejemplo", { recursive: true, force: true });
+rmSync("_site-ejemplo", { recursive: true, force: true });
 mkdirSync(datos, { recursive: true });
 cpSync("src/_data", datos, { recursive: true, filter: (f) => !f.endsWith("site.ejemplo.json") });
 writeFileSync(`${datos}/site.json`, JSON.stringify(site, null, 2));

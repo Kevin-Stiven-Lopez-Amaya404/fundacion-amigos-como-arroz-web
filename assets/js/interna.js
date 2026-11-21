@@ -17,3 +17,4 @@ initEventos();
 initCookies();
 initCopiar();
 initTemporada();
+document.documentElement.dataset.listo = ""; // la interacción ya arrancó (para las pruebas)
