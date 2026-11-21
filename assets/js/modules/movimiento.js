@@ -15,29 +15,46 @@ export function initMovimiento() {
       escritorio: "(min-width: 900px) and (min-height: 640px)",
       mouse: "(hover: hover) and (pointer: fine)"
     },
-    ({ conditions }) => {
-      if (!conditions.movimiento) return;
-      const { escritorio, mouse } = conditions;
+    (contexto) => {
+      const { movimiento, escritorio, mouse } = contexto.conditions;
+      if (!movimiento) return;
       // GSAP deshace solo tweens, ScrollTriggers, SplitText y Draggable; los oyentes propios se limpian aquí.
-      const limpiezas = [
-        introInicio(),
-        inicioAlBajar(),
-        titulos(),
-        fotos(),
-        tarjetas(),
-        textoSonador(escritorio),
-        espinal(escritorio),
-        escritorio && programasApilados(),
-        mouse && carruseles(),
-        rebote()
-      ];
-      return () => limpiezas.forEach((limpiar) => typeof limpiar === "function" && limpiar());
+      // Lo del inicio se arma ya; lo demás, en tareas cortas separadas (una por efecto) para no bloquear la
+      // página: armarlo todo de una vez era una tarea de ~1 s en un celular (Lighthouse, HU26).
+      const limpiezas = [introInicio(), inicioAlBajar(), rebote()];
+      const pasos = [
+        () => titulos(contexto),
+        fotos,
+        tarjetas,
+        () => textoSonador(escritorio),
+        () => espinal(escritorio),
+        escritorio && programasApilados,
+        mouse && carruseles
+      ].filter(Boolean);
+      let cancelado = false;
+      (async () => {
+        for (const paso of pasos) {
+          await ceder();
+          if (cancelado) return;
+          contexto.add(() => limpiezas.push(paso()));
+        }
+        // Las escenas fijas agregan espacio: se ordenan los ScrollTrigger por posición y se recalculan.
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+      })();
+      return () => {
+        cancelado = true;
+        limpiezas.forEach((limpiar) => typeof limpiar === "function" && limpiar());
+      };
     }
   );
   // Las fuentes y las fotos cambian el alto de la página: se recalculan los puntos de inicio.
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
   window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
 }
+
+// Cede el hilo principal al navegador entre tarea y tarea.
+const ceder = () => (globalThis.scheduler?.yield ? globalThis.scheduler.yield() : new Promise((listo) => setTimeout(listo, 0)));
 
 // Entrada del inicio: la foto crece y el nombre sube línea a línea (tras «Entrar», o al cargar si no hay entrada).
 function introInicio() {
@@ -58,7 +75,8 @@ function introInicio() {
     .fromTo(hero.querySelectorAll(".hero-sello, .siguiente"), { autoAlpha: 0 }, { autoAlpha: 1, ...REVELAR, stagger: 0.15 }, 1.2);
 
   const empezar = () => tl.play();
-  if (raiz.classList.contains("con-entrada")) document.addEventListener("entrada:cerrada", empezar, { once: true });
+  const entradaAbierta = document.querySelector("#entrada:not([data-cerrada])");
+  if (raiz.classList.contains("con-entrada") && entradaAbierta) document.addEventListener("entrada:cerrada", empezar, { once: true });
   else empezar();
   return () => document.removeEventListener("entrada:cerrada", empezar);
 }
@@ -74,15 +92,20 @@ function inicioAlBajar() {
 }
 
 // Títulos de sección: las letras se encienden una tras otra al entrar (como el «Statement» de la referencia).
-function titulos() {
+// Cada título se divide en letras solo cuando está por aparecer, no todos al cargar.
+function titulos(contexto) {
   gsap.utils.toArray("main > section h2").forEach((titulo) => {
     if (titulo.closest(".programas-intro")) return; // ese título ya tiene su propio efecto
-    const split = SplitText.create(titulo, { type: "words,chars" });
-    gsap.fromTo(
-      split.chars,
-      { opacity: 0.12 },
-      { opacity: 1, duration: 0.5, ease: EXPO, stagger: 0.026, scrollTrigger: { trigger: titulo, start: "top 85%", once: true } }
-    );
+    ScrollTrigger.create({
+      trigger: titulo,
+      start: "top bottom",
+      once: true,
+      onEnter: () =>
+        contexto.add(() => {
+          const split = SplitText.create(titulo, { type: "words,chars" });
+          gsap.fromTo(split.chars, { opacity: 0.12 }, { opacity: 1, duration: 0.5, ease: EXPO, stagger: 0.026, delay: 0.15 });
+        })
+    });
   });
 }
 
@@ -249,7 +272,7 @@ function rebote() {
   const armar = () => {
     clearTimeout(espera);
     espera = setTimeout(() => {
-      if (window.scrollY < 80 && !document.documentElement.classList.contains("con-entrada")) salto.restart();
+      if (window.scrollY < 80 && !document.querySelector("#entrada:not([data-cerrada])")) salto.restart();
       armar();
     }, 5000);
   };

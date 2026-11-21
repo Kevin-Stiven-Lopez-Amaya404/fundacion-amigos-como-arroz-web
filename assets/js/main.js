@@ -1,10 +1,12 @@
 /*
-  Interacciones principales de la portada (se carga con <script type="module">).
+  Interacciones principales de la portada (se carga con <script type="module">; en producción esbuild lo
+  empaqueta y minifica: ver scripts/empaquetar.mjs).
 
-  - modules/config.js centraliza selectores, preferencias de movimiento y datos de contacto.
+  - modules/config.js centraliza selectores, preferencias de movimiento y datos de site.json.
   - Cada módulo de modules/ configura una sola funcionalidad (init*).
-  - Aquí se inicializan en un orden claro.
+  - Lo que usa GSAP (animaciones.js) se carga aparte, después de la primera pintura.
 */
+import { initEntrada } from "./modules/entrada.js";
 import { initMenu } from "./modules/menu.js";
 import { initActiveSection } from "./modules/active-section.js";
 import { initReveal } from "./modules/reveal.js";
@@ -14,14 +16,12 @@ import { initLazyVideos } from "./modules/lazy-videos.js";
 import { initEncaje } from "./modules/encaje.js";
 import { initStoryBook } from "./modules/story-book.js";
 import { initChatbot } from "./modules/chatbot.js";
-import { initHistorias } from "./modules/historias.js";
 import { initCompartir } from "./modules/compartir.js";
 import { initEventos } from "./modules/eventos.js";
 import { initCookies } from "./modules/cookies.js";
-import { initPortada } from "./modules/portada.js";
-import { initMovimiento } from "./modules/movimiento.js";
+import { initTemporada } from "./modules/temporada.js";
 
-// Inicializacion general del sitio.
+initEntrada();
 initMenu();
 initActiveSection();
 initReveal();
@@ -31,9 +31,14 @@ initEncaje();
 initLazyVideos();
 initStoryBook();
 initChatbot();
-initHistorias();
 initCompartir();
 initEventos();
 initCookies();
-initMovimiento();
-initPortada();
+initTemporada();
+
+// GSAP y las animaciones, después de la primera pintura (doble requestAnimationFrame).
+requestAnimationFrame(() =>
+  requestAnimationFrame(() => {
+    import("./modules/animaciones.js").then(({ initAnimaciones }) => initAnimaciones());
+  })
+);

@@ -1,45 +1,11 @@
 import { gsap, ScrollTrigger } from "../vendor/gsap.js";
 import { prefersLessMotion } from "./config.js";
 
-// Efectos propios de la portada: la pantalla de entrada, la secuencia de palabras y el punto que sigue al cursor.
+// Efectos propios de la portada que usan GSAP: la secuencia de palabras y el punto que sigue al cursor.
+// (La pantalla de entrada está en entrada.js, que no necesita GSAP y carga de inmediato.)
 export function initPortada() {
-  initEntrada();
   initCiclo();
   initCursor();
-}
-
-// Entrada: la decide un script en el <head> (clase con-entrada) para que no parpadee la página; no sale con
-// movimiento reducido, ahorro de datos ni enlace a una sección. Es decorativa y no bloquea: el inicio ya está
-// pintado detrás, se cierra sola a los 1,2 s o con el primer gesto (scroll, toque, clic o tecla) y no vuelve en la sesión.
-function initEntrada() {
-  const raiz = document.documentElement;
-  const entrada = document.getElementById("entrada");
-  if (!entrada || !raiz.classList.contains("con-entrada")) {
-    entrada?.remove();
-    return;
-  }
-
-  const control = new AbortController();
-  const cerrar = () => {
-    control.abort();
-    clearTimeout(reloj);
-    try {
-      sessionStorage.setItem("entrada", "1");
-    } catch {
-      // Sin almacenamiento (modo privado): la entrada vuelve a salir en la próxima visita, nada más.
-    }
-    raiz.classList.remove("con-entrada");
-    document.dispatchEvent(new Event("entrada:cerrada"));
-    const quitar = () => entrada.remove();
-    entrada.classList.add("saliendo");
-    entrada.addEventListener("transitionend", quitar, { once: true });
-    setTimeout(quitar, 1000);
-  };
-
-  const reloj = setTimeout(cerrar, 1200);
-  const opciones = { signal: control.signal, passive: true };
-  ["wheel", "touchstart", "pointerdown", "scroll"].forEach((tipo) => window.addEventListener(tipo, cerrar, opciones));
-  document.addEventListener("keydown", cerrar, opciones);
 }
 
 // Secuencia de palabras: la pantalla queda fija; con el scroll primero se escribe la frase y luego cambia la palabra.

@@ -36,7 +36,7 @@
 
   <link rel="preload" href="{{ raiz }}assets/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="{{ raiz }}assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link href="{{ raiz }}assets/css/sitio.css?v={{ site.cache.sitio }}" rel="stylesheet" />
+  <link href="{{ raiz }}assets/css/sitio.css?v={{ 'assets/css/sitio.css' | huella }}" rel="stylesheet" />
   {#- Temporada (Navidad): se enciende y se apaga en assets/js/seasonal.js #}
-  <link href="{{ raiz }}assets/css/seasonal/navidad.css?v={{ site.cache.navidad }}" rel="stylesheet" />
-  <script src="{{ raiz }}assets/js/seasonal.js?v={{ site.cache.seasonal }}"></script>
+  <link href="{{ raiz }}assets/css/seasonal/navidad.css?v={{ 'assets/css/seasonal/navidad.css' | huella }}" rel="stylesheet" />
+  <script src="{{ raiz }}assets/js/seasonal.js?v={{ 'assets/js/seasonal.js' | huella }}"></script>

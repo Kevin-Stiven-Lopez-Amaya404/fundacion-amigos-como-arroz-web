@@ -37,12 +37,6 @@
       "resumen": "Eje transversal que apoya el sano desarrollo de beneficiarios y familias en su proyecto de vida."
     }
   ],
-  "cache": {
-    "sitio": 16,
-    "navidad": 10,
-    "seasonal": 5,
-    "main": 25
-  },
   "legal": {
     "razonSocial": "",
     "nit": "",
@@ -211,7 +205,8 @@
       "titulo": "Informe de gestión 2025",
       "descripcion": "Resultados, alianzas, programas e impacto social del año 2025.",
       "archivo": "informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025.pdf",
-      "destacado": true
+      "destacado": true,
+      "archivoAlta": "informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2025-ALTA-CALIDAD.pdf"
     },
     {
       "etiqueta": "2024",
@@ -220,7 +215,8 @@
       "estado": "Histórico",
       "titulo": "Informe de gestión 2024",
       "descripcion": "Actividades, beneficiarios, proyectos y gestión institucional del periodo.",
-      "archivo": "informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf"
+      "archivo": "informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024.pdf",
+      "archivoAlta": "informes/INFORME-GESTION-FUNDACION-AMIGOS-COMO-ARROZ-2024-ALTA-CALIDAD.pdf"
     },
     {
       "etiqueta": "Legal",

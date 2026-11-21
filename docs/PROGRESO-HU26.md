@@ -74,17 +74,17 @@ Rama de trabajo: `hu27` (la rama `hu26` ya existía y estaba fusionada; ver `DEC
 - [x] 6.8 Redirecciones en `vercel.json`
 
 ## Fase 7 · Rendimiento
-- [ ] 7.1 Objetivos Lighthouse
-- [ ] 7.2 Publicar solo lo que se usa y verificar referencias
-- [ ] 7.3 Minificación y huellas automáticas
-- [ ] 7.4 `npm run imagenes`
-- [ ] 7.5 GSAP solo con lo usado y diferido
-- [ ] 7.6 CSS crítico (solo si mejora el LCP)
-- [ ] 7.7 `content-visibility`
-- [ ] 7.8 Fuentes
-- [ ] 7.9 PDF comprimidos y peso visible
-- [ ] 7.10 Videos comprimidos y pósteres
-- [ ] 7.11 Temporada diferida y liviana
+- [ ] 7.1 Objetivos Lighthouse (portada: 78 de mediana con gzip, antes 65; se mide de nuevo al final)
+- [x] 7.2 Publicar solo lo que se usa y verificar referencias
+- [x] 7.3 Minificación y huellas automáticas
+- [x] 7.4 `npm run imagenes`
+- [x] 7.5 GSAP solo con lo usado y diferido
+- [x] 7.6 CSS crítico (solo si mejora el LCP): no se aplicó, ver decisión 33
+- [x] 7.7 `content-visibility`: no se aplicó, ver decisión 34
+- [x] 7.8 Fuentes
+- [x] 7.9 PDF comprimidos y peso visible
+- [x] 7.10 Videos comprimidos y pósteres
+- [x] 7.11 Temporada diferida y liviana
 
 ## Fase 8 · Accesibilidad
 - [ ] 8.1 Carruseles (teclado, botones, posición anunciada)

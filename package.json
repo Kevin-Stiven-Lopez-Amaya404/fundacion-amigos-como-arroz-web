@@ -3,12 +3,14 @@
   "private": true,
   "description": "Sitio de la Fundación Amigos Como Arroz (Eleventy)",
   "scripts": {
-    "build": "eleventy",
+    "build": "node scripts/limpiar.mjs && eleventy",
     "start": "eleventy --serve",
     "vendor:gsap": "esbuild assets/js/vendor/gsap-entry.js --bundle --format=esm --minify --legal-comments=none --outfile=assets/js/vendor/gsap.js",
     "iconos": "node scripts/iconos.mjs",
     "compartir": "node scripts/compartir.mjs",
-    "build:ejemplo": "node scripts/ejemplo.mjs"
+    "build:ejemplo": "node scripts/ejemplo.mjs",
+    "imagenes": "node scripts/imagenes.mjs",
+    "check": "node scripts/verificar.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.8",

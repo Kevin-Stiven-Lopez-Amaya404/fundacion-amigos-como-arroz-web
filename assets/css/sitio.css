@@ -659,18 +659,16 @@
     transition: opacity 700ms var(--ease-out), visibility 0s linear 700ms;
   }
   .entrada.saliendo { opacity: 0; visibility: hidden; }
+  /* Brillo rosa y amarillo detrás del botón. Solo degradados radiales del tamaño de la pantalla: el degradado
+     cónico gigante con máscara que había antes costaba casi 2 s de bloqueo en un celular (Lighthouse, HU26). */
   .entrada-fondo {
     position: absolute;
-    left: 50%;
-    top: 50%;
+    inset: 0;
     z-index: -1;
-    width: 160vmax;
-    height: 160vmax;
-    margin: -80vmax 0 0 -80vmax;
     background:
-      radial-gradient(circle at 50% 50%, rgb(224 36 94 / 0.38) 0, transparent 22%),
-      conic-gradient(from 0deg at 50% 50%, rgb(224 36 94 / 0.28), rgb(12 20 28 / 0) 22%, rgb(246 194 28 / 0.16) 40%, rgb(12 20 28 / 0) 58%, rgb(224 36 94 / 0.24) 80%, rgb(224 36 94 / 0.28));
-    mask: radial-gradient(circle at 50% 50%, #000 0, #000 30%, transparent 62%);
+      radial-gradient(circle at 50% 50%, rgb(224 36 94 / 0.34) 0, transparent 30%),
+      radial-gradient(ellipse 60% 45% at 38% 42%, rgb(246 194 28 / 0.14) 0, transparent 70%),
+      radial-gradient(ellipse 60% 45% at 64% 60%, rgb(224 36 94 / 0.2) 0, transparent 70%);
   }
   .entrada-logo { grid-area: logo; justify-self: center; align-self: start; width: 52px; height: 52px; border-radius: 12px; background: #fff; }
   .entrada-titulo { display: contents; }
@@ -704,14 +702,15 @@
     .entrada-titulo span:first-child, .entrada-titulo span:last-child { justify-self: center; }
   }
   @media (prefers-reduced-motion: no-preference) {
-    .entrada-fondo { animation: girar 16s linear infinite; }
     .entrada-boton::before { animation: latido 2.4s var(--ease-out) infinite; }
   }
 
   /* Inicio: foto enmarcada dentro de la pantalla */
   .hero { align-content: end; padding: calc(var(--marco) + clamp(80px, 14vh, 150px)) calc(var(--marco) + var(--margen)) calc(var(--marco) + var(--pie-libre)); }
   .hero > .pantalla-fondo { inset: var(--marco); overflow: hidden; border-radius: var(--radio); background: var(--tinta); }
-  .pantalla-fondo--encaje .relleno { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; filter: blur(36px) brightness(0.5) saturate(1.1); }
+  /* El relleno ya viene desenfocado y oscurecido en la imagen (…-relleno-480.webp, hecha con sharp): un filter: blur
+     de 36 px sobre la foto costaba hasta 2 s de pintura en celulares lentos (Lighthouse, HU26). */
+  .pantalla-fondo--encaje .relleno { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; }
   .pantalla-fondo--encaje .nitida { position: absolute; inset: 0 0 0 auto; width: 62%; height: 100%; object-fit: contain; object-position: 100% 50%; mask: linear-gradient(90deg, transparent 0, #000 28%); }
   .hero > .pantalla-fondo::after { background: linear-gradient(90deg, rgb(12 20 28 / 0.85) 0%, rgb(12 20 28 / 0.5) 42%, rgb(12 20 28 / 0) 70%), linear-gradient(180deg, rgb(12 20 28 / 0.8) 0%, rgb(12 20 28 / 0) 22%, rgb(12 20 28 / 0) 50%, rgb(12 20 28 / 0.75) 100%); }
   @media (max-width: 899px) {

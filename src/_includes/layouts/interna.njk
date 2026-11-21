@@ -46,6 +46,6 @@
 {%- include "partials/pie.njk" %}
 
   <script type="application/json" id="site-data">{{ { whatsapp: site.whatsapp, whatsappLabel: site.whatsappLabel, analytics: site.analytics } | json | safe }}</script>
-  <script type="module" src="{{ raiz }}assets/js/interna.js?v={{ site.cache.main }}"></script>
+  <script type="module" src="{{ raiz }}assets/js/interna.js?v={{ 'js' | huella }}"></script>
 </body>
 </html>

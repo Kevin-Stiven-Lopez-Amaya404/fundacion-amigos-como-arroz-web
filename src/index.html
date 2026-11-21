@@ -9,7 +9,7 @@ canonical: /
 <head>
   <!-- Portada de la Fundación Amigos Como Arroz: una historia por pantalla (ver docs/GUIA_PROGRAMADOR.md). -->
 {%- include "partials/head.njk" %}
-  <script src="assets/js/arranque.js?v={{ site.cache.main }}"></script>
+  <script src="assets/js/arranque.js?v={{ 'assets/js/arranque.js' | huella }}"></script>
   <link
     rel="preload"
     as="image"
@@ -48,7 +48,7 @@ canonical: /
       <div class="pantalla-fondo pantalla-fondo--encaje" aria-hidden="true">
         <img
           class="relleno"
-          src="assets/img/opt/img-hero-duenos-hero-clean-480.webp"
+          src="assets/img/opt/img-hero-duenos-hero-clean-relleno-480.webp"
           alt=""
           width="480"
           height="335"
@@ -1221,7 +1221,7 @@ canonical: /
 
 {#- Datos para el JS (config.js): contacto y lo que usan las respuestas fijas del chat (respuestas.js). #}
 <script type="application/json" id="site-data">{{ { whatsapp: site.whatsapp, whatsappLabel: site.whatsappLabel, analytics: site.analytics, chat: { sedes: site.sedes, faq: site.faq, rte: site.legal.rte, donar: { pagina: donar.pagina, href: "donar.html" }, voluntariado: "voluntariado.html" } } | json | safe }}</script>
-<script type="module" src="assets/js/main.js?v={{ site.cache.main }}"></script>
+<script type="module" src="assets/js/main.js?v={{ 'js' | huella }}"></script>
 
 </body>
 </html>
